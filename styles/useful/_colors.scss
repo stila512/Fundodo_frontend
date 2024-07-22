@@ -67,9 +67,12 @@ $color-tint-4: #EAE3E0;
 $color-tint-5: #F1EDEB;//also theme-light
 
 @each $color, $value in $theme-colors-capital {
-	//尺寸
-	.t#{$color} {
+	//文字
+	.tx#{$color} {
 		color: $value;
 	}
-	
+	//背景
+	.bg#{$color} {
+		background-color: $value;
+	}
 }
