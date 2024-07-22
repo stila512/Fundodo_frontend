@@ -1,3 +1,5 @@
+@use './base-function.scss';
+
 // 裝置寬度區間，沿用 Bootstrap 的設定
 $grid-breakpoints: (
   xs: 0,

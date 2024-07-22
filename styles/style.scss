@@ -1,25 +1,15 @@
-// @import "./scss/reset";
-
 //================= 前置設定
-@import "./scss/base-function";
-@import "./scss/rwd-system";
-@import "./scss/grid-system";
-
+@forward "./scss/base-function";
+@forward "./scss/rwd-system";
+@forward "./scss/grid-system";
 
 //================= 通用樣式
-@import "./useful/colors";
-@import "./useful/color-function";
+@forward "./useful/colors";
+@forward "./useful/color-function";
 
-@import "./useful/font";
-// @import "./scss/base";
-@import "./useful/utility-class";
-@import "./useful/utility-module";
+@forward "./useful/font";
+@forward "./useful/utility-class";
+@forward "./useful/utility-module";
 
-@import "./component/button";
-@import "./component/button-idv";
-@import "./component/pagination";
-@import "./component/modal";
-@import "./component/container";
-
-//temp font-awesome
-@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css";
+@forward "./component/modal";
+@forward "./component/container";
