@@ -1,0 +1,75 @@
+// $enable-dark-mode: true !default;
+
+$white:    hsl(0, 0%, 100%);
+$gray-100: hsl(19, 2%, 98%);
+$gray-200: hsl(19, 2%, 93%);
+$gray-300: hsl(19, 2%, 89%);
+$gray-400: hsl(19, 2%, 83%);
+$gray-500: hsl(19, 2%, 71%);
+$gray-600: hsl(19, 2%, 46%);
+$gray-700: hsl(19, 2%, 31%);
+$gray-800: hsl(19, 2%, 23%);
+$gray-900: hsl(19, 2%, 15%);
+$black:    hsl(0, 0%, 0%);
+
+$primary: #B9A399;// hsl(19, 19%, 66%)
+$secondary: #E7E1DB;// hsl(30, 20%, 88%)
+$warning: #FBC02D; // hsl(43, 96%, 58%)
+$error: #E53835; // hsl(1, 77%, 55%)
+$light: #F1EDEB; // hsl(45, 29%, 97%)
+$info: #71c4ef; // hsl(200, 80%, 69%)
+$dark: #2a2522; // hsl(19, 11%, 15%);
+
+$theme-colors: (
+  "primary":    $primary,
+  "secondary":  $secondary,
+  // "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  // "danger":     $danger,
+  "error":      $error,
+  "light":      $light,
+  "dark":       $dark
+);
+
+$theme-colors-capital: (
+  "Primary":    $primary,
+  "Secondary":  $secondary,
+  "Info":       $info,
+  "Warning":    $warning,
+  "Error":      $error,
+  "Light":      $light,
+  "Dark":       $dark
+);
+
+/* text color 灰階 */
+$color-heading: $gray-800;
+$color-body: $gray-600;
+$color-muted: $gray-400;
+
+/* text color 帶色 */
+$primary-text: #49352c;//hsl(19, 25%, 23%)
+$info-text: hsl(200, 25%, 23%);
+$danger-text: hsl(1, 25%, 23%);
+
+/* color shade */
+$color-shade-1: #857A79;//hsl(5, 5%, 50%)
+$color-shade-2: #6F625C;//hsl(19, 9%, 40%)
+$color-shade-3: #5D524D;//hsl(19, 9%, 33%)
+$color-shade-4: #37312E;//hsl(20, 9%, 20%)
+$color-shade-5: hsl(20, 9%, 8%);
+
+/* color shade */
+$color-tint-1: #C0ACA3;
+$color-tint-2: #CEBFB8;
+$color-tint-3: #DCD1CC;
+$color-tint-4: #EAE3E0;
+$color-tint-5: #F1EDEB;//also theme-light
+
+@each $color, $value in $theme-colors-capital {
+	//尺寸
+	.t#{$color} {
+		color: $value;
+	}
+	
+}

@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap');
+
+// 字型大小設定
+//設定字型、字重、大小
+// 大小設定語法如下：
+// 至少要輸入 1 個參數
+// 輸入 1 個參數 -> font-size 為 $size1
+// 輸入 2 個參數 -> 預設為 $size1，
+//                   lg 以上為 $size2
+// 輸入 3 個參數 -> font-size 為 $size1，
+//                     sm 以上為 $size2，
+//                     lg 以上為 $size3
+
+@mixin font-size($size1, $size2: 0, $size3: 0) {
+	@if ($size1 == 0) {
+    @warn "font-size 不可設定為 0。";
+  }
+  font-size: $size1;
+
+		@if ($size2 != 0) {
+			@if ($size3 == 0) {
+				@include rwd-above("lg") {
+					font-size: $size2;
+				}
+			} @else {
+				@include rwd-above("sm") {
+					font-size: $size2;
+				}
+				@include rwd-above("lg") {
+					font-size: $size3;
+				}
+			}
+		}
+}
+
+// @mixin ff-roboto($fz: 0, $fz-sm: 0, $fz-lg: 0) {
+// 	font-family: "Roboto", sans;
+// 	@include font-size($fz, $fz-sm, $fz-lg);
+// }
+
+@mixin ff-noto($fz: 0, $fz-sm: 0, $fz-lg: 0) {
+	font-family: "Noto Sans TC", sans;
+	@include font-size($fz, $fz-sm, $fz-lg);
+}
+
+@mixin ff-zen-maru($fz: 0, $fz-sm: 0, $fz-lg: 0) {
+	font-family: "Zen Maru Gothic", sans-serif;
+	@include font-size($fz, $fz-sm, $fz-lg);
+  }

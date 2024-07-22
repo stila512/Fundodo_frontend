@@ -1,0 +1,29 @@
+.imgWrap {
+  overflow: hidden;
+	img {
+		width: 100%;
+		object-fit: cover;
+	}
+}
+
+.fxCenter {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.hstack {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.vstack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dFlex{
+  display: flex;
+}
+

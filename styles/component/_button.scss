@@ -1,0 +1,99 @@
+//*====== 通用樣式
+//此檔整理按鈕共用的模組設定
+//特定按鈕的各別樣式則於另外一檔
+
+//====================== 原型定義區
+@mixin btn-size($py, $px, $fz, $gap: initial) {
+	padding: $py $px;
+	font-size: $fz;
+	gap: $gap;
+}
+@mixin btn-prototype() {
+	box-sizing: border-box;
+	user-select: none;
+	cursor: pointer;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+		border-color 0.15s ease-in-out, box-shadow 0.4s ease-in-out;
+}
+//*====== 膠囊形按鈕
+@mixin pill-btn-prototype() {
+	@include btn-prototype();
+	display: inline-block;
+	text-align: center;
+	vertical-align: middle;
+	border-radius: 99rem;
+
+	// 預設值
+	@include btn-size(1.25rem, 1.875rem, 1.125rem, 0.5rem);
+	font-weight: 700;
+
+	&.btn-sm {
+		@include btn-size(0.8rem, 3.375rem, 1rem, 0.625rem);
+		font-weight: 500;
+	}
+	&.btn-lg {
+		@include btn-size(1.5rem, 2rem, 1.25rem, 0.5rem);
+		// font-weight: 700;
+	}
+}
+//*====== 圓形按鈕
+@mixin icon-btn-prototype() {
+	@include btn-prototype();
+	@extend .fxCenter;
+	//default
+	@include circle-of(64px);
+	font-size: 1.5rem;
+
+	&.btn-sm {
+		@include circle-of(30px);
+		font-size: 1rem;
+	}
+	&.btn-lg {
+		@include circle-of(88px);
+		font-size: 1.75rem;
+	}
+}
+
+//====================== 模組定義區
+@each $color, $value in $theme-colors-capital {
+	//尺寸
+	.b#{$color},
+	.b#{$color}2 {
+		@include pill-btn-prototype();
+	}
+	.b#{$color}Icon,
+	.b#{$color}Icon2 {
+		@include icon-btn-prototype();
+	}
+	//顏色
+	.b#{$color} {
+		background-color: $value;
+		color: color-contrast($value, shift-color($value, 60%));
+		border: none;
+	}
+	.b#{$color}Icon {
+		background-color: $value;
+		color: $white;
+		border: none;
+	}
+	.b#{$color}2,
+	.b#{$color}Icon2 {
+		background-color: $white;
+		color: $value;
+		border: 2px solid $value;
+	}
+	//動態
+	.b#{$color}Icon {
+		&:hover {
+			background-color: $white;
+			color: $value;
+			border: 2px solid $value;
+		}
+	}
+	.b#{$color}Icon2 {
+		&:hover {
+			background-color: $value;
+			color: $white;
+		}
+	}
+}

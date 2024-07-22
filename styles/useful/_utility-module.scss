@@ -1,0 +1,5 @@
+@mixin circle-of($radius) {
+  width: $radius;
+  height: $radius;
+  border-radius: 50%;
+}

@@ -1,0 +1,58 @@
+//*====== 分頁按鈕組
+.pagination {
+	@extend .fxCenter;
+	margin: 0;
+	list-style: none;
+}
+
+.pagination .item {
+	$bd-w: 1px;
+	border: $bd-w solid $color-tint-5;
+
+	&:first-child > .link {
+		border-radius: 0.375rem 0 0 0.375rem;
+	}
+	&:last-child > .link {
+		border-radius: 0 0.375rem 0.375rem 0;
+	}
+	&:not(:first-child) {
+		margin-left: calc(-1 *#{$bd-w});
+	}
+}
+
+.pagination .link {
+	@extend .fxCenter;
+	padding: 0.375rem 0.75rem;
+	height: 40px;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+		border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+	background-color: $secondary;
+	color: $primary-text;
+	border-color: $color-tint-5;
+
+	&:hover {
+		background-color: shade-color($secondary, 10%);
+		color: $color-tint-5;
+		// border-color: $color-tint-5;
+	}
+
+	&:focus {
+		background-color: tint-color($primary, 20%);
+		// color: $color-tint-5;
+		// border-color: $color-tint-5;
+		box-shadow: 0 0 0 0.25rem rgba($secondary, 0.25);
+	}
+
+	&.active {
+		background-color: $primary;
+		color: $color-tint-5;
+		// border-color: $color-tint-5;
+	}
+
+	&.disabled {
+		background-color: $color-muted;
+		color: $color-heading;
+		border-color: $gray-500;
+	}
+}

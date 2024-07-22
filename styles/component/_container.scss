@@ -1,0 +1,54 @@
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1320px
+) !default;
+
+//$container-padding-x from _grid-system.css
+$container-padding-x: $grid-gutter-width !default;
+
+@mixin make-container($gutter: $container-padding-x) {
+  --gutter-x: #{$gutter};
+  --gutter-y: 0;
+  width: 100%;
+  padding-right: calc(var(--gutter-x) * .5); // stylelint-disable-line function-disallowed-list
+  padding-left: calc(var(--gutter-x) * .5); // stylelint-disable-line function-disallowed-list
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.container,
+.container-fluid {
+  @include make-container();
+}
+
+// Responsive containers that are 100% wide until a breakpoint
+@each $breakpoint, $container-max-width in $container-max-widths {
+  .container-#{$breakpoint} {
+    @extend .container-fluid;
+  }
+
+  @include rwd-above($breakpoint, $grid-breakpoints) {
+    %responsive-container-#{$breakpoint} {
+      max-width: $container-max-width;
+    }
+
+    // Extend each breakpoint which is smaller or equal to the current breakpoint
+    $extend-breakpoint: true;
+
+    @each $name, $width in $grid-breakpoints {
+      @if ($extend-breakpoint) {
+        .container#{breakpoint-infix($name, $grid-breakpoints)} {
+          @extend %responsive-container-#{$breakpoint};
+        }
+
+        // Once the current breakpoint is reached, stop extending
+        @if ($breakpoint == $name) {
+          $extend-breakpoint: false;
+        }
+      }
+    }
+  }
+}
