@@ -11,8 +11,7 @@ export default function TestPage() {
           <button className={scss.bSecondary}>完善會員資料</button>
           <span></span>
         </div>
-        {/* <div className={scss.row}>
-            <div className={scss.col - 6}> */}
+        {/* <div className={scss.rv 6}> */}
         {/* <div className="msg-register-success">
                 <h2>會員註冊成功</h2>
                 <p>歡迎加入Fundod翻肚肚</p>

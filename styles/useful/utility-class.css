@@ -1,0 +1,30 @@
+.imgWrap {
+  overflow: hidden;
+}
+.imgWrap img {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.fxCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hstack {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.vstack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dFlex {
+  display: flex;
+}/*# sourceMappingURL=utility-class.css.map */
