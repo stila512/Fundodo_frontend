@@ -1,0 +1,35 @@
+@import '../styles/useful/colors.scss';
+
+.linkPanel {
+  a {
+    display: grid;
+    place-items: center;
+    height: 250px;
+    transition: filter .4s;
+    font-size: 3rem;
+
+    &:hover {
+      filter: brightness(1.1);
+    }
+
+    &:nth-child(1) {
+      background-color: $primary;
+    }
+    &:nth-child(2) {
+      background-color: $secondary;
+    }
+    &:nth-child(3) {
+      background-color: $warning;
+    }
+    &:nth-child(4) {
+      background-color: $dark;
+      color: $light;
+    }
+    &:nth-child(5) {
+      background-color: $info;
+    }
+    &:nth-child(6) {
+      background-color: $error;
+    }
+  }
+}

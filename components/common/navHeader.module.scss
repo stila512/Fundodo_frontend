@@ -1,5 +1,6 @@
-@import '@/styles/useful/_colors.scss';
-@import '@/styles/component/_container.scss';
+// @import '/styles/style.module.scss';
+@import '/styles/component/container.scss';
+@import '/styles/useful/colors.scss';
 
 .logo {
 	max-width: 210px;
@@ -15,4 +16,11 @@ header.layout nav ul {
 	display: flex;
 	flex-direction: row;
 	gap: 1rem;
+}
+
+header.layout li {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  color: $color-shade-2;
 }

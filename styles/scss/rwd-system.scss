@@ -1,4 +1,4 @@
-@use './grid-breakpoints.scss';
+@use './grid-breakpoints.scss' as *;
 @use './base-function.scss';
 
 //所需變數: $grid-breakpoints
@@ -8,18 +8,18 @@
 
 //內部用：尋找下一個 tag 名
 // 例：breakpoint-next(sm)->md
-@function breakpoint-next($name, $breakpoints: $grid-breakpoints, $breakpoint-names: map-keys($breakpoints)) {
+@function breakpoint-next($name, $breakpoint-names: map-keys($grid-breakpoints)) {
   $n: index($breakpoint-names, $name);
   @if not $n {
-    @error "breakpoint `#{$name}` not found in `#{$breakpoints}`";
+    @error "breakpoint `#{$name}` not found in `#{$grid-breakpoints}`";
   }
   @return if($n < length($breakpoint-names), nth($breakpoint-names, $n + 1), null);
 }
 
 // 內部用：取裝置寬度區間的最小值
 // 例：breakpoint-min(sm) -> 576px
-@function breakpoint-min($name, $breakpoints: $grid-breakpoints) {
-  $min: map-get($breakpoints, $name);
+@function breakpoint-min($name) {
+  $min: map-get($grid-breakpoints, $name);
   @return if($min != 0, $min, null);
 }
 
@@ -29,8 +29,8 @@
 // 以及 Safari 的 bug
 
 // 例：breakpoint-max(md) -> 767.98px
-@function breakpoint-max($name, $breakpoints: $grid-breakpoints) {
-  $max: map-get($breakpoints, $name);
+@function breakpoint-max($name) {
+  $max: map-get($grid-breakpoints, $name);
   @return if($max and $max > 0, $max - .02, null);
 }
 
@@ -42,15 +42,15 @@
 // 例：breakpoint-infix(sm)
 //    "-sm"
 // _container.scss 有用到
-@function breakpoint-infix($name, $breakpoints: $grid-breakpoints) {
-  @return if(breakpoint-min($name, $breakpoints) == null, "", "-#{$name}");
+@function breakpoint-infix($name) {
+  @return if(breakpoint-min($name) == null, "", "_#{$name}");
 }
 
 //* API：設定界線以上的 media screen
 // 例：rwd-above(sm) -> 576px 以上
 // 原名 media-breakpoint-up
-@mixin rwd-above($name, $breakpoints: $grid-breakpoints) {
-  $min: breakpoint-min($name, $breakpoints);
+@mixin rwd-above($name) {
+  $min: breakpoint-min($name);
   @if $min {
     @media (min-width: $min) {
       @content;
@@ -63,8 +63,8 @@
 //* API：設定界線以下的 media screen
 // 例：rwd-below(md) -> 767.98px 以下
 // 原名 media-breakpoint-down
-@mixin rwd-below($name, $breakpoints: $grid-breakpoints) {
-  $max: breakpoint-max($name, $breakpoints);
+@mixin rwd-below($name) {
+  $max: breakpoint-max($name);
   @if $max {
     @media (max-width: $max) {
       @content;
@@ -77,20 +77,20 @@
 //* API：設定指定兩個界線以內的 media screen
 // 例：rwd-between(md, xl) -> 768px ~ 1199.98px
 // 原名 media-breakpoint-between
-@mixin rwd-between($lower, $upper, $breakpoints: $grid-breakpoints) {
-  $min: breakpoint-min($lower, $breakpoints);
-  $max: breakpoint-max($upper, $breakpoints);
+@mixin rwd-between($lower, $upper) {
+  $min: breakpoint-min($lower);
+  $max: breakpoint-max($upper);
 
   @if $min != null and $max != null {
     @media (min-width: $min) and (max-width: $max) {
       @content;
     }
   } @else if $max == null {
-    @include rwd-above($lower, $breakpoints) {
+    @include rwd-above($lower) {
       @content;
     }
   } @else if $min == null {
-    @include rwd-below($upper, $breakpoints) {
+    @include rwd-below($upper) {
       @content;
     }
   }
@@ -99,21 +99,21 @@
 //* API：設定指定段點以上段點區間的 media screen
 // 例：rwd-only(md) -> 768px ~ 991.98px
 // 原名 media-breakpoint-only
-@mixin rwd-only($name, $breakpoints: $grid-breakpoints) {
-  $min:  breakpoint-min($name, $breakpoints);
-  $next: breakpoint-next($name, $breakpoints);
-  $max:  breakpoint-max($next, $breakpoints);
+@mixin rwd-only($name) {
+  $min:  breakpoint-min($name, $grid-breakpoints);
+  $next: breakpoint-next($name, $grid-breakpoints);
+  $max:  breakpoint-max($next, $grid-breakpoints);
 
   @if $min != null and $max != null {
     @media (min-width: $min) and (max-width: $max) {
       @content;
     }
   } @else if $max == null {
-    @include rwd-above($name, $breakpoints) {
+    @include rwd-above($name, $grid-breakpoints) {
       @content;
     }
   } @else if $min == null {
-    @include rwd-below($next, $breakpoints) {
+    @include rwd-below($next, $grid-breakpoints) {
       @content;
     }
   }

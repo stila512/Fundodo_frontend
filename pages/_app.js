@@ -1,5 +1,5 @@
 import '@/styles/reset.css';
-import '@/styles/global.css';
+import '@/styles/global.scss';
 
 export default function MyApp({ Component, pageProps }) {
   // 使用自訂在頁面層級的版面(layout)

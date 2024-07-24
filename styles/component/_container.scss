@@ -32,7 +32,7 @@ $container-padding-x: $grid-gutter-width !default;
     @extend .container-fluid;
   }
 
-  @include rwd-above($breakpoint, $grid-breakpoints) {
+  @include rwd-above($breakpoint) {
     %responsive-container-#{$breakpoint} {
       max-width: $container-max-width;
     }
@@ -42,7 +42,7 @@ $container-padding-x: $grid-gutter-width !default;
 
     @each $name, $width in $grid-breakpoints {
       @if ($extend-breakpoint) {
-        .container#{breakpoint-infix($name, $grid-breakpoints)} {
+        .container#{breakpoint-infix($name)} {
           @extend %responsive-container-#{$breakpoint};
         }
 

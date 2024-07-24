@@ -9,7 +9,7 @@
 
 @use "./useful/font";
 @use "./useful/utility-class";
-@use "./useful/utility-module";
+@use "./useful/utility-mixin";
 
-@use "./component/modal";
+// @use "./component/modal";
 @use "./component/container";
