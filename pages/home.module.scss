@@ -1,35 +1,58 @@
 @import '../styles/useful/colors.scss';
+.h1,
+.h2 {
+  margin-block: 1rem;
+  text-align: center;
+}
 
 .linkPanel {
   a {
     display: grid;
     place-items: center;
-    height: 250px;
-    transition: filter .4s;
+    height: 100px;
+    transition: filter 0.4s;
     font-size: 3rem;
+    border-radius: 2rem;
 
     &:hover {
       filter: brightness(1.1);
     }
+  }
+  div:nth-child(1) a {
+    background-color: $primary;
+  }
+  div:nth-child(2) a {
+    background-color: $secondary;
+  }
+  div:nth-child(3) a {
+    background-color: $warning;
+  }
+  div:nth-child(4) a {
+    background-color: $dark;
+    color: $light;
+  }
+  div:nth-child(5) a {
+    background-color: $info;
+  }
+  div:nth-child(6) a {
+    background-color: $error;
+    color: $secondary;
+  }
+}
 
-    &:nth-child(1) {
-      background-color: $primary;
-    }
-    &:nth-child(2) {
-      background-color: $secondary;
-    }
-    &:nth-child(3) {
-      background-color: $warning;
-    }
-    &:nth-child(4) {
-      background-color: $dark;
-      color: $light;
-    }
-    &:nth-child(5) {
-      background-color: $info;
-    }
-    &:nth-child(6) {
-      background-color: $error;
-    }
+.dlBox {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+}
+
+.instructionList {
+  dt {
+    font-size: 1.6rem;
+  }
+  dd {
+    font-size: 1rem;
+    line-height: 2;
   }
 }
