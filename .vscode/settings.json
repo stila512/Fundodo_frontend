@@ -1,23 +1,25 @@
 {
-    "workbench.colorCustomizations": {
-        "activityBar.background": "#49352c",
-        "titleBar.activeBackground": "#49352c",
-        "titleBar.activeForeground": "#B9A399",
-        "statusBar.background": "#37312E" /*下方狀態欄背景*/,
-        "tab.inactiveForeground": "#CEBFB8" /*非當前分頁標籤色*/,
-        "tab.unfocusedInactiveForeground": "#C0ACA3",
-        "tab.activeBackground": "#49352c" /*當前分頁標籤色*/,
-        "tab.unfocusedActiveBackground": "#37312E" /*當前分頁標籤色*/,
-        "tab.hoverBackground": "#6F625C" /*盤旋分頁標籤色*/,
-    },
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "prettier.configPath": ".prettierrc.json",
-    "editor.formatOnSave": false,
-    "editor.codeActionsOnSave": [
-        "source.formatDocument",
-        "source.fixAll.eslint"
-    ],
-    "emmet.includeLanguages": {
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#49352c",
+    "titleBar.activeBackground": "#49352c",
+    "titleBar.activeForeground": "#B9A399",
+    "statusBar.background": "#37312E" /*下方狀態欄背景*/,
+    "tab.inactiveForeground": "#CEBFB8" /*非當前分頁標籤色*/,
+    "tab.unfocusedInactiveForeground": "#C0ACA3",
+    "tab.activeBackground": "#49352c" /*當前分頁標籤色*/,
+    "tab.unfocusedActiveBackground": "#37312E" /*當前分頁標籤色*/,
+    "tab.hoverBackground": "#6F625C" /*盤旋分頁標籤色*/
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.configPath": ".prettierrc.json",
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": ["source.formatDocument", "source.fixAll.eslint"],
+  //emmet 在 REACT.js 打 HTML
+  "emmet.includeLanguages": {
     "javascript": "javascriptreact"
+  },
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "editor.unicodeHighlight.allowedLocales": {
+    "zh-hans": true
   }
 }
