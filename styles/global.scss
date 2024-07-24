@@ -1,0 +1,38 @@
+/* 字型匯入 */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap');
+
+@import './useful/font';
+@import './useful/colors';
+
+// body {
+// 	font-family: "Noto Sans TC", sans;
+//   font-size: 12px;
+//   @media screen and (min-width: 992px) {
+//     font-size: 16px;
+//   }
+// }
+
+// a:link, a:visited {
+//   color: #5D524D;
+// }
+// a:hover {
+//   color: #6F625C;
+// }
+// a:active {
+//   color: #37312E;
+// }
+
+body {
+  @include ff-noto(12px, 16px);
+}
+
+a:link, a:visited {
+  color: $color-shade-3;
+}
+a:hover {
+  color: $color-shade-2;
+}
+a:active {
+  color: $color-shade-4;
+}
