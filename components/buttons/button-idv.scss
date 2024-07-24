@@ -5,7 +5,7 @@
 //若為模組已設定之樣式，則不重複設定
 //以下按顏色分類
 //================= primary =================//
-.bPrimary {
+.btnPrimary {
   color: $color-tint-5;
   text-shadow: -1px -1px 0 $color-shade-3;
 	border: none;
@@ -17,7 +17,7 @@
 		background-color: shift-color($primary, 5%);
 	}
 }
-.bPrimary2 {
+.btnPrimary2 {
   $color: shift-color($primary, 15%);
   color: $color;
   border-color: $color;
@@ -31,7 +31,7 @@
 	}
 }
 //================= secondary =================//
-.bSecondary {
+.btnSecondary {
 	color: $color-shade-3;
 	border: 2px solid $color-shade-3;
 
@@ -42,7 +42,7 @@
 		background-color: shift-color($secondary, 10%);
 	}
 }
-.bSecondary2 {
+.btnSecondary2 {
 	color: $color-shade-3;
 	border: 2px solid $color-shade-3;
 
@@ -78,15 +78,15 @@
 		background-color: $color-shade-3;
 	}
 }
-.bSecondaryIcon {
+.btnSecondaryIcon {
   color: $color-shade-2;
 }
-.bSecondaryIcon2 {
+.btnSecondaryIcon2 {
 		background-color: $color-tint-5;
     color: $color-shade-2;
     border: 2px solid $color-shade-2;
   }
 //================= error =================//
-.btn-error {
+.btnError {
   color: $white;
 }

@@ -1,3 +1,8 @@
+@import '@/styles/useful/colors.scss';
+@import '@/styles/useful/utility-mixin.scss';
+@import '@/styles/useful/utility-class.scss';
+@import './button-idv.scss';
+
 //*====== 通用樣式
 //此檔整理按鈕共用的模組設定
 //特定按鈕的各別樣式則於另外一檔
@@ -55,42 +60,43 @@
 }
 
 //====================== 模組定義區
+//以下為簡易預設，詳細設定於
 @each $color, $value in $theme-colors-capital {
 	//尺寸
-	.b#{$color},
-	.b#{$color}2 {
+	.btn#{$color},
+	.btn#{$color}2 {
 		@include pill-btn-prototype();
 	}
-	.b#{$color}Icon,
-	.b#{$color}Icon2 {
+	.btn#{$color}Icon,
+	.btn#{$color}Icon2 {
 		@include icon-btn-prototype();
 	}
 	//顏色
-	.b#{$color} {
+	.btn#{$color} {
 		background-color: $value;
 		color: color-contrast($value, shift-color($value, 60%));
 		border: none;
 	}
-	.b#{$color}Icon {
+	.btn#{$color}Icon {
 		background-color: $value;
 		color: $white;
 		border: none;
 	}
-	.b#{$color}2,
-	.b#{$color}Icon2 {
+	.btn#{$color}2,
+	.btn#{$color}Icon2 {
 		background-color: $white;
 		color: $value;
 		border: 2px solid $value;
 	}
 	//動態
-	.b#{$color}Icon {
+	.btn#{$color}Icon {
 		&:hover {
 			background-color: $white;
 			color: $value;
 			border: 2px solid $value;
 		}
 	}
-	.b#{$color}Icon2 {
+	.btn#{$color}Icon2 {
 		&:hover {
 			background-color: $value;
 			color: $white;
