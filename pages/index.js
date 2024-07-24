@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Link from 'next/link';
 import style from '@/styles/style.module.scss';
 import hs from './home.module.scss';
 import { IconContext } from 'react-icons';
@@ -20,22 +21,25 @@ export default function Home() {
           <div className={style.container}>
             <div className={[hs.linkPanel, style.row, style.g3].join(' ')}>
               <div className={[style.col6, style.col_lg4].join(' ')}>
-                <a href="">首頁</a>
+                <Link href="">首頁</Link>
               </div>
               <div className={[style.col6, style.col_lg4].join(' ')}>
-                <a href="">商品</a>
+                <Link href="">商品</Link>
               </div>
               <div className={[style.col6, style.col_lg4].join(' ')}>
-                <a href="">會員</a>
+                <Link href="">會員</Link>
               </div>
               <div className={[style.col6, style.col_lg4].join(' ')}>
-                <a href="">旅館</a>
+                <Link href="">旅館</Link>
               </div>
               <div className={[style.col6, style.col_lg4].join(' ')}>
-                <a href="">文章</a>
+                <Link href="">文章</Link>
               </div>
               <div className={[style.col6, style.col_lg4].join(' ')}>
-                <a href="">課程</a>
+                <Link href="">課程</Link>
+              </div>
+              <div className={[style.col6, style.col_lg4].join(' ')}>
+                <Link href="/test/">測試用</Link>
               </div>
             </div>
           </div>
@@ -99,6 +103,30 @@ export default function Home() {
               </dl>
             </IconContext.Provider>
           </div>
+
+          <h2 className={hs.h2}>常用連結</h2>
+          <ul>
+            <li>
+              <span>小圖示庫：</span>
+              <a
+                href="https://react-icons.github.io/react-icons/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                React-icons
+              </a>
+            </li>
+            <li>
+              <span>專案 Figma：</span>
+              <a
+                href="https://www.figma.com/design/Q0KSE3JdYNKX3m1V2Hvnjf/fundodo-%E5%85%B1%E7%94%A8?node-id=93-69&t=E9X3RBeM4LSV4bUr-0"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                React-icons
+              </a>
+            </li>
+          </ul>
         </section>
       </main>
     </>

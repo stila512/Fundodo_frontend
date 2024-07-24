@@ -22,21 +22,26 @@
     background-color: $primary;
   }
   div:nth-child(2) a {
-    background-color: $secondary;
+    background-color: $dark;
+    color: $light;
   }
   div:nth-child(3) a {
     background-color: $warning;
   }
   div:nth-child(4) a {
-    background-color: $dark;
-    color: $light;
+    background-color: $color-shade-1;
+    color: $secondary;
   }
   div:nth-child(5) a {
     background-color: $info;
   }
   div:nth-child(6) a {
-    background-color: $error;
+    background-color: $error-text;
     color: $secondary;
+  }
+  div:nth-child(7) a {
+    background-color: $color-shade-2;
+    color: $color-tint-4;
   }
 }
 
