@@ -1,5 +1,20 @@
+// @use './grid-breakpoints.scss';
 @import './base-function.scss';
-@import "./rwd-system";
+@import './rwd-system.scss';
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+) !default;
+
+//所需變數: $grid-gutter-width, $grid-columns, $grid-breakpoints
+//所需函數: breakpoint-infix()
+//================================================================
+
 // Grid columns
 //
 // Set the number of columns and specify the width of the gutters.
@@ -93,11 +108,11 @@ $gutters: $spacers !default;
 // Used only by Bootstrap to generate the correct number of grid classes given
 // any value of `$grid-columns`.
 
-@mixin make-grid-columns($columns: $grid-columns, $gutter: $grid-gutter-width, $breakpoints: $grid-breakpoints) {
-  @each $breakpoint in map-keys($breakpoints) {
-    $infix: breakpoint-infix($breakpoint, $breakpoints);
+@mixin make-grid-columns($columns: $grid-columns, $gutter: $grid-gutter-width) {
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    $infix: breakpoint-infix($breakpoint);
 
-    @include rwd-above($breakpoint, $breakpoints) {
+    @include rwd-above($breakpoint) {
       // Provide basic `.col-{bp}` classes for equal-width flexbox columns
       .col#{$infix} {
         flex: 1 0 0%; // Flexbugs #4: https://github.com/philipwalton/flexbugs#flexbug-4
