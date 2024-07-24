@@ -7,10 +7,10 @@ export default function NavHeader() {
   return (
     <header className={scss.layout}>
       <div className={scss.container}>
-        <div className={[scss.logo, scss.imgWrap, scss.txPrimary].join(' ')}>
-          <Image src={logo} alt="FUNDODO logo" width={210} />
+        <div className={[scss.logo, scss.imgWrap].join(' ')}>
+          <Image src={logo} alt="FUNDODO logo" />
         </div>
-        <nav>
+        <nav className={scss.txPrimary}>
           <ul>
             <li>
               <a href="#">首頁</a>

@@ -101,6 +101,20 @@ export default function Home() {
                   <code>.rowCols4</code>
                 </dd>
               </dl>
+              <dl className={hs.instructionList}>
+                <dt>按鈕</dt>
+                <dd>
+                  <span>.btn-primary</span>
+                  <FaArrowRightLong />
+                  <code>.btnPrimary</code>
+                </dd>
+                <dd>
+                  <span>.btn-secondary</span>
+                  <FaArrowRightLong />
+                  <code>.btnSecondary</code>
+                </dd>
+                {/* todo 擺實際的按鈕進來 */}
+              </dl>
             </IconContext.Provider>
           </div>
 
