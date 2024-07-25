@@ -24,7 +24,7 @@ export default function Home() {
                 <Link href="">首頁</Link>
               </div>
               <div className={[style.col6, style.col_lg4].join(' ')}>
-                <Link href="">商品</Link>
+                <Link href="/prod">商品</Link>
               </div>
               <div className={[style.col6, style.col_lg4].join(' ')}>
                 <Link href="">會員</Link>
