@@ -9,11 +9,8 @@ html {
   @include ff-noto(12px, 16px);
 }
 
-a:link, a:visited {
+a:link, a:visited, a:hover {
   color: $color-shade-3;
-}
-a:hover {
-  color: $color-shade-2;
 }
 a:active {
   color: $color-shade-4;
