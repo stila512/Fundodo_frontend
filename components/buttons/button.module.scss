@@ -32,11 +32,11 @@
 	@include btn-size(1.25rem, 1.875rem, 1.125rem, 0.5rem);
 	font-weight: 700;
 
-	&.btn-sm {
+	&.btnSm {
 		@include btn-size(0.8rem, 3.375rem, 1rem, 0.625rem);
 		font-weight: 500;
 	}
-	&.btn-lg {
+	&.btnLg {
 		@include btn-size(1.5rem, 2rem, 1.25rem, 0.5rem);
 		// font-weight: 700;
 	}
@@ -49,11 +49,11 @@
 	@include circle-of(64px);
 	font-size: 1.5rem;
 
-	&.btn-sm {
+	&.btnSm {
 		@include circle-of(30px);
 		font-size: 1rem;
 	}
-	&.btn-lg {
+	&.btnLg {
 		@include circle-of(88px);
 		font-size: 1.75rem;
 	}
