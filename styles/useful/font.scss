@@ -44,7 +44,7 @@
 	@include font-size($fz, $fz-sm, $fz-lg);
 }
 
-@mixin ff-zen-maru($fz: 0, $fz-sm: 0, $fz-lg: 0) {
+@mixin ff-maru($fz: 0, $fz-sm: 0, $fz-lg: 0) {
 	font-family: "Zen Maru Gothic", sans-serif;
 	@include font-size($fz, $fz-sm, $fz-lg);
   }
