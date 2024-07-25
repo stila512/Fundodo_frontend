@@ -13,13 +13,15 @@ const colorList = {
 };
 
 /**
- * @param {string} children 按鈕文字（！：文字擺法與 a、button 相同）
+ * 翻肚肚主題色系的樣式按鈕
+ * @param {string} children 按鈕文字
  * @param {string} color 按鈕色系
- * @param {string} size 按鈕大小
- * @param {bool} icon 圓形款式
- * @param {bool} outline 外框款式
- * @param {string} href 連結路徑
- * @param {function} callback 按鈕 onClick 事件
+ * @param {string} size 按鈕大小 (optional)
+ * @param {bool} icon 圓形款式 (optional)
+ * @param {bool} outline 外框款式 (optional)
+ * @param {string} href 連結路徑 (optional)
+ * @param {function} callback 按鈕 onClick 事件 (optional)
+ * @description 按鈕內容文字如同一般 button 元件，擺在 HTML tag 內即可
  */
 export default function FddBtn({
   children = '人家是按鈕',
