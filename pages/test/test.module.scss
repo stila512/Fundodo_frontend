@@ -1,12 +1,15 @@
-@import '@/styles/useful/colors.scss';
-@import '@/styles/component/container.scss';
-@import '@/components/buttons/button.module.scss';
-@import '@/components/buttons/button-idv.scss';
+@import '@/styles/style.module.scss';
+// @import '@/styles/useful/colors.scss';
+// @import '@/styles/component/container.scss';
+// @import '@/components/buttons/button.module.scss';
+// @import '@/components/buttons/button-idv.scss';
 
 .logo {
   max-width: 210px;
 }
-
+main.container {
+  margin-top: 70px;
+}
 main .row {
   justify-content: center;
 }

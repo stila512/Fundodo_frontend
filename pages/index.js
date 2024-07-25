@@ -1,9 +1,11 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import style from '@/styles/style.module.scss';
+import FddBtn from '@/components/buttons/fddBtn';
 import hs from './home.module.scss';
 import { IconContext } from 'react-icons';
 import { FaArrowRightLong } from 'react-icons/fa6';
+import { IoAddCircle } from 'react-icons/io5';
 
 export default function Home() {
   return (
@@ -14,7 +16,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
+      <main className={hs.bgLight}>
         <section>
           <h1 className={hs.h1}>這是開發用的首頁</h1>
           <h2 className={hs.h2}>通往各開發中頁面的捷徑</h2>
@@ -46,77 +48,122 @@ export default function Home() {
         </section>
         <section className={style.container}>
           <h1 className={hs.h1}>開發指南</h1>
-          <h2 className={hs.h2}>可以使用的樣式</h2>
-          <p style={{ textAlign: 'center' }}>
-            <IconContext.Provider
-              value={{ style: { verticalAlign: 'middle' } }}
-            >
-              Bootstrap 的語法
-              <FaArrowRightLong />
-              Fundodo 專案的語法
-            </IconContext.Provider>
-          </p>
-          <div className={hs.dlBox}>
-            <IconContext.Provider
-              value={{ style: { verticalAlign: 'middle' } }}
-            >
-              <dl className={hs.instructionList}>
-                <dt>背景、文字顏色</dt>
-                <dd>
-                  <span>.bg-primary</span>
-                  <FaArrowRightLong />
-                  <code>.bgPrimary</code>
-                </dd>
-                <dd>
-                  <span>.bg-secondary</span>
-                  <FaArrowRightLong />
-                  <code>.bgSecondary</code>
-                </dd>
-                <dd>
-                  <span>.text-primary</span>
-                  <FaArrowRightLong />
-                  <code>.txPrimary</code>
-                </dd>
-                <dd>
-                  <span>.text-danger</span>
-                  <FaArrowRightLong />
-                  <code>.txError</code>
-                </dd>
-              </dl>
-              <dl className={hs.instructionList}>
-                <dt>grid system</dt>
-                <dd>
-                  <span>.col-6</span>
-                  <FaArrowRightLong />
-                  <code>.col6</code>
-                </dd>
-                <dd>
-                  <span>.col-md-6</span>
-                  <FaArrowRightLong />
-                  <code>.col_md6</code>
-                </dd>
-                <dd>
-                  <span>.row-cols-4</span>
-                  <FaArrowRightLong />
-                  <code>.rowCols4</code>
-                </dd>
-              </dl>
-              <dl className={hs.instructionList}>
-                <dt>按鈕</dt>
-                <dd>
-                  <span>.btn-primary</span>
-                  <FaArrowRightLong />
-                  <code>.btnPrimary</code>
-                </dd>
-                <dd>
-                  <span>.btn-secondary</span>
-                  <FaArrowRightLong />
-                  <code>.btnSecondary</code>
-                </dd>
-                {/* todo 擺實際的按鈕進來 */}
-              </dl>
-            </IconContext.Provider>
-          </div>
+          <article>
+            <h2 className={hs.h2}>可以使用的樣式</h2>
+            <p style={{ textAlign: 'center' }}>
+              <IconContext.Provider
+                value={{ style: { verticalAlign: 'middle' } }}
+              >
+                Bootstrap 的語法
+                <FaArrowRightLong />
+                Fundodo 專案的語法
+              </IconContext.Provider>
+            </p>
+            <div className={hs.dlBox}>
+              <IconContext.Provider
+                value={{ style: { verticalAlign: 'middle' } }}
+              >
+                <dl className={hs.instructionList}>
+                  <dt>背景、文字顏色</dt>
+                  <dd>
+                    <span>.bg-primary</span>
+                    <FaArrowRightLong />
+                    <code>.bgPrimary</code>
+                  </dd>
+                  <dd>
+                    <span>.bg-secondary</span>
+                    <FaArrowRightLong />
+                    <code>.bgSecondary</code>
+                  </dd>
+                  <dd>
+                    <span>.text-primary</span>
+                    <FaArrowRightLong />
+                    <code>.txPrimary</code>
+                  </dd>
+                  <dd>
+                    <span>.text-danger</span>
+                    <FaArrowRightLong />
+                    <code>.txError</code>
+                  </dd>
+                </dl>
+                <dl className={hs.instructionList}>
+                  <dt>grid system</dt>
+                  <dd>
+                    <span>.col-6</span>
+                    <FaArrowRightLong />
+                    <code>.col6</code>
+                  </dd>
+                  <dd>
+                    <span>.col-md-6</span>
+                    <FaArrowRightLong />
+                    <code>.col_md6</code>
+                  </dd>
+                  <dd>
+                    <span>.row-cols-4</span>
+                    <FaArrowRightLong />
+                    <code>.rowCols4</code>
+                  </dd>
+                </dl>
+              </IconContext.Provider>
+            </div>
+          </article>
+          <article>
+            <h2 className={hs.h2}>按鈕元件</h2>
+            <dl className={hs.instructionList}>
+              <dt>按鈕</dt>
+              <dd>
+                <span>.btn-primary</span>&emsp;
+                <FaArrowRightLong />
+                &emsp;
+                <code
+                  className={[hs.bgDark, hs.txSecondary].join(' ')}
+                  style={{ padding: '.5rem' }}
+                >
+                  &lt;FddBtn href=&quot;#&quot;&gt;人家是按鈕&lt;/FddBtn&gt;
+                </code>
+                &emsp;
+                <FaArrowRightLong />
+                &emsp;
+                <FddBtn href="#">人家是按鈕</FddBtn>
+              </dd>
+              <dd>
+                <span>.btn-secondary</span>&emsp;
+                <FaArrowRightLong />
+                &emsp;
+                <code
+                  className={[hs.bgDark, hs.txSecondary].join(' ')}
+                  style={{ padding: '.5rem' }}
+                >
+                  &lt;FddBtn color=&quot;secondary&quot; outline
+                  callback=&#123;() =&gt;&#123;&#125;&#125;&gt;&lt;/FddBtn&gt;
+                </code>
+                &emsp;
+                <FaArrowRightLong />
+                &emsp;
+                <FddBtn color="info" outline callback={() => {}}>
+                  人家是按鈕
+                </FddBtn>
+              </dd>
+              <dd>
+                <span>.btn-secondary</span>&emsp;
+                <FaArrowRightLong />
+                &emsp;
+                <code
+                  className={[hs.bgDark, hs.txSecondary].join(' ')}
+                  style={{ padding: '.5rem' }}
+                >
+                  &lt;FddBtn color=&quot;secondary&quot; icon callback=&#123;()
+                  =&gt;&#123;&#125;&#125;&gt;&lt;/FddBtn&gt;
+                </code>
+                &emsp;
+                <FaArrowRightLong />
+                &emsp;
+                <FddBtn color="error" icon callback={() => {}}>
+                  <IoAddCircle />
+                </FddBtn>
+              </dd>
+            </dl>
+          </article>
 
           <h2 className={hs.h2}>常用連結</h2>
           <ul>

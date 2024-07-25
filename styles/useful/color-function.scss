@@ -2,6 +2,7 @@
 //color 可以是顏色的任何的格式
 @use 'sass:color';
 @import './colors.scss';
+@import '../scss/base-function.scss';
 
 //================= 顏色微調函數
 

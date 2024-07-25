@@ -24,7 +24,7 @@
 		"description": "以 module 引入樣式 class"
 	},
 	"multiple module class name": {
-		"scope": "javascriptreact, typescriptreact",
+		"scope": "",
 		"prefix": "cns",
 		"body": [
 			"className={[$1].join(' ')}",
