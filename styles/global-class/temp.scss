@@ -572,8 +572,27 @@ $min-contrast-ratio:   4.5 !default;
   align-items: center;
 }
 
-.dFlex{
+.dBlock {
+  display: block;
+}
+.dIBlock {
+  display: inline-block;
+}
+.dFlex {
   display: flex;
+}
+
+.jcCenter {
+  justify-content: center;
+}
+.jcAround {
+  justify-content: space-around;
+}
+.jcBetween {
+  justify-content: space-between;
+}
+.jcEvenly {
+  justify-content: space-evenly;
 }
 
 //================================================================
