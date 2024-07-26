@@ -59,32 +59,60 @@
   background-color: #2a2522;
 }
 
+.h1,
+.h2 {
+  margin-block: 1rem;
+  text-align: center;
+}
+
 .linkPanel a {
   display: grid;
   place-items: center;
-  height: 250px;
+  height: 100px;
   transition: filter 0.4s;
   font-size: 3rem;
+  border-radius: 2rem;
 }
 .linkPanel a:hover {
   filter: brightness(1.1);
 }
-.linkPanel a:nth-child(1) {
+.linkPanel div:nth-child(1) a {
   background-color: #B9A399;
 }
-.linkPanel a:nth-child(2) {
-  background-color: #E7E1DB;
-}
-.linkPanel a:nth-child(3) {
-  background-color: #FBC02D;
-}
-.linkPanel a:nth-child(4) {
+.linkPanel div:nth-child(2) a {
   background-color: #2a2522;
   color: #F1EDEB;
 }
-.linkPanel a:nth-child(5) {
+.linkPanel div:nth-child(3) a {
+  background-color: #FBC02D;
+}
+.linkPanel div:nth-child(4) a {
+  background-color: #857A79;
+  color: #E7E1DB;
+}
+.linkPanel div:nth-child(5) a {
   background-color: #71c4ef;
 }
-.linkPanel a:nth-child(6) {
-  background-color: #E53835;
+.linkPanel div:nth-child(6) a {
+  background-color: hsl(1, 25%, 23%);
+  color: #E7E1DB;
+}
+.linkPanel div:nth-child(7) a {
+  background-color: #6F625C;
+  color: #EAE3E0;
+}
+
+.dlBox {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+}
+
+.instructionList dt {
+  font-size: 1.6rem;
+}
+.instructionList dd {
+  font-size: 1rem;
+  line-height: 2;
 }/*# sourceMappingURL=home.module.css.map */
