@@ -1,3 +1,4 @@
+@use 'sass:color';
 $grid-breakpoints: (
   xs: 0,
   sm: 576px,
@@ -405,9 +406,6 @@ $color-tint-5: #F1EDEB;//also theme-light
 //================================================================
 //mix($color-1, $color-2, $weight: 50%) 是 SASS 內建的函數
 //color 可以是顏色的任何的格式
-@use 'sass:color';
-@import './colors.scss';
-@import '../scss/base-function.scss';
 
 //================= 顏色微調函數
 
@@ -597,6 +595,14 @@ $container-padding-x: $grid-gutter-width !default;
 .container-fluid {
   @include make-container();
 }
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1320px
+) !default;
 
 // Responsive containers that are 100% wide until a breakpoint
 @each $breakpoint, $container-max-width in $container-max-widths {
