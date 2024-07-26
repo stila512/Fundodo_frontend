@@ -164,6 +164,23 @@ export default function Home() {
               </dd>
             </dl>
           </article>
+          <article>
+            <h2>
+              <a
+                href="https://react-icons.github.io/react-icons/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                React icons
+              </a>
+            </h2>
+            <dl>
+              <dt>小圖示的圖庫</dt>
+              <dd>其大小會繼承該層的 font-size</dd>
+              <dd>其顏色會繼承該層的 color</dd>
+              <dd>若要手動改變，需要透過此 API 設計的 context</dd>
+            </dl>
+          </article>
 
           <h2 className={hs.h2}>常用連結</h2>
           <ul>
