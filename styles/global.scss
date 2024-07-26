@@ -2,8 +2,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap');
 
-@import './useful/font';
-@import './useful/colors';
+// @import './useful/font';
+// @import './useful/colors';
+@import './global-class/temp.scss';
 
 html {
   @include ff-noto(12px, 16px);

@@ -1,0 +1,53 @@
+@import "@/styles/style.module.scss";
+@import "@/styles/useful/colors.scss";
+@import "@/styles/useful/font.scss";
+
+.hero {
+    display: flex;
+    height: 100vh;
+    margin: 5% 0;
+    justify-content: space-between;
+    align-items: center;
+
+    h1 {
+        @include ff-zen-maru(24px, 56px);
+        color: #424242;
+        line-height: 66px;
+    }
+
+    p {
+        @include ff-noto(14px, 18px);
+        color: $color-shade-2;
+        line-height: 30px;
+        margin: 10px 0 20px 0;
+    }
+
+    .btn2 {
+        margin-left: 10px;
+    }
+}
+
+.hero_text {
+    text-wrap: nowrap;
+    padding-left: 0;
+    align-items: center;
+    justify-content: right;
+}
+
+.hero_image {
+    align-items: flex-end;
+
+    img:nth-child(1) {
+        position: relative;
+        left: 20px;
+    }
+
+    img:nth-child(3) {
+        position: relative;
+        right: 30px;
+    }
+}
+
+.sec2{
+display: flex;
+}

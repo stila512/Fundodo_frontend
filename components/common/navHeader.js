@@ -1,22 +1,19 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import scss from './navHeader.module.scss';
-import logo from '@/public/logo.png';
+import Logo from './logo';
 import { IoIosArrowDown, IoMdPerson } from 'react-icons/io';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { IoCart } from 'react-icons/io5';
 
 /**
- * 導覽列元件 | Fundodo 頁面基本架構
- * @description 高度固定為 70px
+ * 導覽列 | Fundodo 頁面基本架構
+ * @description 高度固定為 70px，fixed at top
  */
 export default function NavHeader() {
   return (
     <header className={scss.layout}>
       <div className={scss.container}>
-        <div className={[scss.logo, scss.imgWrap].join(' ')}>
-          <Image src={logo} alt="FUNDODO logo" />
-        </div>
+        <Logo width={210} href="/"></Logo>
         <nav className={scss.txPrimary}>
           <ul className={scss.ulLink}>
             <li>

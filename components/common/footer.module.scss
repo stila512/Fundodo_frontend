@@ -1,0 +1,71 @@
+@import '/styles/style.module.scss';
+
+// .f_footer {
+//   height: 454px;
+// }
+//legacy above
+.foo {
+  background-color: $light;
+  padding-block: 4.75rem;
+}
+.fooBody {
+  height: 302px;
+  background-color: $primary;
+  border-radius: 80px 80px 80px 0;
+  padding: 3rem 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.fooL {
+  // flex-direction: column;
+  // margin-right: 100px;
+  p {
+    @include ff-noto(10px, 18px);
+    line-height: 30px;
+    color: #37312e;
+    margin-top: 20px;
+  }
+}
+
+.fooR {
+  display: flex;
+  > div {
+    display: flex;
+  }
+  h3 {
+    color: $color-shade-2;
+    writing-mode: vertical-rl;
+    margin-right: 24px;
+    letter-spacing: 5px;
+  }
+  ul {
+    margin-right: 100px;
+  }
+  &:last-child ul {
+    margin-right: 0;
+  }
+
+  li {
+    margin-bottom: 12px;
+  }
+  a {
+    color: $color-tint-5;
+    text-decoration: none;
+    line-height: 12px;
+    @include ff-noto(16px, 16px);
+
+    img {
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+  }
+}
+
+.ulIcon {
+  @include circle-of(25px);
+  @extend .fxCenter;
+  background-color: $secondary;
+  color: $primary;
+}
