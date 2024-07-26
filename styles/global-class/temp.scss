@@ -557,6 +557,10 @@ $min-contrast-ratio:   4.5 !default;
   place-items: center;
 }
 
+.txCenter {
+  text-align: center;
+}
+
 .hstack {
   display: flex;
   flex-direction: row;
