@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import style from '@/styles/style.module.scss';
 import FddBtn from '@/components/buttons/fddBtn';
-import hs from './home.module.scss';
+import hs from './devHome.module.scss';
 import { IconContext } from 'react-icons';
 import { FaArrowRightLong } from 'react-icons/fa6';
 import { IoAddCircle } from 'react-icons/io5';
