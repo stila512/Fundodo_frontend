@@ -4,12 +4,12 @@
 @use "./scss/grid-system";
 
 //================= 通用樣式
-@use "./useful/colors";
-@use "./useful/color-function";
+// @use "./useful/colors";
+@forward "./useful/color-function";
 
-@use "./useful/font";
-@use "./useful/utility-class";
-@use "./useful/utility-mixin";
+@forward "./useful/font";
+@forward "./useful/utility-class";
+@forward "./useful/utility-mixin";
 
 // @use "./component/modal";
 @use "./component/container";

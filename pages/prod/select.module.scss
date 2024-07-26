@@ -1,0 +1,27 @@
+@import '../styles/useful/colors.scss';
+@import '/styles/style.module.scss';
+.customSelect {
+  position: relative;
+  width: 270px;
+  align-items: center;
+  
+ div{
+    margin-right: 21px;
+ }
+  select {
+    align-items: center;
+    appearance: none; // 隱藏預設下箭頭
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 116px;
+    padding: 6px 14px; // 留空間給自訂箭頭
+    border: 1px solid $primary;
+    border-radius: 50px;
+    background-color: white;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%236F625C"><path fill-rule="evenodd" d="M10 12l-5-5 1.5-1.5L10 9.1l3.5-3.6L15 7z" clip-rule="evenodd"/></svg>'); /* 使用 SVG 图标作为背景图像 */
+    background-repeat: no-repeat;
+    background-position: 80px center;
+    background-size: 25px; 
+  }
+}
+
