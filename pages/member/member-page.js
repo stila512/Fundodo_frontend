@@ -1,5 +1,5 @@
-import NavHeader from '@/components/common/navHeader';
-import Footer from '@/components/common/footer';
+import NavHeader from '@/components/layout/navHeader';
+import Footer from '@/components/layout/footer';
 import scss from './member.module.scss';
 import logo from '@/public/logo_temp.png';
 import Image from 'next/image';

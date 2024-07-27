@@ -1,4 +1,4 @@
-import NavHeader from '@/components/common/navHeader';
+import NavHeader from '@/components/layout/navHeader';
 import scss from './login.module.scss';
 import Image from 'next/image';
 import lfpic from '@/public/login.svg';
