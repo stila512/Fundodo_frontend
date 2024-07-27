@@ -23,7 +23,7 @@ export default function Home() {
           <div className={style.container}>
             <div className={[hs.linkPanel, style.row, style.g3].join(' ')}>
               <div className={[style.col6, style.col_lg4].join(' ')}>
-                <Link href="">首頁</Link>
+                <Link href="/homepage">首頁</Link>
               </div>
               <div className={[style.col6, style.col_lg4].join(' ')}>
                 <Link href="/prod">商品</Link>
