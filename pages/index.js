@@ -16,6 +16,34 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+<<<<<<< HEAD
+      <main className={hs.bgLight}>
+        <section>
+          <h1 className={hs.h1}>這是開發用的首頁</h1>
+          <h2 className={hs.h2}>通往各開發中頁面的捷徑</h2>
+          <div className={style.container}>
+            <div className={[hs.linkPanel, style.row, style.g3].join(' ')}>
+              <div className={[style.col6, style.col_lg4].join(' ')}>
+                <Link href="/homepage">首頁</Link>
+              </div>
+              <div className={[style.col6, style.col_lg4].join(' ')}>
+                <Link href="/prod">商品</Link>
+              </div>
+              <div className={[style.col6, style.col_lg4].join(' ')}>
+                <Link href="">會員</Link>
+              </div>
+              <div className={[style.col6, style.col_lg4].join(' ')}>
+                <Link href="">旅館</Link>
+              </div>
+              <div className={[style.col6, style.col_lg4].join(' ')}>
+                <Link href="">文章</Link>
+              </div>
+              <div className={[style.col6, style.col_lg4].join(' ')}>
+                <Link href="">課程</Link>
+              </div>
+              <div className={[style.col6, style.col_lg4].join(' ')}>
+                <Link href="/test/">測試用</Link>
+=======
       <IconContext.Provider
         value={{ style: { marginInline: '1rem', verticalAlign: 'middle' } }}
       >
@@ -46,6 +74,7 @@ export default function Home() {
                 <div className="col6 col_lg4">
                   <Link href="/test/">測試用</Link>
                 </div>
+>>>>>>> fbdb183281782f71b0e76ff4f1ceae71ffad0b34
               </div>
             </div>
           </section>
