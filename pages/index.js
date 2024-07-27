@@ -26,7 +26,7 @@ export default function Home() {
             <div className="container">
               <div className={`${hs.linkPanel} row g3`}>
                 <div className="col6 col_lg4">
-                  <Link href="">首頁</Link>
+                  <Link href="/homepage">首頁</Link>
                 </div>
                 <div className="col6 col_lg4">
                   <Link href="/prod">商品</Link>

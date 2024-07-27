@@ -21,10 +21,15 @@
         line-height: 30px;
         margin: 10px 0 20px 0;
     }
+}
 
-    .btn2 {
-        margin-left: 10px;
-    }
+.btns {
+    display: flex;
+    gap: 22px;
+}
+
+.btn2 {
+    background-color: white;
 }
 
 .hero_text {
@@ -48,6 +53,35 @@
     }
 }
 
-.sec2{
-display: flex;
+.prodSec {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 618px;
+    margin-top: 100px;
+}
+
+.prodImgs {
+    display: flex;
+    gap: 35px;
+    flex-wrap: wrap;
+    flex: 1;
+
+}
+
+.prodText {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: end;
+    flex: 1;
+    gap: 20px;
+
+    h3 {
+        @include ff-maru(24px, 36px);
+    }
+}
+
+.proBtn {
+    text-align: center;
 }
