@@ -37,9 +37,16 @@ export default function Custom404() {
           如果你的頁面在&ensp;
           <code>@/pages/test/index.js</code>，
           <br />
-          那你需要輸入的網址是 <code>http://localhost:3000/test/index</code>
+          那你需要輸入的網址是 <code>http://localhost:3000/test</code>
           ，<br />
-          其中 index 可以省略不寫。
+          其中 index 必須省略。
+          <br />
+          如果你的頁面在&ensp;
+          <code>@/pages/test/another.js</code>，
+          <br />
+          那你需要輸入的網址是 <code>http://localhost:3000/test/another</code>
+          ，<br />
+          其中 .js 必須省略。
         </p>
       </div>
       <div style={{ marginTop: '2rem' }} className={s.grCenter}>
