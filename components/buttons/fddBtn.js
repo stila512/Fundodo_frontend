@@ -74,7 +74,7 @@ export default function FddBtn({
 
 FddBtn.propTypes = {
   children: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
+  color: PropTypes.string,
   icon: PropTypes.bool,
   outline: PropTypes.bool,
   onClick: PropTypes.func,
