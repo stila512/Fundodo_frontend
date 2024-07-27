@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import style from '@/styles/style.module.scss';
+// import style from '@/styles/style.module.scss';
 import FddBtn from '@/components/buttons/fddBtn';
 import hs from './devHome.module.scss';
 import { IconContext } from 'react-icons';

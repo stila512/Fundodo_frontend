@@ -1,6 +1,7 @@
 import React from 'react';
 import NavHeader from '@/components/common/navHeader';
-import SearchBar from '@/components/hotel/SearchBar';
+import styles from '@/pages/hotel/index.module.scss';
+import SearchBar from '@/pages/hotel/SearchBar';
 import Head from 'next/head';
 
 export default function HotelPage() {
@@ -12,11 +13,12 @@ export default function HotelPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>
+      <div className={styles.pageContainer}>
         <NavHeader />
-      </div>
-      <div>
-        <SearchBar />
+      
+        <main className={styles.mainContent}>
+          <SearchBar />
+        </main>
       </div>
     </>
   );

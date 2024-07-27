@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import style from '@/styles/style.module.scss';
-import './homepage.module.scss';
+import hps from './homepage.module.scss';
 import FddBtn from '@/components/buttons/fddBtn';
 import dog1 from '@/public/homepagePic/dog1.png';
 import dog2 from '@/public/homepagePic/dog2.png';
@@ -12,8 +12,8 @@ export default function Hero() {
     <>
       <div className={style.container}>
         <main>
-          <section className="hero">
-            <div className="hero_text">
+          <section className={hps.hero}>
+            <div className={hps.hero_text}>
               <h1>您的寵物，我們的關愛</h1>
               <p>
                 提供頂級狗糧、各式用品、專業寵物照顧線上課程和優質住宿服務，
@@ -25,7 +25,7 @@ export default function Hero() {
                   現在購買
                 </FddBtn>
                 <FddBtn color="secondary" href="#">
-                  立即詢問
+                  立即詢問--測試
                 </FddBtn>
               </div>
             </div>
