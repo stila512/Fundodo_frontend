@@ -1,6 +1,6 @@
 import scss from '@/pages/prod/index.module.scss';
 import Head from 'next/head';
-import NavHeader from '@/components/common/navHeader';
+import NavHeader from '@/components/layout/navHeader';
 import Section from '@/pages/prod/section';
 import Breadcrumb from '@/pages/prod/breadcrumb';
 import Select from '@/pages/prod/select';

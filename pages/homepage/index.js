@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
-import NavHeader from '@/components/common/navHeader';
+import NavHeader from '@/components/layout/navHeader';
 import Hero from './hero';
 import Sec2 from './sec2';
 // import Footer from '@/components/layout/default-layout/footer';

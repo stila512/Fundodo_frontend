@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import scss from './navHeader.module.scss';
-import Logo from './logo';
+import Logo from '../common/logo';
 import { IoIosArrowDown, IoMdPerson } from 'react-icons/io';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { IoCart } from 'react-icons/io5';

@@ -1,4 +1,4 @@
-import Logo from './logo';
+import Logo from '../common/logo';
 import s from './footer.module.scss';
 import { FaChevronRight } from 'react-icons/fa';
 // import Image from 'next/image';

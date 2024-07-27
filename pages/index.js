@@ -16,10 +16,10 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <IconContext.Provider
-        value={{ style: { marginInline: '1rem', verticalAlign: 'middle' } }}
-      >
-        <main className="bgLight row">
+      <main className="bgLight">
+        <IconContext.Provider
+          value={{ style: { marginInline: '1rem', verticalAlign: 'middle' } }}
+        >
           <section>
             <h1 className="txCenter">這是開發用的首頁</h1>
             <h2 className="txCenter">通往各開發中頁面的捷徑</h2>
@@ -50,7 +50,9 @@ export default function Home() {
             </div>
           </section>
           <section className="container">
-            <h1 className="txCenter">開發指南</h1>
+            <h1 className="txCenter" style={{ margin: '5rem 0 3rem' }}>
+              開發指南
+            </h1>
             <div className="row">
               <article className="col12 col_lg6">
                 <h2 className="txCenter">可以使用的樣式</h2>
@@ -267,8 +269,8 @@ export default function Home() {
               </article>
             </div>
           </section>
-        </main>
-      </IconContext.Provider>
+        </IconContext.Provider>
+      </main>
     </>
   );
 }
