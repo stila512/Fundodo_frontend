@@ -21,5 +21,11 @@
   "javascript.updateImportsOnFileMove.enabled": "always",
   "editor.unicodeHighlight.allowedLocales": {
     "zh-hans": true
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "vscode.css-language-features"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   }
 }

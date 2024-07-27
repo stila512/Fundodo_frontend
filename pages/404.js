@@ -1,3 +1,4 @@
+import FddBtn from '@/components/buttons/fddBtn';
 import s from '@/styles/style.module.scss';
 export default function Custom404() {
   //todo 要再做一個公開版本的 404 頁面
@@ -40,6 +41,11 @@ export default function Custom404() {
           ，<br />
           其中 index 可以省略不寫。
         </p>
+      </div>
+      <div style={{ marginTop: '2rem' }} className={s.grCenter}>
+        <FddBtn href="/" color="primary">
+          返回首頁
+        </FddBtn>
       </div>
     </div>
   );
