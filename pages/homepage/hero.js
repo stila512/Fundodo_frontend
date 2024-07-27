@@ -25,7 +25,7 @@ export default function Hero() {
                   現在購買
                 </FddBtn>
                 <FddBtn color="secondary" href="#">
-                  立即詢問
+                  立即詢問--測試
                 </FddBtn>
               </div>
             </div>
