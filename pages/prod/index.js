@@ -5,7 +5,7 @@ import Section from '@/pages/prod/section';
 import Breadcrumb from '@/pages/prod/breadcrumb';
 import Select from '@/pages/prod/select';
 import style from '@/styles/style.module.scss';
-
+import Aside from '@/pages/prod/aside';
 export default function ProductList() {
   return (
     <>
@@ -15,12 +15,15 @@ export default function ProductList() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <NavHeader />
       <main className={style.container}>
-        <NavHeader />
         <Section />
         <div className={[style.dFlex, scss.justifyContentBetween, scss.margin].join(' ')}>
           <Breadcrumb />
-          <Select /> 
+          <Select />
+        </div>
+        <div>
+          <Aside /> 
         </div>
       </main>
     </>
