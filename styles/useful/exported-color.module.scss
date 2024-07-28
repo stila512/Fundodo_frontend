@@ -1,0 +1,43 @@
+@import 'colors';
+
+:export {
+  white: $white;
+  gray100: $gray-100;
+  gray200: $gray-200;
+  gray300: $gray-300;
+  gray400: $gray-400;
+  gray500: $gray-500;
+  gray600: $gray-600;
+  gray700: $gray-700;
+  gray800: $gray-800;
+  gray900: $gray-900;
+  black: $black;
+  //=====================
+  primary: $primary;
+  secondary: $secondary;
+  warning: $warning;
+  error: $error;
+  light: $light;
+  info: $info;
+  dark: $dark;
+  //=====================
+  colorHeading: $gray-800;
+  colorBody: $gray-600;
+  colorNuted: $gray-400;
+  //=====================
+  primaryText: $primary-text;
+  infoText: $info-text;
+  errorText: $error-text;
+  //=====================
+  colorShade1: $color-shade-1;
+  colorShade2: $color-shade-2;
+  colorShade3: $color-shade-3;
+  colorShade4: $color-shade-4;
+  colorShade5: $color-shade-5;
+  //=====================
+  colorTint1: $color-tint-1;
+  colorTint2: $color-tint-2;
+  colorTint3: $color-tint-3;
+  colorTint4: $color-tint-4;
+  colorTint5: $color-tint-5;
+}
