@@ -43,6 +43,10 @@
     background-color: $color-shade-2;
     color: $color-tint-4;
   }
+  div:nth-child(8) a {
+    background-color: $info-text;
+    color: $light;
+  }
 }
 
 .dlBox {
