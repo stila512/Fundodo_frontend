@@ -44,6 +44,9 @@ export default function Home() {
                   <Link href="">課程</Link>
                 </div>
                 <div className="col6 col_lg4">
+                  <Link href="/buy/cart/cartPage">購物車</Link>
+                </div>
+                <div className="col6 col_lg4">
                   <Link href="/test/">測試用</Link>
                 </div>
               </div>
