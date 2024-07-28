@@ -1,0 +1,54 @@
+@import '/styles/style.module.scss';
+
+.progressBox {
+  margin: 7rem auto 2rem;
+  max-width: 50rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+.progressBox::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  display: block;
+  height: 2px;
+  background-color: $color-shade-3;
+}
+
+.circle {
+  @include circle-of(3.5rem);
+  @include ff-maru(1.5rem);
+  @extend .fxCenter;
+  font-weight: 900;
+  position: relative;
+}
+
+.circle {
+  &::after {
+    position: absolute;
+    display: block;
+    top: 4rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: $color-shade-3;
+    @include ff-noto(1rem);
+    font-weight: 400;
+    text-align: center;
+    width: 8rem;
+    // width: fit-content;
+  }
+  &:nth-child(1)::after {
+    content: '購物車';
+  }
+  &:nth-child(2)::after {
+    content: '填寫付款資訊';
+  }
+  &:nth-child(3)::after {
+    content: '訂單確認';
+  }
+}

@@ -1,0 +1,90 @@
+.searchBarWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 30px;
+}
+
+.searchBarContainer {
+  display: flex;
+  background-color: #f2e9e4;
+  padding: 20px;
+  border-radius: 8px;
+  gap: 20px;
+  margin: 30px;
+  align-items: flex-end;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputGroup p {
+  margin-bottom: 5px;
+  margin-left: 4px;
+  font-size: 14px;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchInput,
+.dateInput,
+.select {
+  padding: 10px 30px 10px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  margin-right: 20px;
+}
+
+.searchInput {
+  width: 470px;
+}
+
+
+
+
+.dateInput,
+.select {
+  width: 250px;
+}
+
+.icon {
+  position: absolute;
+  right: 30px;
+  color: #5D524D;
+}
+
+.selectWrapper {
+  position: relative;
+}
+
+.selectWrapper .icon {
+  pointer-events: none;
+}
+
+
+
+
+/* 響應式設計 */
+/* @media (max-width: 768px) {
+  .searchBarContainer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .inputGroup {
+    margin-bottom: 15px;
+  }
+
+  .searchInput,
+  .dateInput,
+  .select {
+    width: 100%;
+  }
+} */

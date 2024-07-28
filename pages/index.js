@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import style from '@/styles/style.module.scss';
+// import style from '@/styles/style.module.scss';
 import FddBtn from '@/components/buttons/fddBtn';
 import hs from './devHome.module.scss';
 import { IconContext } from 'react-icons';
@@ -16,17 +16,17 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <IconContext.Provider
-        value={{ style: { marginInline: '1rem', verticalAlign: 'middle' } }}
-      >
-        <main className="bgLight row">
+      <main className="bgLight">
+        <IconContext.Provider
+          value={{ style: { marginInline: '1rem', verticalAlign: 'middle' } }}
+        >
           <section>
             <h1 className="txCenter">這是開發用的首頁</h1>
             <h2 className="txCenter">通往各開發中頁面的捷徑</h2>
             <div className="container">
               <div className={`${hs.linkPanel} row g3`}>
                 <div className="col6 col_lg4">
-                  <Link href="">首頁</Link>
+                  <Link href="/homepage">首頁</Link>
                 </div>
                 <div className="col6 col_lg4">
                   <Link href="/prod">商品</Link>
@@ -44,13 +44,18 @@ export default function Home() {
                   <Link href="">課程</Link>
                 </div>
                 <div className="col6 col_lg4">
+                  <Link href="/buy/cart/cartPage">購物車</Link>
+                </div>
+                <div className="col6 col_lg4">
                   <Link href="/test/">測試用</Link>
                 </div>
               </div>
             </div>
           </section>
           <section className="container">
-            <h1 className="txCenter">開發指南</h1>
+            <h1 className="txCenter" style={{ margin: '5rem 0 3rem' }}>
+              開發指南
+            </h1>
             <div className="row">
               <article className="col12 col_lg6">
                 <h2 className="txCenter">可以使用的樣式</h2>
@@ -267,8 +272,8 @@ export default function Home() {
               </article>
             </div>
           </section>
-        </main>
-      </IconContext.Provider>
+        </IconContext.Provider>
+      </main>
     </>
   );
 }
