@@ -12,6 +12,8 @@
     "@babel/preset-env": "^7.25.0",
     "@babel/preset-react": "^7.24.7",
     "@babel/runtime": "^7.25.0",
+    "@fontsource-variable/noto-sans-tc": "^5.0.6",
+    "@fontsource/zen-maru-gothic": "^5.0.19",
     "axios": "^1.6.8",
     "install": "^0.13.0",
     "lodash": "^4.17.21",
