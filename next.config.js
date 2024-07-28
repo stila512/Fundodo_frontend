@@ -25,9 +25,9 @@ const nextConfig = {
     ],
     unoptimized: true,
   },
-  //sass: 'https://github.com/vercel/next.js/issues/11610'
   sassOptions: {
-    includePaths: [path.resolve(__dirname, 'node_modules')],
+    includePaths: [path.resolve(__dirname, 'styles')],
+    // prepredData: `@import "global.scss;"`,
   },
   // output: 'export', // don't use with `next start` or api route
   // distDir: 'dist',
