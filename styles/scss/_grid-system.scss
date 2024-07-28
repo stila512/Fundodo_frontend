@@ -1,15 +1,16 @@
-// @use './grid-breakpoints.scss';
-@import './base-function.scss';
-@import './rwd-system.scss';
+@use 'grid-breakpoints.scss' as gb;
+@use "scss/rwd-system" as rwd-system;
+@use 'base-function.scss' as base-lib;
+// @import './rwd-system.scss';
 
-$grid-breakpoints: (
-  xs: 0,
-  sm: 576px,
-  md: 768px,
-  lg: 992px,
-  xl: 1200px,
-  xxl: 1400px
-) !default;
+// $grid-breakpoints: (
+//   xs: 0,
+//   sm: 576px,
+//   md: 768px,
+//   lg: 992px,
+//   xl: 1200px,
+//   xxl: 1400px
+// ) !default;
 
 //所需變數: $grid-gutter-width, $grid-columns, $grid-breakpoints
 //所需函數: breakpoint-infix()
@@ -62,7 +63,7 @@ $gutters: $spacers !default;
 @mixin make-col($size: false, $columns: $grid-columns) {
   @if $size {
     flex: 0 0 auto;
-    width: percentage(divide($size, $columns));
+    width: percentage(base-lib.divide($size, $columns));
 
   } @else {
     flex: 1 1 0;
@@ -76,7 +77,7 @@ $gutters: $spacers !default;
 }
 
 @mixin make-col-offset($size, $columns: $grid-columns) {
-  $num: divide($size, $columns);
+  $num: base-lib.divide($size, $columns);
   margin-left: if($num == 0, 0, percentage($num));
 }
 
@@ -99,7 +100,7 @@ $gutters: $spacers !default;
 @mixin row-cols($count) {
   > * {
     flex: 0 0 auto;
-    width: percentage(divide(1, $count));
+    width: percentage(base-lib.divide(1, $count));
   }
 }
 
@@ -109,10 +110,10 @@ $gutters: $spacers !default;
 // any value of `$grid-columns`.
 
 @mixin make-grid-columns($columns: $grid-columns, $gutter: $grid-gutter-width) {
-  @each $breakpoint in map-keys($grid-breakpoints) {
-    $infix: breakpoint-infix($breakpoint);
+  @each $breakpoint in map-keys(gb.$grid-breakpoints) {
+    $infix: rwd-system.breakpoint-infix($breakpoint);
 
-    @include rwd-above($breakpoint) {
+    @include rwd-system.rwd-above($breakpoint) {
       // Provide basic `.col-{bp}` classes for equal-width flexbox columns
       .col#{$infix} {
         flex: 1 0 0%; // Flexbugs #4: https://github.com/philipwalton/flexbugs#flexbug-4

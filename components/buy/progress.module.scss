@@ -1,4 +1,5 @@
-@import '/styles/style.module.scss';
+// @use '@/styles/scss/grid-breakpoints.scss';
+@use '@/styles' as styles;
 
 .progressBox {
   margin: 7rem auto 2rem;
@@ -17,12 +18,12 @@
   z-index: -1;
   display: block;
   height: 2px;
-  background-color: $color-shade-3;
+  background-color: styles.$color-shade-3;
 }
 
 .circle {
-  @include circle-of(3.5rem);
-  @include ff-maru(1.5rem);
+  @include styles.circle-of(3.5rem);
+  @include styles.ff-maru(1.5rem);
   @extend .fxCenter;
   font-weight: 900;
   position: relative;
@@ -35,8 +36,8 @@
     top: 4rem;
     left: 50%;
     transform: translateX(-50%);
-    color: $color-shade-3;
-    @include ff-noto(1rem);
+    color: styles.$color-shade-3;
+    @include styles.ff-noto(1rem);
     font-weight: 400;
     text-align: center;
     width: 8rem;
