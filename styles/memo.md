@@ -1,5 +1,9 @@
 # 備忘．關於樣式系統
 
+## 字型
+
+嘗試過 next/font/google 但是無果，改採取 fontsource 透過 npm 下載後匯入成功。
+
 ## 架構
 
 1. 全域

@@ -1,10 +1,9 @@
-// @use '../scss/rwd-system.scss' as *;
-@import '../scss/rwd-system.scss';
+@use '../scss/rwd-system.scss' as rwd-system;
 //字型匯入在 @/styles/global.module.scss
-// 字型大小設定
-//設定字型、字重、大小
+// font-size()字型大小設定
+//設定字型大小的 RWD
 // 大小設定語法如下：
-// 至少要輸入 1 個參數
+// 沒有輸入參數 -> 無設定大小，單純設定字型
 // 輸入 1 個參數 -> font-size 為 $size1
 // 輸入 2 個參數 -> 預設為 $size1，
 //                   lg 以上為 $size2
@@ -13,25 +12,27 @@
 //                     lg 以上為 $size3
 
 @mixin font-size($size1, $size2: 0, $size3: 0) {
-	@if ($size1 == 0) {
-    @warn "font-size 不可設定為 0。";
-  }
-  font-size: $size1;
+  @if ($size1 == 0) {
+    // @warn "font-size 不可設定為 0。";
+    //無影響，直接結束
+  } @else {
+    font-size: $size1;
 
-		@if ($size2 != 0) {
-			@if ($size3 == 0) {
-				@include rwd-above("lg") {
-					font-size: $size2;
-				}
-			} @else {
-				@include rwd-above("sm") {
-					font-size: $size2;
-				}
-				@include rwd-above("lg") {
-					font-size: $size3;
-				}
-			}
-		}
+    @if ($size2 != 0) {
+      @if ($size3 == 0) {
+        @include rwd-system.rwd-above('lg') {
+          font-size: $size2;
+        }
+      } @else {
+        @include rwd-system.rwd-above('sm') {
+          font-size: $size2;
+        }
+        @include rwd-system.rwd-above('lg') {
+          font-size: $size3;
+        }
+      }
+    }
+  }
 }
 
 // @mixin ff-roboto($fz: 0, $fz-sm: 0, $fz-lg: 0) {
@@ -40,11 +41,13 @@
 // }
 
 @mixin ff-noto($fz: 0, $fz-sm: 0, $fz-lg: 0) {
-	font-family: "Noto Sans TC", sans;
-	@include font-size($fz, $fz-sm, $fz-lg);
+  font-family: 'Noto Sans TC Variable', sans;
+  // font-family: var(--font-noto), sans;
+  @include font-size($fz, $fz-sm, $fz-lg);
 }
 
 @mixin ff-maru($fz: 0, $fz-sm: 0, $fz-lg: 0) {
-	font-family: "Zen Maru Gothic", sans-serif;
-	@include font-size($fz, $fz-sm, $fz-lg);
-  }
+  // font-family: var(--font-maru), sans-serif;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  @include font-size($fz, $fz-sm, $fz-lg);
+}

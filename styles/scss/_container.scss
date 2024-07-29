@@ -1,4 +1,6 @@
-@import "../scss/grid-system";
+@use "scss/rwd-system" as rwd-system;
+@use '../scss/grid-breakpoints' as gb;
+@use "../scss/grid-system" as grid-system;
 
 $container-max-widths: (
   sm: 540px,
@@ -9,7 +11,7 @@ $container-max-widths: (
 ) !default;
 
 //$container-padding-x from _grid-system.css
-$container-padding-x: $grid-gutter-width !default;
+$container-padding-x: grid-system.$grid-gutter-width !default;
 
 @mixin make-container($gutter: $container-padding-x) {
   --gutter-x: #{$gutter};
@@ -32,7 +34,7 @@ $container-padding-x: $grid-gutter-width !default;
     @extend .container-fluid;
   }
 
-  @include rwd-above($breakpoint) {
+  @include rwd-system.rwd-above($breakpoint) {
     %responsive-container-#{$breakpoint} {
       max-width: $container-max-width;
     }
@@ -40,9 +42,9 @@ $container-padding-x: $grid-gutter-width !default;
     // Extend each breakpoint which is smaller or equal to the current breakpoint
     $extend-breakpoint: true;
 
-    @each $name, $width in $grid-breakpoints {
+    @each $name, $width in gb.$grid-breakpoints {
       @if ($extend-breakpoint) {
-        .container#{breakpoint-infix($name)} {
+        .container#{rwd-system.breakpoint-infix($name)} {
           @extend %responsive-container-#{$breakpoint};
         }
 

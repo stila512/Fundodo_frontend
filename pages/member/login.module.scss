@@ -1,0 +1,49 @@
+@import '/styles/style.module.scss';
+@import '@/styles/useful/colors.scss';
+@import '@/styles/scss/_container.scss';
+
+.RegisterContainer {
+    width: 1440px;
+    height: 1024px;
+    display: flex;
+}
+
+.RegisterContainer .lfpic {
+    background-color: #EAE3E0;
+    flex: 1;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.RegisterContainer .rightText {
+    background-color: #fff;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #ccc;
+    .area1{
+        padding-bottom: 15px;
+    }
+    .area2{
+        padding-bottom: 15px;
+    }
+    .area3{
+        padding-top: 15px;
+    }
+    span{
+        color: #111111;
+        text-decoration: underline;
+    }
+    .h5{
+        @include ff-noto(36px);
+        color: #333333;
+    }
+    p{
+        color: #666666;
+        @include ff-noto(18px);
+    }
+}

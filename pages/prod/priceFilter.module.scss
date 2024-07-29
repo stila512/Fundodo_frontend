@@ -1,0 +1,42 @@
+.priceFilter {
+  width: 100%;
+  text-align: center;
+}
+
+.priceRange {
+  text-align: left;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.horizontalSlider {
+  width: 100%;
+  height: 3px;
+  background: #B9A399;
+  position: relative;
+}
+
+.track {
+  background: #6F625C;
+  height: 3px;
+}
+
+.thumb {
+  height: 15px;
+  width: 15px;
+  background: url(/prodPic/Ellipse437.png) no-repeat center;
+  background-size: contain;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  outline: none;
+}
+
+.track-0 {
+  background: #B9A399;
+}
+
+.track-1 {
+  background: #6F625C;
+}

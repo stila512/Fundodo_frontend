@@ -1,0 +1,45 @@
+@use 'colors' as c;
+//參考官方的說明
+//https://nextjs.org/docs/app/building-your-application/styling/sass#sass-variables
+
+:export {
+  white: c.$white;
+  gray100: c.$gray-100;
+  gray200: c.$gray-200;
+  gray300: c.$gray-300;
+  gray400: c.$gray-400;
+  gray500: c.$gray-500;
+  gray600: c.$gray-600;
+  gray700: c.$gray-700;
+  gray800: c.$gray-800;
+  gray900: c.$gray-900;
+  black: c.$black;
+  //=====================
+  primary: c.$primary;
+  secondary: c.$secondary;
+  warning: c.$warning;
+  error: c.$error;
+  light: c.$light;
+  info: c.$info;
+  dark: c.$dark;
+  //=====================
+  colorHeading: c.$gray-800;
+  colorBody: c.$gray-600;
+  colorNuted: c.$gray-400;
+  //=====================
+  primaryText: c.$primary-text;
+  infoText: c.$info-text;
+  errorText: c.$error-text;
+  //=====================
+  colorShade1: c.$color-shade-1;
+  colorShade2: c.$color-shade-2;
+  colorShade3: c.$color-shade-3;
+  colorShade4: c.$color-shade-4;
+  colorShade5: c.$color-shade-5;
+  //=====================
+  colorTint1: c.$color-tint-1;
+  colorTint2: c.$color-tint-2;
+  colorTint3: c.$color-tint-3;
+  colorTint4: c.$color-tint-4;
+  colorTint5: c.$color-tint-5;
+}

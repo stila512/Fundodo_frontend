@@ -1,0 +1,99 @@
+@import "@/styles/style.module.scss";
+@import "@/styles/useful/colors.scss";
+@import "@/styles/useful/font.scss";
+
+
+
+.hotelSec {
+    height: 728px;
+}
+
+
+.hotelContent {
+    display: flex;
+    justify-content: space-between;
+    .arrowBtn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        
+      }
+    
+      .arrows {
+        background-color: #B9A399;
+        width: 64px;
+        height: 64px;
+        background-color: white;
+        margin-top: 120px;
+      }
+}
+
+
+.hotelText {
+    h2 {
+        @include ff-maru(36px);
+        color: #424242;
+        font-weight: 700;
+        line-height: 66px;
+        word-wrap: break-word;
+        margin-bottom: 15px;
+    }
+
+    p {
+        @include ff-noto(14px, 18px);
+        color: #757575;
+        font-weight: 400;
+        line-height: 30px;
+        width: 430px;
+        word-wrap: break-word;
+        margin-bottom: 60px;
+    }
+}
+
+.hotelReview {
+    display: flex;
+    height: 389px;
+    border-radius: 24px;
+    background: #F5F5F5;
+}
+
+.content {
+    padding-left: 120px;
+    padding-top: 45px;
+    padding-bottom: 80px;
+    padding-right: 105px;
+    h4 {
+        @include ff-noto(14px, 28px);
+        color: var(--shade2, #6F625C);
+        font-weight: 700;
+        line-height: 38px;
+        margin-bottom: 16px;
+        text-align: start;
+    }
+
+    p {
+        @include ff-noto(14px, 18px);
+        color: var(--shade4, #37312E);
+        font-weight: 400;
+        line-height: 30px;
+        margin-bottom: 40px;
+    }
+}
+
+.info {
+    h6 {
+        @include ff-noto(14px, 20px);
+        color: var(--shade2, #6F625C);
+        font-weight: 700;
+        line-height: 20px;
+        margin-bottom: 12px;
+    }
+
+    p {
+        @include ff-noto(14px, 20px);
+        color: var(--shade2, #6F625C);
+        font-weight: 400;
+        line-height: 20px;
+    }
+}

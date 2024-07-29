@@ -1,17 +1,16 @@
-@use './grid-breakpoints.scss' as *;
+@use "./grid-breakpoints" as v;
 @use './base-function.scss';
 
-//所需變數: $grid-breakpoints
 //所需函數: divide()
 
 //================================================================
 
 //內部用：尋找下一個 tag 名
 // 例：breakpoint-next(sm)->md
-@function breakpoint-next($name, $breakpoint-names: map-keys($grid-breakpoints)) {
+@function breakpoint-next($name, $breakpoint-names: map-keys(v.$grid-breakpoints)) {
   $n: index($breakpoint-names, $name);
   @if not $n {
-    @error "breakpoint `#{$name}` not found in `#{$grid-breakpoints}`";
+    @error "breakpoint `#{$name}` not found in `#{v.$grid-breakpoints}`";
   }
   @return if($n < length($breakpoint-names), nth($breakpoint-names, $n + 1), null);
 }
@@ -19,7 +18,7 @@
 // 內部用：取裝置寬度區間的最小值
 // 例：breakpoint-min(sm) -> 576px
 @function breakpoint-min($name) {
-  $min: map-get($grid-breakpoints, $name);
+  $min: map-get(v.$grid-breakpoints, $name);
   @return if($min != 0, $min, null);
 }
 
@@ -30,7 +29,7 @@
 
 // 例：breakpoint-max(md) -> 767.98px
 @function breakpoint-max($name) {
-  $max: map-get($grid-breakpoints, $name);
+  $max: map-get(v.$grid-breakpoints, $name);
   @return if($max and $max > 0, $max - .02, null);
 }
 
@@ -100,20 +99,20 @@
 // 例：rwd-only(md) -> 768px ~ 991.98px
 // 原名 media-breakpoint-only
 @mixin rwd-only($name) {
-  $min:  breakpoint-min($name, $grid-breakpoints);
-  $next: breakpoint-next($name, $grid-breakpoints);
-  $max:  breakpoint-max($next, $grid-breakpoints);
+  $min:  breakpoint-min($name, v.$grid-breakpoints);
+  $next: breakpoint-next($name, v.$grid-breakpoints);
+  $max:  breakpoint-max($next, v.$grid-breakpoints);
 
   @if $min != null and $max != null {
     @media (min-width: $min) and (max-width: $max) {
       @content;
     }
   } @else if $max == null {
-    @include rwd-above($name, $grid-breakpoints) {
+    @include rwd-above($name, v.$grid-breakpoints) {
       @content;
     }
   } @else if $min == null {
-    @include rwd-below($next, $grid-breakpoints) {
+    @include rwd-below($next, v.$grid-breakpoints) {
       @content;
     }
   }

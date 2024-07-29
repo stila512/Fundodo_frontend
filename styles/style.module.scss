@@ -1,15 +1,16 @@
 //================= 前置設定
-// @use "./scss/base-function";
-@use "./scss/rwd-system";
-@use "./scss/grid-system";
+// @use "scss/base-function";
+@use 'scss/grid-breakpoints.scss';
+@use "scss/rwd-system";
+@use "scss/grid-system";
+@use "scss/container";
 
 //================= 通用樣式
-// @use "./useful/colors";
-@forward "./useful/color-function";
+@use "useful/colors";
+@use "useful/color-function";
 
-@forward "./useful/font";
-@forward "./useful/utility-class";
-@forward "./useful/utility-mixin";
+@use "useful/font";
+@use "useful/utility-class";
+@use "useful/utility-mixin";
 
-// @use "./component/modal";
-@use "./component/container";
+// @use "component/modal";

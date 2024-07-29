@@ -1,4 +1,4 @@
-@import '@/styles/component/_container.scss';
+@import '@/styles/scss/_container.scss';
 @import '@/styles/useful/colors.scss';
 
 .ul {
@@ -13,7 +13,8 @@
 }
 
 .dark{
-    color: black
+    color: black;
+    text-wrap: nowrap;
 }
 
 

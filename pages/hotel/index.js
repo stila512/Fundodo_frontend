@@ -1,6 +1,5 @@
 import React from 'react';
-import Head from 'next/head';
-import NavHeader from '@/components/common/navHeader';
+import NavHeader from '@/components/layout/navHeader';
 import styles from '@/pages/hotel/index.module.scss';
 import SearchBar from '@/pages/hotel/SearchBar';
 import hotelBlock from '@/pages/hotel/hotelBlock';
