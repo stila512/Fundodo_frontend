@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './SearchBar.module.css';
+import styles from './SearchBar.module.scss';
 import { IoIosSearch } from "react-icons/io";
 import FddBtn from '@/components/buttons/fddBtn';
 
