@@ -1,6 +1,6 @@
 import scss from '@/pages/prod/index.module.scss';
 import Head from 'next/head';
-import NavHeader from '@/components/layout/navHeader';
+import DefaultLayout from '@/components/layout/default';
 import Section from '@/pages/prod/section';
 import Breadcrumb from '@/pages/prod/breadcrumb';
 import Select from '@/pages/prod/select';
@@ -15,17 +15,23 @@ export default function ProductList() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <NavHeader />
       <main className={style.container}>
         <Section />
-        <div className={[style.dFlex, scss.justifyContentBetween, scss.margin].join(' ')}>
+        <div
+          className={[
+            style.dFlex,
+            scss.justifyContentBetween,
+            scss.margin,
+          ].join(' ')}
+        >
           <Breadcrumb />
           <Select />
         </div>
         <div>
-          <Aside /> 
+          <Aside />
         </div>
       </main>
     </>
   );
 }
+ProductList.layout = DefaultLayout;
