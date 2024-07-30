@@ -1,5 +1,4 @@
-import NavHeader from '@/components/layout/navHeader';
-import Footer from '@/components/layout/footer';
+import DefaultLayout from '@/components/layout/default';
 import scss from './member.module.scss';
 import logo from '@/public/logo_temp.png';
 import Image from 'next/image';
@@ -7,7 +6,6 @@ import Image from 'next/image';
 export default function MemberPage() {
   return (
     <>
-      <NavHeader></NavHeader>
       <main className={scss.container}>
         <div className={scss.text}>
           <h3>
@@ -29,7 +27,7 @@ export default function MemberPage() {
           <button className={scss.bSecondary}>完善會員資料</button>
         </div>
       </main>
-      <Footer></Footer>
     </>
   );
 }
+MemberPage.layout = DefaultLayout;

@@ -1,7 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
-import NavHeader from '@/components/layout/default/navHeader';
-import Footer from '@/components/layout/default/footer';
+import DefaultLayout from '@/components/layout/default';
 import style from '@/styles/style.module.scss';
 import scss from '@/pages/article/index.module.scss';
 import UserAction from './userAction';
@@ -18,10 +17,7 @@ export default function Index() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className={[scss.mb1].join()}>
-        <NavHeader />
-      </div>
-      <main className={style.container}>
+      <main className={style.container} style={{ marginTop: '100px' }}>
         <UserAction />
 
         <div className={[scss.mainArea].join()}>
@@ -30,7 +26,8 @@ export default function Index() {
           <PageControl />
         </div>
       </main>
-      <Footer />
     </>
   );
 }
+
+Index.layout = DefaultLayout;
