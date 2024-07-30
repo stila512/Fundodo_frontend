@@ -15,3 +15,34 @@
 ## 命名原則
 
 避免命名原則的切換導致混淆，將能用字串輸入的 global style 與用物件輸入的 module style 的命名皆設定一致的駝峰原則。
+
+
+## 稿
+
+class 類在區域檔要用再引入
+variable 類以單檔簡化引入
+modal 暫時擱置，待元件化
+
+[-L]
+[G-]
+[GL]
+
+[GL]_base-function
+[G-]_container
+[GL]_grid-breakpoints
+[G-]_grid-system
+[GL]_rwd-system
+
+[GL]color-function
+[GL]colors
+[GL]exported-color.module
+[GL]font
+[G-]utility-class
+[-L]utility-mixin
+
+-- global 入口 --
+[G-]global.scss
+[G-]reset.css
+
+-- local 入口 --
+[-L]index.scss
