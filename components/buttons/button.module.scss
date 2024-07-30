@@ -78,7 +78,7 @@
   //顏色
   .btn#{$color} {
     background-color: $value;
-    color: color-contrast($value, shift-color($value, 60%));
+    color: shift-color($value, 60%);
     border: none;
   }
   .btn#{$color}Icon {
