@@ -6,7 +6,7 @@ import shiba from 'public/prodPic/shiba.png';
 export default function Section() {
   return (
     <>
-      <section className={scss.mt3}>
+      <section className={scss.mt}>
         <div className={[scss.section, style.dFlex, style.container].join(' ')}>
           <div className={scss.shibaBox}>
             <Image src={shiba} alt={shiba} />

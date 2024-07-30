@@ -1,0 +1,60 @@
+.productGrid {
+  margin-top: 34px;
+  display: flex;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 23.5rem;
+  align-items: flex-start;
+  border-radius: 12px;
+  border: 1px solid #e7e1db;
+  padding: 0;
+}
+.heartIconBox {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  padding-top: 17px;
+  padding-right: 14.23px;
+}
+.heartIcon {
+  width: 1.423rem;
+  height: 1.4774375rem;
+}
+.prodImg {
+  width: 11rem;
+  height: 11rem;
+}
+.prodImgBox {
+  margin: 0 auto;
+}
+.textarea {
+  padding-left: 1.53rem;
+  padding-right: 1.53rem;
+  margin-top: 0.5rem;
+}
+.prodName {
+  color: #424242;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: 'Noto Sans';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px;
+}
+.prodPrice {
+  color: var(--shade3, #5d524d);
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: 'Noto Sans';
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+}
+.btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
