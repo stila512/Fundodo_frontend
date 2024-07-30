@@ -1,0 +1,16 @@
+@import '@/styles/';
+
+table.cartTable {
+  margin: 0 auto;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table.cartTable thead {
+  background-color: $color-shade-2;
+  color: $white;
+
+  th {
+    padding-block: 0.5rem;
+  }
+}

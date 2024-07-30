@@ -1,4 +1,4 @@
-import NavHeader from '@/components/layout/navHeader';
+import DefaultLayout from '@/components/layout/default';
 import scss from './login.module.scss';
 import Image from 'next/image';
 import lfpic from '@/public/login.svg';
@@ -46,3 +46,4 @@ export default function RegisterPage() {
     </main>
   );
 }
+RegisterPage.layout = DefaultLayout;
