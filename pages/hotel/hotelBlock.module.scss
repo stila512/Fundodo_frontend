@@ -1,2 +1,62 @@
 @import '@/styles/scss/_container.scss';
 @import '@/styles/useful/colors.scss';
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.h3 {
+  color: #6F625C;
+  margin-bottom: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.card {
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 26px;
+}
+
+.image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.hotelName {
+  color: #37312E;
+  font-weight: bold;
+  margin: 10px 0;
+  padding: 0 15px;
+}
+
+.description {
+  font-size: 14px;
+  color: #424242;
+  flex-grow: 1;
+  padding: 0 15px;
+}
+
+.button {
+  background-color: #B9A69D;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: darken(#B9A69D, 10%);
+  }
+}

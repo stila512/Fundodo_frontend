@@ -7,26 +7,14 @@
   padding: 20px;
 }
 
-.mt3 {
-  margin-top: 95px;
-}
-.section {
-  width: 1440px;
-  height: 342px;
-  border-radius: 41px;
-}
 
 .pageContainer {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  margin-right: 80px;
+  margin-left: 80px;
+
 }
 
-.mainContent {
-  margin-top: 70px;
-  flex: 1;
-}
 
-.mainArea {
-  margin-top: 90px;
-}
