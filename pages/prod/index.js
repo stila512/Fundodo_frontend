@@ -6,6 +6,8 @@ import Breadcrumb from '@/pages/prod/breadcrumb';
 import Select from '@/pages/prod/select';
 import style from '@/styles/style.module.scss';
 import Aside from '@/pages/prod/aside';
+import ProductGrid from './productGrid';
+
 export default function ProductList() {
   return (
     <>
@@ -27,8 +29,9 @@ export default function ProductList() {
           <Breadcrumb />
           <Select />
         </div>
-        <div>
+        <div className={[style.dFlex, scss.gap, scss.mt].join(' ')}>
           <Aside />
+          <ProductGrid />
         </div>
       </main>
     </>

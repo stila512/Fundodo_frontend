@@ -1,12 +1,11 @@
 @import '@/styles/scss/_container.scss';
 @import '@/styles/useful/colors.scss';
 
-.mt3 {
-  margin-top: 95px;
+.mt {
+  margin-top: 93px;
 }
 .section {
-  width: 1440px;
-  height: 342px;
+  width: 100%;
   border-radius: 41px;
   background-image: url(/prodPic/Rectangle647.png);
   background-size: cover;

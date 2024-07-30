@@ -14,7 +14,7 @@
     appearance: none; // 隱藏預設下箭頭
     -webkit-appearance: none;
     -moz-appearance: none;
-    width: fit-content;
+    width: 9rem;
     padding: 6px 14px; // 留空間給自訂箭頭
     border: 1px solid $primary;
     border-radius: 50px;
@@ -22,8 +22,6 @@
 }
 
 .arrow {
-  width: 14px;
-  height: 8px;
-  background-image: url(/prodPic/Vector.png);
-  background-repeat: no-repeat;
+  position: relative;
+  left: -2rem;
 }
