@@ -27,9 +27,9 @@ modal 暫時擱置，待元件化
 [G-]
 [GL]
 
-[GL]_base-function
+[G-]_base-function
 [G-]_container
-[GL]_grid-breakpoints
+[G-]_grid-breakpoints
 [G-]_grid-system
 [GL]_rwd-system
 
@@ -38,11 +38,12 @@ modal 暫時擱置，待元件化
 [GL]exported-color.module
 [GL]font
 [G-]utility-class
-[-L]utility-mixin
+[GL]utility-mixin
 
 -- global 入口 --
+[G-]all.scss
 [G-]global.scss
 [G-]reset.css
 
 -- local 入口 --
-[-L]index.scss
+[-L]local.scss

@@ -1,4 +1,4 @@
-@import '../styles/useful/colors.scss';
+@use '@/styles/useful/colors.scss' as c;
 .h1,
 .h2 {
   margin-block: 1rem;
@@ -19,33 +19,33 @@
     }
   }
   div:nth-child(1) a {
-    background-color: $primary;
+    background-color: c.$primary;
   }
   div:nth-child(2) a {
-    background-color: $dark;
-    color: $light;
+    background-color: c.$dark;
+    color: c.$light;
   }
   div:nth-child(3) a {
-    background-color: $warning;
+    background-color: c.$warning;
   }
   div:nth-child(4) a {
-    background-color: $color-shade-1;
-    color: $secondary;
+    background-color: c.$color-shade-1;
+    color: c.$secondary;
   }
   div:nth-child(5) a {
-    background-color: $info;
+    background-color: c.$info;
   }
   div:nth-child(6) a {
-    background-color: $error-text;
-    color: $secondary;
+    background-color: c.$error-text;
+    color: c.$secondary;
   }
   div:nth-child(7) a {
-    background-color: $color-shade-2;
-    color: $color-tint-4;
+    background-color: c.$color-shade-2;
+    color: c.$color-tint-4;
   }
   div:nth-child(8) a {
-    background-color: $info-text;
-    color: $light;
+    background-color: c.$info-text;
+    color: c.$light;
   }
 }
 
@@ -66,7 +66,7 @@
     padding: .5rem;
     font-size: 1rem;
     line-height: 2;
-    border: 1px solid $color-tint-3;
+    border: 1px solid c.$color-tint-3;
 
     p {
       margin-top: 0.5rem;
