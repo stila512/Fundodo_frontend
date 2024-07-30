@@ -14,36 +14,37 @@ export default function RegisterPage() {
           <div className={scss.area1}>
             <p className={scss.h5}>建立帳號</p>
             <p>
-              已經有帳號了嗎?<span>登入</span>
+              已經有帳號了嗎?<span className={scss.loginSpan}>登入</span>
             </p>
           </div>
           <div className={scss.area2}>
-            <p>使用者名稱</p>
+            <label>使用者名稱</label>
             <input type="text" />
-            <p>電子郵件地址</p>
+            <label>電子郵件地址</label>
             <input type="text" />
             <div>
-              <p>密碼</p>
+              <label>密碼</label>
               <input type="text" />
               <p>使用8個或以上的字元, 包含字母數字和符號</p>
             </div>
             <div>
-              <p>再次確認密碼</p>
+              <label>再次確認密碼</label>
               <input type="text" />
               <p>使用8個或以上的字元, 包含字母數字和符號</p>
             </div>
           </div>
-          <p>創建帳號即表示您同意我們的使用條款 和 隱私政策。</p>
-          <div className={scss.area3}>
-            <button>建立帳號</button>
+            <div className={scss.area3}>
+            <p>創建帳號即表示您同意我們的<span className={scss.a3Span}>使用條款</span> 和<span className={scss.a3Span}>隱私政策</span>。</p>
+            </div>
+          <div className={scss.area4}>
+            <button className={scss.createBtn}>建立帳號</button>
             <p>
-              已經有帳號了嗎?<span>登入</span>
+              已經有帳號了嗎?<span className={scss.loginSpan}>登入</span>
             </p>
           </div>
         </div>
-        <button>x</button>
+        <button className={scss.xBtn}>x</button>
       </div>
     </main>
   );
 }
-RegisterPage.layout = DefaultLayout;

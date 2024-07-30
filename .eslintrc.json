@@ -32,7 +32,7 @@
     "plugin:import/errors",
     "next",
     "next/core-web-vitals",
-    "prettier"
+    "prettier","next/babel","next/core-web-vitals"
   ],
   "plugins": ["jsx-a11y", "react", "react-hooks", "prettier"],
   "rules": {
