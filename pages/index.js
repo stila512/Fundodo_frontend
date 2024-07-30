@@ -32,7 +32,7 @@ export default function Home() {
                   <Link href="">會員</Link>
                 </div>
                 <div className="col6 col_lg4">
-                  <Link href="">旅館</Link>
+                  <Link href="/hotel">旅館</Link>
                 </div>
                 <div className="col6 col_lg4">
                   <Link href="">文章</Link>

@@ -38,7 +38,7 @@ export default function SearchBar() {
           </div>
 
         </div>
-        <button className={[FddBtn.sortBtn].join()}>搜尋旅館</button>
+        <FddBtn href="#">搜尋旅館</FddBtn>
       </div>
 
     </>

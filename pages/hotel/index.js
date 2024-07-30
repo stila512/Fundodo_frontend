@@ -2,7 +2,8 @@ import React from 'react';
 import NavHeader from '@/components/layout/navHeader';
 import styles from '@/pages/hotel/index.module.scss';
 import SearchBar from '@/pages/hotel/SearchBar';
-import hotelBlock from '@/pages/hotel/hotelBlock';
+import hotelBlock from './hotelBlock';
+import Head from 'next/head';
 
 
 export default function HotelPage() {
