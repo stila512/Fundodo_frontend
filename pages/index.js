@@ -29,7 +29,7 @@ export default function Home() {
                   <Link href="/prod">商品</Link>
                 </div>
                 <div className="col6 col_lg4">
-                  <Link href="">會員</Link>
+                  <Link href="/member">會員</Link>
                 </div>
                 <div className="col6 col_lg4">
                   <Link href="/hotel">旅館</Link>
