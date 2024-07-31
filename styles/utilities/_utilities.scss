@@ -189,6 +189,7 @@ $utilities: map-merge(
     'align-items': (
       responsive: true,
       property: align-items,
+      class:al,
       values: (
         Start: flex-start,
         End: flex-end,
