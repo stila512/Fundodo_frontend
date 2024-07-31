@@ -14,17 +14,16 @@ export default function Logo({ width = 210, href = undefined }) {
   if (href) {
     return (
       <Link
-        className="imgWrap dBlock"
-        style={{ maxWidth: width }}
+        className="dBlock" style={{maxWidth: width, width: 'fit-content'}}
         href={href}
       >
-        <Image src={logo} alt="FUNDODO logo" />
+        <Image src={logo} width={width} alt="FUNDODO logo" />
       </Link>
     );
   } else {
     return (
-      <div className="imgWrap" style={{ maxWidth: width }}>
-        <Image src={logo} alt="FUNDODO logo" />
+      <div style={{maxWidth: width, width: 'fit-content'}}>
+        <Image src={logo} width={width} alt="FUNDODO logo" />
       </div>
     );
   }

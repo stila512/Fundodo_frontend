@@ -16,7 +16,7 @@ export default function Footer() {
   return (
     <footer className={s.foo}>
       {/* footer h: 454 */}
-      <div className={[s.fooBody, s.container].join(' ')}>
+      <div className={[s.fooBody, 'container'].join(' ')}>
         {/* h: 302 */}
         <section className={s.fooL}>
           <Logo width={213}></Logo>
