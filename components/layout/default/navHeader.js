@@ -11,9 +11,9 @@ import NavFuncBtns from '../NavFuncBtns';
 export default function NavHeader() {
   return (
     <header className={scss.layout}>
-      <div className={scss.container}>
+      <div className='container'>
         <Logo width={210} href="/"></Logo>
-        <nav className={scss.txPrimary}>
+        <nav className='txPrimary'>
           <NavLinks />
           <NavFuncBtns />
         </nav>

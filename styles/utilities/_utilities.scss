@@ -428,7 +428,7 @@ $utilities: map-merge(
         property: border-radius,
         class: rounded,
         values: (
-          null: v.$border-radius,
+          null: v.$border-radius, 
           0: 0,
           1: v.$border-radius-sm,
           2: v.$border-radius,

@@ -29,7 +29,7 @@ export default function Home() {
                   <Link href="/prod">商品</Link>
                 </div>
                 <div className="col6 col_lg4">
-                  <Link href="">會員</Link>
+                  <Link href="/member">會員</Link>
                 </div>
                 <div className="col6 col_lg4">
                   <Link href="/hotel">旅館</Link>
@@ -185,6 +185,14 @@ export default function Home() {
                       <FaArrowRightLong />
 
                       <FddBtn color="info" outline callback={() => {}}>
+                        人家是按鈕
+                      </FddBtn>
+                    </p>
+                    <p>
+                      <span>使用 $color-tint-3</span>
+                      <FaArrowRightLong />
+
+                      <FddBtn color="tint3" outline callback={() => {}}>
                         人家是按鈕
                       </FddBtn>
                     </p>

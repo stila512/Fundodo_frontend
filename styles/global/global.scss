@@ -1,7 +1,6 @@
 @use 'lib-global.scss' as s;
 
 html {
-  // font-family: var(--font-noto);
   @include s.ff-noto(12px, 16px);
 }
 
