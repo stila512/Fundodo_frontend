@@ -1,10 +1,7 @@
-import '@/styles/reset.css';
-import '@/styles/global.scss';
-//todo: test ↓↓↓↓↓
-import '@/styles/utilities/_utilities_api.scss';
-//todo: test ↑↑↑↑↑
-//字型僅於此匯入一次，即可全域使用
+import '@/styles/global/index.scss';
+//所有全域樣式
 import '@fontsource/zen-maru-gothic'; //only 400
+//字型僅於此匯入一次，即可全域使用
 // import '@fontsource/zen-maru-gothic/300.css';
 // import '@fontsource/zen-maru-gothic/400.css';
 // import '@fontsource/zen-maru-gothic/500.css';

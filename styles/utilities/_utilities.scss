@@ -1,4 +1,4 @@
-@import "variables";
+@use 'variables' as v;
 // 以下擷取自 Bootstrap
 
 $utilities: () !default;
@@ -13,77 +13,85 @@ $utilities: map-merge(
     // ),
     // scss-docs-end utils-vertical-align
     // scss-docs-start utils-display
-    "display": (
-      responsive: true,
-      print: true,
-      property: display,
-      class: d,
-      values: $display-list
-    ),
+    'display':
+      (
+        responsive: true,
+        property: display,
+        class: d,
+        values: v.$display-list,
+      ),
     // scss-docs-end utils-display
     // scss-docs-start utils-position
-    "position": (
-      property: position,
-      class: pos,
-      values: static relative absolute fixed sticky
-    ),
-    "top": (
+    'position':
+      (
+        property: position,
+        class: pos,
+        values: v.$position-list,
+      ),
+    'top': (
       property: top,
-      values: $position-values
+      values: v.$position-values,
     ),
-    "bottom": (
+    'bottom': (
       property: bottom,
-      values: $position-values
+      values: v.$position-values,
     ),
-    "start": (
+    'start': (
       property: left,
       class: start,
-      values: $position-values
+      values: v.$position-values,
     ),
-    "end": (
+    'end': (
       property: right,
       class: end,
-      values: $position-values
+      values: v.$position-values,
     ),
-    "translate-middle": (
+    'translate-middle': (
       property: transform,
-      class: translate-middle,
+      class: translateMiddle,
       values: (
         null: translate(-50%, -50%),
         x: translateX(-50%),
         y: translateY(-50%),
-      )
+      ),
     ),
     // scss-docs-end utils-position
     // Sizing utilities
     // scss-docs-start utils-sizing
-    "width": (
-      property: width,
-      class: w,
-      values: (
-        25: 25%,
-        50: 50%,
-        75: 75%,
-        100: 100%,
-        auto: auto
-      )
-    ),
-    "max-width": (
+    'width':
+      (
+        property: width,
+        class: w,
+        values: (
+          25: 25%,
+          50: 50%,
+          75: 75%,
+          100: 100%,
+          Auto: auto,
+        ),
+      ),
+    'max-width': (
       property: max-width,
-      class: mw,
-      values: (100: 100%)
+      class: maxW,
+      values: (
+        100: 100%,
+      ),
     ),
-    "viewport-width": (
+    'viewport-width': (
       property: width,
       class: vw,
-      values: (100: 100vw)
+      values: (
+        100: 100vw,
+      ),
     ),
-    "min-viewport-width": (
+    'min-viewport-width': (
       property: min-width,
-      class: min-vw,
-      values: (100: 100vw)
+      class: minVw,
+      values: (
+        100: 100vw,
+      ),
     ),
-    "height": (
+    'height': (
       property: height,
       class: h,
       values: (
@@ -91,63 +99,81 @@ $utilities: map-merge(
         50: 50%,
         75: 75%,
         100: 100%,
-        auto: auto
-      )
+        Auto: auto,
+      ),
     ),
-    "max-height": (
+    'max-height': (
       property: max-height,
-      class: mh,
-      values: (100: 100%)
+      class: maxH,
+      values: (
+        100: 100%,
+      ),
     ),
-    "viewport-height": (
+    'viewport-height': (
       property: height,
       class: vh,
-      values: (100: 100vh)
+      values: (
+        100: 100vh,
+      ),
     ),
-    "min-viewport-height": (
+    'min-viewport-height': (
       property: min-height,
-      class: min-vh,
-      values: (100: 100vh)
+      class: minVh,
+      values: (
+        100: 100vh,
+      ),
     ),
     // scss-docs-end utils-sizing
     // Flex utilities
     // scss-docs-start utils-flex
-    "flex": (
-      responsive: true,
-      property: flex,
-      values: (fill: 1 1 auto)
-    ),
-    "flex-direction": (
+    'flex':
+      (
+        responsive: true,
+        property: flex,
+        values: (
+          fill: 1 1 auto,
+        ),
+      ),
+    'flex-direction': (
       responsive: true,
       property: flex-direction,
       class: flex,
-      values: row column row-reverse column-reverse
+      values: (
+        R: row,
+        C: column,
+        RR: row-reverse,
+        CR: column-reverse,
+      ),
     ),
-    "flex-grow": (
+    'flex-grow': (
       responsive: true,
       property: flex-grow,
       class: flex,
       values: (
-        grow-0: 0,
-        grow-1: 1,
-      )
+        G0: 0,
+        G1: 1,
+      ),
     ),
-    "flex-shrink": (
+    'flex-shrink': (
       responsive: true,
       property: flex-shrink,
       class: flex,
       values: (
-        shrink-0: 0,
-        shrink-1: 1,
-      )
+        S0: 0,
+        S1: 1,
+      ),
     ),
-    "flex-wrap": (
+    'flex-wrap': (
       responsive: true,
       property: flex-wrap,
       class: flex,
-      values: wrap nowrap wrap-reverse
+      values: (
+        Wrap: wrap,
+        Nowrap: nowrap,
+        WrapReverse: wrap-reverse,
+      ),
     ),
-    "justify-content": (
+    'justify-content': (
       responsive: true,
       property: justify-content,
       class: jc,
@@ -158,19 +184,19 @@ $utilities: map-merge(
         Between: space-between,
         Around: space-around,
         Evenly: space-evenly,
-      )
+      ),
     ),
-    // "align-items": (
-    //   responsive: true,
-    //   property: align-items,
-    //   values: (
-    //     start: flex-start,
-    //     end: flex-end,
-    //     center: center,
-    //     baseline: baseline,
-    //     stretch: stretch,
-    //   )
-    // ),
+    'align-items': (
+      responsive: true,
+      property: align-items,
+      values: (
+        Start: flex-start,
+        End: flex-end,
+        Center: center,
+        Baseline: baseline,
+        Stretch: stretch,
+      ),
+    ),
     // "align-content": (
     //   responsive: true,
     //   property: align-content,
@@ -198,123 +224,169 @@ $utilities: map-merge(
     // scss-docs-end utils-flex
     // Margin utilities
     // scss-docs-start utils-spacing
-    "margin": (
-      responsive: true,
-      property: margin,
-      class: m,
-      values: map-merge($spacers, (Auto: auto))
-    ),
-    "margin-x": (
+    'margin':
+      (
+        responsive: true,
+        property: margin,
+        class: m,
+        values:
+          map-merge(
+            v.$spacers,
+            (
+              Auto: auto,
+            )
+          ),
+      ),
+    'margin-x': (
       responsive: true,
       property: margin-right margin-left,
       class: mx,
-      values: map-merge($spacers, (Auto: auto))
+      values:
+        map-merge(
+          v.$spacers,
+          (
+            Auto: auto,
+          )
+        ),
     ),
-    "margin-y": (
+    'margin-y': (
       responsive: true,
       property: margin-top margin-bottom,
       class: my,
-      values: map-merge($spacers, (Auto: auto))
+      values:
+        map-merge(
+          v.$spacers,
+          (
+            Auto: auto,
+          )
+        ),
     ),
-    "margin-top": (
+    'margin-top': (
       responsive: true,
       property: margin-top,
       class: mt,
-      values: map-merge($spacers, (Auto: auto))
+      values:
+        map-merge(
+          v.$spacers,
+          (
+            Auto: auto,
+          )
+        ),
     ),
-    "margin-end": (
+    'margin-end': (
       responsive: true,
       property: margin-right,
       class: me,
-      values: map-merge($spacers, (Auto: auto))
+      values:
+        map-merge(
+          v.$spacers,
+          (
+            Auto: auto,
+          )
+        ),
     ),
-    "margin-bottom": (
+    'margin-bottom': (
       responsive: true,
       property: margin-bottom,
       class: mb,
-      values: map-merge($spacers, (Auto: auto))
+      values:
+        map-merge(
+          v.$spacers,
+          (
+            Auto: auto,
+          )
+        ),
     ),
-    "margin-start": (
+    'margin-start': (
       responsive: true,
       property: margin-left,
       class: ms,
-      values: map-merge($spacers, (Auto: auto))
+      values:
+        map-merge(
+          v.$spacers,
+          (
+            Auto: auto,
+          )
+        ),
     ),
     // Padding utilities
-    "padding": (
-      responsive: true,
-      property: padding,
-      class: p,
-      values: $spacers
-    ),
-    "padding-x": (
+    'padding':
+      (
+        responsive: true,
+        property: padding,
+        class: p,
+        values: v.$spacers,
+      ),
+    'padding-x': (
       responsive: true,
       property: padding-right padding-left,
       class: px,
-      values: $spacers
+      values: v.$spacers,
     ),
-    "padding-y": (
+    'padding-y': (
       responsive: true,
       property: padding-top padding-bottom,
       class: py,
-      values: $spacers
+      values: v.$spacers,
     ),
-    "padding-top": (
+    'padding-top': (
       responsive: true,
       property: padding-top,
       class: pt,
-      values: $spacers
+      values: v.$spacers,
     ),
-    "padding-end": (
+    'padding-end': (
       responsive: true,
       property: padding-right,
       class: pe,
-      values: $spacers
+      values: v.$spacers,
     ),
-    "padding-bottom": (
+    'padding-bottom': (
       responsive: true,
       property: padding-bottom,
       class: pb,
-      values: $spacers
+      values: v.$spacers,
     ),
-    "padding-start": (
+    'padding-start': (
       responsive: true,
       property: padding-left,
       class: ps,
-      values: $spacers
+      values: v.$spacers,
     ),
     // Gap utility
-    "gap": (
-      responsive: true,
-      property: gap,
-      class: gap,
-      values: $spacers
-    ),
+    'gap':
+      (
+        responsive: true,
+        property: gap,
+        class: gap,
+        values: v.$spacers,
+      ),
     // "row-gap": (
     //   responsive: true,
     //   property: row-gap,
     //   class: row-gap,
-    //   values: $spacers
+    //   values: v.$spacers
     // ),
     // "column-gap": (
     //   responsive: true,
     //   property: column-gap,
     //   class: column-gap,
-    //   values: $spacers
+    //   values: v.$spacers
     // ),
     // scss-docs-end utils-spacing
     // Text
     // scss-docs-start utils-text
-    "text-align": (
-      responsive: true,
-      property: text-align,
-      class: tx,
-      values: (
-        Start: left,
-        End: right,
-        Center: center,
-      )
-    ),
+    'text-align':
+      (
+        responsive: true,
+        property: text-align,
+        class: tx,
+        values: (
+          Start: left,
+          End: right,
+          Center: center,
+        ),
+      ),
     // "white-space": (
     //   property: white-space,
     //   class: text,
@@ -331,91 +403,101 @@ $utilities: map-merge(
     // ),
     // scss-docs-end utils-text
     // scss-docs-start utils-interaction
-    "user-select": (
-      property: user-select,
-      values: all auto none
-    ),
-    "pointer-events": (
+    'user-select':
+      (
+        property: user-select,
+        class: userSelect,
+        values: (
+          All: all,
+          Auto: auto,
+          None: none,
+        ),
+      ),
+    'pointer-events': (
       property: pointer-events,
       class: pe,
-      values: none auto,
+      values: (
+        None: none,
+        Auto: auto,
+      ),
     ),
     // scss-docs-end utils-interaction
     // scss-docs-start utils-border-radius
-    "rounded": (
-      property: border-radius,
-      class: rounded,
-      values: (
-        null:$border-radius,
-        0: 0,
-        1:$border-radius-sm,
-        2:$border-radius,
-        3:$border-radius-lg,
-        4:$border-radius-xl,
-        5:$border-radius-xxl,
-        circle: 50%,
-        pill:$border-radius-pill
-      )
-    ),
-    "rounded-top": (
+    'rounded':
+      (
+        property: border-radius,
+        class: rounded,
+        values: (
+          null: v.$border-radius,
+          0: 0,
+          1: v.$border-radius-sm,
+          2: v.$border-radius,
+          3: v.$border-radius-lg,
+          4: v.$border-radius-xl,
+          5: v.$border-radius-xxl,
+          Circle: 50%,
+          Pill: v.$border-radius-pill,
+        ),
+      ),
+    'rounded-top': (
       property: border-top-left-radius border-top-right-radius,
-      class: rounded-top,
+      class: roundedT,
       values: (
-        null:$border-radius,
+        null: v.$border-radius,
         0: 0,
-        1:$border-radius-sm,
-        2:$border-radius,
-        3:$border-radius-lg,
-        4:$border-radius-xl,
-        5:$border-radius-xxl,
-        circle: 50%,
-        pill:$border-radius-pill
-      )
+        1: v.$border-radius-sm,
+        2: v.$border-radius,
+        3: v.$border-radius-lg,
+        4: v.$border-radius-xl,
+        5: v.$border-radius-xxl,
+        Circle: 50%,
+        Pill: v.$border-radius-pill,
+      ),
     ),
-    "rounded-end": (
+    'rounded-end': (
       property: border-top-right-radius border-bottom-right-radius,
-      class: rounded-end,
+      class: roundedR,
       values: (
-        null:$border-radius,
+        null: v.$border-radius,
         0: 0,
-        1:$border-radius-sm,
-        2:$border-radius,
-        3:$border-radius-lg,
-        4:$border-radius-xl,
-        5:$border-radius-xxl,
-        circle: 50%,
-        pill:$border-radius-pill
-      )
+        1: v.$border-radius-sm,
+        2: v.$border-radius,
+        3: v.$border-radius-lg,
+        4: v.$border-radius-xl,
+        5: v.$border-radius-xxl,
+        Circle: 50%,
+        Pill: v.$border-radius-pill,
+      ),
     ),
-    "rounded-bottom": (
+    'rounded-bottom': (
       property: border-bottom-right-radius border-bottom-left-radius,
-      class: rounded-bottom,
+      class: roundedB,
       values: (
-        null:$border-radius,
+        null: v.$border-radius,
         0: 0,
-        1:$border-radius-sm,
-        2:$border-radius,
-        3:$border-radius-lg,
-        4:$border-radius-xl,
-        5:$border-radius-xxl,
-        circle: 50%,
-        pill:$border-radius-pill
-      )
+        1: v.$border-radius-sm,
+        2: v.$border-radius,
+        3: v.$border-radius-lg,
+        4: v.$border-radius-xl,
+        5: v.$border-radius-xxl,
+        Circle: 50%,
+        Pill: v.$border-radius-pill,
+      ),
     ),
-    "rounded-start": (
+    'rounded-start': (
       property: border-bottom-left-radius border-top-left-radius,
-      class: rounded-start,
+      class: roundedL,
       values: (
-        null:$border-radius,
+        null: v.$border-radius,
         0: 0,
-        1:$border-radius-sm,
-        2:$border-radius,
-        3:$border-radius-lg,
-        4:$border-radius-xl,
-        5:$border-radius-xxl,
-        circle: 50%,
-        pill:$border-radius-pill
-      )
+        1: v.$border-radius-sm,
+        2: v.$border-radius,
+        3: v.$border-radius-lg,
+        4: v.$border-radius-xl,
+        5: v.$border-radius-xxl,
+        Circle: 50%,
+        Pill: v.$border-radius-pill,
+      ),
     ),
     // scss-docs-end utils-border-radius
   ),

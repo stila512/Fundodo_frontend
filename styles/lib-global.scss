@@ -1,16 +1,9 @@
-//================= 前置設定
-// @forward "scss/base-function";
 @forward 'rwd/grid-breakpoints';
 @forward "rwd/rwd-system";
 @forward "rwd/grid-system";
 @forward "rwd/container";
 
-//================= 通用樣式
 @forward "color/variables";
 @forward "color/function";
 
-@forward "utilities/font";
-@forward "utilities/utility-class";
-@forward "utilities/utility-mixin";
-
-// @forward "component/modal";
+@forward "utilities";

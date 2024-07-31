@@ -17,6 +17,11 @@ main .row {
   flex-wrap: wrap;
 }
 
+.ball {
+  @include circle-of(50px);
+  background-color: $secondary;
+}
+
 //todo: 將腳印款式更新，使用 pi/PiPawPrintFill
 
 .bPrimary2:has(.test-paw) {

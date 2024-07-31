@@ -42,9 +42,17 @@ export default function TestPage() {
           </div>
           <div className="col6">
             <div className={scss.msgRegisterSuccess}>
-            <div className="bgPrimary">1</div>
-            <div className="bgPrimary mt3 dFlex" style={{width: '50%'}}>2</div>
-            <div className="bgPrimary mt3 dInline" style={{width: '50%'}}>3</div>
+              <div className="bgPrimary">1</div>
+              <div className="bgPrimary mt3 dFlex" style={{ width: '50%' }}>2</div>
+              <div className="bgPrimary mt3 dInline" style={{ width: '50%' }}>3</div>
+              <div className="dFlex jcBetween">
+                <div className={scss.ball}></div>
+                <div className={scss.ball}></div>
+                <div className={scss.ball}></div>
+                <div className={scss.ball}></div>
+                <div className={scss.ball}></div>
+              </div>
+              <div className="bgInfo roundedBPill mx5" style={{lineHeight: 2}}>5</div>
             </div>
           </div>
         </div>

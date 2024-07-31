@@ -27,17 +27,27 @@ $border-radius-xxl:           2rem !default;
 $border-radius-pill:          50rem !default;
 // scss-docs-end border-radius-variables
 
-// display
+// scss-docs-start display
 $display-list: (
   Inline: inline,
-  InlineBlock: inline-block,
+  IBlock: inline-block,
   Block: block,
   Grid: grid,
-  InlineGrid: inline-grid,
+  IGrid: inline-grid,
   Table: table,
   TableRow: table-row,
   TableCell: table-cell,
   Flex: flex,
-  InlineFlex: inline-flex,
+  IFlex: inline-flex,
   None: none
 );
+// scss-docs-end display
+// scss-docs-start utils-position
+$position-list: (
+  Static: static,
+  R: relative,
+  A: absolute,
+  F: fixed,
+  Sticky: sticky
+);
+// scss-docs-end utils-position
