@@ -1,10 +1,10 @@
 import scss from '@/pages/prod/index.module.scss';
 import Head from 'next/head';
 import DefaultLayout from '@/components/layout/default';
-import Section from '@/pages/prod/section';
-import Breadcrumb from '@/pages/prod/breadcrumb';
-import Select from '@/pages/prod/select';
-import Aside from '@/pages/prod/aside';
+import Section from './section';
+import Breadcrumb from './breadcrumb';
+import Select from './select';
+import Aside from './aside';
 import ProductGrid from './productGrid';
 
 export default function ProductList() {

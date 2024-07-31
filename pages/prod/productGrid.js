@@ -8,7 +8,7 @@ import FddBtn from '@/components/buttons/fddBtn'
 export default function ProductGrid() {
     return (
         <>
-            <div className={[scss.productGrid, 'row', 'g3'].join(' ')}>
+            <div className={[scss.productGrid, 'row ', 'g3',].join(' ')}>
                 <div className='col3'>
                     <div className={scss.card}>
                         <div className={scss.heartIconBox}>

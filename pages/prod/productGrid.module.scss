@@ -1,26 +1,28 @@
+@use '@/styles' as s;
+
 .productGrid {
-  margin-top: 34px;
+  margin-top: 2.125rem;
   display: flex;
 }
+
 .card {
   display: flex;
   flex-direction: column;
   height: 23.5rem;
   align-items: flex-start;
   border-radius: 12px;
-  border: 1px solid #e7e1db;
-  padding: 0;
+  border: 1px solid s.$secondary;
 }
 .heartIconBox {
   width: 100%;
   display: flex;
   justify-content: end;
-  padding-top: 17px;
-  padding-right: 14.23px;
+  padding-top: 1rem;
+  padding-right: 0.8rem;
 }
 .heartIcon {
-  width: 1.423rem;
-  height: 1.4774375rem;
+  width: 1.4rem;
+  height: 1.4rem;
 }
 .prodImg {
   width: 11rem;
@@ -30,27 +32,25 @@
   margin: 0 auto;
 }
 .textarea {
-  padding-left: 1.53rem;
-  padding-right: 1.53rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
   margin-top: 0.5rem;
 }
 .prodName {
-  color: #424242;
-  font-feature-settings: 'clig' off, 'liga' off;
+  color: s.$gray-800;
   font-family: 'Noto Sans';
-  font-size: 16px;
+  font-size: 1rem;
   font-style: normal;
   font-weight: 400;
-  line-height: 21px;
+  line-height: 1.3rem;
 }
 .prodPrice {
-  color: var(--shade3, #5d524d);
-  font-feature-settings: 'clig' off, 'liga' off;
+  color: s.$color-shade-3;
   font-family: 'Noto Sans';
-  font-size: 20px;
+  font-size: 1.25rem;
   font-style: normal;
   font-weight: 700;
-  line-height: 20px;
+  line-height: 1.25rem;
 }
 .btn {
   width: 100%;

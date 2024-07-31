@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ReactSlider from 'react-slider';
 import scss from '@/pages/prod/priceFilter.module.scss';
 
@@ -13,7 +13,7 @@ export default function PriceFilter() {
         <div className={scss.priceFilter}>
             <div className={scss.priceRange}>${values[0]} - ${values[1]}</div>
             <ReactSlider
-                className={scss.horizontalSlider}
+                className={[scss.horizontalSlider, 'bgPrimary'].join(' ')}
                 thumbClassName={scss.thumb}
                 trackClassName={scss.track}
                 value={values}
