@@ -10,6 +10,16 @@ const colorList = {
   error: 'Error',
   light: 'Light',
   dark: 'Dark',
+  shade1:'Shade1',
+  shade2:'Shade2',
+  shade3:'Shade3',
+  shade4:'Shade4',
+  shade5:'Shade5',
+  tint1:'Tint1',
+  tint2:'Tint2',
+  tint3:'Tint3',
+  tint4:'Tint4',
+  tint5:'Tint5',
 };
 
 /**
@@ -32,7 +42,6 @@ export default function FddBtn({
   callback = undefined,
   href = '',
 }) {
-  console.log(typeof children);
   if (!Object.prototype.hasOwnProperty.call(colorList, color)) {
     throw new Error(
       '顏色的選擇只有 primary, secondary, info, warning, error, light, dark，請擇一使用'

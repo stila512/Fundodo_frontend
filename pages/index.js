@@ -189,6 +189,14 @@ export default function Home() {
                       </FddBtn>
                     </p>
                     <p>
+                      <span>使用 $color-tint-3</span>
+                      <FaArrowRightLong />
+
+                      <FddBtn color="tint3" outline callback={() => {}}>
+                        人家是按鈕
+                      </FddBtn>
+                    </p>
+                    <p>
                       <FaArrowRightLong />
 
                       <code
