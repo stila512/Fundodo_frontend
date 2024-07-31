@@ -1,3 +1,4 @@
+@import "variables";
 // 以下擷取自 Bootstrap
 
 $utilities: () !default;
@@ -17,7 +18,7 @@ $utilities: map-merge(
       print: true,
       property: display,
       class: d,
-      values: inline inline-block block grid inline-grid table table-row table-cell flex inline-flex none
+      values: $display-list
     ),
     // scss-docs-end utils-display
     // scss-docs-start utils-position
@@ -201,43 +202,43 @@ $utilities: map-merge(
       responsive: true,
       property: margin,
       class: m,
-      values: map-merge($spacers, (auto: auto))
+      values: map-merge($spacers, (Auto: auto))
     ),
     "margin-x": (
       responsive: true,
       property: margin-right margin-left,
       class: mx,
-      values: map-merge($spacers, (auto: auto))
+      values: map-merge($spacers, (Auto: auto))
     ),
     "margin-y": (
       responsive: true,
       property: margin-top margin-bottom,
       class: my,
-      values: map-merge($spacers, (auto: auto))
+      values: map-merge($spacers, (Auto: auto))
     ),
     "margin-top": (
       responsive: true,
       property: margin-top,
       class: mt,
-      values: map-merge($spacers, (auto: auto))
+      values: map-merge($spacers, (Auto: auto))
     ),
     "margin-end": (
       responsive: true,
       property: margin-right,
       class: me,
-      values: map-merge($spacers, (auto: auto))
+      values: map-merge($spacers, (Auto: auto))
     ),
     "margin-bottom": (
       responsive: true,
       property: margin-bottom,
       class: mb,
-      values: map-merge($spacers, (auto: auto))
+      values: map-merge($spacers, (Auto: auto))
     ),
     "margin-start": (
       responsive: true,
       property: margin-left,
       class: ms,
-      values: map-merge($spacers, (auto: auto))
+      values: map-merge($spacers, (Auto: auto))
     ),
     // Padding utilities
     "padding": (
@@ -345,75 +346,75 @@ $utilities: map-merge(
       property: border-radius,
       class: rounded,
       values: (
-        null: var(--#{$prefix}border-radius),
+        null:$border-radius,
         0: 0,
-        1: var(--#{$prefix}border-radius-sm),
-        2: var(--#{$prefix}border-radius),
-        3: var(--#{$prefix}border-radius-lg),
-        4: var(--#{$prefix}border-radius-xl),
-        5: var(--#{$prefix}border-radius-xxl),
+        1:$border-radius-sm,
+        2:$border-radius,
+        3:$border-radius-lg,
+        4:$border-radius-xl,
+        5:$border-radius-xxl,
         circle: 50%,
-        pill: var(--#{$prefix}border-radius-pill)
+        pill:$border-radius-pill
       )
     ),
     "rounded-top": (
       property: border-top-left-radius border-top-right-radius,
       class: rounded-top,
       values: (
-        null: var(--#{$prefix}border-radius),
+        null:$border-radius,
         0: 0,
-        1: var(--#{$prefix}border-radius-sm),
-        2: var(--#{$prefix}border-radius),
-        3: var(--#{$prefix}border-radius-lg),
-        4: var(--#{$prefix}border-radius-xl),
-        5: var(--#{$prefix}border-radius-xxl),
+        1:$border-radius-sm,
+        2:$border-radius,
+        3:$border-radius-lg,
+        4:$border-radius-xl,
+        5:$border-radius-xxl,
         circle: 50%,
-        pill: var(--#{$prefix}border-radius-pill)
+        pill:$border-radius-pill
       )
     ),
     "rounded-end": (
       property: border-top-right-radius border-bottom-right-radius,
       class: rounded-end,
       values: (
-        null: var(--#{$prefix}border-radius),
+        null:$border-radius,
         0: 0,
-        1: var(--#{$prefix}border-radius-sm),
-        2: var(--#{$prefix}border-radius),
-        3: var(--#{$prefix}border-radius-lg),
-        4: var(--#{$prefix}border-radius-xl),
-        5: var(--#{$prefix}border-radius-xxl),
+        1:$border-radius-sm,
+        2:$border-radius,
+        3:$border-radius-lg,
+        4:$border-radius-xl,
+        5:$border-radius-xxl,
         circle: 50%,
-        pill: var(--#{$prefix}border-radius-pill)
+        pill:$border-radius-pill
       )
     ),
     "rounded-bottom": (
       property: border-bottom-right-radius border-bottom-left-radius,
       class: rounded-bottom,
       values: (
-        null: var(--#{$prefix}border-radius),
+        null:$border-radius,
         0: 0,
-        1: var(--#{$prefix}border-radius-sm),
-        2: var(--#{$prefix}border-radius),
-        3: var(--#{$prefix}border-radius-lg),
-        4: var(--#{$prefix}border-radius-xl),
-        5: var(--#{$prefix}border-radius-xxl),
+        1:$border-radius-sm,
+        2:$border-radius,
+        3:$border-radius-lg,
+        4:$border-radius-xl,
+        5:$border-radius-xxl,
         circle: 50%,
-        pill: var(--#{$prefix}border-radius-pill)
+        pill:$border-radius-pill
       )
     ),
     "rounded-start": (
       property: border-bottom-left-radius border-top-left-radius,
       class: rounded-start,
       values: (
-        null: var(--#{$prefix}border-radius),
+        null:$border-radius,
         0: 0,
-        1: var(--#{$prefix}border-radius-sm),
-        2: var(--#{$prefix}border-radius),
-        3: var(--#{$prefix}border-radius-lg),
-        4: var(--#{$prefix}border-radius-xl),
-        5: var(--#{$prefix}border-radius-xxl),
+        1:$border-radius-sm,
+        2:$border-radius,
+        3:$border-radius-lg,
+        4:$border-radius-xl,
+        5:$border-radius-xxl,
         circle: 50%,
-        pill: var(--#{$prefix}border-radius-pill)
+        pill:$border-radius-pill
       )
     ),
     // scss-docs-end utils-border-radius

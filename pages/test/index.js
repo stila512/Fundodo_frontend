@@ -40,6 +40,13 @@ export default function TestPage() {
               </div>
             </div>
           </div>
+          <div className="col6">
+            <div className={scss.msgRegisterSuccess}>
+            <div className="bgPrimary">1</div>
+            <div className="bgPrimary mt3 dFlex" style={{width: '50%'}}>2</div>
+            <div className="bgPrimary mt3 dInline" style={{width: '50%'}}>3</div>
+            </div>
+          </div>
         </div>
       </div>
     </>

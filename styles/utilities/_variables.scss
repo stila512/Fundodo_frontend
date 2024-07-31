@@ -1,0 +1,43 @@
+// scss-docs-start position-map
+$position-values: (
+  0: 0,
+  50: 50%,
+  100: 100%
+) !default;
+// scss-docs-end position-map
+
+// scss-docs-start spacer-variables-maps
+$spacer: 1rem !default;
+$spacers: (
+  0: 0,
+  1: $spacer * .25,
+  2: $spacer * .5,
+  3: $spacer,
+  4: $spacer * 1.5,
+  5: $spacer * 3,
+) !default;
+// scss-docs-end spacer-variables-maps
+
+// scss-docs-start border-radius-variables
+$border-radius:               .375rem !default;
+$border-radius-sm:            .25rem !default;
+$border-radius-lg:            .5rem !default;
+$border-radius-xl:            1rem !default;
+$border-radius-xxl:           2rem !default;
+$border-radius-pill:          50rem !default;
+// scss-docs-end border-radius-variables
+
+// display
+$display-list: (
+  Inline: inline,
+  InlineBlock: inline-block,
+  Block: block,
+  Grid: grid,
+  InlineGrid: inline-grid,
+  Table: table,
+  TableRow: table-row,
+  TableCell: table-cell,
+  Flex: flex,
+  InlineFlex: inline-flex,
+  None: none
+);
