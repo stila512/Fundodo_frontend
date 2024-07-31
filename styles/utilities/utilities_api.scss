@@ -1,0 +1,35 @@
+@use "@/styles/rwd/rwd-system" as rwd;
+
+// 以迴圈套用所有 RWD 斷點
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: rwd.breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    // 以迴圈套用所有 utility property
+    @each $key, $utility in $utilities {
+      // The utility can be disabled with `false`, thus check if the utility is a map first
+      // Only proceed if responsive media queries are enabled or if it's the base media query
+      @if type-of($utility) == "map" and (map-get($utility, responsive) or $infix == "") {
+        @include generate-utility($utility, $infix);
+      }
+    }
+  }
+}
+
+// RFS rescaling
+@media (min-width: $rfs-mq-value) {
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    $infix: rwd.breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    @if (map-get($grid-breakpoints, $breakpoint) < $rfs-breakpoint) {
+      // Loop over each utility property
+      @each $key, $utility in $utilities {
+        // The utility can be disabled with `false`, thus check if the utility is a map first
+        // Only proceed if responsive media queries are enabled or if it's the base media query
+        @if type-of($utility) == "map" and map-get($utility, rfs) and (map-get($utility, responsive) or $infix == "") {
+          @include generate-utility($utility, $infix, true);
+        }
+      }
+    }
+  }
+}
