@@ -1,4 +1,4 @@
-@import '@/styles/lib-local';
+@import '@/styles';
 
 .logo {
   max-width: 210px;
@@ -19,6 +19,7 @@ main .row {
 
 .ball {
   @include circle-of(50px);
+
   background-color: $secondary;
 }
 
@@ -65,6 +66,9 @@ main .row {
   h2 {
     margin-bottom: 1rem;
     font-size: 2rem;
+    @include rwd-above('lg') {
+      font-size: 4rem;
+    }
   }
   p {
     line-height: 2;
