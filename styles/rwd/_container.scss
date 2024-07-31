@@ -1,6 +1,6 @@
-@use "scss/rwd-system" as rwd-system;
-@use '../scss/grid-breakpoints' as gb;
-@use "../scss/grid-system" as grid-system;
+@use 'grid-breakpoints' as gb;
+@use "rwd-system" as rwd-system;
+@use "grid-system" as grid-system;
 
 $container-max-widths: (
   sm: 540px,

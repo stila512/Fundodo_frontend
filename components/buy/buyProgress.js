@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './progress.module.scss';
-import colors from '@/styles/useful/exported-color.module.scss';
+import colors from '@/styles/color/_variables-export.module.scss';
 
 export default function BuyProgress({ stage = 1 }) {
   return (

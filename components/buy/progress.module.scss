@@ -1,5 +1,5 @@
-// @use '@/styles/scss/grid-breakpoints.scss';
 @use '@/styles' as styles;
+@use '@/styles/utilities/utility-class.scss';
 
 .progressBox {
   margin: 7rem auto 2rem;

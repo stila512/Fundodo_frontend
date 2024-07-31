@@ -1,8 +1,8 @@
-@import '@/styles/useful/colors.scss';
-@import '@/styles/useful/color-function.scss';
-@import '@/styles/useful/utility-mixin.scss';
-@import '@/styles/useful/utility-class.scss';
-@import './button-idv.scss';
+@import '@/styles/color/variables';
+@import '@/styles/color/function';
+@import '@/styles/utilities/utility-mixin';
+@import '@/styles/utilities/utility-class';
+@import 'button-idv';
 
 //*====== 通用樣式
 //此檔整理按鈕共用的模組設定

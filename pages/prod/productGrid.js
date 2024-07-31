@@ -1,6 +1,5 @@
 import React from 'react'
 import scss from './productGrid.module.scss'
-import style from '@/styles/style.module.scss'
 import Image from 'next/image'
 import heart from '/public/prodPic/iconamoon_heart.png'
 import productImage from '/public/prodPic/productImg.png';

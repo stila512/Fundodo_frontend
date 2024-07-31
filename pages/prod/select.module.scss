@@ -1,5 +1,4 @@
-@import '../styles/useful/colors.scss';
-@import '/styles/style.module.scss';
+@use '@/styles' as s;
 
 .customSelect {
   position: relative;
@@ -16,7 +15,7 @@
     -moz-appearance: none;
     width: 9rem;
     padding: 6px 14px; // 留空間給自訂箭頭
-    border: 1px solid $primary;
+    border: 1px solid s.$primary;
     border-radius: 50px;
   }
 }

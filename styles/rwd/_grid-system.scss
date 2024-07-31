@@ -1,7 +1,6 @@
-@use 'grid-breakpoints.scss' as gb;
-@use "scss/rwd-system" as rwd-system;
-@use 'base-function.scss' as base-lib;
-// @import './rwd-system.scss';
+@use 'grid-breakpoints' as gb;
+@use "rwd-system" as rwd-system;
+@use '@/styles/base/divide.scss' as f;
 
 // $grid-breakpoints: (
 //   xs: 0,
@@ -63,7 +62,7 @@ $gutters: $spacers !default;
 @mixin make-col($size: false, $columns: $grid-columns) {
   @if $size {
     flex: 0 0 auto;
-    width: percentage(base-lib.divide($size, $columns));
+    width: percentage(f.divide($size, $columns));
 
   } @else {
     flex: 1 1 0;
@@ -77,7 +76,7 @@ $gutters: $spacers !default;
 }
 
 @mixin make-col-offset($size, $columns: $grid-columns) {
-  $num: base-lib.divide($size, $columns);
+  $num: f.divide($size, $columns);
   margin-left: if($num == 0, 0, percentage($num));
 }
 
@@ -100,7 +99,7 @@ $gutters: $spacers !default;
 @mixin row-cols($count) {
   > * {
     flex: 0 0 auto;
-    width: percentage(base-lib.divide(1, $count));
+    width: percentage(f.divide(1, $count));
   }
 }
 

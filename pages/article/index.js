@@ -1,7 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
 import DefaultLayout from '@/components/layout/default';
-import style from '@/styles/style.module.scss';
 import scss from '@/pages/article/index.module.scss';
 import UserAction from './userAction';
 import ArtiAside from './aside';
@@ -18,7 +17,7 @@ export default function Index() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={style.container} style={{ marginTop: '100px' }}>
+      <main className='container' style={{ marginTop: '100px' }}>
         <UserAction />
 
         <div className={[scss.mainArea].join()}>

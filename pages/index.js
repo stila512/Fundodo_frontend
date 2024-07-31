@@ -35,7 +35,7 @@ export default function Home() {
                   <Link href="/hotel">旅館</Link>
                 </div>
                 <div className="col6 col_lg4">
-                  <Link href="">文章</Link>
+                  <Link href="/article">文章</Link>
                 </div>
                 <div className="col6 col_lg4">
                   <Link href="">課程</Link>

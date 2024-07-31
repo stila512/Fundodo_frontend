@@ -1,4 +1,3 @@
-import style from '@/styles/style.module.scss';
 import scss from '@/pages/prod/aside.module.scss';
 import Image from 'next/image';
 import btnChecked from '/public/prodPic/radio_button_checked.png'
@@ -32,11 +31,11 @@ export default function Aside() {
                                 <h2 className={scss.font}>適用年齡</h2>
                                 <div className={scss.arrow}><Image alt={arrow} width={17} height={17} src={arrow} /></div>
                             </div>
-                            <div className={[style.row, scss.gap].join(" ")}>
-                                <button className={[scss.btnAge, scss.btnFont, style.col6].join(" ")}>全齡</button>
-                                <button className={[scss.btnAge, scss.btnFont, style.col6].join(" ")}>幼犬</button>
-                                <button className={[scss.btnAge, scss.btnFont, style.col6].join(" ")}>成犬</button>
-                                <button className={[scss.btnAge, scss.btnFont, style.col6, scss.checked].join(" ")}>高齡犬</button>
+                            <div className={['row', scss.gap].join(" ")}>
+                                <button className={[scss.btnAge, scss.btnFont, 'col6'].join(" ")}>全齡</button>
+                                <button className={[scss.btnAge, scss.btnFont, 'col6'].join(" ")}>幼犬</button>
+                                <button className={[scss.btnAge, scss.btnFont, 'col6'].join(" ")}>成犬</button>
+                                <button className={[scss.btnAge, scss.btnFont, 'col6', scss.checked].join(" ")}>高齡犬</button>
                             </div>
                         </div>
                     </div>

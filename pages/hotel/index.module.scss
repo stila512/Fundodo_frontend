@@ -1,12 +1,4 @@
-@import '@/styles/scss/_container.scss';
-@import '@/styles/useful/colors.scss';
-
-.container {
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
+@use '@/styles';
 
 .pageContainer {
   display: flex;

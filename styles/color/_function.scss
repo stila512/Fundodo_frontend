@@ -1,8 +1,6 @@
 //mix($color-1, $color-2, $weight: 50%) 是 SASS 內建的函數
 //color 可以是顏色的任何的格式
 @use 'sass:color';
-// @forward './colors.scss';
-@use '../scss/base-function.scss' as f;
 
 //================= 顏色微調函數
 

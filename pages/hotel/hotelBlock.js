@@ -12,7 +12,7 @@ export default function HotelBlock() {
   ];
 
   return (
-    <div className={styles.container}>
+    <div className={['container', styles.container].join(' ')}>
       <h3 className={styles.h3}>推薦旅館</h3>
       <div className={styles.grid}>
         {hotels.map((hotel, index) => (

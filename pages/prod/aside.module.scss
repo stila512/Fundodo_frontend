@@ -1,6 +1,4 @@
-@import '@/styles/useful/font.scss';
-@import '@/styles/useful/colors.scss';
-@import '@/styles/scss/_container.scss';
+@use '@/styles' as s;
 
 .mb {
     margin-bottom: 18px;
@@ -24,7 +22,7 @@
 .ractangle {
     width: 255px;
     border-radius: 15px;
-    border: 2px solid #B9A399;
+    border: 2px solid s.$primary;
 }
 
 .margin {

@@ -1,5 +1,5 @@
-@use '@/styles/lib-local' as s;
-@use '@/styles/useful/utility-class';
+@use '@/styles' as s;
+@use '@/styles/utilities/utility-class';
 
 .foo {
   background-color: s.$light;

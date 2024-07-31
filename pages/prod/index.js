@@ -4,7 +4,6 @@ import DefaultLayout from '@/components/layout/default';
 import Section from '@/pages/prod/section';
 import Breadcrumb from '@/pages/prod/breadcrumb';
 import Select from '@/pages/prod/select';
-import style from '@/styles/style.module.scss';
 import Aside from '@/pages/prod/aside';
 import ProductGrid from './productGrid';
 
@@ -17,11 +16,11 @@ export default function ProductList() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={style.container}>
+      <main className='container'>
         <Section />
         <div
           className={[
-            style.dFlex,
+            'dFlex',
             scss.justifyContentBetween,
             scss.margin,
           ].join(' ')}
@@ -29,7 +28,7 @@ export default function ProductList() {
           <Breadcrumb />
           <Select />
         </div>
-        <div className={[style.dFlex, scss.gap, scss.mt].join(' ')}>
+        <div className={['dFlex', scss.gap, scss.mt].join(' ')}>
           <Aside />
           <ProductGrid />
         </div>
