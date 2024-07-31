@@ -1,0 +1,30 @@
+@import '@/styles';
+
+.PeopleInfoContainer {
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  
+  .toparea{
+	display: flex;
+  	flex-direction: row;
+	justify-content: center;
+  }
+  .botarea {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    button {
+      display: flex;
+      width: 301px;
+      height: 46px;
+      padding: 18px 24px;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+      background: var(--Primary, #B9A399);
+    }
+  }
+}

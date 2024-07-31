@@ -2,6 +2,7 @@ import DefaultLayout from '@/components/layout/default';
 import scss from './member.module.scss';
 import logo from '@/public/logo_temp.png';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function MemberPage() {
   return (
@@ -24,7 +25,7 @@ export default function MemberPage() {
         </div>
         <div className={scss.btnBox}>
           <button className={scss.bSecondary2}>立即購物</button>
-          <button className={scss.bSecondary}>完善會員資料</button>
+          <Link href="/member/peopleInfo"><button className={scss.bSecondary}>完善會員資料</button></Link>
         </div>
       </main>
     </>

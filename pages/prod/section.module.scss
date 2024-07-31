@@ -1,7 +1,7 @@
-@use '@/styles';
+@use '@/styles' as s;
 
 .mt {
-  margin-top: 93px;
+  margin-top: 163px;
 }
 .section {
   width: 100%;
@@ -12,13 +12,9 @@
   justify-content: space-around;
 }
 
-.shibaBox {
-  height: 100%;
-}
-
 .pt3{
-    padding-top: 90.78px;
+    padding-top: 5.6rem;
 }
 .dogFood {
-    color: #6F625C;
+    color: s.$color-shade-2;
 }
