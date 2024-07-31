@@ -1,8 +1,15 @@
-.imgWrap {
+.imgWrapW {
   // overflow: hidden;
-  height: fit-content;
+  // height: fit-content;
   img {
     width: 100%;
+    object-fit: cover;
+  }
+}
+.imgWrapH {
+  // overflow: hidden;
+  // height: fit-content;
+  img {
     height: 100%;
     object-fit: cover;
   }
