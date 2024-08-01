@@ -28,26 +28,26 @@ $border-radius-pill:          50rem !default;
 // scss-docs-end border-radius-variables
 
 // scss-docs-start display
-$display-list: (
-  Inline: inline,
-  IBlock: inline-block,
-  Block: block,
-  Grid: grid,
-  IGrid: inline-grid,
-  Table: table,
-  TableRow: table-row,
-  TableCell: table-cell,
-  Flex: flex,
-  IFlex: inline-flex,
-  None: none
-);
+// $display-list: (
+//   Inline: inline,
+//   IBlock: inline-block,
+//   Block: block,
+//   Grid: grid,
+//   IGrid: inline-grid,
+//   Table: table,
+//   TableRow: table-row,
+//   TableCell: table-cell,
+//   Flex: flex,
+//   IFlex: inline-flex,
+//   None: none
+// );
 // scss-docs-end display
 // scss-docs-start utils-position
 $position-list: (
-  Static: static,
-  R: relative,
-  A: absolute,
-  F: fixed,
-  Sticky: sticky
+  static: static,
+  r: relative,
+  a: absolute,
+  fixed: fixed,
+  sticky: sticky
 );
 // scss-docs-end utils-position

@@ -6,11 +6,11 @@ $utilities: () !default;
 $utilities: map-merge(
   (
     // scss-docs-start utils-vertical-align
-    // "align": (
-    //   property: vertical-align,
-    //   class: align,
-    //   values: baseline top middle bottom text-bottom text-top
-    // ),
+    "align": (
+      property: vertical-align,
+      class: va,
+      values: baseline top middle bottom text-bottom text-top
+    ),
     // scss-docs-end utils-vertical-align
     // scss-docs-start utils-display
     'display':
@@ -18,7 +18,7 @@ $utilities: map-merge(
         responsive: true,
         property: display,
         class: d,
-        values: v.$display-list,
+        values: inline inline-block block grid inline-grid table table-row table-cell flex inline-flex none,
       ),
     // scss-docs-end utils-display
     // scss-docs-start utils-position
@@ -30,25 +30,27 @@ $utilities: map-merge(
       ),
     'top': (
       property: top,
+      class: t,
       values: v.$position-values,
     ),
     'bottom': (
       property: bottom,
+      class: b,
       values: v.$position-values,
     ),
-    'start': (
+    'left': (
       property: left,
-      class: start,
+      class: l,
       values: v.$position-values,
     ),
-    'end': (
+    'right': (
       property: right,
-      class: end,
+      class: r,
       values: v.$position-values,
     ),
     'translate-middle': (
       property: transform,
-      class: translateMiddle,
+      class: translate-middle,
       values: (
         null: translate(-50%, -50%),
         x: translateX(-50%),
@@ -67,12 +69,12 @@ $utilities: map-merge(
           50: 50%,
           75: 75%,
           100: 100%,
-          Auto: auto,
+          auto: auto,
         ),
       ),
     'max-width': (
       property: max-width,
-      class: maxW,
+      class: max-w,
       values: (
         100: 100%,
       ),
@@ -86,7 +88,7 @@ $utilities: map-merge(
     ),
     'min-viewport-width': (
       property: min-width,
-      class: minVw,
+      class: min-vw,
       values: (
         100: 100vw,
       ),
@@ -99,12 +101,12 @@ $utilities: map-merge(
         50: 50%,
         75: 75%,
         100: 100%,
-        Auto: auto,
+        auto: auto,
       ),
     ),
     'max-height': (
       property: max-height,
-      class: maxH,
+      class: max-h,
       values: (
         100: 100%,
       ),
@@ -118,7 +120,7 @@ $utilities: map-merge(
     ),
     'min-viewport-height': (
       property: min-height,
-      class: minVh,
+      class: min-vh,
       values: (
         100: 100vh,
       ),
@@ -139,10 +141,10 @@ $utilities: map-merge(
       property: flex-direction,
       class: flex,
       values: (
-        R: row,
-        C: column,
-        RR: row-reverse,
-        CR: column-reverse,
+        row: row,
+        col: column,
+        row-r: row-reverse,
+        col-r: column-reverse,
       ),
     ),
     'flex-grow': (
@@ -150,8 +152,8 @@ $utilities: map-merge(
       property: flex-grow,
       class: flex,
       values: (
-        G0: 0,
-        G1: 1,
+        grow-0: 0,
+        grow-1: 1,
       ),
     ),
     'flex-shrink': (
@@ -159,69 +161,65 @@ $utilities: map-merge(
       property: flex-shrink,
       class: flex,
       values: (
-        S0: 0,
-        S1: 1,
+        shrink-0: 0,
+        shrink-1: 1,
       ),
     ),
     'flex-wrap': (
       responsive: true,
       property: flex-wrap,
       class: flex,
-      values: (
-        Wrap: wrap,
-        Nowrap: nowrap,
-        WrapReverse: wrap-reverse,
-      ),
+      values: wrap nowrap wrap-reverse,
     ),
     'justify-content': (
       responsive: true,
       property: justify-content,
       class: jc,
       values: (
-        Start: flex-start,
-        End: flex-end,
-        Center: center,
-        Between: space-between,
-        Around: space-around,
-        Evenly: space-evenly,
+        start: flex-start,
+        end: flex-end,
+        center: center,
+        between: space-between,
+        around: space-around,
+        evenly: space-evenly,
       ),
     ),
     'align-items': (
       responsive: true,
       property: align-items,
-      class:al,
+      class:ai,
       values: (
-        Start: flex-start,
-        End: flex-end,
-        Center: center,
-        Baseline: baseline,
-        Stretch: stretch,
+        start: flex-start,
+        end: flex-end,
+        center: center,
+        baseline: baseline,
+        stretch: stretch,
       ),
     ),
-    // "align-content": (
-    //   responsive: true,
-    //   property: align-content,
-    //   values: (
-    //     start: flex-start,
-    //     end: flex-end,
-    //     center: center,
-    //     between: space-between,
-    //     around: space-around,
-    //     stretch: stretch,
-    //   )
-    // ),
-    // "align-self": (
-    //   responsive: true,
-    //   property: align-self,
-    //   values: (
-    //     auto: auto,
-    //     start: flex-start,
-    //     end: flex-end,
-    //     center: center,
-    //     baseline: baseline,
-    //     stretch: stretch,
-    //   )
-    // ),
+    "align-content": (
+      responsive: true,
+      property: align-content,
+      values: (
+        start: flex-start,
+        end: flex-end,
+        center: center,
+        between: space-between,
+        around: space-around,
+        stretch: stretch,
+      )
+    ),
+    "align-self": (
+      responsive: true,
+      property: align-self,
+      values: (
+        auto: auto,
+        start: flex-start,
+        end: flex-end,
+        center: center,
+        baseline: baseline,
+        stretch: stretch,
+      )
+    ),
     // scss-docs-end utils-flex
     // Margin utilities
     // scss-docs-start utils-spacing
@@ -234,7 +232,7 @@ $utilities: map-merge(
           map-merge(
             v.$spacers,
             (
-              Auto: auto,
+              auto: auto,
             )
           ),
       ),
@@ -246,7 +244,7 @@ $utilities: map-merge(
         map-merge(
           v.$spacers,
           (
-            Auto: auto,
+            auto: auto,
           )
         ),
     ),
@@ -258,7 +256,7 @@ $utilities: map-merge(
         map-merge(
           v.$spacers,
           (
-            Auto: auto,
+            auto: auto,
           )
         ),
     ),
@@ -270,7 +268,7 @@ $utilities: map-merge(
         map-merge(
           v.$spacers,
           (
-            Auto: auto,
+            auto: auto,
           )
         ),
     ),
@@ -282,7 +280,7 @@ $utilities: map-merge(
         map-merge(
           v.$spacers,
           (
-            Auto: auto,
+            auto: auto,
           )
         ),
     ),
@@ -294,7 +292,7 @@ $utilities: map-merge(
         map-merge(
           v.$spacers,
           (
-            Auto: auto,
+            auto: auto,
           )
         ),
     ),
@@ -306,7 +304,7 @@ $utilities: map-merge(
         map-merge(
           v.$spacers,
           (
-            Auto: auto,
+            auto: auto,
           )
         ),
     ),
@@ -362,18 +360,18 @@ $utilities: map-merge(
         class: gap,
         values: v.$spacers,
       ),
-    // "row-gap": (
-    //   responsive: true,
-    //   property: row-gap,
-    //   class: row-gap,
-    //   values: v.$spacers
-    // ),
-    // "column-gap": (
-    //   responsive: true,
-    //   property: column-gap,
-    //   class: column-gap,
-    //   values: v.$spacers
-    // ),
+    "row-gap": (
+      responsive: true,
+      property: row-gap,
+      class: row-gap,
+      values: v.$spacers
+    ),
+    "column-gap": (
+      responsive: true,
+      property: column-gap,
+      class: col-gap,
+      values: v.$spacers
+    ),
     // scss-docs-end utils-spacing
     // Text
     // scss-docs-start utils-text
@@ -383,44 +381,37 @@ $utilities: map-merge(
         property: text-align,
         class: tx,
         values: (
-          Start: left,
-          End: right,
-          Center: center,
+          left: left,
+          right: right,
+          center: center,
         ),
       ),
-    // "white-space": (
-    //   property: white-space,
-    //   class: text,
-    //   values: (
-    //     wrap: normal,
-    //     nowrap: nowrap,
-    //   )
-    // ),
-    // "word-wrap": (
-    //   property: word-wrap word-break,
-    //   class: text,
-    //   values: (break: break-word),
-    //   rtl: false
-    // ),
+    "white-space": (
+      property: white-space,
+      class: text,
+      values: (
+        wrap: normal,
+        nowrap: nowrap,
+      )
+    ),
+    "word-wrap": (
+      property: word-wrap word-break,
+      class: text,
+      values: (break: break-word),
+      rtl: false
+    ),
     // scss-docs-end utils-text
     // scss-docs-start utils-interaction
     'user-select':
       (
         property: user-select,
         class: userSelect,
-        values: (
-          All: all,
-          Auto: auto,
-          None: none,
-        ),
+        values: all auto none,
       ),
     'pointer-events': (
       property: pointer-events,
       class: pe,
-      values: (
-        None: none,
-        Auto: auto,
-      ),
+      values: none auto,
     ),
     // scss-docs-end utils-interaction
     // scss-docs-start utils-border-radius
@@ -442,7 +433,7 @@ $utilities: map-merge(
       ),
     'rounded-top': (
       property: border-top-left-radius border-top-right-radius,
-      class: roundedT,
+      class: rounded-t,
       values: (
         null: v.$border-radius,
         0: 0,
@@ -457,7 +448,7 @@ $utilities: map-merge(
     ),
     'rounded-end': (
       property: border-top-right-radius border-bottom-right-radius,
-      class: roundedR,
+      class: rounded-r,
       values: (
         null: v.$border-radius,
         0: 0,
@@ -472,7 +463,7 @@ $utilities: map-merge(
     ),
     'rounded-bottom': (
       property: border-bottom-right-radius border-bottom-left-radius,
-      class: roundedB,
+      class: rounded-b,
       values: (
         null: v.$border-radius,
         0: 0,
@@ -487,7 +478,7 @@ $utilities: map-merge(
     ),
     'rounded-start': (
       property: border-bottom-left-radius border-top-left-radius,
-      class: roundedL,
+      class: rounded-l,
       values: (
         null: v.$border-radius,
         0: 0,

@@ -18,17 +18,7 @@ $light: #F1EDEB; // hsl(45, 29%, 97%)
 $info: #71c4ef; // hsl(200, 80%, 69%)
 $dark: #2a2522; // hsl(19, 11%, 15%);
 
-$theme-colors: (
-  "primary":    $primary,
-  "secondary":  $secondary,
-  // "success":    $success,
-  "info":       $info,
-  "warning":    $warning,
-  // "danger":     $danger,
-  "error":      $error,
-  "light":      $light,
-  "dark":       $dark
-);
+
 
 /* text color 灰階 */
 $color-heading: $gray-800;
@@ -54,33 +44,34 @@ $color-tint-3: #DCD1CC;
 $color-tint-4: #EAE3E0;
 $color-tint-5: #F1EDEB;//also theme-light
 
-$theme-colors-capital: (
-  "Primary":    $primary,
-  "Secondary":  $secondary,
-  "Info":       $info,
-  "Warning":    $warning,
-  "Error":      $error,
-  "Light":      $light,
-  "Dark":       $dark,
-  "Shade1":     $color-shade-1,
-  "Shade2":     $color-shade-2,
-  "Shade3":     $color-shade-3,
-  "Shade4":     $color-shade-4,
-  "Shade5":     $color-shade-5,
-  "Tint1":      $color-tint-1,
-  "Tint2":      $color-tint-2,
-  "Tint3":      $color-tint-3,
-  "Tint4":      $color-tint-4,
-  "Tint5":      $color-tint-5,
+//* 沒有 success，沒有 danger
+$theme-colors: (
+  "primary":    $primary,
+  "secondary":  $secondary,
+  "info":       $info,
+  "warning":    $warning,
+  "error":      $error,
+  "light":      $light,
+  "dark":       $dark
+  "shade1":     $color-shade-1,
+  "shade2":     $color-shade-2,
+  "shade3":     $color-shade-3,
+  "shade4":     $color-shade-4,
+  "shade5":     $color-shade-5,
+  "tint1":      $color-tint-1,
+  "tint2":      $color-tint-2,
+  "tint3":      $color-tint-3,
+  "tint4":      $color-tint-4,
+  "tint5":      $color-tint-5,
 );
 
-@each $color, $value in $theme-colors-capital {
+@each $color, $value in $theme-colors {
 	//文字
-	.tx#{$color} {
+	.tx-#{$color} {
 		color: $value;
 	}
 	//背景
-	.bg#{$color} {
+	.bg-#{$color} {
 		background-color: $value;
 	}
 }
