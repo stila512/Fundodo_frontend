@@ -13,57 +13,57 @@ export default function Home() {
       <Head>
         <title>首頁 | 開發用</title>
       </Head>
-      <main className="bgLight">
+      <main className="bg-light">
         <IconContext.Provider
           value={{ style: { marginInline: '1rem', verticalAlign: 'middle' } }}
         >
           <section>
-            <h1 className="txCenter">這是開發用的首頁</h1>
-            <h2 className="txCenter">通往各開發中頁面的捷徑</h2>
+            <h1 className="tx-center">這是開發用的首頁</h1>
+            <h2 className="tx-center">通往各開發中頁面的捷徑</h2>
             <div className="container">
-              <div className={`${hs.linkPanel} row g3`}>
-                <div className="col6 col_lg4">
+              <div className={`${hs.linkPanel} row g-3`}>
+                <div className="col-6 col-lg-4">
                   <Link href="/homepage">首頁</Link>
                 </div>
-                <div className="col6 col_lg4">
+                <div className="col-6 col-lg-4">
                   <Link href="/prod">商品</Link>
                 </div>
-                <div className="col6 col_lg4">
+                <div className="col-6 col-lg-4">
                   <Link href="/member">會員</Link>
                 </div>
-                <div className="col6 col_lg4">
+                <div className="col-6 col-lg-4">
                   <Link href="/hotel">旅館</Link>
                 </div>
-                <div className="col6 col_lg4">
+                <div className="col-6 col-lg-4">
                   <Link href="/article">文章</Link>
                 </div>
-                <div className="col6 col_lg4">
+                <div className="col-6 col-lg-4">
                   <Link href="">課程</Link>
                 </div>
-                <div className="col6 col_lg4">
+                <div className="col-6 col-lg-4">
                   <Link href="/buy/cart/cartPage">購物車</Link>
                 </div>
-                <div className="col6 col_lg4">
+                <div className="col-6 col-lg-4">
                   <Link href="/test/">測試用</Link>
                 </div>
               </div>
             </div>
           </section>
           <section className="container">
-            <h1 className="txCenter" style={{ margin: '5rem 0 3rem' }}>
+            <h1 className="tx-center" style={{ margin: '5rem 0 3rem' }}>
               開發指南
             </h1>
             <div className="row">
-              <article className="col12 col_lg6">
-                <h2 className="txCenter">可以使用的樣式</h2>
-                <p className="txCenter">
+              <article className="col-12 col-lg-6">
+                <h2 className="tx-center">可以使用的樣式</h2>
+                <p className="tx-center">
                   Bootstrap 的語法
                   <FaArrowRightLong />
                   Fundodo 專案的語法
                 </p>
                 <div className={hs.dlBox}>
                   <dl className={hs.instructionList}>
-                    <dt className="txCenter">背景、文字顏色</dt>
+                    <dt className="tx-center">背景、文字顏色</dt>
                     <dd>
                       <span>.bg-primary</span>
                       <FaArrowRightLong />
@@ -86,11 +86,11 @@ export default function Home() {
                     </dd>
                   </dl>
                   <dl className={hs.instructionList}>
-                    <dt className="txCenter">grid system</dt>
+                    <dt className="tx-center">grid system</dt>
                     <dd>
                       <span>.col-6</span>
                       <FaArrowRightLong />
-                      <code>.col6</code>
+                      <code>.col-6</code>
                     </dd>
                     <dd>
                       <span>.col-md-6</span>
@@ -104,11 +104,11 @@ export default function Home() {
                     </dd>
                   </dl>
                   <dl className={hs.instructionList}>
-                    <dt className="txCenter">置中</dt>
+                    <dt className="tx-center">置中</dt>
                     <dd>
                       <span>.text-center</span>
                       <FaArrowRightLong />
-                      <code>.txCenter</code>
+                      <code>.tx-center</code>
                     </dd>
                     <dd>
                       <span>以 flex 置中</span>
@@ -122,7 +122,7 @@ export default function Home() {
                     </dd>
                   </dl>
                   <dl className={hs.instructionList}>
-                    <dt className="txCenter">flex 相關</dt>
+                    <dt className="tx-center">flex 相關</dt>
                     <dd>
                       <span>.d-flex</span>
                       <FaArrowRightLong />
@@ -151,9 +151,9 @@ export default function Home() {
                   </dl>
                 </div>
               </article>
-              <article className="col12 col_lg6">
-                <h2 className="txCenter">按鈕元件</h2>
-                <p className="txCenter">
+              <article className="col-12 col-lg-6">
+                <h2 className="tx-center">按鈕元件</h2>
+                <p className="tx-center">
                   Bootstrap 的語法
                   <FaArrowRightLong />
                   實際的樣式
@@ -222,7 +222,7 @@ export default function Home() {
                     <p>
                       <FaArrowRightLong />
                       <code
-                        className={[hs.bgDark, hs.txSecondary].join(' ')}
+                        className="bg-dark tx-secondary"
                         style={{ padding: '.5rem' }}
                       >
                         &lt;FddBtn color=&quot;secondary&quot; icon
@@ -233,7 +233,7 @@ export default function Home() {
                   </dd>
                 </dl>
               </article>
-              <article className="col12 col_lg6">
+              <article className="col-12 col-lg-6">
                 <h2>
                   <a
                     href="https://react-icons.github.io/react-icons/"
@@ -250,7 +250,7 @@ export default function Home() {
                   <dd>若要手動改變，需要透過此 API 設計的 context</dd>
                 </dl>
               </article>
-              <article className="col12 col_lg6">
+              <article className="col-12 col-lg-6">
                 <h2 className={hs.h2}>常用連結</h2>
                 <ul>
                   <li>
