@@ -4,8 +4,12 @@ import Head from 'next/head';
 import React from 'react';
 // import PropTypes from 'prop-types';
 import Image from 'next/image';
+import FddBtn from '@/components/buttons/fddBtn';
 import s from './cart-page.module.scss';
+import { TbTrashX } from "react-icons/tb";
+import { RxCross2 } from "react-icons/rx";
 
+//TODO: Remove
 const tempData = [
   {
     name: 'Plus+機能保健系列 泌尿道紓壓保健',
@@ -39,13 +43,13 @@ const CartPage = () => {
       <Head>
         <title>購物車 | Fundodo</title>
       </Head>
-      <BuyProgress />
+      <BuyProgress stage={1} />
       <section className="container">
         <h4>共 3 件商品</h4>
         <table className={s.cartTable}>
           <thead>
             <tr>
-              <th>刪除的圖示</th>
+              <th><TbTrashX /></th>
               <th></th>
               <th>商品資訊</th>
               <th>規格</th>
@@ -70,9 +74,11 @@ const CartPage = () => {
               const imgPath = '/pic-prod/' + prod.pic_path;
               return (
                 <tr key={prod + i}>
-                  <td>這裡要放按鈕</td>
                   <td>
-                    <div className="imgWrap" style={{ width: '100px' }}>
+                    <FddBtn color='tint4' size='sm' icon callback={() => { }}><RxCross2 /></FddBtn>
+                  </td>
+                  <td>
+                    <div className="mx-auto">
                       <Image
                         src={imgPath}
                         width={100}
@@ -83,7 +89,7 @@ const CartPage = () => {
                   </td>
                   <td>{prod.name}</td>
                   <td>{specStr}</td>
-                  <td>{prod.price}</td>
+                  <td style={{minWidth: '4rem'}}>{prod.price}</td>
                   <td>數量面板</td>
                   <td>小計</td>
                 </tr>
