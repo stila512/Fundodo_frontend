@@ -1,4 +1,4 @@
-.imgWrapW {
+.img-wrap-w100 {
   // overflow: hidden;
   // height: fit-content;
   img {
@@ -6,7 +6,7 @@
     object-fit: cover;
   }
 }
-.imgWrapH {
+.img-wrap-h100 {
   // overflow: hidden;
   // height: fit-content;
   img {
@@ -25,10 +25,6 @@
 .grCenter {
   display: grid;
   place-items: center;
-}
-
-.txCenter {
-  text-align: center;
 }
 
 .hstack {

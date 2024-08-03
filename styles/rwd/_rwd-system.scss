@@ -39,7 +39,7 @@
 //    "-sm"
 // _container.scss 有用到
 @function breakpoint-infix($name) {
-  @return if(breakpoint-min($name) == null, "", "_#{$name}");
+  @return if(breakpoint-min($name) == null, "", "-#{$name}");
 }
 
 //* API：設定界線以上的 media screen

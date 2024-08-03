@@ -16,22 +16,22 @@ export default function Footer() {
   return (
     <footer className={s.foo}>
       {/* footer h: 454 */}
-      <div className={[s.fooBody, 'container_lg'].join(' ')}>
+      <div className={[s.fooBody, 'container-lg'].join(' ')}>
         {/* h: 302 */}
-        <div className="row w100">
-          <div className="col12 col_lg4">
+        <div className="row w-100">
+          <div className="col-12 col-lg-4">
             <section className={s.fooL}>
               <Logo width={213}></Logo>
-              <p className={['dNone d_lgBlock', s.copyright].join(' ')}>
+              <p className={['d-none d-lg-block', s.copyright].join(' ')}>
                 Copyright © 2024 Fundodo
                 <br />
                 All Rights Reserved
               </p>
             </section>
           </div>
-          <div className="col12 col_lg8">
+          <div className="col-12 col-lg-8">
             <section className={s.fooR}>
-              <div className="dFlex flexR">
+              <div className="d-flex flex-row">
                 <h3 className="">關於翻肚肚</h3>
                 <ul>
                   <li>
@@ -51,7 +51,7 @@ export default function Footer() {
                   </li>
                 </ul>
               </div>
-              <div className="dFlex flexR">
+              <div className="d-flex flex-row">
                 <h3>客戶服務</h3>
                 <ul>
                   <li>
@@ -68,7 +68,7 @@ export default function Footer() {
                   </li>
                 </ul>
               </div>
-              <div className="dFlex flexR">
+              <div className="d-flex flex-row">
                 <h3>聯絡方式</h3>
                 <ul>
                   <li>
@@ -87,8 +87,8 @@ export default function Footer() {
               </div>
             </section>
           </div>
-          <div className="col12 dBlock d_lgNone">
-            <p className={['txCenter', s.copyright].join(' ')}>
+          <div className="col-12 d-block d-lg-none">
+            <p className={['tx-center', s.copyright].join(' ')}>
               Copyright © 2024 Fundodo
               <br />
               All Rights Reserved

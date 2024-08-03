@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import DefaultLayout from '@/components/layout/default';
-import Hero from './hero';
+import Hero from './Hero';
 import ProdSec from './ProdSec';
 import CourseSec from './CourseSec';
 import HotelSec from './HotelSec';

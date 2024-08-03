@@ -3,23 +3,23 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 
 const colorList = {
-  primary: 'Primary',
-  secondary: 'Secondary',
-  info: 'Info',
-  warning: 'Warning',
-  error: 'Error',
-  light: 'Light',
-  dark: 'Dark',
-  shade1:'Shade1',
-  shade2:'Shade2',
-  shade3:'Shade3',
-  shade4:'Shade4',
-  shade5:'Shade5',
-  tint1:'Tint1',
-  tint2:'Tint2',
-  tint3:'Tint3',
-  tint4:'Tint4',
-  tint5:'Tint5',
+  primary: 'primary',
+  secondary: 'secondary',
+  info: 'info',
+  warning: 'warning',
+  error: 'error',
+  light: 'light',
+  dark: 'dark',
+  shade1: 'shade1',
+  shade2: 'shade2',
+  shade3: 'shade3',
+  shade4: 'shade4',
+  shade5: 'shade5',
+  tint1: 'tint1',
+  tint2: 'tint2',
+  tint3: 'tint3',
+  tint4: 'tint4',
+  tint5: 'tint5',
 };
 
 /**
@@ -51,19 +51,21 @@ export default function FddBtn({
     case '':
       break;
     case 'sm':
-      size = 'btnSm';
+      size = 'btn-sm';
       break;
     case 'lg':
-      size = 'btnLg';
+      size = 'btn-lg';
       break;
     default:
       throw new Error('FddBtn 的 size 只有三種選項：不填、sm、lg');
   }
 
-  const typeName =
-    'btn' + colorList[color] + (icon ? 'Icon' : '') + (outline ? '2' : '');
+  const tagArr = ['btn', colorList[color]];
+  if (icon) tagArr.push('icon');
+  if (outline) tagArr.push('2');
 
-  const classStr = btnStyle[typeName] + (size ? ' ' + btnStyle[size] : '');
+  let classStr = tagArr.join('-');
+  if (size) classStr += ' ' + size;
 
   if (callback !== undefined) {
     return (

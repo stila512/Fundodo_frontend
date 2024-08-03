@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import logo from '@/public/logo.png';
 // import scss from '@/styles/style.module.scss';
 
@@ -14,21 +14,21 @@ export default function Logo({ width = 210, href = undefined }) {
   if (href) {
     return (
       <Link
-        className="dBlock" style={{maxWidth: width, width: 'fit-content'}}
+        className="d-block" style={{width: 'fit-content'}}
         href={href}
       >
-        <Image src={logo} width={width} alt="FUNDODO logo" />
+        <Image src={logo} width={width} alt="Fundodo logo" />
       </Link>
     );
   } else {
     return (
       <div style={{maxWidth: width, width: 'fit-content'}}>
-        <Image src={logo} width={width} alt="FUNDODO logo" />
+        <Image src={logo} width={width} alt="Fundodo logo" />
       </div>
     );
   }
 }
-Logo.PropTypes = {
-  width: PropTypes.number,
-  href: PropTypes.string,
+Logo.propTypes = {
+  width: propTypes.number,
+  href: propTypes.string,
 };

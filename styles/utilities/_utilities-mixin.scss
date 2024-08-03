@@ -1,7 +1,8 @@
+// Utility generator
+// Used to generate utilities & print utilities
+
 $enable-important-utilities: false;
 
-// Utility 樣式產生地
-// Used to generate utilities & print utilities
 @mixin generate-utility($utility, $infix: "", $is-rfs-media-query: false) {
   $values: map-get($utility, values);
 
@@ -28,11 +29,10 @@ $enable-important-utilities: false;
     // State params to generate pseudo-classes
     $state: if(map-has-key($utility, state), map-get($utility, state), ());
 
-    $infix: if($property-class == "" and str-slice($infix, 1, 1) == "_", str-slice($infix, 2), $infix);
+    $infix: if($property-class == "" and str-slice($infix, 1, 1) == "-", str-slice($infix, 2), $infix);
 
     // Don't prefix if value key is null (e.g. with shadow class)
-    // $property-class-modifier: if($key, if($property-class == "" and $infix == "", "", "-") + $key, "");
-    $property-class-modifier: if($key, $key, "");
+    $property-class-modifier: if($key, if($property-class == "" and $infix == "", "", "-") + $key, "");
 
     @if map-get($utility, rfs) {
       // Inside the media query

@@ -1,11 +1,13 @@
-@import "@/styles/style.module.scss";
-@import "@/styles/useful/colors.scss";
-@import "@/styles/useful/font.scss";
+@import "@/styles";
 
+.hotel{
+    background-color: $secondary;
+}
 
 
 .hotelSec {
     height: 728px;
+  padding-top: 75px;
 }
 
 

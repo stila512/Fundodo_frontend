@@ -1,8 +1,6 @@
-@import '@/styles/color/variables';
-@import '@/styles/color/function';
-@import '@/styles/utilities/utility-mixin';
-@import '@/styles/utilities/utility-class';
-@import 'button-idv';
+@use '@/styles' as s;
+@use 'button-idv-1';
+@use 'button-idv-2';
 
 //*====== 通用樣式
 //此檔整理按鈕共用的模組設定
@@ -33,11 +31,11 @@
   @include btn-size(1.25rem, 1.875rem, 1.125rem, 0.5rem);
   font-weight: 700;
 
-  &.btnSm {
+  &.btn-sm {
     @include btn-size(0.8rem, 3.375rem, 1rem, 0.625rem);
     font-weight: 500;
   }
-  &.btnLg {
+  &.btn-lg {
     @include btn-size(1.5rem, 2rem, 1.25rem, 0.5rem);
     // font-weight: 700;
   }
@@ -50,52 +48,52 @@
   justify-content: center;
   align-items: center;
   //default
-  @include circle-of(64px);
+  @include s.circle-of(64px);
   font-size: 1.5rem;
 
-  &.btnSm {
-    @include circle-of(30px);
+  &.btn-sm {
+    @include s.circle-of(30px);
     font-size: 1rem;
   }
-  &.btnLg {
-    @include circle-of(88px);
+  &.btn-lg {
+    @include s.circle-of(88px);
     font-size: 1.75rem;
   }
 }
 
 //====================== 模組定義區
 //以下為簡易預設，詳細設定於
-@each $color, $value in $theme-colors-capital {
+@each $color, $value in s.$theme-colors {
   //尺寸
-  .btn#{$color},
-  .btn#{$color}2 {
+  .btn-#{$color},
+  .btn-#{$color}-2 {
     @include pill-btn-prototype();
   }
-  .btn#{$color}Icon,
-  .btn#{$color}Icon2 {
+  .btn-#{$color}-icon,
+  .btn-#{$color}-icon-2 {
     @include icon-btn-prototype();
   }
   //顏色
-  .btn#{$color} {
+  .btn-#{$color} {
     background-color: $value;
     color: shift-color($value, 60%);
     border: none;
   }
-  .btn#{$color}Icon {
+  .btn-#{$color}-icon {
     background-color: $value;
-    color: $white;
+    color: s.$white;
     border: none;
   }
-  .btn#{$color}2,
-  .btn#{$color}Icon2 {
-    background-color: $white;
+  .btn-#{$color}-2,
+  .btn-#{$color}-icon-2 {
+    background-color: s.$white;
     color: $value;
     border: 3px solid $value;
   }
   //動態
-  .btn#{$color}Icon {
+  .btn-#{$color}-icon {
     &:hover {
-      background-color: $white;
+      background-color: s.$white;
       color: $value;
       border: 2px solid $value;
     }
@@ -103,11 +101,11 @@
       background-color: shift-color($value, -50%);
     }
   }
-  a.btn#{$color}Icon2,
-  button.btn#{$color}Icon2 {
+  a.btn-#{$color}-icon-2,
+  button.btn-#{$color}-icon-2 {
     &:hover {
       background-color: $value;
-      color: $white;
+      color: s.$white;
     }
     
   }

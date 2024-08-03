@@ -1,0 +1,111 @@
+@use '@/styles/color/variables' as c;
+
+//*====== 個別樣式
+//此檔整理特定款式按鈕的個別設定
+//按鈕的通用樣式模組則於另外一檔
+
+//若為模組已設定之樣式，則不重複設定
+//以下按顏色分類
+//================= primary =================//
+a.btn-primary,
+button.btn-primary {
+  color: c.$color-tint-5;
+  text-shadow: -1px -1px 0 c.$color-shade-3;
+  border: none;
+
+  &:hover {
+    background-color: c.$color-tint-1;
+  }
+  &:active {
+    background-color: shift-color(c.$primary, 5%);
+  }
+}
+a.btn-primary-2,
+button.btn-primary-2 {
+  $color: shift-color(c.$primary, 15%);
+  color: $color;
+  border-color: $color;
+
+  &:hover {
+    background-color: c.$color-tint-5;
+    color: c.$color-shade-1;
+  }
+  &:active {
+    background-color: c.$color-tint-4;
+  }
+}
+//================= secondary =================//
+a.btn-secondary,
+button.btn-secondary {
+  color: c.$color-shade-3;
+  border: 2px solid c.$color-shade-3;
+
+  &:hover {
+    background-color: shift-color(c.$secondary, 5%);
+  }
+  &:active {
+    background-color: shift-color(c.$secondary, 10%);
+  }
+}
+a.btn-secondary-2,
+button.btn-secondary-2 {
+  color: c.$color-shade-3;
+  border: 2px solid c.$color-shade-3;
+
+  transition: top 0.4s;
+  //extra
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    display: block;
+    // height: 50px;
+    left: 0;
+    right: 0;
+    // top: 100%;
+    top: 0;
+    bottom: 0;
+    background-color: c.$color-shade-3;
+    transition: transform 0.15s ease-in-out;
+    transform: translateY(100%);
+  }
+
+  &:hover::before {
+    // top: 50%;
+    transform: translateY(70%);
+    // background-color: c.$color-tint-4;
+    // box-shadow: inset 0 0 8px c.$color-shade-3, inset 0 0 16px c.$color-shade-1;
+    // box-shadow: inset 0 -1rem 0 c.$color-shade-3;
+  }
+  &:active {
+    background-color: c.$color-shade-3;
+  }
+}
+a.btn-secondary-icon,
+button.btn-secondary-icon {
+  color: c.$color-shade-2;
+}
+a.btn-secondary-icon-2,
+button.btn-secondary-icon {
+  background-color: c.$color-tint-5;
+  color: c.$color-shade-2;
+  border: 2px solid c.$color-shade-2;
+}
+//================= error =================//
+a.btn-error,
+button.btn-error {
+  color: c.$white;
+}
+//================= info =================//
+a.btn-info-2,
+button.btn-info-2 {
+  color: c.$info-text;
+  &:hover {
+    background-color: c.$light;
+  }
+  &:active {
+    background-color: shift-color(c.$info, -50%);
+  }
+}
