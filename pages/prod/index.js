@@ -28,7 +28,7 @@ export default function ProductList() {
           <Breadcrumb />
           <Select />
         </div>
-        <div className={['dFlex', scss.gap, scss.mt].join(' ')}>
+        <div className={['dFlex', scss.gap, scss.my].join(' ')}>
           <Aside />
           <ProductGrid />
         </div>

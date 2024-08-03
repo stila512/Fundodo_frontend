@@ -1,4 +1,4 @@
-@use '@/styles';
+@use '@/styles' as s ;
 
 .ul {
   list-style-type: none;
@@ -11,8 +11,8 @@
     align-items: center;
 }
 
-.dark{
-    color: black;
+.shade3{
+    color: s.$color-shade-3;
     text-wrap: nowrap;
 }
 

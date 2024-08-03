@@ -1,5 +1,6 @@
-import scss from '@/pages/prod/bread.module.scss';
+import scss from './bread.module.scss';
 import { IoIosArrowForward } from "react-icons/io";
+ 
 export default function Breadcrumb() {
   return (
     <>
@@ -13,11 +14,11 @@ export default function Breadcrumb() {
         <nav aria-label="breadcrumb">
           <ol className={[scss.ul, 'dFlex',scss.alignItemCenter].join(' ')}>
             <li>
-              <a className='bgPrimary' href="/">Home</a>
+              <a className='txPrimary' href="/">Home</a>
             </li>
             <IoIosArrowForward />
             <li>
-              <a className={scss.dark} href="#">狗狗飼料</a>
+              <a className={scss.shade3} href="#">狗狗飼料</a>
             </li>
           </ol>
         </nav>

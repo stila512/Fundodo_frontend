@@ -1,8 +1,8 @@
-import scss from '@/pages/prod/index.module.scss';
+import scss from './datail.module.scss';
 import Head from 'next/head';
 import DefaultLayout from '@/components/layout/default';
 import Breadcrumb from '@/pages/prod/breadcrumb';
-import DetailImg from './detailImg';
+import DetailGroup from './detailGroup';
 
 export default function Detail() {
   return (
@@ -14,10 +14,12 @@ export default function Detail() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className='container'>
-        <h1 className=''>狗的飼料</h1>
+        <h1 className={scss.shade3}>狗的飼料</h1>
+        <div className='mt3 '>
         <Breadcrumb />
-        <div className='dFlex'>
-        <DetailImg />
+        </div>
+        <div>
+        <DetailGroup />
         </div>
       </main>
     </>

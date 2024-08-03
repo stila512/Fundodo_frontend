@@ -1,0 +1,77 @@
+@use '@/styles' as s;
+
+.detailGroup {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 60px;
+  margin-left: 80px;
+  margin-right: 110px;
+}
+.aside {
+  width: 473px;
+  height: 486px;
+}
+.btnGroup {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  margin-top: 37px;
+}
+.btnPrimary {
+  width: 111px;
+  height: 36px;
+  border-radius: 8px;
+  border: none;
+  background: s.$primary;
+  color: s.$white;
+  font-size: 18px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 18px;
+}
+.btnDisable {
+  width: 111px;
+  height: 36px;
+  border-radius: 8px;
+  border: none;
+  background: s.$gray-400;
+  color: s.$white;
+}
+.btnUnChecked {
+  width: 111px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid s.$primary;
+  background: s.$white;
+  font-size: 18px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 18px;
+}
+.mt{
+    margin-top: 61px;
+}
+.priceGroup {
+  margin-top: 47px;
+}
+.price {
+  color: s.$color-shade-3;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+  margin-right: 27px;
+}
+.originPrice {
+  text-decoration: line-through;
+  color: s.$gray-600;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 34px;
+}
