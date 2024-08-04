@@ -6,7 +6,7 @@ import { IoIosArrowDown } from 'react-icons/io';
 export default function Select() {
   return (
     <>
-      <div className={[scss.customSelect, 'dFlex'].join(' ')}>
+      <div className={[scss.customSelect, 'd-flex'].join(' ')}>
         <div>排序依據: </div>
         <select>
           <option value="">最新上架 </option>

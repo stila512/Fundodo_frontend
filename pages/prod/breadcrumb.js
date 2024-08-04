@@ -7,14 +7,14 @@ export default function Breadcrumb() {
       <div
         className={[
           'container',
-          'dFlex',
+          'd-flex',
           scss.justifyContentBetween
         ].join(' ')}
       >
         <nav aria-label="breadcrumb">
-          <ol className={[scss.ul, 'dFlex',scss.alignItemCenter].join(' ')}>
+          <ol className={[scss.ul, 'd-flex',scss.alignItemCenter].join(' ')}>
             <li>
-              <a className='txPrimary' href="/">Home</a>
+              <a className='tx-primary' href="/">Home</a>
             </li>
             <IoIosArrowForward />
             <li>
