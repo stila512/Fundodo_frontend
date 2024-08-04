@@ -15,7 +15,7 @@ export default function Detail() {
       </Head>
       <main className='container'>
         <h1 className={scss.shade3}>狗的飼料</h1>
-        <div className='mt3 '>
+        <div className='mt3'>
         <Breadcrumb />
         </div>
         <div>

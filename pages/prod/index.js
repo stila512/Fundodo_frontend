@@ -1,4 +1,4 @@
-import scss from '@/pages/prod/index.module.scss';
+import scss from './index.module.scss';
 import Head from 'next/head';
 import DefaultLayout from '@/components/layout/default';
 import Section from './section';
@@ -20,7 +20,7 @@ export default function ProductList() {
         <Section />
         <div
           className={[
-            'dFlex',
+            'd-flex',
             scss.justifyContentBetween,
             scss.margin,
           ].join(' ')}
@@ -28,7 +28,7 @@ export default function ProductList() {
           <Breadcrumb />
           <Select />
         </div>
-        <div className={['dFlex', scss.gap, scss.my].join(' ')}>
+        <div className={['d-flex', scss.gap, scss.my].join(' ')}>
           <Aside />
           <ProductGrid />
         </div>

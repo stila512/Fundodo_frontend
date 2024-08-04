@@ -6,7 +6,7 @@ export default function Section() {
   return (
     <>
       <section className={scss.mt}>
-        <div className={[scss.section, 'dFlex', 'container'].join(' ')}>
+        <div className={[scss.section, 'd-flex', 'container'].join(' ')}>
           <div className={scss.shibaBox}>
             <Image src={shiba} alt={shiba} />
           </div>

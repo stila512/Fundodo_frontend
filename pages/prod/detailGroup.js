@@ -13,7 +13,7 @@ export default function DetailGroup() {
                     <div>
                         <Image src={prodImg} />
                     </div>
-                    <div className={"dFlex gap3 mt3"}>
+                    <div className={"d-flex gap-3 mt-3"}>
                         <div>
                             <Image src={mini1} />
                         </div>
@@ -26,11 +26,11 @@ export default function DetailGroup() {
                     </div>
                 </div>
                 <div className={[scss.aside]}>
-                    <h3 className='mb5'>幼犬 經典系列乾糧 - 羊肉 (聰明成長配方)</h3>
-                    <hr className='bgPrimary' />
+                    <h3 className='mb-5'>幼犬 經典系列乾糧 - 羊肉 (聰明成長配方)</h3>
+                    <hr className='bg-primary' />
                     <div className={scss.btnGroup}>
                         <p>規格</p>
-                        <div className='dFlex gap3'>
+                        <div className='d-flex gap-3'>
                             <button className={scss.btnPrimary}>雞肉</button>
                             <button className={scss.btnUnChecked}>牛肉</button>
                             <button className={scss.btnDisable}>羊肉</button>
@@ -38,13 +38,13 @@ export default function DetailGroup() {
                     </div>
                     <div className={scss.btnGroup}>
                         <p>容量</p>
-                        <div className='dFlex gap3'>
+                        <div className='d-flex gap-3'>
                             <button className={scss.btnPrimary}>100g</button>
                             <button className={scss.btnUnChecked}>200g</button>
                             <button className={scss.btnUnChecked}>300g</button>
                         </div>
                     </div>
-                    <hr className={[scss.mt, 'bgPrimary'].join(' ')} />
+                    <hr className={[scss.mt, 'bg-primary'].join(' ')} />
                     <div className={scss.priceGroup}>
                         <span className={scss.price}>NT$680</span>
                         <span className={scss.originPrice}>NT$1,250</span>
