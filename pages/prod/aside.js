@@ -32,10 +32,10 @@ export default function Aside() {
                                 <div className={scss.arrow}><Image alt={arrow} width={17} height={17} src={arrow} /></div>
                             </div>
                             <div className={['row', scss.gap].join(" ")}>
-                                <button className={[scss.btnAge, scss.btnFont, 'col6'].join(" ")}>全齡</button>
-                                <button className={[scss.btnAge, scss.btnFont, 'col6'].join(" ")}>幼犬</button>
-                                <button className={[scss.btnAge, scss.btnFont, 'col6'].join(" ")}>成犬</button>
-                                <button className={[scss.btnAge, scss.btnFont, 'col6', scss.checked].join(" ")}>高齡犬</button>
+                                <button className={[scss.btnAge, scss.btnFont, 'col-6'].join(" ")}>全齡</button>
+                                <button className={[scss.btnAge, scss.btnFont, 'col-6'].join(" ")}>幼犬</button>
+                                <button className={[scss.btnAge, scss.btnFont, 'col-6'].join(" ")}>成犬</button>
+                                <button className={[scss.btnAge, scss.btnFont, 'col-6', scss.checked].join(" ")}>高齡犬</button>
                             </div>
                         </div>
                     </div>

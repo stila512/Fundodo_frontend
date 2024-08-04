@@ -13,7 +13,7 @@ export default function PriceFilter() {
         <div className={scss.priceFilter}>
             <div className={scss.priceRange}>${values[0]} - ${values[1]}</div>
             <ReactSlider
-                className={[scss.horizontalSlider, 'bgPrimary'].join(' ')}
+                className={[scss.horizontalSlider, 'bg-primary'].join(' ')}
                 thumbClassName={scss.thumb}
                 trackClassName={scss.track}
                 value={values}
