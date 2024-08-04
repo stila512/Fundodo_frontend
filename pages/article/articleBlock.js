@@ -2,12 +2,12 @@ import React from 'react';
 import Image from 'next/image';
 import scss from '@/pages/article/articleBlock.module.scss';
 
-export default function ArticleBlock() {
+export default function ArticleBlock({article}) {
   return (
     <>
       {' '}
       <div className={[scss.article].join('')}>
-        <div>
+      <div>
           <div className={[scss.userData].join()}>
             <Image
               className={[scss.userIcon].join()}
@@ -18,16 +18,16 @@ export default function ArticleBlock() {
             />
             <div className={[scss.nicknameArea].join()}>
               <p className={[scss.nickName].join()}>123123123</p>
-              <p className={[scss.creatTime].join()}>2024-07-22</p>
+              <p className={[scss.creatTime].join()}>{article.create_at}</p>
             </div>
           </div>
         </div>
         <div className={[scss.shortContent].join()}>
           <div className={[scss.mainTitle].join()}>
-            有沒有看過這麼可愛的狗溝
+            {article.title}
           </div>
           <div className={[scss.extract].join()}>
-            陽光穿透窗簾，喚醒了沉睡的城市。街角咖啡店飄出誘人香氣，行人匆匆而過。遠處傳來鳥鳴，伴隨著微風輕撫樹葉的沙沙聲。一隻貓優雅地踱步，好奇地打量著周圍的世界。新的一天，充滿無限可能。
+            {article.content.substring(0, 50)}
           </div>
         </div>
         <div className={[scss.artiInfo].join()}>
