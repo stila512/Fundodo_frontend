@@ -8,7 +8,9 @@
 .card {
   display: flex;
   flex-direction: column;
-  height: 23.5rem;
+  justify-content: space-between;
+  height: 376px;
+  position: relative;
   align-items: flex-start;
   border-radius: 12px;
   border: 1px solid s.$secondary;
@@ -45,6 +47,7 @@
   line-height: 1.3rem;
 }
 .prodPrice {
+  text-wrap: nowrap;
   color: s.$color-shade-3;
   font-family: 'Noto Sans';
   font-size: 1.25rem;
@@ -63,5 +66,8 @@
   border-radius: 40px;
   background: var(--Primary, #b9a399);
   color: s.$white;
-  margin: 14px auto;
+  margin: 23px auto;
+  &:hover {
+    color: s.$white;
+  }
 }
