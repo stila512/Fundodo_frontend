@@ -7,7 +7,7 @@ name varchar(20)
 
 Table category_2 {
 id int(11) [primary key]
-cate_1_id int(11)
+cate_1_id int(11)// category_1的id
 name varchar(20)
 }
 
