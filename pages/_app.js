@@ -8,6 +8,7 @@ import '@fontsource/zen-maru-gothic'; //only 400
 // import '@fontsource/zen-maru-gothic/700.css';
 // import '@fontsource/zen-maru-gothic/900.css';
 import '@fontsource-variable/noto-sans-tc';
+import NextTopLoader from 'nextjs-toploader';
 import Head from 'next/head';
 
 export default function MyApp({ Component, pageProps }) {
@@ -21,6 +22,10 @@ export default function MyApp({ Component, pageProps }) {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
         </Head>
         <Layout>
+        <NextTopLoader
+          color='#f4d284'
+          height={5}
+        />
           <Component {...pageProps} />
         </Layout>
       </>
@@ -31,6 +36,10 @@ export default function MyApp({ Component, pageProps }) {
         <Head>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
         </Head>
+        <NextTopLoader
+          color='#f4d284'
+          height={5}
+        />
         <Component {...pageProps} />
       </>
     );
