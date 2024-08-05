@@ -1,11 +1,11 @@
 import scss from '@/pages/prod/aside.module.scss';
 import Image from 'next/image';
+import Filter from './filter'
 import btnChecked from '/public/prodPic/radio_button_checked.png'
 import btn from 'public/prodPic/radio_button.png'
 import arrow from 'public/prodPic/ep_arrow-up-bold.png'
 import React from 'react';
 import PriceFilter from './priceFilter';
-
 export default function Aside() {
    
     return (
@@ -19,10 +19,7 @@ export default function Aside() {
                                 <h2 className={scss.font}>飼料分類</h2>
                                 <div className={scss.arrow}><Image alt={arrow} width={17} height={17} src={arrow} /></div>
                             </div>
-                            <button className={[scss.btn, scss.btnFont, scss.checked].join(' ')}><Image alt={btnChecked} width={24} height={24} src={btnChecked} />一般乾糧</button>
-                            <button className={[scss.btn, scss.btnFont].join(' ')}><Image alt={btn} width={15} height={15} src={btn} />無榖乾糧</button>
-                            <button className={[scss.btn, scss.btnFont].join(' ')}><Image alt={btn} width={15} height={15} src={btn} />一般凍乾</button>
-                            <button className={[scss.btn, scss.btnFont].join(' ')}><Image alt={btn} width={15} height={15} src={btn} />無榖凍乾</button><button className={[scss.btn, scss.btnFont].join(' ')}><Image width={15} height={15} src={btn} />功能配方</button><button className={[scss.btn, scss.btnFont].join(' ')}><Image width={15} height={15} src={btn} />處方飼料</button>
+                            <Filter />
                         </div>
                     </div>
                     <div className={scss.ractangle}>
