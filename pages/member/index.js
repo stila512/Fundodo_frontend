@@ -5,6 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export default function MemberPage() {
+
+  
   return (
     <>
       <main className={scss.container}>
