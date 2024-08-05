@@ -2,29 +2,157 @@
 
 .PeopleInfoContainer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   height: 80vh;
-  
-  .toparea{
-	display: flex;
-  	flex-direction: row;
-	justify-content: center;
-  }
-  .botarea {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    button {
-      display: flex;
-      width: 301px;
-      height: 46px;
-      padding: 18px 24px;
+    .midarea{
+      margin-top: 60px;
       justify-content: center;
       align-items: center;
-      gap: 8px;
+    }
+    //----------
+    .midtext{
+      display: flex;
+      width: 560px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 22px;
+      padding-bottom: 141px;
+    }
+    .area1{
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      .avatarPic{
+        display: flex;
+        width: 115px;
+        height: 115px;
+        padding: 40px;
+        align-items: center;
+        gap: 10px;
+        border-radius: 57.5px;
+        background: #B9A399;
+      }
+    }
+    .area2{
+      display: flex;
+      align-items: center;
+      gap: 47px;
+      align-self: stretch;
+      p{
+        color: var(--Header, #424242);
+        font-feature-settings: 'liga' off, 'clig' off;
+        font-family: "Noto Sans";
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 28px;
+      }
+      span{
+        color: var(--Header, #424242);
+        font-feature-settings: 'liga' off, 'clig' off;
+        font-family: "Noto Sans";
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 28px;
+        text-decoration-line: underline;
+      }
+    }
+    .area3{
+      display: flex;
+      align-items: flex-end;
+      gap: 47px;
+      align-self: stretch;
+      input{
+        display: flex;
+        padding: 5px 12px;
+        align-items: center;
+        flex: 1 0 0;
+      }
+    }
+    .area4{
+      display: flex;
+      align-items: flex-end;
+      gap: 47px;
+      .genderRadio{
+        display: flex;
+        width: 205px;
+        height: 32px;
+        padding: 5px 71px 5px 0px;
+        align-items: flex-start;
+        gap: 34px;
+      }
+      input[type="radio"] {
+        display: none;
+    }
+    }
+    .area5{
+      display: flex;
+      align-items: flex-end;
+      gap: 47px;
+      align-self: stretch;
+    }
+    .area6{
+      display: flex;
+      align-items: flex-end;
+      gap: 47px;
+      align-self: stretch;
+      input{
+        display: flex;
+        padding: 5px 12px;
+        align-items: center;
+        flex: 1 0 0;
+      }
+    }
+    .area7{
+      display: flex;
+      align-items: flex-start;
+      gap: 47px;
+      align-self: stretch;
+      .address{
+        display: flex;
+        width: 449px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+    }
+    .botarea{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      button {
+        color: #fff;
+        display: flex;
+        width: 301px;
+        height: 46px;
+        padding: 18px 24px;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+        background: var(--Primary, #B9A399);
+      }
+    }
+    //-------- sideText
+    .sideText{
+      display: inline-flex;
+      height: 274px;
+      padding: 30px 20px;
+      margin: 22px 206px;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
       flex-shrink: 0;
-      background: var(--Primary, #B9A399);
+      border: 1px solid #EAEAEA;
+      .icon{
+        display: flex;
+        width: 230px;
+        padding-bottom: 0px;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 8px;
+        border-bottom: 1px solid #EAEAEA;
+      }
     }
   }
-}
