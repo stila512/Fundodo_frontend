@@ -111,7 +111,7 @@ export default function CartPage() {
       </Head>
       <BuyProgress stage={1} />
       <section className="container mt-5">
-        <h4>共 {dataArr.length} 件商品</h4>
+        <h4 className='tx-shade4'>共 {dataArr.length} 件商品</h4>
         <table className={s.cartTable}>
           <thead>
             <tr>
