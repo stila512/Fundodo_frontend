@@ -26,7 +26,11 @@ export default function DetailGroup() {
                     </div>
                 </div>
                 <div className={[scss.aside]}>
-                    <h3 className='mb-5'>幼犬 經典系列乾糧 - 羊肉 (聰明成長配方)</h3>
+                <div>
+                <h3 className={scss.header}>幼犬 經典系列乾糧 - 羊肉 (聰明成長配方)</h3>
+                
+                </div>
+                    
                     <hr className='bg-primary' />
                     <div className={scss.btnGroup}>
                         <p>規格</p>
@@ -47,10 +51,10 @@ export default function DetailGroup() {
                     <hr className={[scss.mt, 'bg-primary'].join(' ')} />
                     <div className={scss.priceGroup}>
                         <span className={scss.price}>NT$680</span>
-                        <span className={scss.originPrice}>NT$1,250</span>
+                        
                     </div> 
-                    <div className={'d-flex'}>
-                        <span>數量</span>
+                    <div className={['gap-3', 'd-flex', scss.mt].join(' ')}>
+                        <span className={scss.cs3}>數量</span>
                         <button>-</button>
                         <span>1</span>
                         <button>+</button>
