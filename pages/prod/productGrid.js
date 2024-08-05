@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import scss from './productGrid.module.scss'
 import Image from 'next/image'
+import FavoriteIcon from './favoriteIcon'
 import heart from '/public/prodPic/iconamoon_heart.png'
 import { IoIosArrowBack } from "react-icons/io";
 
@@ -54,11 +55,7 @@ export default function ProductGrid() {
                     return (
                         <div key={i} className='col-3'>
                             <div className={scss.card}>
-                                <div className={scss.heartIconBox}>
-                                    <div className={scss.heartIcon}>
-                                        <Image src={heart} />
-                                    </div>
-                                </div>
+                                <FavoriteIcon />
                                 <div className={scss.prodImgBox}>
                                     <div className={scss.prodImg}>
                                         <Image src={`/pic-prod/${v.picNameArr[0]}`} width={130} height={130} />
