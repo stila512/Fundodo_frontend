@@ -10,34 +10,8 @@ import FddBtn from '@/components/buttons/fddBtn';
 import s from './cart-page.module.scss';
 import { TbTrashX } from "react-icons/tb";
 import { RxCross2 } from "react-icons/rx";
+import { LuPlus, LuMinus } from "react-icons/lu";
 
-//TODO: Remove
-const tempData = [
-  {
-    name: 'Plus+機能保健系列 泌尿道紓壓保健',
-    pic_path: 'PR0000001611.jpg',
-    sort: '',
-    spec: '1.5g x 30入',
-    price: 450,
-    number: 1,
-  },
-  {
-    name: '花花拾便器套裝',
-    pic_path: 'PR0000002581.jpg',
-    sort: '補充替換袋',
-    spec: '單入 (拾便器+拾便袋1捲)',
-    price: 150,
-    number: 2,
-  },
-  {
-    name: 'LINSLINS寵物漏食玩具 - 魔法小兔帽',
-    pic_path: 'PR0000003971.jpg',
-    sort: '魔法小兔帽',
-    spec: '',
-    price: 250,
-    number: 1,
-  },
-];
 //======= API ==================================
 //== parameters
 const USER_ID = 58;//todo: test
@@ -58,8 +32,25 @@ const apiLink = `${apiBaseUrl}/carts/${USER_ID}`;
 // }
 //======= API END ==================================
 
+const NumberPanel = ({qty = 1}) => {
+  const [number, setNumber] = useState(qty);
+
+  return (
+    <div className='hstack mx-auto p-2' style={{ width: '8rem', height: '3rem', border: '1px solid #787473' }}>
+      <div className='fx-center' onClick={() => setNumber(number - 1)}>
+        <LuMinus />
+      </div>
+      <div className='flex-grow-1'>{number}</div>
+      <div className='fx-center' onClick={() => setNumber(number + 1)}>
+        <LuPlus />
+      </div>
+    </div>
+  )
+}
+
 export default function CartPage() {
   const [dataArr, setDataArr] = useState([]);
+  const [qtyArr, setQtyArr] = useState([]);
   useEffect(() => {
     const getData = async () => {
       const results = await axios.get(apiLink);
@@ -70,7 +61,9 @@ export default function CartPage() {
       setDataArr(results.data.result);
     }
     getData();
+    setQtyArr(dataArr.flatMap(d => d.qty));
   }, []);
+
 
   const noData = (!dataArr || dataArr.length === 0);
 
@@ -80,7 +73,7 @@ export default function CartPage() {
         <title>購物車 | Fundodo</title>
       </Head>
       <BuyProgress stage={1} />
-      <section className="container">
+      <section className="container mt-5">
         <h4>共 {dataArr.length} 件商品</h4>
         <table className={s.cartTable}>
           <thead>
@@ -96,7 +89,7 @@ export default function CartPage() {
           </thead>
           <tbody>
             {noData ? <></> :
-              dataArr.map((item) => {
+              dataArr.map((item, i_data) => {
                 let specIndicator =
                   (item.sort_name ? 1 : 0) + (item.spec_name ? 2 : 0);
                 let infoStr = '';
@@ -134,8 +127,12 @@ export default function CartPage() {
                     </td>
                     <td>{item.name}</td>
                     <td>{infoStr}</td>
-                    <td style={{ minWidth: '4rem' }}>{item.price}</td>
-                    <td>數量面板</td>
+                    <td style={{ minWidth: '4rem' }}>
+                      <div className="mx-auto pe-1 tx-right" style={{ width: '3rem' }}>
+                        ${item.price}
+                      </div>
+                    </td>
+                    <td><NumberPanel qty={qtyArr[i_data]} setFunc={setQtyArr} index={i_data} /></td>
                     <td>小計</td>
                   </tr>
                 );
