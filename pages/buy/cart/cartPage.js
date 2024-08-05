@@ -1,8 +1,10 @@
 import BuyProgress from '@/components/buy/buyProgress';
 import BuyLayout from '@/components/layout/buy';
+import { apiBaseUrl } from '@/configs';
 import Head from 'next/head';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 // import PropTypes from 'prop-types';
+import axios from 'axios';
 import Image from 'next/image';
 import FddBtn from '@/components/buttons/fddBtn';
 import s from './cart-page.module.scss';
@@ -36,8 +38,42 @@ const tempData = [
     number: 1,
   },
 ];
+//======= API ==================================
+//== parameters
+const USER_ID = 58;//todo: test
 
-const CartPage = () => {
+const apiLink = `${apiBaseUrl}/carts/${USER_ID}`;
+
+// const getData = async () => {
+//   const apiLink = `${serverLink}/api/carts/${USER_ID}`;
+
+
+//   const results = await axios.get(apiLink);
+
+//   if (results.data.status === 'success') {
+//     return results.data.result;
+//   } else {
+//     throw new Error(`伺服器回應：${response.data.message}`);
+//   }
+// }
+//======= API END ==================================
+
+export default function CartPage() {
+  const [dataArr, setDataArr] = useState([]);
+  useEffect(() => {
+    const getData = async () => {
+      const results = await axios.get(apiLink);
+
+      if (results.data.status !== 'success') {
+        throw new Error(`伺服器回應：${response.data.message}`);
+      }
+      setDataArr(results.data.result);
+    }
+    getData();
+  }, []);
+
+  const noData = (!dataArr || dataArr.length === 0);
+
   return (
     <>
       <Head>
@@ -45,7 +81,7 @@ const CartPage = () => {
       </Head>
       <BuyProgress stage={1} />
       <section className="container">
-        <h4>共 3 件商品</h4>
+        <h4>共 {dataArr.length} 件商品</h4>
         <table className={s.cartTable}>
           <thead>
             <tr>
@@ -59,60 +95,59 @@ const CartPage = () => {
             </tr>
           </thead>
           <tbody>
-            {tempData.map((prod, i) => {
-              let specIndicator =
-                (prod.sort === '' ? 0 : 10) + (prod.spec === '' ? 0 : 1);
-              let specStr = '';
-              if (specIndicator > 10)
-                specStr = [prod.sort, prod.spec].join('、');
-              else if (specIndicator > 0)
-                specStr = specIndicator === 10 ? prod.sort : prod.spec;
-
-              {
-                /* const imgPath = resolve('/', 'pic-prod', prod.pic_path); */
-              }
-              const imgPath = '/pic-prod/' + prod.pic_path;
-              return (
-                <tr key={prod + i}>
-                  <td>
-                    <FddBtn color='tint4' size='sm' icon callback={() => { }}><RxCross2 /></FddBtn>
-                  </td>
-                  <td>
-                    <div className="mx-auto">
-                      <Image
-                        src={imgPath}
-                        width={100}
-                        height={100}
-                        alt={prod.name}
-                      />
-                    </div>
-                  </td>
-                  <td>{prod.name}</td>
-                  <td>{specStr}</td>
-                  <td style={{minWidth: '4rem'}}>{prod.price}</td>
-                  <td>數量面板</td>
-                  <td>小計</td>
-                </tr>
-              );
-            })}
+            {noData ? <></> :
+              dataArr.map((item) => {
+                let specIndicator =
+                  (item.sort_name ? 1 : 0) + (item.spec_name ? 2 : 0);
+                let infoStr = '';
+                switch (specIndicator) {
+                  case 3:
+                    infoStr = [item.sort_name, item.spec_name].join('、');
+                    break;
+                  case 2:
+                    infoStr = item.spec_name;
+                    break;
+                  case 1:
+                    infoStr = item.sort_name;
+                    break;
+                  case 0:
+                  default:
+                    break;
+                }
+                const imgPath = '/pic-prod/' + item.pic_path;
+                return (
+                  <tr key={item.key}>
+                    <td>
+                      <FddBtn color='tint4' size='sm' icon callback={() => { }}>
+                        <RxCross2 />
+                      </FddBtn>
+                    </td>
+                    <td>
+                      <div className="mx-auto">
+                        <Image
+                          src={imgPath}
+                          width={100}
+                          height={100}
+                          alt={item.name}
+                        />
+                      </div>
+                    </td>
+                    <td>{item.name}</td>
+                    <td>{infoStr}</td>
+                    <td style={{ minWidth: '4rem' }}>{item.price}</td>
+                    <td>數量面板</td>
+                    <td>小計</td>
+                  </tr>
+                );
+              })
+            }
           </tbody>
         </table>
+        {noData ? <h2 className='tx-dark'>購物車現在空無一物</h2>
+          : <></>}
       </section>
     </>
   );
 };
 
-// CartPage.prototype = {
-//   data: PropTypes.arrayOf({
-//     name: PropTypes.string,
-//     pic_path: PropTypes.string,
-//     sort: PropTypes.string,
-//     spec: PropTypes.string,
-//     price: PropTypes.number,
-//     number: PropTypes.number,
-//   }),
-// };
-
 CartPage.layout = BuyLayout;
-
-export default CartPage;

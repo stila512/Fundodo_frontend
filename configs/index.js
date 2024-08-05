@@ -1,4 +1,4 @@
-export const PORT = 6005
+export const PORT = 3005
 export const DEV = true
 
 // express 的位置
