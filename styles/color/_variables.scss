@@ -61,6 +61,9 @@ $theme-colors: (
   "tint3":      $color-tint-3,
   "tint4":      $color-tint-4,
   "tint5":      $color-tint-5,
+  "heading":    $color-heading,
+  "body":       $color-body,
+  "muted":      $color-muted,
 );
 
 @each $color, $value in $theme-colors {

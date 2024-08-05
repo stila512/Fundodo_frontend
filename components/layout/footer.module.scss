@@ -23,7 +23,7 @@
 }
 
 .fooL {
-  @extend .grCenter;
+  @extend .gr-center;
   margin-bottom: 3rem;
   @include s.rwd-above('lg') {
     margin-bottom: 0;
