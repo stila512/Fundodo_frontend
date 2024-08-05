@@ -49,7 +49,13 @@ export default function DetailGroup() {
                         <span className={scss.price}>NT$680</span>
                         <span className={scss.originPrice}>NT$1,250</span>
                     </div> 
-
+                    <div className={'d-flex'}>
+                        <span>數量</span>
+                        <button>-</button>
+                        <span>1</span>
+                        <button>+</button>
+                        <button>加入購物車</button>
+                    </div>
                 </div>
             </div>
         </>
