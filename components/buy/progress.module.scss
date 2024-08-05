@@ -24,7 +24,7 @@
 .circle {
   @include styles.circle-of(3.5rem);
   @include styles.ff-maru(1.5rem);
-  @extend .fxCenter;
+  @extend .fx-center;
   font-weight: 900;
   position: relative;
 }
