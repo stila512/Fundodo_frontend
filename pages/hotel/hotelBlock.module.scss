@@ -1,4 +1,4 @@
-@use '@/styles';
+@use '@/styles' as c;
 
 .container {
   max-width: 1200px;
@@ -7,7 +7,7 @@
 }
 
 .h3 {
-  color: #6F625C;
+  color: c.$color-shade-2;
   margin-bottom: 20px;
 }
 
@@ -18,7 +18,7 @@
 }
 
 .card {
-  border: 1px solid #e0e0e0;
+  border: 1px solid c.$color-tint-5;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -32,7 +32,7 @@
 }
 
 .hotelName {
-  color: #37312E;
+  color: c.$color-shade-4;
   font-weight: bold;
   margin: 10px 0;
   padding: 0 15px;
@@ -40,14 +40,14 @@
 
 .description {
   font-size: 14px;
-  color: #424242;
+  color: c.$gray-800;
   flex-grow: 1;
   padding: 0 15px;
 }
 
 .button {
-  background-color: #B9A69D;
-  color: white;
+  background-color: c.$primary;
+  color: c.$white;
   border: none;
   padding: 10px 20px;
   margin: 15px;
