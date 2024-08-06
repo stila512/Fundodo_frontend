@@ -1,0 +1,20 @@
+.sideText{
+  display: inline-flex;
+  height: 274px;
+  padding: 30px 20px;
+  margin: 22px 206px;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  border: 1px solid #EAEAEA;
+  .icon{
+    display: flex;
+    width: 230px;
+    padding-bottom: 0px;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+    border-bottom: 1px solid #EAEAEA;
+  }
+}
