@@ -9,13 +9,37 @@ import scss from './side.module.scss';
 
 export default function SideText() {
   return (
-    <div className={scss.sideText}>
-      <div className={scss.icon}><Image className="imgWrap" src={mdi_user} alt="Image" />會員管理</div>
-      <div className={scss.icon}><Image className="imgWrap" src={mdi_dog} alt="Image" />狗狗管理</div>
-      <div className={scss.icon}><Image className="imgWrap" src={mdi_list} alt="Image" />訂單查詢</div>
-      <div className={scss.icon}><Image className="imgWrap" src={mdi_lock} alt="Image" />修改密碼</div>
-      <div className={scss.icon}><Image className="imgWrap" src={mdi_heart} alt="Image" />我的收藏</div>
-      <div className={scss.icon}><Image className="imgWrap" src={mdi_coupon} alt="Image" />優惠卷</div>
+    <div className={`${scss.sideText}`}>
+      <div className={scss.menuItem}>
+        <div className={scss.mainItem}>
+          <Image className={scss.icon} src={mdi_user} alt="會員管理" />
+          <span>會員管理</span>
+        </div>
+        <div className={scss.subItems}>
+          <div>基本資料</div>
+          <div>討論區會員</div>
+        </div>
+      </div>
+      <div className={scss.menuItem}>
+        <Image className={scss.icon} src={mdi_dog} alt="狗狗管理" />
+        <span>狗狗管理</span>
+      </div>
+      <div className={scss.menuItem}>
+        <Image className={scss.icon} src={mdi_list} alt="訂單查詢" />
+        <span>訂單查詢</span>
+      </div>
+      <div className={scss.menuItem}>
+        <Image className={scss.icon} src={mdi_lock} alt="修改密碼" />
+        <span>修改密碼</span>
+      </div>
+      <div className={scss.menuItem}>
+        <Image className={scss.icon} src={mdi_heart} alt="我的收藏" />
+        <span>我的收藏</span>
+      </div>
+      <div className={scss.menuItem}>
+        <Image className={scss.icon} src={mdi_coupon} alt="優惠卷" />
+        <span>優惠卷</span>
+      </div>
     </div>
   );
 }
