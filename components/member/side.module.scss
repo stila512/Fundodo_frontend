@@ -1,20 +1,40 @@
-.sideText{
+.sideText {
   display: inline-flex;
-  height: 274px;
-  padding: 30px 20px;
-  margin: 22px 206px;
+  height: 312px;
+  padding: 22px 20px;
   flex-direction: column;
   align-items: center;
   gap: 12px;
   flex-shrink: 0;
   border: 1px solid #EAEAEA;
-  .icon{
+
+  .menuItem {
     display: flex;
-    width: 230px;
-    padding-bottom: 0px;
-    justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     gap: 8px;
-    border-bottom: 1px solid #EAEAEA;
+
+    .icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    &:first-child {
+      flex-direction: column;
+      align-items: flex-start;
+
+      .mainItem {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .subItems {
+        padding-left: 32px; // 使子項目與"會員管理"的"員"字對齊
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin-top: 4px;
+      }
+    }
   }
 }
