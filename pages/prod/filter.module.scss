@@ -11,13 +11,14 @@
 }
 
 .customRadio {
-    width: 107px;
+    width: fit-content;
     height: 36px;
     display: flex;
     align-items: center;
     position: relative;
     cursor: pointer;
     padding-left: 30px;
+    padding-right: 10px;
     border: 1px solid s.$primary;
     border-radius: 50px;
     color: s.$color-shade-2;
@@ -28,6 +29,12 @@
 }
 
 .customRadio input[type="radio"]:checked + .radioIndicator {
+    border: 2px solid s.$color-shade-2;
+    background: transparent;
+    width: 18px;
+    height: 18px;
+}
+.customRadio input[type="checkbox"]:checked + .radioIndicator {
     border: 2px solid s.$color-shade-2;
     background: transparent;
     width: 18px;
@@ -53,4 +60,15 @@
     height: 10px; /* 內部圓形的大小 */
     border-radius: 50%;
     background: s.$color-shade-2; 
+}
+
+.customRadio input[type="checkbox"]:checked + .radioIndicator::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: s.$color-shade-2; /* 或其他顏色 */
 }

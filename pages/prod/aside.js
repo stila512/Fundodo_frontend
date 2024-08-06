@@ -19,7 +19,7 @@ export default function Aside() {
                                 <h2 className={scss.font}>飼料分類</h2>
                                 <div className={scss.arrow}><Image alt={arrow} width={17} height={17} src={arrow} /></div>
                             </div>
-                            <Filter />
+                            <Filter  categories={['一般乾糧', '無穀乾糧', '一般凍乾', '無穀凍乾', '功能配方', '處方飼料']}/>
                         </div>
                     </div>
                     <div className={scss.ractangle}>
@@ -29,10 +29,7 @@ export default function Aside() {
                                 <div className={scss.arrow}><Image alt={arrow} width={17} height={17} src={arrow} /></div>
                             </div>
                             <div className={['row', scss.gap].join(" ")}>
-                                <button className={[scss.btnAge, scss.btnFont, 'col-6'].join(" ")}>全齡</button>
-                                <button className={[scss.btnAge, scss.btnFont, 'col-6'].join(" ")}>幼犬</button>
-                                <button className={[scss.btnAge, scss.btnFont, 'col-6'].join(" ")}>成犬</button>
-                                <button className={[scss.btnAge, scss.btnFont, 'col-6', scss.checked].join(" ")}>高齡犬</button>
+                                <Filter categories={['全齡', '幼犬', '成犬', '高齡犬']} multiple={true}/>
                             </div>
                         </div>
                     </div>
@@ -51,10 +48,7 @@ export default function Aside() {
                                 <h2 className={scss.font}>品牌</h2>
                                 <div className={scss.arrow}><Image alt={arrow} width={17} height={17} src={arrow} /></div>
                             </div>
-                            <button className={[scss.btn, scss.btnFont, scss.checked].join(' ')}><Image alt={btnChecked} width={24} height={24} src={btnChecked} />ZiwiPeak 巔峰</button>
-                            <button className={[scss.btn, scss.btnFont].join(' ')}><Image alt={btn} width={15} height={15} src={btn} />汪喵星球</button>
-                            <button className={[scss.btn, scss.btnFont].join(' ')}><Image alt={btn} width={15} height={15} src={btn} />法國皇家</button>
-                            <button className={[scss.btn, scss.btnFont].join(' ')}><Image alt={btn} width={15} height={15} src={btn} />飼糧倉</button><button className={[scss.btn, scss.btnFont].join(' ')}><Image width={15} height={15} src={btn} />朝貢 조공</button><button className={[scss.btn, scss.btnFont].join(' ')}><Image width={15} height={15} src={btn} />小犬威利</button>
+                            <Filter categories={['ZiwiPeak 巔峰', '汪喵星球', '法國皇家', '飼糧倉', '朝貢 조공', '小犬威利']} multiple={true}/>
                         </div>
                     </div>
                 </div>
