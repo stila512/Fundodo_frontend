@@ -13,8 +13,6 @@ const themeColors = [
   "warning",
   "error",
   "white",
-  "light",
-  "dark",
   "black",
   "tint1",
   "tint2",

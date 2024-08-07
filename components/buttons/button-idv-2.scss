@@ -11,13 +11,13 @@ a.btn-tint4,
 button.btn-tint4,
 a.btn-tint4-icon,
 button.btn-tint4-icon {
-  color: c.$color-shade-1;
+  color: c.$shade1;
   border-color: transparent;
 
   &:hover {
     background-color: c.$primary;
   }
   &:active {
-    background-color: c.$color-shade-1;
+    background-color: c.$shade1;
   }
 }

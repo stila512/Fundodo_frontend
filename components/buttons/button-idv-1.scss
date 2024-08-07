@@ -9,12 +9,12 @@
 //================= primary =================//
 a.btn-primary,
 button.btn-primary {
-  color: c.$color-tint-5;
-  text-shadow: -1px -1px 0 c.$color-shade-3;
+  color: c.$tint5;
+  text-shadow: -1px -1px 0 c.$shade3;
   border: none;
 
   &:hover {
-    background-color: c.$color-tint-1;
+    background-color: c.$tint1;
   }
   &:active {
     background-color: shift-color(c.$primary, 5%);
@@ -27,18 +27,18 @@ button.btn-primary-2 {
   border-color: $color;
 
   &:hover {
-    background-color: c.$color-tint-5;
-    color: c.$color-shade-1;
+    background-color: c.$tint5;
+    color: c.$shade1;
   }
   &:active {
-    background-color: c.$color-tint-4;
+    background-color: c.$tint4;
   }
 }
 //================= secondary =================//
 a.btn-secondary,
 button.btn-secondary {
-  color: c.$color-shade-3;
-  border: 2px solid c.$color-shade-3;
+  color: c.$shade3;
+  border: 2px solid c.$shade3;
 
   &:hover {
     background-color: shift-color(c.$secondary, 5%);
@@ -49,8 +49,8 @@ button.btn-secondary {
 }
 a.btn-secondary-2,
 button.btn-secondary-2 {
-  color: c.$color-shade-3;
-  border: 2px solid c.$color-shade-3;
+  color: c.$shade3;
+  border: 2px solid c.$shade3;
 
   transition: top 0.4s;
   //extra
@@ -67,7 +67,7 @@ button.btn-secondary-2 {
     // top: 100%;
     top: 0;
     bottom: 0;
-    background-color: c.$color-shade-3;
+    background-color: c.$shade3;
     transition: transform 0.15s ease-in-out;
     transform: translateY(100%);
   }
@@ -75,23 +75,23 @@ button.btn-secondary-2 {
   &:hover::before {
     // top: 50%;
     transform: translateY(70%);
-    // background-color: c.$color-tint-4;
-    // box-shadow: inset 0 0 8px c.$color-shade-3, inset 0 0 16px c.$color-shade-1;
-    // box-shadow: inset 0 -1rem 0 c.$color-shade-3;
+    // background-color: c.$tint4;
+    // box-shadow: inset 0 0 8px c.$shade3, inset 0 0 16px c.$shade1;
+    // box-shadow: inset 0 -1rem 0 c.$shade3;
   }
   &:active {
-    background-color: c.$color-shade-3;
+    background-color: c.$shade3;
   }
 }
 a.btn-secondary-icon,
 button.btn-secondary-icon {
-  color: c.$color-shade-2;
+  color: c.$shade2;
 }
 a.btn-secondary-icon-2,
 button.btn-secondary-icon {
-  background-color: c.$color-tint-5;
-  color: c.$color-shade-2;
-  border: 2px solid c.$color-shade-2;
+  background-color: c.$tint5;
+  color: c.$shade2;
+  border: 2px solid c.$shade2;
 }
 //================= error =================//
 a.btn-error,

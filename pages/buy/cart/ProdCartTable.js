@@ -122,7 +122,7 @@ export default function ProdCartTable() {
           }
         </tbody>
       </table>
-      {noData ? <h2 className='tx-dark'>購物車現在空無一物</h2>
+      {noData ? <h2 className='tx-shade4'>購物車現在空無一物</h2>
         : <></>}
     </>
   )

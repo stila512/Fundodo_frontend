@@ -94,7 +94,7 @@ export default function TestPage() {
               ))}
             </div>
           </div>
-          <div className="col-12 showcase bg-dark">
+          <div className="col-12 showcase bg-shade4">
             <h2 className='tx-center tx-tint4'>按鈕展示區 - 深背景</h2>
             <div className="row row-cols-3 row-cols-lg-4 g-3">
               {themeColors.map((color, i) => (

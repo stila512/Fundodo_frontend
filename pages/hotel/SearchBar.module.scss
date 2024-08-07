@@ -9,7 +9,7 @@
 
 .searchBarContainer {
   display: flex;
-  background-color: c.$color-tint-4;
+  background-color: c.$tint4;
   padding: 20px;
   border-radius: 8px;
   gap: 20px;
@@ -59,7 +59,7 @@
 .icon {
   position: absolute;
   right: 30px;
-  color: c.$color-shade-3;
+  color: c.$shade3;
 }
 
 .selectWrapper {
