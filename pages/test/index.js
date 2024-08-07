@@ -5,6 +5,31 @@ import scss from './test.module.scss';
 import { DiApple } from 'react-icons/di';
 import { IconContext } from 'react-icons';
 
+const themeColors = [
+  "primary",
+  "secondary",
+  "info",
+  "warning",
+  "error",
+  "white",
+  "light",
+  "dark",
+  "black",
+  "tint1",
+  "tint2",
+  "tint3",
+  "tint4",
+  "tint5",
+  "shade1",
+  "shade2",
+  "shade3",
+  "shade4",
+  "shade5",
+  "heading",
+  "body",
+  "muted",
+];
+
 export default function TestPage() {
   const f = () => {
     console.log('object');
@@ -15,8 +40,8 @@ export default function TestPage() {
         <title>測試用頁面</title>
       </Head>
       <div className="container">
-        <div className="row">
-          <div className="col12 col_lg6">
+        <div className="row jc-center">
+          <div className="col-12 col-lg-6">
             <div className={scss.msgRegisterSuccess}>
               <h2>會員註冊成功</h2>
               <p>歡迎加入Fundod翻肚肚</p>
@@ -40,19 +65,16 @@ export default function TestPage() {
               </div>
             </div>
           </div>
-          <div className="col12 col_lg6">
-            <div className={scss.msgRegisterSuccess}>
-              <div className="bgPrimary">1</div>
-              <div className="bgPrimary mt3 dFlex" style={{ width: '50%' }}>2</div>
-              <div className="bgPrimary mt3 dInline" style={{ width: '50%' }}>3</div>
-              <div className="dNone d_lgFlex jcBetween">
-                <div className={[scss.ball, 'txError fxCenter'].join(' ')}>1</div>
-                <div className={[scss.ball, 'txError fxCenter'].join(' ')}>2</div>
-                <div className={[scss.ball, 'txError fxCenter'].join(' ')}>3</div>
-                <div className={[scss.ball, 'txError fxCenter'].join(' ')}>4</div>
-                <div className={[scss.ball, 'txError fxCenter'].join(' ')}>5</div>
-              </div>
-              <div className="bgInfo roundedBPill mx5" style={{lineHeight: 2}}>5</div>
+          <div className="col-12 mt-5">
+            <h2 className='tx-center mb-5'>色票展示區</h2>
+            <div className="row row-cols-3 row-cols-lg-4">
+              {themeColors.map((color, i) => (
+                <div key={i} className='col'>
+                  <h2 className={'py-3 tx-center bg-' + color} style={{textShadow: "2px 2px white, 2px 1px white, 1px 2px white, -1px -1px white"}}>
+                  {color}
+                  </h2>
+                </div>
+              ))}
             </div>
           </div>
         </div>

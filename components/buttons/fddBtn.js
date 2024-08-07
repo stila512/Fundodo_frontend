@@ -8,8 +8,10 @@ const colorList = {
   info: 'info',
   warning: 'warning',
   error: 'error',
+  white: 'white',
   light: 'light',
   dark: 'dark',
+  black: 'black',
   shade1: 'shade1',
   shade2: 'shade2',
   shade3: 'shade3',
@@ -20,6 +22,9 @@ const colorList = {
   tint3: 'tint3',
   tint4: 'tint4',
   tint5: 'tint5',
+  heading: "heading",
+  body: "body",
+  muted: "muted",
 };
 
 /**
@@ -44,7 +49,7 @@ export default function FddBtn({
 }) {
   if (!Object.prototype.hasOwnProperty.call(colorList, color)) {
     throw new Error(
-      '顏色的選擇只有 primary, secondary, info, warning, error, light, dark，請擇一使用'
+      `顏色的選擇只有 primary, secondary, info, warning, error, light, dark...，您設定的 ${color} 不在其中`
     );
   }
   switch (size) {
