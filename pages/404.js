@@ -28,7 +28,7 @@ export default function Custom404() {
           style={{ padding: '1rem', borderRadius: '1rem' }}
         >
           <div
-            className="bgLight"
+            className="bg-tin4"
             style={{
               padding: '.5rem 3rem',
               lineHeight: 2,
