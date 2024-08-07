@@ -1,5 +1,7 @@
 import Image from 'next/image'
 import heart from '/public/prodPic/iconamoon_heart.png'
+import scss from './favoriteIcon.module.scss'
+
 export default function FavoriteIcon() {
     return (
         <>
