@@ -1,7 +1,8 @@
 import Head from 'next/head';
 import DefaultLayout from '@/components/layout/default';
 import FddBtn from '@/components/buttons/fddBtn.js';
-import { FaCheck } from "react-icons/fa6";
+import { FaCheck, FaChevronUp } from "react-icons/fa6";
+import { useState } from 'react';
 
 const themeColors = [
   "primary",
@@ -27,9 +28,9 @@ const themeColors = [
 ];
 
 export default function TestPage() {
-  const f = () => {
-    console.log('object');
-  };
+  const [btnType, setBtnType] = useState(0);
+  const isOutline = Math.floor(btnType / 10);
+  const isIcon = btnType % 10;
   return (
     <>
       <Head>
@@ -73,13 +74,40 @@ export default function TestPage() {
           <div className="col-12 mt-5">
             <h1>按鈕全色系</h1>
             <p>(todo)這裡要再加按鈕模式切換功能</p>
+            <div className="showcase">
+              <div className="row jc-center">
+                <div className="col-auto tx-center">
+                  <FddBtn color="primary" callback={() => setBtnType(0)}>按鈕</FddBtn>
+                  <p className='mt-3'>膠囊型，背景色（預設）</p>
+                </div>
+                <div className="col-auto tx-center">
+                  <FddBtn color="primary" outline callback={() => setBtnType(10)}>按鈕</FddBtn>
+                  <p className='mt-3'>膠囊型，邊框色</p>
+                </div>
+                <div className="col-auto tx-center">
+                  <FddBtn color="primary" icon callback={() => setBtnType(1)}><FaCheck /></FddBtn>
+                  <p className='mt-3'>圓形，背景色</p>
+                </div>
+                <div className="col-auto tx-center">
+                  <FddBtn color="primary" icon outline callback={() => setBtnType(11)}><FaCheck /></FddBtn>
+                  <p className='mt-3'>圓形，邊框色</p>
+                </div>
+              </div>
+            </div>
           </div>
           <div className="col-12 showcase">
             <h2 className='tx-center'>按鈕展示區 - 白背景</h2>
             <div className="row row-cols-3 row-cols-lg-4 g-3">
               {themeColors.map((color, i) => (
                 <div key={i} className='col tx-center'>
-                  <FddBtn color={color} callback={() => { }}>{color}</FddBtn>
+                  <FddBtn
+                    color={color}
+                    outline={isOutline}
+                    icon={isIcon} callback={() => { }}
+                  >
+                  {isIcon ? <FaChevronUp/> : color}
+                  </FddBtn>
+                  {isIcon ? <span className='ps-3'>{color}</span> : <></>}
                 </div>
               ))}
             </div>
@@ -90,6 +118,7 @@ export default function TestPage() {
               {themeColors.map((color, i) => (
                 <div key={i} className='col tx-center'>
                   <FddBtn color={color} callback={() => { }}>{color}</FddBtn>
+                  <span>{color}</span>
                 </div>
               ))}
             </div>
