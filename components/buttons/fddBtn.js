@@ -1,4 +1,3 @@
-import btnStyle from './button.module.scss';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 
@@ -47,7 +46,7 @@ export default function FddBtn({
 }) {
   if (!Object.prototype.hasOwnProperty.call(colorList, color)) {
     throw new Error(
-      `顏色的選擇只有 primary, secondary, info, warning, error,...，您設定的 ${color} 不在其中`
+      `顏色的選擇請參照色票組，您設定的 ${color} 不在其中`
     );
   }
   switch (size) {
