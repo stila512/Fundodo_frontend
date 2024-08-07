@@ -8,7 +8,7 @@ import { TbTrashX } from "react-icons/tb";
 import { RxCross2 } from "react-icons/rx";
 import { apiBaseUrl } from '@/configs';
 
-//TODO: 僅供無後台情況時，本機測試用
+//TODO: 以下 testData 僅供無後台情況時，本機測試用
 const testData = [
   {
     name: 'Plus+機能保健系列 泌尿道紓壓保健',
@@ -42,21 +42,8 @@ const testData = [
 //======= API ==================================
 //== parameters
 const USER_ID = 58;//todo: test
-
 const apiLink = `${apiBaseUrl}/carts/${USER_ID}`;
 
-// const getData = async () => {
-//   const apiLink = `${serverLink}/api/carts/${USER_ID}`;
-
-
-//   const results = await axios.get(apiLink);
-
-//   if (results.data.status === 'success') {
-//     return results.data.result;
-//   } else {
-//     throw new Error(`伺服器回應：${response.data.message}`);
-//   }
-// }
 //======= API END ==================================
 
 export default function ProdCartTable() {
@@ -64,16 +51,16 @@ export default function ProdCartTable() {
   const [qtyArr, setQtyArr] = useState([]);
   const [totArr, setTotArr] = useState([]);
   useEffect(() => {
-    const getData = async () => {
+    // 只在這裡使用的函數，以立即函數的方式撰寫
+    (async () => {
       const results = await axios.get(apiLink);
 
       if (results.data.status !== 'success') {
         throw new Error(`伺服器回應：${response.data.message}`);
       }
       setDataArr(results.data.result);
-    }
-    getData();
-    //TODO: 僅供無後台情況時，本機測試用
+    })();
+    //TODO: 以下兩行僅供無後台情況時，本機測試用
     //   setDataArr(testData);
     //   setQtyArr(testData.flatMap(d => d.qty));
   }, []);
@@ -89,54 +76,54 @@ export default function ProdCartTable() {
 
   return (
     <><h4 className='tx-shade4'>共 {dataArr.length} 件商品</h4>
-    <table className={s.cartTable}>
-      <thead>
-        <tr>
-          <th><TbTrashX /></th>
-          <th style={{ width: '200px' }}></th>
-          <th>商品資訊</th>
-          <th>規格</th>
-          <th style={{ width: '9rem' }}>單價</th>
-          <th>數量</th>
-          <th style={{ width: '9rem' }}>小計</th>
-        </tr>
-      </thead>
-      <tbody className='tx-body'>
-        {noData ? <></> :
-          dataArr.map((item, i_data) => (
-            <tr key={item.key}>
-              <td>
-                <FddBtn color='tint4' size='sm' icon callback={() => { }}>
-                  <RxCross2 />
-                </FddBtn>
-              </td>
-              <td>
-                <Image
-                  src={'/pic-prod/' + item.pic_path}
-                  width={192}
-                  height={192}
-                  alt={item.name}
-                />
-              </td>
-              <td>{item.name}</td>
-              <td>
-                {item.sort_name ? <p>{item.sort_name}</p> : <></>}
-                {item.spec_name ? <p>{item.spec_name}</p> : <></>}
-              </td>
-              <td>
-                <div className="mx-auto pe-1 tx-right w-fit">
-                  ${item.price}
-                </div>
-              </td>
-              <td><NumberPanel quantity={qtyArr[i_data]} setFunc={setQtyArr} index={i_data} /></td>
-              <td>${totArr[i_data]}</td>
-            </tr>
-          ))
-        }
-      </tbody>
-    </table>
-    {noData ? <h2 className='tx-dark'>購物車現在空無一物</h2>
-      : <></>}
+      <table className={s.cartTable}>
+        <thead>
+          <tr>
+            <th><TbTrashX /></th>
+            <th style={{ width: '200px' }}></th>
+            <th>商品資訊</th>
+            <th>規格</th>
+            <th style={{ width: '9rem' }}>單價</th>
+            <th>數量</th>
+            <th style={{ width: '9rem' }}>小計</th>
+          </tr>
+        </thead>
+        <tbody className='tx-body'>
+          {noData ? <></> :
+            dataArr.map((item, i_data) => (
+              <tr key={item.key}>
+                <td>
+                  <FddBtn color='tint4' size='sm' icon callback={() => { }}>
+                    <RxCross2 />
+                  </FddBtn>
+                </td>
+                <td>
+                  <Image
+                    src={'/pic-prod/' + item.pic_path}
+                    width={192}
+                    height={192}
+                    alt={item.name}
+                  />
+                </td>
+                <td>{item.name}</td>
+                <td>
+                  {item.sort_name ? <p>{item.sort_name}</p> : <></>}
+                  {item.spec_name ? <p>{item.spec_name}</p> : <></>}
+                </td>
+                <td>
+                  <div className="mx-auto pe-1 tx-right w-fit">
+                    ${item.price}
+                  </div>
+                </td>
+                <td><NumberPanel quantity={qtyArr[i_data]} setFunc={setQtyArr} index={i_data} /></td>
+                <td>${totArr[i_data]}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+      {noData ? <h2 className='tx-dark'>購物車現在空無一物</h2>
+        : <></>}
     </>
   )
 }
