@@ -9,7 +9,7 @@ export default function HotelPage() {
   return (
     <>
       <Head>
-        <title>寵物旅館住宿</title>
+        <title>寵物旅館住宿更新</title>
       </Head>
       <div className={styles.pageContainer}>
       <SearchBar />
