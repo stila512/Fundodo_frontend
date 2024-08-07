@@ -9,7 +9,7 @@ export default function ArticleList() {
   const perPage = 6
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/articles')
+    fetch('http://localhost:3001/api/articles')
       .then(response => response.json())
       .then(data => {
         if (data.status === 'success') {

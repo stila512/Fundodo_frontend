@@ -12,7 +12,7 @@ export default function ProdSec() {
   return (
     <>
       <div className="container" >
-        <div className={[scss.prodSec, "dFlex", "jcBetween", "alCenter"].join(' ')}>
+        <div className={[scss.prodSec, "d-flex", "jc-between", "ai-center"].join(' ')}>
           <div className={scss.prodImgs}>
             <Image src={feed1} alt="" />
             <Image src={feed2} alt="" />

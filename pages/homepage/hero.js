@@ -11,7 +11,7 @@ export default function Hero() {
     <>
       <div className="container">
         <main>
-          <section className={[scss.hero, "dFlex", "jcBetween", "alCenter"].join(' ')}>
+          <section className={[scss.hero, "d-flex", "jc-between", "ai-center"].join(' ')}>
             <div className={scss.hero_text}>
               <h1>您的寵物，我們的關愛</h1>
               <p>
@@ -29,9 +29,9 @@ export default function Hero() {
               </div>
             </div>
             <div className={scss.hero_image}>
-              <Image className="imgWrap" src={dog1} alt="Hero Image" />
-              <Image className="imgWrap" src={dog2} alt="Hero Image" />
-              <Image className="imgWrap" src={dog3} alt="Hero Image" />
+              <Image className="img-wrap" src={dog1} alt="Hero Image" />
+              <Image className="img-wrap" src={dog2} alt="Hero Image" />
+              <Image className="img-wrap" src={dog3} alt="Hero Image" />
             </div>
           </section>
         </main>
