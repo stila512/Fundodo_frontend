@@ -47,7 +47,7 @@
     @include ff-noto;
     font-style: normal;
     font-weight: 400;
-    line-height: 18px; 
+    line-height: 18px;
     margin-bottom: 26px;
   }
   h3 {
@@ -55,7 +55,7 @@
     @include ff-noto;
     font-style: normal;
     font-weight: 700;
-    line-height: 20px; 
+    line-height: 20px;
     margin-bottom: 11px;
   }
   h4 {
@@ -66,11 +66,15 @@
     line-height: 30px;
     margin-bottom: 36px;
   }
-  .link{
+
+  .link {
     display: flex;
     justify-content: end;
     margin-bottom: 25px;
   }
+
+  // .link::after {
+  //   content: ' >>';
+  //   margin-top: 2px;
+  // }
 }
-
-

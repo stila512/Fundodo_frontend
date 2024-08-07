@@ -38,7 +38,7 @@ export default function Home() {
                   <Link href="/article">文章</Link>
                 </div>
                 <div className="col-6 col-lg-4">
-                  <Link href="">課程</Link>
+                  <Link href="/course">課程</Link>
                 </div>
                 <div className="col-6 col-lg-4">
                   <Link href="/buy/cart/cartPage">購物車</Link>

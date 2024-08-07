@@ -40,7 +40,7 @@ export default function ArticleSec() {
               <p>2024.06.18</p>
               <h3>寵物無線飲水機使用分享</h3>
               <h4>大概一年前，終於下定決心要買無線飲水機，爬了很多文做了功課之後，評估各種了條件，畢竟也不想買到一台用不到的機器。 最後我買的是PETK....</h4>
-              <Link href="/" className={scss.link}>More</Link>
+              <Link href="" className={scss.link}>More</Link>
             </div>
           </div>
           
