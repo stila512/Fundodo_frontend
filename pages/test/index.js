@@ -4,6 +4,7 @@ import FddBtn from '@/components/buttons/fddBtn.js';
 import scss from './test.module.scss';
 import { DiApple } from 'react-icons/di';
 import { IconContext } from 'react-icons';
+import Link from 'next/link';
 
 const themeColors = [
   "primary",
@@ -75,6 +76,11 @@ export default function TestPage() {
                   </h2>
                 </div>
               ))}
+            </div>
+            <div className="my-5">
+            <hr />
+              <h3 className='tx-center my-3'>若要看套用各色票的翻肚肚按鈕（&lt;FddBtn&gt;）<br/>請至 <Link href="test/btn-gallery">按鈕全圖鑑</Link></h3>
+            <hr />
             </div>
           </div>
         </div>

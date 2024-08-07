@@ -9,8 +9,6 @@ const colorList = {
   warning: 'warning',
   error: 'error',
   white: 'white',
-  light: 'light',
-  dark: 'dark',
   black: 'black',
   shade1: 'shade1',
   shade2: 'shade2',
