@@ -7,8 +7,10 @@ export default function Banner() {
     <>
     <div className='container'>
       <div className={scss.banner}>
-        
+      <Image src={dog} className={scss.dog}/>
+      <h2>狗的課程</h2>
       </div>
+      <p>Home 狗狗課程</p>
     
       </div>
     </>
