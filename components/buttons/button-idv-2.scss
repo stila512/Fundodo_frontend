@@ -6,6 +6,35 @@
 
 //若為模組已設定之樣式，則不重複設定
 //以下按顏色分類
+//================= white =================//
+a.btn-white,
+button.btn-white,
+a.btn-white-icon,
+button.btn-white-icon {
+  color: c.$black;
+  border-color: transparent;
+
+  &:hover {
+    background-color: c.$tint5;
+  }
+  &:active {
+    background-color: c.$tint2;
+  }
+}
+a.btn-white-2,
+button.btn-white-2,
+a.btn-white-icon-2,
+button.btn-white-icon-2 {
+  color: c.$black;
+  border-color: transparent;
+
+  &:hover {
+    background-color: c.$tint5;
+  }
+  &:active {
+    background-color: c.$tint2;
+  }
+}
 //================= tint =================//
 a.btn-tint4,
 button.btn-tint4,

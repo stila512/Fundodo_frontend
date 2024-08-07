@@ -103,7 +103,7 @@ a.btn-info-2,
 button.btn-info-2 {
   color: c.$info-text;
   &:hover {
-    background-color: c.$light;
+    background-color: c.$tint4;
   }
   &:active {
     background-color: shift-color(c.$info, -50%);
