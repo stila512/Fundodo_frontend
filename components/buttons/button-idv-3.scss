@@ -1,0 +1,93 @@
+@use '@/styles/color/variables' as c;
+
+//*====== 個別樣式
+//此檔整理特定款式按鈕的個別設定
+//按鈕的通用樣式模組則於另外一檔
+
+//若為模組已設定之樣式，則不重複設定
+//以下按顏色分類
+
+//================= tint =================//
+$tint-names: ('tint1', 'tint2', 'tint3', 'tint4', 'tint5');
+
+@each $name in $tint-names {
+  a.btn-#{$name}-2,
+  button.btn-#{$name}-2,
+  a.btn-#{$name}-icon-2,
+  button.btn-#{$name}-icon-2 {
+    // color: c.$tint5;
+    background-color: transparent;
+  }
+}
+
+@each $name in ('tint3', 'tint4', 'tint5') {
+  a.btn-#{$name}-2,
+  button.btn-#{$name}-2,
+  a.btn-#{$name}-icon-2,
+  button.btn-#{$name}-icon-2 {
+    &:hover {
+      border-color: c.$tint1;
+      color: c.$tint1;
+    }
+    &:active {
+      border-color: c.$shade1;
+      color: c.$shade1;
+    }
+  }
+}
+
+a.btn-tint4,
+button.btn-tint4,
+a.btn-tint4-icon,
+button.btn-tint4-icon {
+  color: c.$shade3;
+  border-color: transparent;
+
+  &:hover {
+    background-color: c.$tint5;
+    color: c.$shade4;
+  }
+  &:active {
+    background-color: c.$white;
+  }
+}
+a.btn-tint4,
+button.btn-tint4,
+a.btn-tint4-icon,
+button.btn-tint4-icon {
+  color: c.$shade3;
+  border-color: transparent;
+
+  &:hover {
+    background-color: c.$tint5;
+    color: c.$shade4;
+  }
+  &:active {
+    background-color: c.$white;
+  }
+}
+
+//================= shade =================//
+$shade-names: ('shade1', 'shade2', 'shade3', 'shade4', 'shade5');
+
+@each $name in $shade-names {
+  a.btn-#{$name},
+  button.btn-#{$name},
+  a.btn-#{$name}-icon,
+  button.btn-#{$name}-icon {
+    color: c.$tint5;
+    border-color: transparent;
+  }
+}
+
+a.btn-shade4,
+button.btn-shade4,
+a.btn-shade4-icon,
+button.btn-shade4-icon {
+  &:hover {
+    background-color: c.$shade5;
+  }
+  &:active {
+    background-color: c.$black;
+  }
+}

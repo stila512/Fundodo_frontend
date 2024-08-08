@@ -10,7 +10,7 @@
 a.btn-primary,
 button.btn-primary {
   color: c.$tint5;
-  text-shadow: -1px -1px 0 c.$shade3;
+  text-shadow: -1px -1px 0 c.$shade2;
   border: none;
 
   &:hover {
@@ -37,8 +37,7 @@ button.btn-primary-2 {
 //================= secondary =================//
 a.btn-secondary,
 button.btn-secondary {
-  color: c.$shade3;
-  border: 2px solid c.$shade3;
+  color: c.$shade4;
 
   &:hover {
     background-color: shift-color(c.$secondary, 5%);

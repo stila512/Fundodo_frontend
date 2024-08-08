@@ -10,8 +10,8 @@ export default function BuyProgress({ stage = 1 }) {
         .map((_, i) => {
           const isCurrent = stage === i + 1;
           const palette = {
-            color: isCurrent ? colors.colorTint5 : colors.colorShade3,
-            backgroundColor: isCurrent ? colors.primary : colors.colorTint4,
+            color: isCurrent ? colors.tint5 : colors.shade3,
+            backgroundColor: isCurrent ? colors.primary : colors.tint4,
           };
           return (
             <div key={i} className={s.circle} style={palette}>

@@ -29,8 +29,12 @@ const themeColors = [
 
 export default function TestPage() {
   const [btnType, setBtnType] = useState(0);
-  const isOutline = Math.floor(btnType / 10);
-  const isIcon = btnType % 10;
+  const isOutline = !!(Math.floor(btnType / 10));
+  const isIcon = !!(btnType % 10);
+
+  const bgMode = ["bg-white", "bg-secondary", "bg-shade4"];
+  const bgModetitle = ["白", "淺", "深"];
+
   return (
     <>
       <Head>
@@ -51,88 +55,67 @@ export default function TestPage() {
           <div className="col-12 mt-5">
             <h1>按鈕全種類</h1>
             <div className="showcase">
-              <div className="row jc-center">
+              <div className="row jc-center g-5">
                 <div className="col-auto tx-center">
                   <FddBtn color="primary" callback={() => { }}>按鈕</FddBtn>
                   <p className='mt-3'>膠囊型，背景色（預設）</p>
+                  <p className='mt-1'>語法：不用外加</p>
                 </div>
                 <div className="col-auto tx-center">
                   <FddBtn color="primary" outline callback={() => { }}>按鈕</FddBtn>
                   <p className='mt-3'>膠囊型，邊框色</p>
+                  <p className='mt-1'>語法：加 outline</p>
                 </div>
                 <div className="col-auto tx-center">
                   <FddBtn color="primary" icon callback={() => { }}><FaCheck /></FddBtn>
                   <p className='mt-3'>圓形，背景色</p>
+                  <p className='mt-1'>語法：加 icon</p>
                 </div>
                 <div className="col-auto tx-center">
                   <FddBtn color="primary" icon outline callback={() => { }}><FaCheck /></FddBtn>
                   <p className='mt-3'>圓形，邊框色</p>
+                  <p className='mt-1'>語法：加 outline、icon</p>
                 </div>
               </div>
             </div>
           </div>
           <div className="col-12 mt-5">
             <h1>按鈕全色系</h1>
-            <p>(todo)這裡要再加按鈕模式切換功能</p>
-            <div className="showcase">
-              <div className="row jc-center">
-                <div className="col-auto tx-center">
-                  <FddBtn color="primary" callback={() => setBtnType(0)}>按鈕</FddBtn>
-                  <p className='mt-3'>膠囊型，背景色（預設）</p>
-                </div>
-                <div className="col-auto tx-center">
-                  <FddBtn color="primary" outline callback={() => setBtnType(10)}>按鈕</FddBtn>
-                  <p className='mt-3'>膠囊型，邊框色</p>
-                </div>
-                <div className="col-auto tx-center">
-                  <FddBtn color="primary" icon callback={() => setBtnType(1)}><FaCheck /></FddBtn>
-                  <p className='mt-3'>圓形，背景色</p>
-                </div>
-                <div className="col-auto tx-center">
-                  <FddBtn color="primary" icon outline callback={() => setBtnType(11)}><FaCheck /></FddBtn>
-                  <p className='mt-3'>圓形，邊框色</p>
-                </div>
+            <p className="tx-center mb-3">請以下列四按鈕，切換翻肚肚按鈕的四種模式。</p>
+            <div className="row jc-center">
+              <div className="col-auto tx-center">
+                <FddBtn color={btnType === 0 ? "info" : "muted"} callback={() => setBtnType(0)}>按鈕</FddBtn>
+              </div>
+              <div className="col-auto tx-center">
+                <FddBtn color={btnType === 10 ? "info" : "muted"} outline callback={() => setBtnType(10)}>按鈕</FddBtn>
+              </div>
+              <div className="col-auto tx-center">
+                <FddBtn color={btnType === 1 ? "info" : "muted"} icon callback={() => setBtnType(1)}><FaCheck /></FddBtn>
+              </div>
+              <div className="col-auto tx-center">
+                <FddBtn color={btnType === 11 ? "info" : "muted"} icon outline callback={() => setBtnType(11)}><FaCheck /></FddBtn>
               </div>
             </div>
           </div>
-          <div className="col-12 showcase">
-            <h2 className='tx-center'>按鈕展示區 - 白背景</h2>
-            <div className="row row-cols-3 row-cols-lg-4 g-3">
-              {themeColors.map((color, i) => (
-                <div key={i} className='col tx-center'>
-                  <FddBtn
-                    color={color}
-                    outline={isOutline}
-                    icon={isIcon} callback={() => { }}
-                  >
-                  {isIcon ? <FaChevronUp/> : color}
-                  </FddBtn>
-                  {isIcon ? <span className='ps-3'>{color}</span> : <></>}
-                </div>
-              ))}
+          {bgMode.map((color, i_mode) => (
+            <div className={["col-12 showcase", color].join(' ')}>
+              <h2 className={['tx-center', i_mode === 2 ? 'tx-tint4' : ''].join(' ')}>按鈕展示區 - {bgModetitle[i_mode]}背景</h2>
+              <div className="row row-cols-3 row-cols-lg-4 g-3">
+                {themeColors.map((color, i) => (
+                  <div key={i} className='col tx-center'>
+                    <FddBtn
+                      color={color}
+                      outline={isOutline}
+                      icon={isIcon} callback={() => { }}
+                    >
+                      {isIcon ? <FaChevronUp /> : color}
+                    </FddBtn>
+                    {isIcon ? <span className='ps-3'>{color}</span> : <></>}
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-          <div className="col-12 showcase bg-secondary">
-            <h2 className='tx-center'>按鈕展示區 - 淺背景</h2>
-            <div className="row row-cols-3 row-cols-lg-4 g-3">
-              {themeColors.map((color, i) => (
-                <div key={i} className='col tx-center'>
-                  <FddBtn color={color} callback={() => { }}>{color}</FddBtn>
-                  <span>{color}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="col-12 showcase bg-shade4">
-            <h2 className='tx-center tx-tint4'>按鈕展示區 - 深背景</h2>
-            <div className="row row-cols-3 row-cols-lg-4 g-3">
-              {themeColors.map((color, i) => (
-                <div key={i} className='col tx-center'>
-                  <FddBtn color={color} callback={() => { }}>{color}</FddBtn>
-                </div>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </div>
       <style jsx>{`
