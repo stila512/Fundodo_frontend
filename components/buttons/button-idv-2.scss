@@ -18,15 +18,73 @@ button.btn-white-icon {
     background-color: c.$tint5;
   }
   &:active {
-    background-color: c.$tint2;
+    background-color: c.$tint4;
   }
 }
 a.btn-white-2,
 button.btn-white-2,
 a.btn-white-icon-2,
 button.btn-white-icon-2 {
-  color: c.$black;
+  color: c.$white;
+  background-color: transparent;
+
+  &:hover {
+    background-color: c.$tint2;
+  }
+  &:active {
+    background-color: c.$tint1;
+  }
+}
+//================= black =================//
+a.btn-black,
+button.btn-black,
+a.btn-black-icon,
+button.btn-black-icon {
+  color: c.$white;
   border-color: transparent;
+
+  &:hover {
+    background-color: c.$shade4;
+  }
+  &:active {
+    background-color: c.$shade3;
+  }
+}
+a.btn-black-2,
+button.btn-black-2,
+a.btn-black-icon-2,
+button.btn-black-icon-2 {
+  color: c.$black;
+  background-color: transparent;
+
+  &:hover {
+    background-color: c.$tint5;
+  }
+  &:active {
+    background-color: c.$tint4;
+  }
+}
+
+//================= heading =================//
+a.btn-heading,
+button.btn-heading,
+a.btn-heading-icon,
+button.btn-heading-icon {
+  color: c.$tint4;
+  border-color: transparent;
+
+  &:hover {
+    background-color: c.$shade4;
+  }
+  &:active {
+    background-color: c.$shade5;
+  }
+}
+a.btn-heading-2,
+button.btn-heading-2,
+a.btn-heading-icon-2,
+button.btn-heading-icon-2 {
+  background-color: transparent;
 
   &:hover {
     background-color: c.$tint5;
@@ -35,18 +93,4 @@ button.btn-white-icon-2 {
     background-color: c.$tint2;
   }
 }
-//================= tint =================//
-a.btn-tint4,
-button.btn-tint4,
-a.btn-tint4-icon,
-button.btn-tint4-icon {
-  color: c.$shade1;
-  border-color: transparent;
 
-  &:hover {
-    background-color: c.$primary;
-  }
-  &:active {
-    background-color: c.$shade1;
-  }
-}
