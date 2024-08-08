@@ -4,6 +4,7 @@ import DefaultLayout from '@/components/layout/default';
 import styles from '@/pages/hotel/index.module.scss';
 import SearchBar from '@/pages/hotel/SearchBar';
 import HotelBlock from './hotelBlock';
+import Sort from './sort';
 
 export default function HotelPage() {
   return (
@@ -14,6 +15,7 @@ export default function HotelPage() {
       <div className={styles.pageContainer}>
       <SearchBar />
       <HotelBlock />
+      <Sort />
       </div>
       <div >
       
