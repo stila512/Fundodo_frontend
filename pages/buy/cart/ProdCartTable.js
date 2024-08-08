@@ -39,7 +39,7 @@ const testData = [
   },
 ];
 
-//======= API ==================================
+//======= API =====================================
 //== parameters
 const USER_ID = 58;//todo: test
 const apiLink = `${apiBaseUrl}/carts/${USER_ID}`;
@@ -75,11 +75,12 @@ export default function ProdCartTable() {
   const noData = (!dataArr || dataArr.length === 0);
 
   return (
-    <><h4 className='tx-shade4'>共 {dataArr.length} 件商品</h4>
+    <>
+      <h4 className='tx-shade4'>共 {dataArr.length} 件商品</h4>
       <table className={s.cartTable}>
         <thead>
           <tr>
-            <th><TbTrashX /></th>
+            <th style={{ width: '4rem' }}><TbTrashX /></th>
             <th style={{ width: '200px' }}></th>
             <th>商品資訊</th>
             <th>規格</th>
@@ -122,7 +123,7 @@ export default function ProdCartTable() {
           }
         </tbody>
       </table>
-      {noData ? <h2 className='tx-dark'>購物車現在空無一物</h2>
+      {noData ? <h2 className='tx-shade4'>購物車現在空無一物</h2>
         : <></>}
     </>
   )

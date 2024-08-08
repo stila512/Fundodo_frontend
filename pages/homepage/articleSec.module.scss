@@ -6,7 +6,7 @@
   margin-top: 78px;
   h2 {
     @include ff-maru(24px, 36px);
-    color: $color-heading;
+    color: $heading;
     font-style: normal;
     font-weight: 700;
     line-height: 46px;
@@ -22,7 +22,7 @@
   width: 496px;
   height: 584px;
   flex-shrink: 0;
-  border: 1px solid $light;
+  border: 1px solid $tint4;
   margin-top: 28px;
   margin-bottom: 122px;
 }
@@ -43,7 +43,7 @@
 .card_body {
   padding: 0 35px;
   p {
-    color: $color-shade-3;
+    color: $shade3;
     @include ff-noto;
     font-style: normal;
     font-weight: 400;
@@ -51,7 +51,7 @@
     margin-bottom: 26px;
   }
   h3 {
-    color: $color-shade-3;
+    color: $shade3;
     @include ff-noto;
     font-style: normal;
     font-weight: 700;

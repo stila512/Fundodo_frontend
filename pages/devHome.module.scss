@@ -22,14 +22,14 @@
     background-color: c.$primary;
   }
   div:nth-child(2) a {
-    background-color: c.$dark;
-    color: c.$light;
+    background-color: c.$shade4;
+    color: c.$tint4;
   }
   div:nth-child(3) a {
     background-color: c.$warning;
   }
   div:nth-child(4) a {
-    background-color: c.$color-shade-1;
+    background-color: c.$shade1;
     color: c.$secondary;
   }
   div:nth-child(5) a {
@@ -40,12 +40,12 @@
     color: c.$secondary;
   }
   div:nth-child(7) a {
-    background-color: c.$color-shade-2;
-    color: c.$color-tint-4;
+    background-color: c.$shade2;
+    color: c.$tint4;
   }
   div:nth-child(8) a {
     background-color: c.$info-text;
-    color: c.$light;
+    color: c.$tint4;
   }
 }
 
@@ -66,7 +66,7 @@
     padding: .5rem;
     font-size: 1rem;
     line-height: 2;
-    border: 1px solid c.$color-tint-3;
+    border: 1px solid c.$tint3;
 
     p {
       margin-top: 0.5rem;
