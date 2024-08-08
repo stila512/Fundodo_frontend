@@ -2,10 +2,13 @@
 
 html {
   @include s.ff-noto(12px, 16px);
+  line-height: s.rem(30px);
 }
 
 a:link,
-a:visited,
+a:visited{
+  color: s.$shade1;
+}
 a:hover {
   color: s.$shade3;
 }
@@ -14,26 +17,37 @@ a:active {
 }
 
 h1 {
-  font-size: 3.5rem;
-  line-height: 4.125rem;
+  font-size: s.rem(56px);
+  line-height: s.rem(66px);
+  font-weight: 800;
 }
 h2 {
-  font-size: 1.75rem;
-  line-height: 2.875rem;
+  font-size: s.rem(36px);
+  line-height: s.rem(46px);
+  font-weight: 700;
 }
 h3 {
-  font-size: 1.5rem;
-  line-height: 2.125rem;
+  font-size: s.rem(24px);
+  line-height: s.rem(34px);
+  font-weight: 600;
 }
-h4 {
-  font-size: 1.375rem;
-  line-height: 2.25rem;
+.tx-lg {
+  font-size: s.rem(22px);
+  line-height: s.rem(36px);
+  font-weight: 400;
 }
-h5 {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
+.tx-default {
+  font-size: s.rem(18px);
+  line-height: s.rem(30px);
+  font-weight: 400;
 }
-h6 {
-  font-size: 1rem;
-  line-height: 2rem;
+.tx-sm {
+  font-size: s.rem(16px);
+  line-height: s.rem(28px);
+  font-weight: 400;
+}
+.tx-content {
+  font-size: s.rem(14px);
+  line-height: s.rem(18px);
+  font-weight: 400;
 }
