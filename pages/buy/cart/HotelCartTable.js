@@ -49,8 +49,8 @@ export default function HotelCartTable() {
   
   return (
     <>
-      <h4 className='tx-shade4'>共 {dataArr.length} 件商品</h4>
       <table className={s.cartTable}>
+      <caption className='tx-default tx-shade4 tx-left'>共 {dataArr.length} 間旅館</caption>
         <thead>
           <tr>
             <th><TbTrashX /></th>
@@ -72,10 +72,10 @@ export default function HotelCartTable() {
                 </td>
                 <td>
                   <Image
-                    src="https://fakeimg.pl/192x192/"
-                    width={192}
-                    height={192}
-                    alt={item.name}
+                    src="https://fakeimg.pl/100x100/"
+                    width={100}
+                    height={100}
+                    alt={item.hotel_name}
                   />
                 </td>
                 <td>

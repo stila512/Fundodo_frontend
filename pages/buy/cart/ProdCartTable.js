@@ -51,18 +51,24 @@ export default function ProdCartTable() {
   const [qtyArr, setQtyArr] = useState([]);
   const [totArr, setTotArr] = useState([]);
   useEffect(() => {
-    // 只在這裡使用的函數，以立即函數的方式撰寫
-    (async () => {
-      const results = await axios.get(apiLink);
-
-      if (results.data.status !== 'success') {
-        throw new Error(`伺服器回應：${response.data.message}`);
-      }
-      setDataArr(results.data.result);
-    })();
-    //TODO: 以下兩行僅供無後台情況時，本機測試用
-    //   setDataArr(testData);
-    //   setQtyArr(testData.flatMap(d => d.qty));
+    //以下寫法參考 Axios 官方文件
+    axios.get(apiLink)
+      .then(res => {
+        setDataArr(res.data.result);
+      }).catch(err => {
+        console.log("未得到如預期的回應，已啟用備援資料");
+        setDataArr(testData);
+        if (err.response) {
+          //status != 2XX
+          console.error(err.response.data.message);
+        } else if (err.request) {
+          // 伺服器沒有回應
+          console.log("伺服器沒有回應，請檢查伺服器狀態");
+        } else {
+          console.log("未知的錯誤情形");
+          console.log(err);
+        }
+      });
   }, []);
   useEffect(() => {
     setQtyArr(dataArr.flatMap(d => d.qty));
@@ -76,8 +82,8 @@ export default function ProdCartTable() {
 
   return (
     <>
-      <h4 className='tx-shade4'>共 {dataArr.length} 件商品</h4>
       <table className={s.cartTable}>
+        <caption className='tx-default tx-shade4 tx-left'>共 {dataArr.length} 件商品</caption>
         <thead>
           <tr>
             <th style={{ width: '4rem' }}><TbTrashX /></th>
@@ -99,12 +105,14 @@ export default function ProdCartTable() {
                   </FddBtn>
                 </td>
                 <td>
-                  <Image
-                    src={'/pic-prod/' + item.pic_path}
-                    width={192}
-                    height={192}
-                    alt={item.name}
-                  />
+                  <div className="img-wrap-h100" style={{ height: 100 }}>
+                    <Image
+                      src={'/pic-prod/' + item.pic_path}
+                      width={0}
+                      height={0}
+                      alt={item.name}
+                    />
+                  </div>
                 </td>
                 <td>{item.name}</td>
                 <td>
