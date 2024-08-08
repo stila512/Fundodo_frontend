@@ -11,14 +11,7 @@
   h2 {
     @include ff-maru;
     font-size: 56px;
-    color: $color-shade-2;
+    color: $shade2;
     margin-top: 90px;
-    background-color: green;
-    @include rwd-above('sm') {
-      background-color: red;
-    }
-    @include rwd-above('lg') {
-      background-color: gold;
-    }
   }
 }

@@ -1,0 +1,46 @@
+@import '@/styles';
+
+.banner {
+    display: flex;
+    justify-content: space-between;
+    background: linear-gradient(rgba($shade3, 1), rgba($shade3, 0.8)), url("../../../public/coursePic/detail.png");
+    background-size: cover;
+    background-position: center;
+    
+  }
+
+.crsPic {
+  margin: 45px 0;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  margin-right: 53px;
+  h2{
+    text-wrap: wrap;
+  }
+}
+
+.text {
+  margin-top: 12px;
+  display: flex;
+  gap: 12px;
+}
+
+.tags {
+  display: inline-block;
+  background-color: $tint5;
+  justify-content: center;
+  align-items: center;
+  padding: 2px 10px;
+  p {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 28px;
+    color: $shade3;
+  }
+}

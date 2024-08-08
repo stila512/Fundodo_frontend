@@ -10,7 +10,7 @@ export default function Course() {
   return (
     <>
         <Head>
-        <title>Homepage</title>
+        <title>Course</title>
       </Head>
       <Banner/>
       <Tags/>
