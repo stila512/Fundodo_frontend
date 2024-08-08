@@ -1,8 +1,9 @@
 import Link from 'next/link'
-import React from 'react'
+import React, {useState,useEffect} from 'react'
 import scss from './linkBar.module.scss';
 
 export default function LinkBar() {
+
     return (
         <>
             <div className='container'>
