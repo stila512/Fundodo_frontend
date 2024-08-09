@@ -38,7 +38,7 @@ export default function Home() {
                   <Link href="/article">文章</Link>
                 </div>
                 <div className="col-6 col-lg-4">
-                  <Link href="">課程</Link>
+                  <Link href="/course">課程</Link>
                 </div>
                 <div className="col-6 col-lg-4">
                   <Link href="/buy/cart/cartPage">購物車</Link>
@@ -171,7 +171,7 @@ export default function Home() {
                     <p>
                       <FaArrowRightLong />
                       <code
-                        className={[hs.bgDark, hs.txSecondary].join(' ')}
+                        className="bg-shade4 tx-secondary"
                         style={{ padding: '.5rem' }}
                       >
                         &lt;FddBtn
@@ -189,7 +189,7 @@ export default function Home() {
                       </FddBtn>
                     </p>
                     <p>
-                      <span>使用 $color-tint-3</span>
+                      <span>使用 $tint3</span>
                       <FaArrowRightLong />
 
                       <FddBtn color="tint3" outline callback={() => {}}>
@@ -200,7 +200,7 @@ export default function Home() {
                       <FaArrowRightLong />
 
                       <code
-                        className={[hs.bgDark, hs.txSecondary].join(' ')}
+                        className="bg-shade4 tx-secondary"
                         style={{ padding: '.5rem' }}
                       >
                         &lt;FddBtn color=&quot;secondary&quot; outline
@@ -222,7 +222,7 @@ export default function Home() {
                     <p>
                       <FaArrowRightLong />
                       <code
-                        className="bg-dark tx-secondary"
+                        className="bg-shade4 tx-secondary"
                         style={{ padding: '.5rem' }}
                       >
                         &lt;FddBtn color=&quot;secondary&quot; icon

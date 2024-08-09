@@ -21,13 +21,13 @@ export default function HotelSec() {
               <h2>安心寵物住宿!</h2>
               <p>我們提供舒適、安全的住宿環境，全天候專業照顧，並安排每日活動，確保您的愛犬在這裡享受快樂、<br /> 放鬆的度假時光。</p>
             </div>
-            <div className={scss.btns}>
-              <button aria-label="上一張" className={scss.arrowBtn}>
-                <IoIosArrowDropleft className={scss.arrows} />
-              </button>
-              <button aria-label="下一張" className={scss.arrowBtn}>
-                <IoIosArrowDropright className={scss.arrows} />
-              </button>
+            <div className="">
+            {/* <FddBtn color='secondary' size='lg' icon callback={() => { }}>
+            <IoIosArrowDropleft  />
+                    </FddBtn>
+            <FddBtn color='primary' size='lg' icon callback={() => { }}>
+            <IoIosArrowDropright />
+                    </FddBtn> */}
             </div>
           </div>
           <div className={scss.hotelReview}>

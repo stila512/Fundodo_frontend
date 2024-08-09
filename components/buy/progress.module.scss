@@ -18,7 +18,7 @@
   z-index: -1;
   display: block;
   height: 2px;
-  background-color: styles.$color-shade-3;
+  background-color: styles.$shade3;
 }
 
 .circle {
@@ -36,7 +36,7 @@
     top: 4rem;
     left: 50%;
     transform: translateX(-50%);
-    color: styles.$color-shade-3;
+    color: styles.$shade3;
     @include styles.ff-noto(1rem);
     font-weight: 400;
     text-align: center;

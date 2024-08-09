@@ -1,0 +1,84 @@
+@use '@/styles' as c;
+
+.searchBarWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 30px 0;
+}
+
+.searchBarContainer {
+  display: flex;
+  background-color: c.$color-tint-4;
+  padding: 20px;
+  border-radius: 8px;
+  gap: 20px;
+  width: 100%;
+  align-items: flex-end;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.inputGroup p {
+  margin-bottom: 5px;
+  margin-left: 4px;
+  font-size: 14px;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.searchInput,
+.dateInput,
+.select {
+  padding: 10px 30px 10px 10px;
+  border-radius: 8px;
+  border: 1px solid c.$gray-200;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.icon {
+  position: absolute;
+  right: 10px;
+  color: c.$color-shade-3;
+}
+
+.selectWrapper {
+  position: relative;
+}
+
+.selectWrapper .icon {
+  pointer-events: none;
+}
+
+
+/* 響應式設計 */
+/* @media (max-width: 768px) {
+  .searchBarContainer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .inputGroup {
+    margin-bottom: 15px;
+  }
+
+  .searchInput,
+  .dateInput,
+  .select {
+    width: 100%;
+  }
+} */

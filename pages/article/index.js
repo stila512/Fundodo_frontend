@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import DefaultLayout from '@/components/layout/default';
 import scss from '@/pages/article/index.module.scss';
@@ -7,10 +7,10 @@ import ArtiAside from './aside';
 import ArticleList from './articleList';
 import PageControl from './pageControl';
 import ArticleContent from './articleContent';
+import ReplyArea from './replyArea';
 import Image from 'next/image';
 
 export default function Index() {
-
   return (
     <>
       <Head>
@@ -19,16 +19,40 @@ export default function Index() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className='container' style={{ marginTop: '100px' }}>
-        <UserAction />
+      <div className={scss.mainbg}>
+        <main className="container" style={{paddingTop:'40px'}}>
+          <UserAction />
 
-        <div className={[scss.mainArea].join()}>
-          <ArtiAside />
-          {/* <ArticleContent/> */}
-          <ArticleList />
-          <PageControl />
-        </div>
-      </main>
+          <div className={[scss.mainArea].join()}>
+            <ArtiAside />
+            <div className={scss.contentArea}>
+              <ArticleContent />
+              <ReplyArea />
+              <div className={scss.replyBlock}>
+                <div className={scss.contentCreater}>
+                  <div className={[scss.userData].join()}>
+                    <Image
+                      className={[scss.userIcon].join()}
+                      src="/logo.png"
+                      alt=""
+                      width={40}
+                      height={40}
+                    />
+                    <div className={[scss.nicknameArea].join()}>
+                      <p className={[scss.nickName].join()}>123123123</p>
+                      <p className={[scss.creatTime].join()}>2024-07-22</p>
+                    </div>
+                  </div>
+                  <div>點</div>
+                </div>
+              </div>
+            </div>
+
+            {/* <ArticleList /> */}
+            <PageControl />
+          </div>
+        </main>
+      </div>
     </>
   );
 }

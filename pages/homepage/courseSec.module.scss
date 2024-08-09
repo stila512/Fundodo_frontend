@@ -8,7 +8,7 @@
     margin-bottom: 60px;
     background-image: url(../../public/homepagePic/bgc.png);
     background-repeat: no-repeat;
-    background-position:right
+    background-position: calc(100% + 20px) center;
 
 
 }
@@ -16,7 +16,7 @@
 .courseText {
     h2 {
         @include ff-maru(24px,36px);
-        color: $color-heading;
+        color: $heading;
         font-weight: 700;
         line-height: 66px;
         word-wrap: break-word;
@@ -25,7 +25,7 @@
 
     p {
         @include ff-noto(14px, 18px);
-         color: $color-body;
+         color: $body;
         font-weight: 400;
         line-height: 30px;
         width: 440px;

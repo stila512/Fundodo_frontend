@@ -13,22 +13,14 @@
 
 .hotelContent {
     display: flex;
-    justify-content: space-between;
-    .arrowBtn {
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 0;
-        
-      }
-    
-      .arrows {
-        background-color: #B9A399;
-        width: 64px;
-        height: 64px;
-        background-color: white;
-        margin-top: 120px;
-      }
+    justify-content: space-between;   
+    //   .arrows {
+    //     background-color: #B9A399;
+    //     width: 64px;
+    //     height: 64px;
+    //     background-color: white;
+    //     margin-top: 120px;
+    //   }
 }
 
 
