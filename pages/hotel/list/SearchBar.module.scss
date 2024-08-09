@@ -1,4 +1,4 @@
-@use '@/styles' as c;
+@import '@/styles/';
 
 .searchBarWrapper {
   display: flex;
@@ -10,7 +10,7 @@
 
 .searchBarContainer {
   display: flex;
-  background-color: c.$color-tint-4;
+  background-color: $tint4;
   padding: 20px;
   border-radius: 8px;
   gap: 20px;
@@ -44,7 +44,7 @@
 .select {
   padding: 10px 30px 10px 10px;
   border-radius: 8px;
-  border: 1px solid c.$gray-200;
+  border: 1px solid $gray-200;
   font-size: 14px;
   width: 100%;
   box-sizing: border-box;
@@ -52,8 +52,8 @@
 
 .icon {
   position: absolute;
-  right: 10px;
-  color: c.$color-shade-3;
+  right: 30px;
+  color: $shade3;
 }
 
 .selectWrapper {

@@ -1,3 +1,6 @@
+@use 'lib-global.scss' as s;
+@use '@/styles' as c;
+
 .container {
   display: flex;
   align-items: center;
@@ -21,9 +24,8 @@
   width: 9rem;
   padding: 6px 14px;
   border-radius: 50px;
-  border: 1px solid #e7e1db;
-  color: #6f625c;
-  font-feature-settings: "liga" off, "clig" off;
+  border: 1px solid c.$secondary;
+  color: c.$shade2;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;

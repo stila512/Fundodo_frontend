@@ -37,14 +37,14 @@
   width: 518px;
   flex-shrink: 0;
   border-radius: 12px;
-  border: 1px solid #6f625c;
+  border: 1px solid c.$shade2;
   padding: 20px;
 }
 .info {
   margin-bottom: 20px;
 }
 .title {
-  color: #424242;
+  color: c.$gray-800;
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
@@ -52,7 +52,7 @@
   margin: 0 0 10px 0;
 }
 .address {
-  color: #424242;
+  color: c.$gray-800;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
@@ -60,14 +60,14 @@
   margin: 0 0 10px 0;
 }
 .date {
-  color: #757575;
+  color: c.$gray-600;
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
   margin: 0 0 10px 0;
 }
 .price {
-  color: #424242;
+  color: c.$gray-800;
   font-size: 36px;
   font-style: normal;
   font-weight: 700;
@@ -75,7 +75,7 @@
   margin: 0 0 10px 0;
 }
 .detail {
-  color: #757575;
+  color: c.$gray-600;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
@@ -85,7 +85,7 @@
 .select {
   flex-shrink: 0;
   border-radius: 15px;
-  background: #b9a399;
+  background: c.$primary;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -100,8 +100,9 @@
 }
 .selectContainer input[type="date"] {
   width: calc(50% - 10px);
+  margin: 4px;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid c.$gray-200;
   border-radius: 5px;
 }
 .petSelect {
@@ -109,16 +110,16 @@
   height: 46px;
   flex-shrink: 0;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid c.$gray-200;
   border-radius: 5px;
-  background: #fff;
+  background: c.$white;
   font-size: 16px;
 }
 .button {
   width: 300px;
   padding: 15px;
-  border: 1px solid var(--shade3, #5d524d);
-  background: var(--tint5, #f1edeb);
+  border: 1px solid c.$shade3;
+  background: c.$tint5;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
