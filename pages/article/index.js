@@ -8,6 +8,8 @@ import ArticleList from './articleList';
 import PageControl from './pageControl';
 import ArticleContent from './articleContent';
 import ReplyArea from './replyArea';
+import ReplyBlock from './replyBlock';
+import UserCard from './userCard'
 import Image from 'next/image';
 
 export default function Index() {
@@ -20,7 +22,7 @@ export default function Index() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={scss.mainbg}>
-        <main className="container" style={{paddingTop:'40px'}}>
+        <main className="container" style={{ paddingTop: '40px' }}>
           <UserAction />
 
           <div className={[scss.mainArea].join()}>
@@ -28,28 +30,12 @@ export default function Index() {
             <div className={scss.contentArea}>
               <ArticleContent />
               <ReplyArea />
-              <div className={scss.replyBlock}>
-                <div className={scss.contentCreater}>
-                  <div className={[scss.userData].join()}>
-                    <Image
-                      className={[scss.userIcon].join()}
-                      src="/logo.png"
-                      alt=""
-                      width={40}
-                      height={40}
-                    />
-                    <div className={[scss.nicknameArea].join()}>
-                      <p className={[scss.nickName].join()}>123123123</p>
-                      <p className={[scss.creatTime].join()}>2024-07-22</p>
-                    </div>
-                  </div>
-                  <div>點</div>
-                </div>
-              </div>
+              <ReplyBlock/>
             </div>
-
+            
             {/* <ArticleList /> */}
-            <PageControl />
+            {/* <PageControl /> */}
+            <UserCard/>
           </div>
         </main>
       </div>

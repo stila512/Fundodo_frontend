@@ -6,7 +6,6 @@ import Breadcrumb from './breadcrumb';
 import Select from './select';
 import Aside from './aside';
 import ProductGrid from './productGrid';
-import { useState } from 'react';
 
 export default function ProductList() {
   

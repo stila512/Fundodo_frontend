@@ -23,13 +23,13 @@ export default function PeopleInfo() {
             <div className={scss.area3}>性別
               <div className={scss.genderRadio}>
                 <input type="radio" name="gender" value="male"></input>
-                <label for="male"><Image className="imgWrap" src={radio} alt="Image" />先生</label>
+                <label html="male"><Image className="imgWrap" src={radio} alt="Image" />先生</label>
                 <input type="radio" name="gender" value="female"></input>
-                <label for="male"><Image className="imgWrap" src={radio} alt="Image" />女士</label>
+                <label html="male"><Image className="imgWrap" src={radio} alt="Image" />女士</label>
               </div>
             </div>
             <div className={scss.area4}>生日
-              <div><label for="birthday"></label>
+              <div><label html="birthday"></label>
                 <input type="month" id="birthday" name="birthday" min="1900-01" max="2023-12" required></input>
               </div>
             </div>
