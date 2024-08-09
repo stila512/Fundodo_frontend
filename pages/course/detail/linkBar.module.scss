@@ -1,0 +1,26 @@
+@import '@/styles';
+
+.links {
+  display: flex;
+  margin-bottom: 75px;
+  border-bottom: 1px solid $primary;
+
+  a {
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid transparent ;
+    color: $heading;
+    text-align: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 28px; 
+
+    &:hover {
+        border-bottom:5px solid $primary ;
+      }
+  }
+}

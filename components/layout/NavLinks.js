@@ -33,11 +33,11 @@ export default function NavLinks() {
         </ul>
       </li>
       <li className={scss.listBtn}>
-        <Link href="#">線上課程</Link>
+        <Link href="/course">線上課程</Link>
         <IoIosArrowDown />
         <ul className={scss.prodList}>
           <li>
-            <Link href="#">課程列表</Link>
+            <Link href="/course/detail">課程列表</Link>
           </li>
           <li>
             <Link href="#">課程分類</Link>
