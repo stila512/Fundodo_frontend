@@ -13,17 +13,12 @@ export default function Course() {
         <title>Course</title>
       </Head>
       <div className="container">
-        <div className="row">
-          <div className='d-none d-md-block col-lg-12'>
-            <Banner />
-            </div>
-            <div className=''>
-            <Tags />
-            </div>
-            
-            <CourseGrid />
-        </div>
+        <Banner />
+        <Tags />
+        <CourseGrid />
       </div>
+
+
     </>
   )
 }

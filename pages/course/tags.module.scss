@@ -1,14 +1,37 @@
-.tags {
+@import '@/styles';
+
+.box{
   display: flex;
-  gap: 20px;
-  margin-top: 36px;
+  flex-wrap: nowrap;
+  overflow: hidden;
 }
 
-.btn {
+.tags {
   display: flex;
-  padding: 13px 28px;
-  align-items: center;
+  flex-wrap: nowrap;
   gap: 8px;
+  @include rwd-above(sm){
+    gap: 20px;
+  }
+  margin-top: 36px;
+  margin-bottom: 50px;
+  overflow: hidden;
+  scroll-behavior: smooth;
+  
+}
+
+
+.arrow{
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+}
+.btn {
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: center;
+  padding: 8px 20px;
   border-radius: 36.55px;
   border: 1px solid var(--shade3, #5d524d);
   background: #fff;
