@@ -9,6 +9,7 @@ import PageControl from './pageControl';
 import ArticleContent from './articleContent';
 import ReplyArea from './replyArea';
 import ReplyBlock from './replyBlock';
+import UserCard from './userCard'
 import Image from 'next/image';
 
 export default function Index() {
@@ -33,7 +34,8 @@ export default function Index() {
             </div>
             
             {/* <ArticleList /> */}
-            <PageControl />
+            {/* <PageControl /> */}
+            <UserCard/>
           </div>
         </main>
       </div>
