@@ -1,7 +1,17 @@
+@use 'sass:math';
+
 @mixin circle-of($radius) {
   width: $radius;
   height: $radius;
   border-radius: 50%;
 }
 
-//todo px to rem
+//* 使用說明
+// 預設以 16px = 1rem 換算
+// （例一）預設
+// width: rem(24px) --> width: 1.5rem
+// （例二）指定基準
+// width: rem(24px, 12px) --> width: 2rem
+@function rem($n_px, $base: 16px) {
+  @return math.div($n_px, $base) * 1rem;
+}

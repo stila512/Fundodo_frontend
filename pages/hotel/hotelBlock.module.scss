@@ -7,7 +7,7 @@
 }
 
 .h3 {
-  color: c.$color-shade-2;
+  color: c.$shade2;
   margin-bottom: 20px;
 }
 
@@ -18,7 +18,7 @@
 }
 
 .card {
-  border: 1px solid c.$color-tint-5;
+  border: 1px solid c.$tint5;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -32,7 +32,7 @@
 }
 
 .hotelName {
-  color: c.$color-shade-4;
+  color: c.$shade4;
   font-weight: bold;
   margin: 10px 0;
   padding: 0 15px;

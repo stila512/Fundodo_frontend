@@ -36,7 +36,7 @@ main .row {
     }
   }
   &:active {
-    background-color: $color-tint-5;
+    background-color: $tint5;
   }
 }
 .test-paw {
@@ -58,7 +58,7 @@ main .row {
 .msgRegisterSuccess {
   padding-top: 3rem;
   background-color: $white;
-  border: 3px solid $color-shade-3;
+  border: 3px solid $shade3;
   text-align: center;
   margin: 0 auto;
   border-radius: 0.5rem;

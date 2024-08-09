@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import scss from './courseSec.module.scss';
 import FddBtn from '@/components/buttons/fddBtn';
-import course from '@/public/homepagePic/bgc.png';
+// import course from '@/public/homepagePic/bgc.png';
 import { FaArrowRight } from "react-icons/fa";
 
 
@@ -18,9 +18,7 @@ export default function CourseSec() {
               立即體驗 <FaArrowRight />
             </FddBtn>
           </div>
-          <div className={scss.courseImg}>
-            <Image src=""/>
-          </div>
+          
         </div>
       </div>
     </>

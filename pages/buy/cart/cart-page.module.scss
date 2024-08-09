@@ -1,14 +1,14 @@
 @import '@/styles/';
 
 table.cartTable {
-  margin-inline: auto;
+  margin: 2rem auto;
   width: 100%;
   border-collapse: collapse;
   text-align: center;
 }
 
 table.cartTable thead {
-  background-color: $color-shade-2;
+  background-color: $shade2;
   color: $white;
 
   th {
