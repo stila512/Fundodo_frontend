@@ -1,9 +1,9 @@
 @import '@/styles';
 
-.dogInfoContainer {
+.dogInfoStartContainer {
   display: flex;
   flex-direction: row;
-  height: 120vh;
+  height: 100vh;
 
   .midarea {
     margin-top: 60px;
@@ -34,11 +34,11 @@
         gap: 10px;
         flex-shrink: 0;
         border-radius: 5px 5px 0px 0px;
-        background: var(--tint4, #EAE3E0);
-        color: var(--tint5, #F1EDEB);
-        color: var(--shade3, #5D524D);
+        background: var(--tint4, #eae3e0);
+        color: var(--tint5, #f1edeb);
+        color: var(--shade3, #5d524d);
         font-feature-settings: 'liga' off, 'clig' off;
-        font-family: "Noto Sans";
+        font-family: 'Noto Sans';
         font-size: 14px;
         font-style: normal;
         font-weight: 400;
@@ -54,17 +54,17 @@
         gap: 10px;
         flex-shrink: 0;
         border-radius: 5px 5px 0px 0px;
-        background: var(--Primary, #B9A399);
-        color: var(--tint5, #F1EDEB);
+        background: var(--Primary, #b9a399);
+        color: var(--tint5, #f1edeb);
         font-feature-settings: 'liga' off, 'clig' off;
-        font-family: "Noto Sans";
+        font-family: 'Noto Sans';
         font-size: 14px;
         font-style: normal;
         font-weight: 400;
         line-height: 18px;
       }
     }
-    .mainArea{
+    .mainArea {
       display: flex;
       width: 804px;
       height: 545px;
@@ -74,193 +74,302 @@
       gap: 10px;
       flex-shrink: 0;
       border-radius: 0px 0px 10px 10px;
-      background: var(--tint4, #EAE3E0);
+      background: var(--tint4, #eae3e0);
+      .leftPic {
+        width: 374px;
+        height: 483px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .imgDogavatar {
+          display: flex;
+          width: 76px;
+          height: 76px;
+          justify-content: center;
+          align-items: center;
+          flex-shrink: 0;
+          margin-bottom: 10px;
+        }
+        .Dogname {
+          color: var(--shade1, #b9a399);
+          font-feature-settings: 'liga' off, 'clig' off;
+          font-family: 'Noto Sans';
+          font-size: 22px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 30px;
+        }
+      }
+      .rightText {
+        display: flex;
+        flex-direction: column;
+        border-radius: 0px 0px 10px 10px;
+        border: 1px solid var(--tint5, #f1edeb);
+        background: #fff;
+        color: var(--Body, #757575);
+        font-feature-settings: 'liga' off, 'clig' off;
+        font-family: 'Noto Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+        .rightA1 {
+          display: flex;
+          width: 374px;
+          height: 272px;
+          padding: 39px 24px;
+          align-items: flex-start;
+          gap: 30px;
+          flex-shrink: 0;
+          .a0 {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+          }
+          .a1 {
+            display: flex;
+            flex-direction: row;
+            gap: 23px;
+          }
+        }
+        .rightA2 {
+          display: flex;
+          width: 374px;
+          height: 211px;
+          padding: 26px 24px;
+          align-items: flex-start;
+          gap: 30px;
+          flex-shrink: 0;
+          .a3 {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+          }
+        }
+      }
     }
   }
 
   .botarea {
     display: flex;
     justify-content: center;
-    align-items: center;
-    gap: 30px;
+    align-items: flex-end;
 
-    .btn1 {
-      border: 1px solid var(--Neutral-Colors-Headings-Black, #5D5A88);
-      background: var(--Neutral-Colors-White, #FFF);
+    .btn2 {
+      color: #fff;
+      background: var(--Primary, #b9a399);
     }
-
     button {
       display: flex;
-      padding: 12px 60px;
+      width: 301px;
+      height: 46px;
+      padding: 18px 24px;
       justify-content: center;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
+      align-items: center;
       flex-shrink: 0;
+      border: none;
       position: relative;
+      right: 0;
     }
   }
 }
 
+//---------------------dogInfo
+.dogInfoContainer {
+  display: flex;
+  flex-direction: row;
+  height: 120vh;
 
-
-
-
-
-
-
-
-
-
-
-
-//---------------------ForumMemberInfo
-  .ForumMemberInfo{
+  .midarea {
     display: flex;
-    flex-direction: row;
-    height: 80vh;
-      .midarea{
-        margin-top: 60px;
-        justify-content: center;
-        align-items: center;
-      }
-      //----------
-      .midtext{
-        display: flex;
-        width: 560px;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 22px;
-        padding-bottom: 141px;
-      }
-      .area1{
-        display: flex;
-        align-items: center;
-        gap: 48px;
-        .avatarPic{
-          display: flex;
-          width: 115px;
-          height: 115px;
-          padding: 40px;
-          align-items: center;
-          gap: 10px;
-          border-radius: 57.5px;
-          background: #B9A399;
-        }
-      }
-      .area2{
-        display: flex;
-        align-items: flex-end;
-        gap: 80px;
-        align-self: stretch;
-        input{
-          display: flex;
-          padding: 5px 12px;
-          align-items: center;
-          flex: 1 0 0;
-        }
-      }
-      .area3{
-        display: flex;
-        align-items: flex-end;
-        gap: 80px;
-        .genderRadio{
-          display: flex;
-          width: 205px;
-          height: 32px;
-          padding: 5px 71px 5px 0px;
-          align-items: flex-start;
-          gap: 34px;
-        }
-        input[type="radio"] {
-          display: none;
-      }
-      }
-      .area4{
-        display: flex;
-        align-items: flex-end;
-        gap: 80px;
-        align-self: stretch;
-      }
-      .area5{
-        display: flex;
-        align-items: flex-end;
-        gap: 47px;
-        align-self: stretch;
-        select{
-          width: 140px;
-        }
-      }
-      .area6{
-        display: flex;
-        align-items: flex-end;
-        gap: 47px;
-        align-self: stretch;
-        p{
-          color: #000;
-          font-family: "Noto Sans";
-          font-size: 16px;
-          font-style: normal;
-          font-weight: 400;
-          line-height: 28px;
-        }
-      }
-      .area7{
-        display: flex;
-        align-items: flex-start;
-        gap: 47px;
-        align-self: stretch;
-        textarea{
-          display: flex;
-          width: 449px;
-          padding: 4px 12px;
-          flex-direction: column;
-          align-items: flex-start;
-        }
-      }
-      .botarea{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 30px;
-        .btn1{
-          border: 1px solid var(--Neutral-Colors-Headings-Black, #5D5A88);
-          background: var(--Neutral-Colors-White, #FFF);
-        }
-        .btn2{
-          color: #fff;
-          background: var(--Primary, #B9A399);
-        }
-        button {
-          display: flex;
-          padding: 12px 60px;
-          justify-content: center;
-          align-items: center;
-          gap: 8px;
-          justify-content: center;
-          align-items: center;
-          flex-shrink: 0;
-          position: relative;
-        }
-      }
-      //-------- sideText
-      .sideText{
+    align-items: flex-start;
+    flex-direction: column;
+    flex-shrink: 0;
+
+    .tags {
+      display: flex;
+      flex-direction: row;
+      gap: 6px;
+
+      .tag1 {
         display: inline-flex;
-        height: 274px;
-        padding: 30px 20px;
-        margin: 22px 206px;
-        flex-direction: column;
+        height: 28px;
+        padding: 4px 16px;
+        justify-content: center;
         align-items: center;
-        gap: 12px;
+        gap: 10px;
         flex-shrink: 0;
-        border: 1px solid #EAEAEA;
-        .icon{
+        border-radius: 5px 5px 0px 0px;
+        background: var(--tint4, #eae3e0);
+        color: var(--tint5, #f1edeb);
+        color: var(--shade3, #5d524d);
+        font-feature-settings: 'liga' off, 'clig' off;
+        font-family: 'Noto Sans';
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 18px;
+      }
+
+      .tag2 {
+        display: inline-flex;
+        height: 28px;
+        padding: 4px 16px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+        border-radius: 5px 5px 0px 0px;
+        background: var(--Primary, #b9a399);
+        color: var(--tint5, #f1edeb);
+        font-feature-settings: 'liga' off, 'clig' off;
+        font-family: 'Noto Sans';
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 18px;
+      }
+    }
+
+    .mainarea {
+      display: flex;
+      flex-direction: column;
+      width: 857px;
+      height: 856px;
+      padding: 18px 20px;
+      gap: 10px;
+      flex-shrink: 0;
+      border-radius: 0px 0px 10px 10px;
+      background: var(--tint4, #eae3e0);
+      .toparea {
+        display: flex;
+        flex-direction: row;
+        padding: 91px 0px 93px 0px;
+        justify-content: center;
+        flex: 1 0 0;
+        align-self: stretch;
+        .topPic {
+          .imgDogavatar {
+            display: flex;
+            width: 76px;
+            height: 76px;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+      }
+      .textarea {
+        display: flex;
+        height: 547px;
+        flex-direction: column;
+        align-items: flex-start;
+        flex-shrink: 0;
+        align-self: stretch;
+        border-radius: 0px 0px 10px 10px;
+        border: 1px solid var(--tint5, #f1edeb);
+        background: #fff;
+        .TOPtext {
           display: flex;
-          width: 230px;
-          padding-bottom: 0px;
-          justify-content: center;
-          align-items: flex-start;
-          gap: 8px;
-          border-bottom: 1px solid #EAEAEA;
+          height: 341px;
+          padding: 24px 0px 0px 24px;
+          flex-shrink: 0;
+          align-self: stretch;
+          flex-direction: row;
+          border-bottom: 1px solid var(--tint5, #f1edeb);
+
+          input[type='radio'] {
+            display: none;
+          }
+          .labelGroup {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+          }
+          .inputGroup {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+          }
+        }
+
+        .BOTtext {
+          display: flex;
+          height: 341px;
+          padding: 24px 0px 0px 24px;
+          flex-shrink: 0;
+          align-self: stretch;
+          flex-direction: row;
+          input[type='radio'] {
+            display: none;
+          }
+          .labelGroup_b {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+          }
+          .inputGroup_b {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            textarea {
+              display: flex;
+              width: 449px;
+              padding: 4px 12px;
+              flex-direction: column;
+              align-items: flex-start;
+            }
+          }
         }
       }
     }
+  }
+
+  //----------
+  .bottomtext {
+    display: flex;
+    width: 560px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 22px;
+    padding-bottom: 141px;
+  }
+  .mainArea {
+    display: flex;
+    width: 804px;
+    height: 545px;
+    padding: 18px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border-radius: 0px 0px 10px 10px;
+    background: var(--tint4, #eae3e0);
+  }
+}
+
+.btnarea {
+  display: flex;
+  justify-content: center;
+
+  .btn2 {
+    color: #fff;
+    background: var(--Primary, #b9a399);
+  }
+  button {
+    display: flex;
+    width: 301px;
+    height: 46px;
+    padding: 18px 24px;
+    justify-content: center;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    border: none;
+    position: relative;
+    right: -100%;
+  }
+}
