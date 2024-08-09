@@ -14,14 +14,12 @@ $primary: #B9A399;// hsl(19, 19%, 66%)
 $secondary: #E7E1DB;// hsl(30, 20%, 88%)
 $warning: #FBC02D; // hsl(43, 96%, 58%)
 $error: #E53835; // hsl(1, 77%, 55%)
-$light: #F1EDEB; // hsl(45, 29%, 97%)
 $info: #71c4ef; // hsl(200, 80%, 69%)
-$dark: #2a2522; // hsl(19, 11%, 15%);
 
 /* text color 灰階 */
-$color-heading: $gray-800;
-$color-body: $gray-600;
-$color-muted: $gray-400;
+$heading: $gray-800;
+$body: $gray-600;
+$muted: $gray-400;
 
 /* text color 帶色 */
 $primary-text: #49352c;//hsl(19, 25%, 23%)
@@ -29,18 +27,18 @@ $info-text: hsl(200, 25%, 23%);
 $error-text: hsl(1, 25%, 23%);
 
 /* color shade */
-$color-shade-1: #857A79;//hsl(5, 5%, 50%)
-$color-shade-2: #6F625C;//hsl(19, 9%, 40%)
-$color-shade-3: #5D524D;//hsl(19, 9%, 33%)
-$color-shade-4: #37312E;//hsl(20, 9%, 20%)
-$color-shade-5: hsl(20, 9%, 8%);
+$shade1: #857A79;// hsl(5, 5%, 50%)
+$shade2: #6F625C;// hsl(19, 9%, 40%)
+$shade3: #5D524D;// hsl(19, 9%, 33%)
+$shade4: #37312E;// hsl(20, 9%, 20%)
+$shade5: #161413;// hsl(20, 7%, 8%)
 
 /* color shade */
-$color-tint-1: #C0ACA3;
-$color-tint-2: #CEBFB8;
-$color-tint-3: #DCD1CC;
-$color-tint-4: #EAE3E0;
-$color-tint-5: #F1EDEB;//also theme-light
+$tint1: #C0ACA3;
+$tint2: #CEBFB8;
+$tint3: #DCD1CC;
+$tint4: #EAE3E0;
+$tint5: #F1EDEB;//also theme-light
 
 //* 沒有 success，沒有 danger
 $theme-colors: (
@@ -49,21 +47,21 @@ $theme-colors: (
   "info":       $info,
   "warning":    $warning,
   "error":      $error,
-  "light":      $light,
-  "dark":       $dark,
-  "shade1":     $color-shade-1,
-  "shade2":     $color-shade-2,
-  "shade3":     $color-shade-3,
-  "shade4":     $color-shade-4,
-  "shade5":     $color-shade-5,
-  "tint1":      $color-tint-1,
-  "tint2":      $color-tint-2,
-  "tint3":      $color-tint-3,
-  "tint4":      $color-tint-4,
-  "tint5":      $color-tint-5,
-  "heading":    $color-heading,
-  "body":       $color-body,
-  "muted":      $color-muted,
+  "white":      $white,
+  "black":      $black,
+  "shade1":     $shade1,
+  "shade2":     $shade2,
+  "shade3":     $shade3,
+  "shade4":     $shade4,
+  "shade5":     $shade5,
+  "tint1":      $tint1,
+  "tint2":      $tint2,
+  "tint3":      $tint3,
+  "tint4":      $tint4,
+  "tint5":      $tint5,
+  "heading":    $heading,
+  "body":       $body,
+  "muted":      $muted,
 );
 
 @each $color, $value in $theme-colors {

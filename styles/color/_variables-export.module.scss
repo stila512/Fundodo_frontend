@@ -19,27 +19,25 @@
   secondary: c.$secondary;
   warning: c.$warning;
   error: c.$error;
-  light: c.$light;
   info: c.$info;
-  dark: c.$dark;
   //=====================
-  colorHeading: c.$gray-800;
-  colorBody: c.$gray-600;
-  colorNuted: c.$gray-400;
+  heading: c.$gray-800;
+  body: c.$gray-600;
+  muted: c.$gray-400;
   //=====================
   primaryText: c.$primary-text;
   infoText: c.$info-text;
   errorText: c.$error-text;
   //=====================
-  colorShade1: c.$color-shade-1;
-  colorShade2: c.$color-shade-2;
-  colorShade3: c.$color-shade-3;
-  colorShade4: c.$color-shade-4;
-  colorShade5: c.$color-shade-5;
+  shade1: c.$shade1;
+  shade2: c.$shade2;
+  shade3: c.$shade3;
+  shade4: c.$shade4;
+  shade5: c.$shade5;
   //=====================
-  colorTint1: c.$color-tint-1;
-  colorTint2: c.$color-tint-2;
-  colorTint3: c.$color-tint-3;
-  colorTint4: c.$color-tint-4;
-  colorTint5: c.$color-tint-5;
+  tint1: c.$tint1;
+  tint2: c.$tint2;
+  tint3: c.$tint3;
+  tint4: c.$tint4;
+  tint5: c.$tint5;
 }
