@@ -1,0 +1,137 @@
+@use '@/styles' as c;
+
+.container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.hotel-img {
+  flex: 1;
+  margin-right: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.main-img {
+  width: 100%;
+  height: 700px;
+  background-color: #c2db83;
+  border-radius: 12px; 
+}
+.sub-img {
+  display: flex;
+  justify-content:flex-start;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.sub-img .img {
+  width: 130px; 
+  height: 110px; 
+  background-color: #dbac83;
+  border-radius: 12px; 
+}
+
+.wrap {
+  width: 518px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  border: 1px solid #6f625c;
+  padding: 20px;
+}
+.info {
+  margin-bottom: 20px;
+}
+.title {
+  color: #424242;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 34px; 
+  margin: 0 0 10px 0;
+}
+.address {
+  color: #424242;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px; 
+  margin: 0 0 10px 0;
+}
+.date {
+  color: #757575;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  margin: 0 0 10px 0;
+}
+.price {
+  color: #424242;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 46px; 
+  margin: 0 0 10px 0;
+}
+.detail {
+  color: #757575;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  margin: 0 0 20px 0;
+}
+.select {
+  flex-shrink: 0;
+  border-radius: 15px;
+  background: #b9a399;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.select-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3px;
+  gap: 10px;
+}
+.selectContainer input[type="date"] {
+  width: calc(50% - 10px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.petSelect {
+  width: 100%;
+  height: 46px;
+  flex-shrink: 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #fff;
+  font-size: 16px;
+}
+.button {
+  width: 300px;
+  padding: 15px;
+  border: 1px solid var(--shade3, #5d524d);
+  background: var(--tint5, #f1edeb);
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 26px;
+}
+.map {
+  margin-top: 20px;
+  height: 216px;
+  flex-shrink: 0;
+  background-color: #e1bdbd;
+}
+

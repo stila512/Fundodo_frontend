@@ -1,0 +1,30 @@
+@use '@/styles';
+
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 80px;
+  box-sizing: border-box;
+}
+
+.sortContainer {
+  margin: 20px 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+// .breadcrumbs {
+//   margin-bottom: 20px;
+//   font-size: 14px;
+//   color: #666;
+// }
+
+@media (max-width: 1600px) {
+  .pageContainer {
+    padding: 0 5%;
+  }
+}
