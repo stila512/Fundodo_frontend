@@ -4,6 +4,8 @@ import DefaultLayout from '@/components/layout/default';
 import styles from '@/pages/hotel/detail/index.module.scss';
 import SelectDetail from './selectDetail';
 import HotelImg from './hotelImg';
+import SelectBar from './selectBar'
+import Content from './content'
 
 
 export default function HotelPage() {
@@ -12,14 +14,16 @@ export default function HotelPage() {
       <Head>
         <title>立即預定</title>
       </Head>
-      {/* <div className={styles.pageContainer}> */}
+      <div className={styles.pageContainer}>
         <div className={styles.container}>
           <HotelImg />
           <div className={styles.wrapper}>
             <SelectDetail />
           </div>
         </div>
-      {/* </div> */}
+        <SelectBar />
+        <Content />
+      </div>
     </>
   );
 }
