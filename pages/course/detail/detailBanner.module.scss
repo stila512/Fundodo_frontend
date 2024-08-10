@@ -1,0 +1,54 @@
+@import '@/styles';
+
+.banner {
+  display: flex;
+  justify-content: space-around;
+  background: linear-gradient(rgba($shade3, 1), rgba($shade3, 0.8)),
+    url('../../../public/coursePic/detail.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.crsPic {
+  margin: 45px 0;
+  width: 700px;
+  height: 427px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  h2 {
+    color: $white;
+    text-wrap: wrap;
+    width: 540px;
+    height: 92px;
+  }
+}
+
+.text {
+  margin-top: 12px;
+  display: flex;
+  gap: 12px;
+  p{
+    color: $tint4;
+  }
+}
+.icon{
+  color: $tint4;
+}
+
+.tags {
+  display: inline-block;
+  background-color: $tint5;
+  justify-content: center;
+  align-items: center;
+  padding: 2px 10px;
+  p {
+    font-style: normal;
+    font-weight: 400;
+    line-height: 28px;
+    color: $shade3;
+  }
+}

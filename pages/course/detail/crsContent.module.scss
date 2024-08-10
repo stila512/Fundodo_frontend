@@ -1,0 +1,58 @@
+@import '@/styles';
+
+.title {
+  h3 {
+    color: $shade2;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 34px;
+    border-bottom: 1px solid $tint4;
+    padding-bottom: 12px;
+    margin-bottom: 36px;
+  }
+}
+
+.chapter {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 36px;
+  h3 {
+    color: $heading;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 34px;
+  }
+  a {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.lessons{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 50px;
+  
+  div {
+    width: 100%;
+    display: flex;
+    padding: 16px 19px;
+    align-items: center;
+    margin-bottom: 12px;
+    align-self: stretch;
+    border-radius: 2px;
+    border: 1px solid var(--shade1, #b9a399);
+    background: var(--tint5, #f1edeb);
+    p {
+      color: var(--shade4, #37312e);
+      font-feature-settings: 'liga' off, 'clig' off;
+
+      /* Body Default */
+      font-family: 'Noto Sans';
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 30px; /* 166.667% */
+    }
+  }
+}

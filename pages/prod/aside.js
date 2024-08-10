@@ -1,13 +1,11 @@
 import scss from '@/pages/prod/aside.module.scss';
 import Image from 'next/image';
 import Filter from './filter'
-import btnChecked from '/public/prodPic/radio_button_checked.png'
-import btn from 'public/prodPic/radio_button.png'
 import arrow from 'public/prodPic/ep_arrow-up-bold.png'
 import React from 'react';
 import PriceFilter from './priceFilter';
+
 export default function Aside() {
-   
     return (
         <>
             <aside>
@@ -19,7 +17,7 @@ export default function Aside() {
                                 <h2 className={scss.font}>飼料分類</h2>
                                 <div className={scss.arrow}><Image alt={arrow} width={17} height={17} src={arrow} /></div>
                             </div>
-                            <Filter  categories={['一般乾糧', '無穀乾糧', '一般凍乾', '無穀凍乾', '功能配方', '處方飼料']}/>
+                            <Filter categories={['一般乾糧', '無穀乾糧', '一般凍乾', '無穀凍乾', '功能配方', '處方飼料']} />
                         </div>
                     </div>
                     <div className={scss.ractangle}>
@@ -29,7 +27,7 @@ export default function Aside() {
                                 <div className={scss.arrow}><Image alt={arrow} width={17} height={17} src={arrow} /></div>
                             </div>
                             <div className={['row', scss.gap].join(" ")}>
-                                <Filter categories={['全齡', '幼犬', '成犬', '高齡犬']} multiple={true}/>
+                                <Filter categories={['全齡', '幼犬', '成犬', '高齡犬']} multiple={true} />
                             </div>
                         </div>
                     </div>
@@ -48,7 +46,7 @@ export default function Aside() {
                                 <h2 className={scss.font}>品牌</h2>
                                 <div className={scss.arrow}><Image alt={arrow} width={17} height={17} src={arrow} /></div>
                             </div>
-                            <Filter categories={['ZiwiPeak 巔峰', '汪喵星球', '法國皇家', '飼糧倉', '朝貢 조공', '小犬威利']} multiple={true}/>
+                            <Filter categories={['ZiwiPeak 巔峰', '汪喵星球', '法國皇家', '飼糧倉', '朝貢 조공', '小犬威利']} multiple={true} />
                         </div>
                     </div>
                 </div>
