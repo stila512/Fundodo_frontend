@@ -4,6 +4,7 @@
   img {
     margin-bottom: 60px;
     width: 100%;
+    height: auto;
     object-fit: cover;
   }
 }
@@ -11,6 +12,10 @@
 .title {
   margin-bottom: 56px;
   h3 {
+    font-size: 14px;
+    @include rwd-above(sm) {
+      font-size: 24px;
+    }
     margin-bottom: 30px;
     color: $heading;
     text-align: center;
@@ -21,7 +26,10 @@
   p {
     color: $body;
     text-align: center;
-    font-size: 18px;
+    font-size: 12px;
+    @include rwd-above(sm) {
+      font-size: 18px;
+    }
     font-style: normal;
     font-weight: 400;
     line-height: 30px;
@@ -30,18 +38,27 @@
 }
 
 .btn {
-  width: 400px;
-  padding: 8px 169px;
-  display: inline-block;
+  width: 328px;
+  padding: 8px 160px;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  text-align: center;
   text-wrap: nowrap;
   border: 1px solid $shade3;
   cursor: pointer;
   color: $shade2;
-  font-size: 18px;
   font-style: normal;
   font-weight: 400;
   line-height: 30px;
   margin-bottom: 50px;
+  font-size: 14px;
+  &:hover {
+    background-color: $tint4;
+  }
+
+  @include rwd-above(sm) {
+    width: 400px;
+    padding: 8px 169px;
+    font-size: 18px;
+  }
 }

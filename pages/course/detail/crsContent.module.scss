@@ -25,6 +25,7 @@
   a {
     display: flex;
     align-items: center;
+    
   }
 }
 
@@ -36,20 +37,26 @@
   div {
     width: 100%;
     display: flex;
-    padding: 16px 19px;
+    @include rwd-above(sm){
+      padding: 16px 19px;
+    }
+    padding: 8px 10px;
     align-items: center;
     margin-bottom: 12px;
     align-self: stretch;
     border-radius: 2px;
     border: 1px solid var(--shade1, #b9a399);
     background: var(--tint5, #f1edeb);
+    cursor: pointer;
+    &:hover{
+      background-color: $tint4;
+    }
     p {
-      color: var(--shade4, #37312e);
-      font-feature-settings: 'liga' off, 'clig' off;
-
-      /* Body Default */
-      font-family: 'Noto Sans';
-      font-size: 18px;
+      color: $shade4;
+      @include rwd-above(sm){
+        font-size: 18px;
+      }
+      font-size: 12px;
       font-style: normal;
       font-weight: 400;
       line-height: 30px; /* 166.667% */

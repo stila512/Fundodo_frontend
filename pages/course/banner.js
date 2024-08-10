@@ -10,13 +10,13 @@ export default function Banner() {
       <div className="row">
         <div className="d-none d-md-block">
           <div className={scss.banner}>
-            <Image src={dog} />
+            <Image src={dog} className='' />
             <h2>狗的課程</h2>
           </div>
         </div>
       </div>
 
-      <div className='d-flex jc-start ai-center'>
+      <div className='d-flex jc-between ai-center'>
         <p>Home 狗狗課程</p>
         <div className="d-flex ai-center">
           <Sort />

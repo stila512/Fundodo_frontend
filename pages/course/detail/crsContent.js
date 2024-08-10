@@ -15,13 +15,13 @@ export default function CrsContent() {
       </div>
       <div className={scss.lessons}>
         <div>
-          <p>浪犬博士-家長會！加入一起共學的大家庭</p>
+          <Link href=""><p>浪犬博士-家長會！加入一起共學的大家庭</p></Link>
         </div>
         <div>
-          <p>浪犬博士-家長會！加入一起共學的大家庭</p>
+          <Link href=""><p>浪犬博士-家長會！加入一起共學的大家庭</p></Link>
         </div>
         <div>
-          <p>浪犬博士-家長會！加入一起共學的大家庭</p>
+          <Link href=""><p>浪犬博士-家長會！加入一起共學的大家庭</p></Link>
         </div>
       </div>
 
