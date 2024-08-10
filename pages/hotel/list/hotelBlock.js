@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './hotelBlock.module.scss';
 
+
 export default function HotelBlock() {
   const hotels = [
     { name: '小森林寵物美容旅館', description: '提供寬敞舒適的住宿空間，配備先進的設施和專業的照顧團隊，讓您的狗狗享受最優質的住宿體驗。' },
