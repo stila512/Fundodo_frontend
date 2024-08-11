@@ -65,7 +65,7 @@ export default function HotelCartTable({ setAmount = () => { }, i_amt = -1 }) {
         <thead>
           <tr>
             <th><TbTrashX /></th>
-            <th style={{ width: '200px' }}></th>
+            <th></th>
             <th>入住資訊</th>
             <th>房型</th>
             <th style={{ width: '9rem' }}>單日房價</th>

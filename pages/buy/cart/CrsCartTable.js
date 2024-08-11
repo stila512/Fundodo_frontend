@@ -47,7 +47,7 @@ export default function CrsCartTable({ setAmount = () => { }, i_amt = -1 }) {
         <thead>
           <tr>
             <th><TbTrashX /></th>
-            <th style={{ width: '200px' }}></th>
+            <th></th>
             <th>課程資訊</th>
             <th>方案</th>
             <th style={{ width: '9rem' }}>方案價</th>
