@@ -1,0 +1,39 @@
+.img-wrap-w100 img {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.img-wrap-h100 img {
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.fx-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gr-center {
+  display: grid;
+  place-items: center;
+}
+
+.hstack {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.vstack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.w-fit {
+  width: -moz-fit-content;
+  width: fit-content;
+}/*# sourceMappingURL=utility-class.css.map */
