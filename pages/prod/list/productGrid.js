@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react'
 import scss from './productGrid.module.scss'
 import Image from 'next/image'
 import FavoriteIcon from './favoriteIcon'
-import heart from '/public/prodPic/iconamoon_heart.png'
-import { IoIosArrowBack } from "react-icons/io";
 
 export default function ProductGrid() {
     const [products, setProducts] = useState([])
@@ -46,6 +44,7 @@ export default function ProductGrid() {
     useEffect(() => {
         getProducts()
     }, [])
+
     return (
         <>
             <div className={[scss.productGrid, 'row', 'g-3'].join(' ')}>
@@ -57,8 +56,8 @@ export default function ProductGrid() {
                             <div className={scss.card}>
                                 <FavoriteIcon />
                                 <div className={scss.prodImgBox}>
-                                    <div className={scss.prodImg}>
-                                        <Image src={`/pic-prod/${v.picNameArr[0]}`} width={130} height={130} />
+                                    <div className={[scss.prodImg, 'img-wrap-w100', 'img-wrap-h100'].join(' ')}>
+                                        <Image src={`/pic-prod/${v.picNameArr[0]}`} width={0} height={0} layout="responsive" />
                                     </div>
                                 </div>
                                 <div className={scss.textarea}>

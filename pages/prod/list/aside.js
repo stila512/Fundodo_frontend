@@ -1,4 +1,4 @@
-import scss from '@/pages/prod/aside.module.scss';
+import scss from './aside.module.scss';
 import Image from 'next/image';
 import Filter from './filter'
 import arrow from 'public/prodPic/ep_arrow-up-bold.png'
@@ -51,7 +51,6 @@ export default function Aside() {
                     </div>
                 </div>
             </aside>
-            <div>123</div>
         </>
     )
 }
