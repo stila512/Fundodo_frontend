@@ -88,8 +88,8 @@ export default function ProdCartTable({ setAmount = () => { }, i_amt = -1 }) {
         <caption className='tx-default tx-shade4 tx-left'>共 {dataArr.length} 件商品</caption>
         <thead>
           <tr>
-            <th style={{ width: '4rem' }}><TbTrashX /></th>
-            <th style={{ width: '200px' }}></th>
+            <th><TbTrashX /></th>
+            <th></th>
             <th>商品資訊</th>
             <th>規格</th>
             <th style={{ width: '9rem' }}>單價</th>

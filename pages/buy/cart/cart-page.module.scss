@@ -14,11 +14,20 @@ table.cartTable thead {
   th {
     padding-block: 0.5rem;
   }
+  th:nth-child(1) {
+    width: 4rem;
+  }
+  th:nth-child(2) {
+    width: rem(200px);
+  }
 }
 
 table.cartTable tbody tr {
   border-bottom: 1px solid $black;
 
+  td {
+    padding-block: 1rem;
+  }
   p {
     line-height: 2;
   }
@@ -40,7 +49,7 @@ table.cartTable tbody tr {
 }
 
 .orderInfo {
-  margin-top: rem(20px);
+  margin-block: rem(20px) rem(78px);
 
   table {
     width: 100%;
