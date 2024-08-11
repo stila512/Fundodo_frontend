@@ -3,7 +3,7 @@ import Head from 'next/head';
 import DefaultLayout from '@/components/layout/default';
 import Banner from './banner';
 import Tags from './tags';
-import Breadcrumb from '../prod/breadcrumb';
+import Breadcrumb from '../prod/list/breadcrumb';
 import CourseGrid from './courseGrid';
 
 export default function Course() {
