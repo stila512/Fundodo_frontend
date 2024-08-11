@@ -46,10 +46,10 @@ const apiLink = `${apiBaseUrl}/cart/${USER_ID}`;
 
 //======= API END ==================================
 
-export default function ProdCartTable() {
+export default function ProdCartTable({ setAmount = () => { }, i_amt = -1 }) {
   const [dataArr, setDataArr] = useState([]);
   const [qtyArr, setQtyArr] = useState([]);
-  const [totArr, setTotArr] = useState([]);
+  const [subtotArr, setSubtotArr] = useState([]);
   useEffect(() => {
     //以下寫法參考 Axios 官方文件
     axios.get(apiLink)
@@ -74,9 +74,11 @@ export default function ProdCartTable() {
     setQtyArr(dataArr.flatMap(d => d.qty));
   }, [dataArr]);
   useEffect(() => {
-    const totList = qtyArr.map((q, i) => q * dataArr[i].price);
-    setTotArr(totList);
-  }, [qtyArr])
+    const subtotList = qtyArr.map((q, i) => q * dataArr[i].price);
+    const total = subtotList.reduce((total, cur) => total + cur, 0);
+    setSubtotArr(subtotList);
+    setAmount(arr => arr.map((v, i) => (i === i_amt) ? total : v));
+  }, [qtyArr]);
 
   const noData = (!dataArr || dataArr.length === 0);
 
@@ -96,7 +98,7 @@ export default function ProdCartTable() {
           </tr>
         </thead>
         <tbody className='tx-body'>
-          {noData ? <tr><h2 className='tx-shade4'>購物車現在空無一物</h2></tr> :
+          {noData ? <tr><th colSpan={7}><h2 className='tx-shade4'>購物車現在空無一物</h2></th></tr> :
             dataArr.map((item, i_data) => (
               <tr key={item.key}>
                 <td>
@@ -125,7 +127,7 @@ export default function ProdCartTable() {
                   </div>
                 </td>
                 <td><NumberPanel quantity={qtyArr[i_data]} setFunc={setQtyArr} index={i_data} /></td>
-                <td>${totArr[i_data]}</td>
+                <td>${subtotArr[i_data]}</td>
               </tr>
             ))
           }

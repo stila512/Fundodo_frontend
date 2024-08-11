@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import FddBtn from '@/components/buttons/fddBtn';
 import Image from 'next/image';
 import { apiBaseUrl } from '@/configs';
@@ -25,9 +26,19 @@ const apiLink = `${apiBaseUrl}/carts/${CRS_ID}`;
 
 //======= API END ==================================
 
-export default function CrsCartTable() {
-  const dataArr = testData;
-  const noData = false;
+export default function CrsCartTable({ setAmount = () => { }, i_amt = -1 }) {
+  const [dataArr, setDataArr] = useState([]);
+  useEffect(() => {
+    //todo: 後台尚未建立    
+    setDataArr(testData);
+    
+  }, []);
+  useEffect(() => {
+    const total = dataArr.reduce((sum, cur) => sum + cur.price, 0);
+    setAmount(arr => arr.map((v, i) => (i === i_amt) ? total : v));
+  }, [dataArr]);
+
+  const noData = (!dataArr || dataArr.length === 0);
 
   return (
     <>
@@ -44,7 +55,7 @@ export default function CrsCartTable() {
           </tr>
         </thead>
         <tbody className='tx-body'>
-          {noData ? <tr><h2 className='tx-shade4'>購物車現在空無一物</h2></tr> :
+          {noData ? <tr><th colSpan={6}><h2 className='tx-shade4'>購物車現在空無一物</h2></th></tr> :
             dataArr.map((item) => (
               <tr key={item.key}>
                 <td>
