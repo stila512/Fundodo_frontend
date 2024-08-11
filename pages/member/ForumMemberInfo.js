@@ -48,7 +48,7 @@ export default function PeopleInfo() {
             </div>
           </div>
         </div>
-        <div className="col-3 my-5">
+        <div className="col-3 my-5 d-none d-lg-block">
         <SideText></SideText>
         </div>
       </main>

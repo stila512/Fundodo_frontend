@@ -32,7 +32,7 @@ export default function ChangePassword() {
             <div className="col-3"></div>
           </div>
         </div>
-        <div className="col-3">
+        <div className="col-5 my-5 mx-5 d-none d-lg-block">
           <SideText></SideText>
         </div>
       </main>

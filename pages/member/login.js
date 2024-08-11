@@ -5,11 +5,12 @@ import lfpic from '@/public/login.svg';
 
 export default function LoginPage() {
   return (
-    <main className={scss.LoginContainer}>
-      <div className={scss.lfpic}>
-        <Image className="imgWrap" src={lfpic} alt="Image" />
-      </div>
-      <div className={scss.rightText}>
+    <main className={scss.Loginmain}>
+      <div className={scss.LoginContainer}>
+        <div className={scss.lfpic}>
+          <Image className="imgWrap" src={lfpic} alt="Image" />
+        </div>
+        <div className={scss.rightText}>
           <div className={scss.area1}>
             <p className={scss.h5}>歡迎回來</p>
           </div>
@@ -24,11 +25,12 @@ export default function LoginPage() {
           </div>
           <div className={scss.area3}>
             <p>忘記密碼?</p>
-            </div>
+          </div>
           <div className={scss.area4}>
             <button className={scss.createBtn}>登入</button>
           </div>
-        <button className={scss.xBtn}>x</button>
+          <button className={scss.xBtn}>x</button>
+        </div>
       </div>
     </main>
   );

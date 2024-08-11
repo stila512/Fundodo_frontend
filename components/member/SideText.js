@@ -6,6 +6,7 @@ import mdi_list from '@/public/memberPic/mdi_list.svg';
 import mdi_lock from '@/public/memberPic/mdi_lock.svg';
 import mdi_user from '@/public/memberPic/mdi_user.svg';
 import scss from './side.module.scss';
+import Link from 'next/link';
 
 export default function SideText() {
   return (
@@ -16,13 +17,13 @@ export default function SideText() {
           <span>會員管理</span>
         </div>
         <div className={scss.subItems}>
-          <div>基本資料</div>
-          <div>討論區會員</div>
+          <Link href="/member/peopleInfoData"><div>基本資料</div></Link>
+          <Link href="/member/ForumMemberInfo"><div>討論區會員</div></Link>
         </div>
       </div>
       <div className={scss.menuItem}>
         <Image className={scss.icon} src={mdi_dog} alt="狗狗管理" />
-        <span>狗狗管理</span>
+        <Link href="/member/dogInfoData"><span>狗狗管理</span></Link>
       </div>
       <div className={scss.menuItem}>
         <Image className={scss.icon} src={mdi_list} alt="訂單查詢" />
@@ -30,7 +31,7 @@ export default function SideText() {
       </div>
       <div className={scss.menuItem}>
         <Image className={scss.icon} src={mdi_lock} alt="修改密碼" />
-        <span>修改密碼</span>
+        <Link href="/member/ChangePassword"><span>修改密碼</span></Link>
       </div>
       <div className={scss.menuItem}>
         <Image className={scss.icon} src={mdi_heart} alt="我的收藏" />

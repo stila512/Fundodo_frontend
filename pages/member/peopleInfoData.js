@@ -10,46 +10,36 @@ import mdi_list from '@/public/memberPic/mdi_list.svg';
 import mdi_lock from '@/public/memberPic/mdi_lock.svg';
 import mdi_user from '@/public/memberPic/mdi_user.svg';
 import SideText from '@/components/member/SideText';
+import Link from 'next/link';
 
-export default function PeopleInfo() {
+export default function PeopleInfoData() {
   return (
     <>
-      <main className={scss.PeopleInfoContainer}>
+      <main className={scss.PeopleInfoDataContainer}>
         <div className="col-1 col-lg-4"></div>
         <div className={`${scss.midarea} col-12 col-lg-5`}>
           <div className={`${scss.midtext}`}>
           <div className={`${scss.area2} `}>Email <p>example@gmail.com <span>沒收到驗證信?</span></p></div>
-            <div className={scss.area3}>姓名 <input placeholder="姓名"></input></div>
+            <div className={scss.area3}>姓名<p>小廢材</p></div>
             <div className={scss.area4}>性別
               <div className={scss.genderRadio}>
-                <input type="radio" name="gender" value="male"></input>
-                <label html="male"><Image className="imgWrap" src={radio} alt="Image" />先生</label>
-                <input type="radio" name="gender" value="female"></input>
-                <label html="male"><Image className="imgWrap" src={radio} alt="Image" />女士</label>
+                <p>先生</p>
               </div>
             </div>
             <div className={scss.area5}>生日
               <div><label html="birthday"></label>
-                <input type="month" id="birthday" name="birthday" min="1900-01" max="2023-12" required></input>
+                1999/9/9
               </div>
             </div>
-            <div className={scss.area6}>行動電話 <input placeholder="Please enter"></input></div>
+            <div className={scss.area6}>行動電話 <p>0912345678</p></div>
             <div className={scss.area7}>聯絡地址
               <div className={scss.address}>
-                <div className={scss.addressTOP}>
-                  <select>
-                    <option>城市</option>
-                  </select>
-                  <select>
-                    <option>地區</option>
-                  </select>
-                </div>
-                <input placeholder="詳細地址"></input>
+                桃園市中壢區聖德基督
               </div>
 
             </div>
             <div className={`${scss.botarea} my-5 mx-5`}>
-              <button className={scss.btn1}>編輯資料</button>
+              <Link href="/member/peopleInfo"><button className={scss.btn1}>編輯資料</button></Link>
               <button className={scss.btn2}>確認送出</button>
             </div>
           </div>
@@ -61,4 +51,4 @@ export default function PeopleInfo() {
     </>
   );
 }
-PeopleInfo.layout = DefaultLayout;
+PeopleInfoData.layout = DefaultLayout;
