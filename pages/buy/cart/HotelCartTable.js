@@ -62,7 +62,7 @@ export default function HotelCartTable() {
           </tr>
         </thead>
         <tbody className='tx-body'>
-          {noData ? <></> :
+          {noData ? <tr><h2 className='tx-shade4'>購物車現在空無一物</h2></tr> :
             dataArr.map((item) => (
               <tr key={item.key}>
                 <td>
@@ -100,8 +100,6 @@ export default function HotelCartTable() {
           }
         </tbody>
       </table>
-      {noData ? <h2 className='tx-shade4'>購物車現在空無一物</h2>
-        : <></>}
     </>
   )
 }

@@ -42,7 +42,7 @@ const testData = [
 //======= API =====================================
 //== parameters
 const USER_ID = 58;//todo: test
-const apiLink = `${apiBaseUrl}/carts/${USER_ID}`;
+const apiLink = `${apiBaseUrl}/cart/${USER_ID}`;
 
 //======= API END ==================================
 
@@ -96,7 +96,7 @@ export default function ProdCartTable() {
           </tr>
         </thead>
         <tbody className='tx-body'>
-          {noData ? <></> :
+          {noData ? <tr><h2 className='tx-shade4'>購物車現在空無一物</h2></tr> :
             dataArr.map((item, i_data) => (
               <tr key={item.key}>
                 <td>
@@ -131,8 +131,6 @@ export default function ProdCartTable() {
           }
         </tbody>
       </table>
-      {noData ? <h2 className='tx-shade4'>購物車現在空無一物</h2>
-        : <></>}
     </>
   )
 }
