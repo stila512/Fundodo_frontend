@@ -6,9 +6,10 @@ import Breadcrumb from './list/breadcrumb';
 import Select from './list/select';
 import Aside from './list/aside';
 import ProductGrid from './list/productGrid';
+import MobileFilter from './list/mobileFilter';
 
 export default function ProductList() {
-  
+
   return (
     <>
       <Head>
@@ -19,6 +20,7 @@ export default function ProductList() {
       </Head>
       <main className='container'>
         <Section />
+        <MobileFilter />
         <div
           className={[
             'd-flex',
@@ -29,11 +31,11 @@ export default function ProductList() {
           <Breadcrumb />
           <Select />
         </div>
-        <div className={['d-flex', scss.gap, scss.my].join(' ')}>
+        <div className={['row', scss.my].join(' ')}>
           <Aside />
           <ProductGrid />
         </div>
-        
+
       </main>
     </>
   );

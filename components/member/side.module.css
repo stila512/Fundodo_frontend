@@ -1,0 +1,36 @@
+.sideText {
+  display: inline-flex;
+  margin: 94px;
+  padding: 22px 20px;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  background: var(--white, #FFF);
+  border: 1px solid #EAEAEA;
+}
+.sideText .menuItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sideText .menuItem .icon {
+  width: 24px;
+  height: 24px;
+}
+.sideText .menuItem:first-child {
+  flex-direction: column;
+  align-items: flex-start;
+}
+.sideText .menuItem:first-child .mainItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sideText .menuItem:first-child .subItems {
+  padding-left: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 4px;
+}/*# sourceMappingURL=side.module.css.map */

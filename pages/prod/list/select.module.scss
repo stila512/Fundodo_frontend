@@ -1,5 +1,10 @@
 @use '@/styles' as s;
 
+.rwd{
+  @media (max-width:768px) {
+    display: none;
+  }
+}
 .customSelect {
   position: relative;
   width: 300px;
