@@ -5,14 +5,15 @@ import SideText from '@/components/member/SideText';
 import mdi_dogAvatar from '@/public/memberPic/mdi_dogAvatar.svg';
 import icon_i from '@/public/memberPic/i.svg';
 import dog from '@/public/memberPic/dog.svg';
+import Shiba from '@/public/memberPic/Shiba.png';
 import Link from 'next/link';
 
 
 
-export default function DogInfoStart() {
+export default function DogInfoData() {
   return (
     <>
-      <main className={scss.dogInfoStartContainer}>
+      <main className={scss.dogInfoDataContainer}>
         <div className="col-3"></div>
         <div className={`${scss.midarea} col-6`}>
           <div className={`${scss.midtext}`}>
@@ -23,38 +24,38 @@ export default function DogInfoStart() {
               </div>
               <div className={`${scss.mainArea}`}>
                 <div className={`${scss.leftPic} col-6`}>
-                  <div className={`${scss.imgDogavatar}`}><Image className="img" src={mdi_dogAvatar} alt="Image" /></div>
-                  <div className={`${scss.Dogname}`}>毛孩名</div>
+                  <div className={`${scss.imgDogavatar}`}><Image className="img" src={Shiba} alt="Image" /></div>
+                  <div className={`${scss.Dogname}`}>小廢柴</div>
                 </div>
                 <div className={`${scss.rightText} col-6`}>
                   <div className={`${scss.rightA1}`}>
                     <div className={`col-2`}><Image className="img" src={dog} alt="Image" /></div>
                     <div className={`${scss.a0} col-6`}>
                       <div className={`${scss.a1}`}>
-                        <div>性別<br/>-</div>
-                        <div>生日<br/>-</div>
-                        <div>體重<br/>-</div>
+                        <div>性別<br/><p>公</p></div>
+                        <div>生日<br/><p>2020/07/18</p></div>
+                        <div>體重<br/><p>7 KG</p></div>
                       </div>
                       <div>
-                        <div>疫苗接種紀錄<br/>-</div>
+                        <div>疫苗接種紀錄<br/><p>多合一疫苗, 狂犬病疫苗</p></div>
                       </div>
                       <div>
-                        <div>絕育狀態<br/>-</div>
+                        <div>絕育狀態<br/><p>是</p></div>
                       </div>
                     </div>
                     <div className={`col-4`}></div>
                   </div>
                   <div className={`${scss.rightA2}`}>
                     <div className={`col-2`}><Image className="img" src={icon_i} alt="Image" /></div>
-                    <div className={`${scss.a3} col-6`}>
+                    <div className={`${scss.a3} col-8`}>
                       <div>
-                        <div>性格描述<br/>-</div>
+                        <div>性格描述<br/><p>平常很喜歡趴著的小廢柴，性格很溫馴最喜歡吃小餅乾</p></div>
                       </div>
                       <div>
-                        <div>行為習慣<br/>-</div>
+                        <div>行為習慣<br/><p>吃飯的時候要擺兩個碗才會吃</p></div>
                       </div>
                     </div>
-                    <div className={`col-4`}></div>
+                    <div className={`col-2`}></div>
                   </div>
                   </div>
                 </div>
@@ -71,4 +72,4 @@ export default function DogInfoStart() {
     </>
   );
 }
-DogInfoStart.layout = DefaultLayout;
+DogInfoData.layout = DefaultLayout;
