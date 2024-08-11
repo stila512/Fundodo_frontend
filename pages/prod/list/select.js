@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import scss from '@/pages/prod/select.module.scss';
+import scss from './select.module.scss';
 import { IoIosArrowDown } from 'react-icons/io';
 
 
