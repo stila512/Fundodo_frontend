@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
 import FddBtn from '@/components/buttons/fddBtn';
-import { NumberPanel } from './NumberPanel';
+import { NumberPanel } from '@/components/buttons/NumberPanel';
 import s from './cart-page.module.scss';
 import { TbTrashX } from "react-icons/tb";
 import { RxCross2 } from "react-icons/rx";
