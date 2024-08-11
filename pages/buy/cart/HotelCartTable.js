@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import FddBtn from '@/components/buttons/fddBtn';
 import Image from 'next/image';
 import { apiBaseUrl } from '@/configs';
@@ -43,14 +44,24 @@ const date2str = date => {
   return dArr[0] + '年' + dArr[1] + '月' + dArr[2] + '日';
 }
 
-export default function HotelCartTable() {
-  const dataArr = testData;
-  const noData = false;
-  
+export default function HotelCartTable({ setAmount = () => { }, i_amt = -1 }) {
+  const [dataArr, setDataArr] = useState([]);
+  useEffect(() => {
+    //todo: 後台尚未建立    
+    setDataArr(testData);
+    
+  }, []);
+  useEffect(() => {
+    const total = dataArr.reduce((sum, cur) => sum + cur.tot, 0);
+    setAmount(arr => arr.map((v, i) => (i === i_amt) ? total : v));
+  }, [dataArr]);
+
+  const noData = (!dataArr || dataArr.length === 0);
+
   return (
     <>
       <table className={s.cartTable}>
-      <caption className='tx-default tx-shade4 tx-left'>共 {dataArr.length} 間旅館</caption>
+        <caption className='tx-default tx-shade4 tx-left'>共 {dataArr.length} 間旅館</caption>
         <thead>
           <tr>
             <th><TbTrashX /></th>
@@ -62,7 +73,7 @@ export default function HotelCartTable() {
           </tr>
         </thead>
         <tbody className='tx-body'>
-          {noData ? <></> :
+          {noData ? <tr><th colSpan={6}><h2 className='tx-shade4'>購物車現在空無一物</h2></th></tr> :
             dataArr.map((item) => (
               <tr key={item.key}>
                 <td>
@@ -92,7 +103,7 @@ export default function HotelCartTable() {
                   </div>
                 </td>
                 <td>
-                <div className="mx-auto pe-1 tx-right w-fit">
+                  <div className="mx-auto pe-1 tx-right w-fit">
                     ${item.tot}
                   </div></td>
               </tr>
@@ -100,8 +111,6 @@ export default function HotelCartTable() {
           }
         </tbody>
       </table>
-      {noData ? <h2 className='tx-shade4'>購物車現在空無一物</h2>
-        : <></>}
     </>
   )
 }
