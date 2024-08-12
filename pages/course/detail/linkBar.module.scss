@@ -2,7 +2,9 @@
 
 .links {
   display: flex;
-  margin-bottom: 75px;
+  @include rwd-above(sm){
+    margin-bottom: 75px;
+  }
   border-bottom: 1px solid $primary;
 
   a {
@@ -14,12 +16,14 @@
     border-bottom: 1px solid transparent ;
     color: $heading;
     text-align: center;
-    font-size: 16px;
+    font-size: 12px;
+    @include rwd-above(sm){ font-size: 16px;}
     font-style: normal;
     font-weight: 600;
     line-height: 28px; 
 
     &:hover {
+      color: $shade2;
         border-bottom:5px solid $primary ;
       }
   }

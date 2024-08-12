@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ReactSlider from 'react-slider';
-import scss from '@/pages/prod/priceFilter.module.scss';
+import scss from './priceFilter.module.scss';
 
 export default function PriceFilter() {
     const [values, setValues] = useState([0, 10000]);

@@ -25,12 +25,20 @@
   padding: 16px 19px;
   border-radius: 2px;
   background: $secondary;
+  cursor: pointer;
+  &:hover{
+    background-color: $tint3;
+  }
   p {
     color: $shade4;
-    font-size: 18px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 600;
     line-height: 30px;
+    @include rwd-above(sm){
+      font-size: 18px;
+    }
+
   }
 }
 .faq_a {

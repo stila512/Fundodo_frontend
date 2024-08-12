@@ -17,18 +17,22 @@ export default function CourseDetail() {
         <title>Course Detail</title>
       </Head>
       <div className='container'>
-        <div className="row">
-          <DetailBanner />
-          <LinkBar />
-          <main className="col-12 col-lg-8">
+        <div className={["row", scss.wrapper].join(" ")}>
+          <div className="col-12">
+            <DetailBanner />
+            <LinkBar />
+          </div>
+          <main className="col-12 col-md-8 ">
             <Summary />
             <CrsContent />
             <FAQ />
             <Tags />
           </main>
-          <aside className="col-12 col-lg-4">
+          <aside className={["col-12 col-md-4 ", scss.cart].join(" ")}>
             <AddCart />
           </aside>
+          
+
         </div>
       </div>
 

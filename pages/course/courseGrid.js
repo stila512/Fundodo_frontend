@@ -8,21 +8,61 @@ import Link from 'next/link';
 export default function CourseGrid() {
     return (
         <>
-            <div className='container'>
-                <div className={scss.cards}>
-                    <Link href="/course/detail">
+            <div className={scss.cards}>
+                <div className="row">
+                    <div className="col-6 col-lg-4">
                         <div className={scss.card}>
-                            <div className={scss.imgBox}>
-                                <Image src={dog} className={scss.crs_image} />
-                            </div>
-                            <div className={scss.cardText}>
-                                <h3>【狗狗教養實作】線上體驗課</h3>
-                                <div className='d-flex gap-1 ai-center'>
-                                    <AiOutlineUser /> <p>125人來學習</p>
+                            <Link href="/course/detail">
+                                <Image src={dog}/>
+                                <div className={scss.cardText}>
+                                    <h3>【狗狗教養實作】線上體驗課</h3>
+                                    <div className='d-flex gap-1 ai-center'>
+                                        <AiOutlineUser /> <p>125人來學習</p>
+                                    </div>
                                 </div>
-                            </div>
+                            </Link>
                         </div>
-                    </Link>
+                    </div>
+                    <div className="col-6 col-lg-4">
+                        <div className={scss.card}>
+                            <Link href="/course/detail">
+                                <Image src={dog} />
+                                <div className={scss.cardText}>
+                                    <h3>【狗狗教養實作】線上體驗課</h3>
+                                    <div className='d-flex gap-1 ai-center'>
+                                        <AiOutlineUser /> <p>125人來學習</p>
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="col-6 col-lg-4">
+                        <div className={scss.card}>
+                            <Link href="/course/detail">
+                                <Image src={dog} />
+                                <div className={scss.cardText}>
+                                    <h3>【狗狗教養實作】線上體驗課</h3>
+                                    <div className='d-flex gap-1 ai-center'>
+                                        <AiOutlineUser /> <p>125人來學習</p>
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
+                    </div>
+
+                    <div className="col-6 col-lg-4">
+                        <div className={scss.card}>
+                            <Link href="/course/detail">
+                                <Image src={dog} />
+                                <div className={scss.cardText}>
+                                    <h3>【狗狗教養實作】線上體驗課</h3>
+                                    <div className='d-flex gap-1 ai-center'>
+                                        <AiOutlineUser /> <p>125人來學習</p>
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>

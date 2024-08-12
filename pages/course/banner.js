@@ -7,19 +7,20 @@ import Sort from './sort';
 export default function Banner() {
   return (
     <>
-      <div className='container'>
-        <div className={scss.banner}>
-          <Image src={dog} className={scss.dog} />
-          <h2>狗的課程</h2>
-        </div>
-        <div className='d-flex jc-between ai-center'>
-          <p>Home 狗狗課程</p>
-          <div className="d-flex ai-center">
-            <Sort />
+      <div className="row">
+        <div className="d-none d-md-block">
+          <div className={scss.banner}>
+            <Image src={dog} className='' />
+            <h2>狗的課程</h2>
           </div>
         </div>
+      </div>
 
-
+      <div className='d-flex jc-between ai-center'>
+        <p>Home 狗狗課程</p>
+        <div className="d-flex ai-center">
+          <Sort />
+        </div>
       </div>
     </>
   );

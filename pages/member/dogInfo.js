@@ -9,7 +9,7 @@ import radio from '@/public/memberPic/radio.svg';
 
 
 
-export default function PeopleInfo() {
+export default function DogInfo() {
   return (
     <>
       <main className={`${scss.dogInfoContainer} pt-5`}>
@@ -110,4 +110,4 @@ export default function PeopleInfo() {
     </>
   );
 }
-PeopleInfo.layout = DefaultLayout;
+DogInfoInfo.layout = DefaultLayout;
