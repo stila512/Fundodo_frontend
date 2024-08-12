@@ -1,10 +1,10 @@
 $white:    hsl(0, 0%, 100%);
 $gray-100: hsl(19, 2%, 98%);
 $gray-200: hsl(19, 2%, 93%);
-$gray-300: hsl(19, 2%, 89%);
-$gray-400: hsl(19, 2%, 83%);
-$gray-500: hsl(20, 2%, 71%);
-$gray-600: hsl(19, 2%, 46%);
+$gray-300: #e4e3e2;
+$gray-400: #d5d3d3;
+$gray-500: #b7b5b4;
+$gray-600: hsl(12, 2%, 46%);
 $gray-700: hsl(19, 2%, 31%);
 $gray-800: hsl(20, 3%, 23%);
 $gray-900: hsl(19, 2%, 15%);
@@ -23,8 +23,8 @@ $muted: $gray-400;
 
 /* text color 帶色 */
 $primary-text: #49352c;//hsl(19, 25%, 23%)
-$info-text: hsl(200, 25%, 23%);
-$error-text: hsl(1, 25%, 23%);
+$info-text: #2c4049;
+$error-text: #492c2c;
 
 /* color shade */
 $shade1: #857A79;// hsl(5, 5%, 50%)
