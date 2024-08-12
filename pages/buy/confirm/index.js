@@ -24,21 +24,23 @@ export default function ConfirmPage() {
       </Head>
       <BuyProgress stage={2} />
       <main className='container'>
-        {isBeginning && (<div className={['row jc-center pt-5', s.beginningPanel].join(' ')}>
+        <div className={['row jc-center py-5', s.topPanel, isBeginning ? s.beginningMode : ''].join(' ')}>
           <h3 className="col-12">請選擇配送方式：</h3>
-          <div className="col-5">
-            <button onClick={() => handleBeginingBtn(false)}>
-              <h4>宅配到府</h4>
-              <p className='mt-3 tx-default tx-shade3'>填寫寄送資料</p>
-            </button>
+          <div className="col-5 d-flex flex-row jc-end">
+            <FddBtn color='primary' outline={isCVS} size='sm' callback={() => handleBeginingBtn(false)}>
+              <>
+                <h4>宅配到府</h4>
+                <p className='mt-3 tx-default tx-shade3'>填寫寄送資料</p>
+              </>
+            </FddBtn>
           </div>
           <div className="col-5">
-            <button onClick={() => handleBeginingBtn(true)}>
+            <FddBtn color='primary' outline={!isCVS} size='sm' callback={() => handleBeginingBtn(true)}>
               <h4>超商取貨</h4>
               <p className='mt-3 tx-default tx-shade3'>選擇超商店家</p>
-            </button>
+            </FddBtn>
           </div>
-        </div>)}
+        </div>
         {isBeginning || (<div className="row">
           {isCVS || (<>
             <div className="col-12 col-lg-4 bg-shade2">

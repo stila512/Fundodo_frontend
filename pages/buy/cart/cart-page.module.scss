@@ -44,7 +44,7 @@ table.cartTable tbody tr {
   padding: rem(12px) rem(60px);
 }
 
-.payBtn {
+a.payBtn {
   margin-top: 1rem;
   padding-block: 1rem;
   display: block;
@@ -52,6 +52,18 @@ table.cartTable tbody tr {
   background-color: transparent;
   color: $white;
   border: 1px solid $white;
+  cursor: pointer;
+  text-align: center;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out, box-shadow 0.4s ease-in-out;
+
+  &:hover {
+    background-color: $shade3;
+    color: $white;
+  }
+  &:active {
+    background-color: shift-color($shade3, 10%);
+  }
 }
 
 .orderInfo {
