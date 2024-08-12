@@ -48,8 +48,8 @@
     border-radius: 10px;
     border: 1px solid c.$shade3;
     background: c.$white;
-    color: c.$shade3;
-    font-size: 24px;
+    color: c.$shade1;
+    font-size: 20px;
     font-weight: 700;
     line-height: 34px;
 
@@ -142,9 +142,10 @@
     li {
       font-size: 16px;
       border-radius: 4px;
-      padding: 4px;
+      padding: 4px 8px;
       display: flex;
       align-items: center;
+      color: c.$shade1;
     }
 
     img {
