@@ -9,8 +9,8 @@ export default function PeopleInfo() {
   return (
     <>
       <main className={scss.ForumMemberInfo}>
-        <div className="col-4"></div>
-        <div className={`${scss.midarea} col-5`}>
+        <div className="col-1 col-lg-4"></div>
+        <div className={`${scss.midarea} col-12 col-lg-5`}>
           <div className={scss.midtext}>
             <div className={scss.area1}>頭像上傳 <div className={scss.avatarPic}><Image className="imgWrap" src={avatarPic} alt="Image" /></div></div>
             <div className={scss.area2}>暱稱 <input placeholder="討論區暱稱"></input></div>

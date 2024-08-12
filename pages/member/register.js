@@ -27,13 +27,6 @@ export default function RegisterPage() {
 
   // 多欄位共用事件處理函式
   const handleFieldChange = (e) => {
-    // 可以用e.target來觀察或檢測是哪個欄位觸發事件
-    // console.log(e.target.name, e.target.type, e.target.value)
-
-    // ES6中的特性: Computed Property Names(計算得出來的屬性名稱)
-    // [e.target.name]: e.target.value
-    // ^^^^^^^^^^^^^^^ 這裡可以動態代入變數值或表達式，計算出物件屬性名稱(字串)
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names
     setUser({ ...user, [e.target.name]: e.target.value })
   }
 
@@ -86,16 +79,17 @@ export default function RegisterPage() {
     }
     // 表單檢查--- END ---
 
+    const formData = new FormData();
+    formData.append('nickname', user.nickname);
+    formData.append('email', user.email);
+    formData.append('password_hash', user.password_hash);
+
     // 提交表單到伺服器
     try {
       const url = 'http://localhost:3005/api/member/register';
       const res = await fetch(url, {
         method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(user),
+        body: formData,
       });
 
       const resData = await res.json();
@@ -176,7 +170,7 @@ export default function RegisterPage() {
                 </p>
               </div>
             </div>
-            <button className={scss.xBtn}>x</button>
+            <div className={scss.xBtn}>x</div>
           </div>
         </div>
       </form>

@@ -4,6 +4,11 @@
   display: flex;
   flex-direction: row;
   height: 80vh;
+  @media (max-width: 768px) {
+    .midtext input{
+      max-width: 70%;
+    }
+  }
   .midarea {
     margin-top: 60px;
     justify-content: center;
@@ -12,11 +17,12 @@
   //----------
   .midtext {
     display: flex;
-    width: 560px;
+    width: 100%;
     flex-direction: column;
     align-items: flex-start;
     gap: 22px;
     padding-bottom: 141px;
+    max-width: 560px;
   }
   .area1 {
     display: flex;
@@ -170,6 +176,14 @@
   display: flex;
   flex-direction: row;
   height: 80vh;
+  @media (max-width: 768px) {
+    .midtext input{
+      max-width: 70%;
+    }
+    .midtext textarea{
+      max-width: 70%;
+    }
+  }
   .midarea {
     margin-top: 60px;
     justify-content: center;
@@ -178,7 +192,8 @@
   //----------
   .midtext {
     display: flex;
-    width: 560px;
+    width: 100%;
+    max-width: 560px;
     flex-direction: column;
     align-items: flex-start;
     gap: 22px;
