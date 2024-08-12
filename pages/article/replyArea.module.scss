@@ -6,6 +6,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media (max-width:768px) {
+    width: 100%;
+    margin: 0;
+  }
 }
 
 .replyTitle {
@@ -34,6 +38,10 @@
 
   /* Shadow */
   box-shadow: 2px 1px 5px 0px rgba(0, 0, 0, 0.15);
+  @media (max-width:768px) {
+    width: 100%;
+    margin: 0;
+  }
 }
 
 .reply input {

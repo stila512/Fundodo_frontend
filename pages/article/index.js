@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import DefaultLayout from '@/components/layout/default';
 import scss from '@/pages/article/index.module.scss';
+import TitleAction from './titleAction';
 import UserAction from './userAction';
 import ArtiAside from './aside';
 import ArticleList from './articleList';
@@ -23,19 +24,20 @@ export default function Index() {
       </Head>
       <div className={scss.mainbg}>
         <main className="container" style={{ paddingTop: '40px' }}>
+          <TitleAction />
           <UserAction />
 
           <div className={[scss.mainArea].join()}>
-            <ArtiAside />
-            <div className={scss.contentArea}>
-              <ArticleContent />
-              <ReplyArea />
-              <ReplyBlock/>
+            <div className={scss.rwdAside}>
+              <ArtiAside />
             </div>
-            
-            {/* <ArticleList /> */}
-            {/* <PageControl /> */}
-            <UserCard/>
+
+            {/* <div className={scss.contentArea}>
+
+            </div> */}
+
+            <ArticleList />
+            <PageControl />
           </div>
         </main>
       </div>
