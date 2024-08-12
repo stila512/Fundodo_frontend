@@ -41,3 +41,9 @@
   line-height: 28px;
   /* 233.333% */
 }
+
+@media (max-width: 768px) {
+  .leftArticle{
+    flex-direction: column;
+  }
+}

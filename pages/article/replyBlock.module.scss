@@ -9,11 +9,16 @@
   align-items: flex-start;
   gap: 10px;
   margin-left: 54px;
+  margin-bottom: 80px;
   background: #fff;
 
   /* Shadow */
   box-shadow: 2px 1px 5px 0px rgba(0, 0, 0, 0.15);
   border-left: #fbc02d solid 5px;
+  @media (max-width:768px) {
+    width: 100%;
+    margin-left: 0;
+  }
 }
 
 .contentCreater {
