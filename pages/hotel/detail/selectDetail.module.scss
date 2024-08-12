@@ -1,44 +1,12 @@
 @use '@/styles' as c;
 
-.container {
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-  max-width: 1440px;
-  margin: 0 auto;
-}
-.hotel-img {
-  flex: 1;
-  margin-right: 30px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.main-img {
-  width: 100%;
-  height: 700px;
-  background-color: #c2db83;
-  border-radius: 12px; 
-}
-.sub-img {
-  display: flex;
-  justify-content:flex-start;
-  gap: 10px;
-  flex-shrink: 0;
-}
-.sub-img .img {
-  width: 130px; 
-  height: 110px; 
-  background-color: #dbac83;
-  border-radius: 12px; 
-}
-
 .wrap {
-  width: 518px;
+  min-width: 518px;
   flex-shrink: 0;
   border-radius: 12px;
   border: 1px solid c.$shade2;
   padding: 20px;
+  margin-left: 90px;
 }
 .info {
   margin-bottom: 20px;
@@ -48,7 +16,7 @@
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
-  line-height: 34px; 
+  line-height: 34px;
   margin: 0 0 10px 0;
 }
 .address {
@@ -56,7 +24,7 @@
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
-  line-height: 30px; 
+  line-height: 30px;
   margin: 0 0 10px 0;
 }
 .date {
@@ -71,7 +39,7 @@
   font-size: 36px;
   font-style: normal;
   font-weight: 700;
-  line-height: 46px; 
+  line-height: 46px;
   margin: 0 0 10px 0;
 }
 .detail {
@@ -81,6 +49,22 @@
   font-weight: 400;
   line-height: 20px;
   margin: 0 0 20px 0;
+}
+
+.coupon {
+  color: c.$shade4;
+  /* Body Default */
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px; /* 166.667% */
+}
+.couponIcon {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  fill: c.$shade2;
+  padding: 4px;
 }
 .select {
   flex-shrink: 0;
@@ -98,7 +82,7 @@
   margin: 3px;
   gap: 10px;
 }
-.selectContainer input[type="date"] {
+.selectContainer input[type='date'] {
   width: calc(50% - 10px);
   margin: 4px;
   padding: 10px;
@@ -136,3 +120,115 @@
   background-color: #e1bdbd;
 }
 
+.wrapMobile {
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .wrap {
+    display: none;
+  }
+
+  .wrapMobile {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 12px;
+    margin: 0 auto;
+    padding: 0 10px; 
+    box-sizing: border-box; // 確保 padding 不會增加總寬度
+  }
+
+  .title {
+    color: c.$gray-800;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 15px 0;
+    padding: 0 4px;
+  }
+
+  .infoGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+    background-color: c.$tint5;
+    padding: 10px;
+  }
+
+  .label {
+    color: c.$shade1;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 18px; /* 150% */
+  }
+
+  .value {
+    margin: 0;
+    color: c.$shade3;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 18px; /* 150% */
+    margin-top: 7px;
+  }
+
+  .priceInfo {
+    background-color: #fff;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    padding: 0 8px;
+  }
+
+  .date {
+    color: c.$gray-600;
+    font-size: 14px;
+    margin: 0 0 5px 0;
+  }
+
+  .price {
+    color: c.$gray-800;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 5px 0;
+  }
+
+  .detail {
+    color: c.$gray-600;
+    font-size: 12px;
+    margin: 0;
+  }
+
+  .coupon {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 14px;
+    padding: 0 4px;
+  }
+
+  .couponIcon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    fill: c.$shade2;
+    margin-right: 2px;
+    font-size: 12px;
+  }
+
+  .map {
+    height: 150px;
+    background-color: #facece;
+  }
+
+  .address {
+    color: c.$gray-800;
+    font-size: 14px;
+    margin: 0;
+    background-color: c.$tint5;
+    padding: 4px;
+  }
+}
