@@ -61,18 +61,20 @@ export default function ProductGrid() {
 										<Image src={`/pic-prod/${v.picNameArr[0]}`} width={0} height={0} layout="responsive" />
 									</div>
 								</div>
-								<div className={scss.textarea}>
-									<span className={scss.prodName}>{v.name}</span>
-								</div>
-								<div className={scss.textarea}>
-									<span className={scss.prodPrice}>
-										{isSinglePrice
-											? `NT$ ${formatPrice(parseFloat(v.priceArr[0]))}`
-											: (minPrice > 0
-												? `NT$ ${formatPrice(minPrice)} - NT$ ${formatPrice(maxPrice)}`
-												: `NT$ ${formatPrice(maxPrice)}`)
-										}
-									</span>
+								<div className={scss.textarea2}>
+									<div className={scss.textarea}>
+										<span className={scss.prodName}>{v.name}</span>
+									</div>
+									<div className={scss.textarea}>
+										<span className={scss.prodPrice}>
+											{isSinglePrice
+												? `NT$ ${formatPrice(parseFloat(v.priceArr[0]))}`
+												: (minPrice > 0
+													? `NT$ ${formatPrice(minPrice)} - NT$ ${formatPrice(maxPrice)}`
+													: `NT$ ${formatPrice(maxPrice)}`)
+											}
+										</span>
+									</div>
 								</div>
 								<Link className={scss.btn} type='button' href={`/prod/detail/${v.id}`}><span>我要購買</span></Link>
 							</div>

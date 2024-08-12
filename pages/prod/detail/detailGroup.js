@@ -6,6 +6,9 @@ import mini2 from '/public/prodPic/2.png';
 import mini3 from '/public/prodPic/3.png';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
+import { NumberPanel } from '@/components/buttons/NumberPanel';
+import Toggle from './toggle';
+import Recommend from './recommend';
 
 export default function DetailGroup() {
 	const router = useRouter()
@@ -21,6 +24,19 @@ export default function DetailGroup() {
 			ageArr: ""
 		}
 	})
+	const [qty, setQty] = useState([])
+
+	const handleIncrease = (pid) => {
+		const nextQty = product.map((v) => {
+			// 如果符合條件(id是productId)，回傳修改其中屬性qty遞增的物件值
+			if (v.id === pid) return { ...v, qty: v.qty + 1 }
+			// 否則回傳原物件
+			else return v
+		})
+
+		// 設定到狀態中
+		setCartItems(nextQty)
+	}
 
 	const getProduct = async (id) => {
 		const URL = `http://localhost:3005/api/prod/detail/${id}`
@@ -38,8 +54,6 @@ export default function DetailGroup() {
 			// 向伺服器要求獲取資料
 			getProduct(router.query.pid)
 		}
-		// 以下為省略eslint檢查一行
-		// eslint-disable-next-line
 	}, [router.isReady])
 	return (
 		<>
@@ -68,7 +82,7 @@ export default function DetailGroup() {
 					<div className={scss.btnGroup}>
 						<p>規格</p>
 						<div className='d-flex gap-3'>
-							<button className={scss.btnPrimary}>{product.sortArr}</button>
+							{/* <button className={scss.btnPrimary}>{product.sortArr}</button> */}
 						</div>
 					</div>
 					<div className={scss.btnGroup}>
@@ -88,15 +102,15 @@ export default function DetailGroup() {
 						<span className={scss.price}>NT$680</span>
 
 					</div>
-					<div className={['gap-3', 'd-flex', scss.mt].join(' ')}>
+					<div className={['gap-3', 'd-flex', 'align-item-center', scss.mt].join(' ')}>
 						<span className={scss.cs3}>數量</span>
-						<button>-</button>
-						<span>1</span>
-						<button>+</button>
-						<button>加入購物車</button>
+						<NumberPanel quantity={0} setFunc={setQty} />
+						<button className={scss.btnSubmit} type='submit'>加入購物車</button>
 					</div>
 				</div>
 			</div>
+			<Toggle />
+			<Recommend />
 		</>
 	)
 }
