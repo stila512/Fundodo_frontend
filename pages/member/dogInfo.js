@@ -13,8 +13,8 @@ export default function DogInfo() {
   return (
     <>
       <main className={`${scss.dogInfoContainer} pt-5`}>
-        <div className="col-3"></div>
-        <div className={`${scss.midarea} col-6`}>
+        <div className="col-1 col-xl-1 col-xxl-3"></div>
+        <div className={`${scss.midarea} col-10 col-xl-8 col-xxl-6`}>
           <div className={`${scss.tags} col-12`}>
             <div className={`${scss.tag1}`}>狗狗的資料</div>
             <div className={`${scss.tag2}`}>新增狗勾</div>
@@ -95,19 +95,17 @@ export default function DogInfo() {
           </div>
 
 
-
-
           <div className={`${scss.btnarea} mt-5`}>
             <button className={`${scss.btn2}`}>確認送出</button>
           </div>
         </div>
 
 
-        <div className="col-3 my-2">
+        <div className="col-1 col-xl-3 col-xxl-3 my-2 d-none d-xl-block">
           <SideText></SideText>
         </div>
       </main>
     </>
   );
 }
-DogInfoInfo.layout = DefaultLayout;
+DogInfo.layout = DefaultLayout;
