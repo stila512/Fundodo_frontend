@@ -26,6 +26,7 @@
   display: inline-block;
   text-align: center;
   vertical-align: middle;
+  border: 3px solid s.$black;
   border-radius: 99rem;
 
   // 預設值
@@ -64,50 +65,51 @@
 
 //====================== 模組定義區
 //以下為簡易預設，詳細設定於
-@each $color, $value in s.$theme-colors {
-  //尺寸
-  .btn-#{$color},
-  .btn-#{$color}-2 {
-    @include pill-btn-prototype();
-  }
-  .btn-#{$color}-icon,
-  .btn-#{$color}-icon-2 {
-    @include icon-btn-prototype();
-  }
-  //顏色
-  .btn-#{$color} {
-    background-color: $value;
-    color: shift-color($value, 60%);
-    border: none;
-  }
-  .btn-#{$color}-icon {
-    background-color: $value;
-    color: s.$white;
-    border: none;
-  }
-  .btn-#{$color}-2,
-  .btn-#{$color}-icon-2 {
-    background-color: s.$white;
-    color: $value;
-    border: 3px solid $value;
-  }
-  //動態
-  .btn-#{$color}-icon {
-    &:hover {
-      background-color: s.$white;
-      color: $value;
-      border: 2px solid $value;
+@each $elem in (a, button) {
+  @each $color, $value in s.$theme-colors {
+    //尺寸
+    #{$elem}.btn-#{$color},
+    #{$elem}.btn-#{$color}-2 {
+      @include pill-btn-prototype();
     }
-    &:active {
-      background-color: shift-color($value, -50%);
+    #{$elem}.btn-#{$color}-icon,
+    #{$elem}.btn-#{$color}-icon-2 {
+      @include icon-btn-prototype();
     }
-  }
-  a.btn-#{$color}-icon-2,
-  button.btn-#{$color}-icon-2 {
-    &:hover {
+    //顏色
+    #{$elem}.btn-#{$color},
+    #{$elem}.btn-#{$color}-icon {
       background-color: $value;
+      border-color: transparent;
+    }
+    #{$elem}.btn-#{$color} {
+      color: shift-color($value, 60%);
+    }
+    #{$elem}.btn-#{$color}-icon {
       color: s.$white;
     }
-    
+    #{$elem}.btn-#{$color}-2,
+    #{$elem}.btn-#{$color}-icon-2 {
+      background-color: s.$white;
+      color: $value;
+      border: 3px solid $value;
+    }
+    //動態
+    #{$elem}.btn-#{$color}-icon {
+      &:hover {
+        background-color: s.$white;
+        color: $value;
+        border: 2px solid $value;
+      }
+      &:active {
+        background-color: shift-color($value, -50%);
+      }
+    }
+    #{$elem}.btn-#{$color}-icon-2 {
+      &:hover {
+        background-color: $value;
+        color: s.$white;
+      }
+    }
   }
 }
