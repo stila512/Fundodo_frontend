@@ -15,10 +15,13 @@ table.cartTable thead {
     padding-block: 0.5rem;
   }
   th:nth-child(1) {
-    width: 4rem;
+      width: 4rem;
   }
   th:nth-child(2) {
-    width: rem(200px);
+    width: rem(120px);
+    @include rwd-above('lg') {
+      width: rem(200px);
+    }
   }
 }
 
@@ -27,6 +30,9 @@ table.cartTable tbody tr {
 
   td {
     padding-block: 1rem;
+  }
+  td:nth-child(3), td:nth-child(4) {
+    padding-inline: 1rem;
   }
   p {
     line-height: 2;

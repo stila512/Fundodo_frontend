@@ -49,7 +49,7 @@ export default function HotelCartTable({ setAmount = () => { }, i_amt = -1 }) {
   useEffect(() => {
     //todo: 後台尚未建立    
     setDataArr(testData);
-    
+
   }, []);
   useEffect(() => {
     const total = dataArr.reduce((sum, cur) => sum + cur.tot, 0);
@@ -94,8 +94,13 @@ export default function HotelCartTable({ setAmount = () => { }, i_amt = -1 }) {
                   <p>{date2str(item.start_date) + '—' + date2str(item.end_date)}</p>
                 </td>
                 <td>
-                  <p>{`${item.bodytype} ${item.qty} 間`}</p>
-                  {item.spec_name ? <p>{item.spec_name}</p> : <></>}
+                  <p>
+                    <span>{item.bodytype}</span>
+                    <br className="d-lg-none" />
+                    <span className="d-none d-lg-inline">{' '}</span>
+                    <span>{item.qty} 間</span>
+                  </p>
+
                 </td>
                 <td>
                   <div className="mx-auto pe-1 tx-right w-fit">
