@@ -1,5 +1,10 @@
 @use '@/styles' as s;
 
+.rwd {
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
 .mt {
   margin-top: 163px;
 }
@@ -12,9 +17,9 @@
   justify-content: space-around;
 }
 
-.pt3{
-    padding-top: 5.6rem;
+.pt3 {
+  padding-top: 5.6rem;
 }
 .dogFood {
-    color: s.$shade2;
+  color: s.$shade2;
 }

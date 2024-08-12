@@ -1,7 +1,7 @@
 import scss from './datail.module.scss';
 import Head from 'next/head';
 import DefaultLayout from '@/components/layout/default';
-import Breadcrumb from '@/pages/prod/breadcrumb';
+import Breadcrumb from '../list/breadcrumb';
 import DetailGroup from './detailGroup';
 
 export default function Detail() {
@@ -16,10 +16,10 @@ export default function Detail() {
       <main className='container'>
         <h1 className={scss.shade3}>狗的飼料</h1>
         <div className='mt-3'>
-        <Breadcrumb />
+          <Breadcrumb />
         </div>
         <div>
-        <DetailGroup />
+          <DetailGroup />
         </div>
       </main>
     </>

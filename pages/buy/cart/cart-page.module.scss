@@ -14,13 +14,68 @@ table.cartTable thead {
   th {
     padding-block: 0.5rem;
   }
-  
+  th:nth-child(1) {
+    width: 4rem;
+  }
+  th:nth-child(2) {
+    width: rem(200px);
+  }
 }
 
 table.cartTable tbody tr {
   border-bottom: 1px solid $black;
 
+  td {
+    padding-block: 1rem;
+  }
   p {
     line-height: 2;
+  }
+}
+
+.continueBtn {
+  border: none;
+  padding: rem(12px) rem(60px);
+}
+
+.payBtn {
+  margin-top: 1rem;
+  padding-block: 1rem;
+  display: block;
+  width: 100%;
+  background-color: transparent;
+  color: $white;
+  border: 1px solid $white;
+}
+
+.orderInfo {
+  margin-block: rem(20px) rem(78px);
+
+  table {
+    width: 100%;
+    thead th {
+      padding-bottom: 1rem;
+      font-size: rem(20px);
+      font-weight: 600;
+    }
+    th {
+      font-size: rem(16px);
+      font-weight: 600;
+      text-align: left;
+    }
+    td {
+      text-align: right;
+    }
+  }
+  @include rwd-above('lg') {
+    display: flex;
+    justify-content: flex-end;
+
+    table {
+      padding: rem(40px) rem(50px);
+      background-color: $shade2;
+      color: $white;
+      width: rem(540px);
+    }
   }
 }

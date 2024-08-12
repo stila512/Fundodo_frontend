@@ -15,8 +15,8 @@ export default function PeopleInfo() {
   return (
     <>
       <main className={scss.PeopleInfoContainer}>
-        <div className="col-4"></div>
-        <div className={`${scss.midarea} col-5`}>
+        <div className="col-1 col-lg-4"></div>
+        <div className={`${scss.midarea} col-12 col-lg-5`}>
           <div className={`${scss.midtext}`}>
           <div className={`${scss.area2} `}>Email <p>example@gmail.com <span>沒收到驗證信?</span></p></div>
             <div className={scss.area3}>姓名 <input placeholder="姓名"></input></div>
@@ -54,7 +54,7 @@ export default function PeopleInfo() {
             </div>
           </div>
         </div>
-        <div className="col-5 my-5">
+        <div className="col-5 my-5  d-none d-lg-block">
         <SideText></SideText>
         </div>
       </main>
