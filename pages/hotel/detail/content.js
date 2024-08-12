@@ -3,7 +3,11 @@ import styles from './content.module.scss';
 import { BsQuestionCircle } from "react-icons/bs";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaBone } from "react-icons/fa6";
-// import Icon from "./icon"
+import Icon1 from "@/public/hotelPic/icon/OBJECTS.svg"
+import Icon2 from "@/public/hotelPic/icon/OBJECTS-2.svg"
+import Icon3 from "@/public/hotelPic/icon/OBJECTS-3.svg"
+import Icon4 from "@/public/hotelPic/icon/OBJECTS-4.svg"
+import Image from 'next/image';
 
 export default function Content() {
   return (
@@ -20,19 +24,21 @@ export default function Content() {
         <h3 className={styles.title}>設施與服務</h3>
         <ul>
           <li>
-            <img src="./icon/OBJECTS.svg" alt="Icon" />
+            {/* <div className='img-wrap-w100' styles={{ width: 30 }}> */}
+              <Image src={Icon1} width={0} height={0} alt='icon' />
+            {/* </div> */}
             室內活動區
           </li>
           <li>
-            <img src="./icon/OBJECTS-2.svg" alt="Icon" />
+              <Image src={Icon2} width={0} height={0} alt='icon' />
             提供飼料鮮食
           </li>
           <li>
-            <img src="./icon/OBJECTS-3.svg" alt="Icon" />
+              <Image src={Icon3} width={0} height={0} alt='icon' />
             24小時家長網路遠端監控
           </li>
           <li>
-            <img src="./icon/OBJECTS-4.svg" alt="Icon" />
+              <Image src={Icon4} width={0} height={0} alt='icon' />
             寵物洗澡服務
           </li>
         </ul>
