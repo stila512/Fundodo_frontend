@@ -18,8 +18,11 @@
   gap: 20px;
 }
 
-.rwdAside{
-  @media (max-width:768px) {
+@media (max-width: 768px) {
+  .rwdAside {
     display: none;
+  }
+  .contentArea{
+    width: 100%;
   }
 }
