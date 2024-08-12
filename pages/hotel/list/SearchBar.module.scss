@@ -1,4 +1,4 @@
-@use '@/styles' as c;
+@import '@/styles/';
 
 .searchBarWrapper {
   display: flex;
@@ -10,7 +10,7 @@
 
 .searchBarContainer {
   display: flex;
-  background-color: c.$color-tint-4;
+  background-color: $tint4;
   padding: 20px;
   border-radius: 8px;
   gap: 20px;
@@ -44,7 +44,7 @@
 .select {
   padding: 10px 30px 10px 10px;
   border-radius: 8px;
-  border: 1px solid c.$gray-200;
+  border: 1px solid $gray-200;
   font-size: 14px;
   width: 100%;
   box-sizing: border-box;
@@ -52,8 +52,8 @@
 
 .icon {
   position: absolute;
-  right: 10px;
-  color: c.$color-shade-3;
+  right: 30px;
+  color: $shade3;
 }
 
 .selectWrapper {
@@ -64,16 +64,29 @@
   pointer-events: none;
 }
 
-
 /* 響應式設計 */
-/* @media (max-width: 768px) {
+@media (max-width: 768px) {
+  .searchBarWrapper {
+    align-items: stretch;
+  }
+
   .searchBarContainer {
     flex-direction: column;
     align-items: stretch;
+    width: 100%;
+    max-width: 373px;
+    height: auto;
+    padding: 15px;
+    margin: 0 auto;
+    border: 1px solid var(--tint2, #cebfb8);
   }
 
   .inputGroup {
     margin-bottom: 15px;
+  }
+
+  .inputGroup:last-child {
+    margin-bottom: 0;
   }
 
   .searchInput,
@@ -81,4 +94,54 @@
   .select {
     width: 100%;
   }
-} */
+
+  .icon {
+    right: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .searchBarWrapper {
+    margin: 0;
+    width: 100%;
+  }
+
+  .searchBarContainer {
+    flex-direction: column;
+    background-color: #f1edeb;
+    padding: 15px;
+    border-radius: 0;
+    gap: 10px;
+    align-items: stretch;
+    margin: 30px 0;
+  }
+
+  .inputGroup {
+    margin-bottom: 0;
+  }
+
+  .inputGroup p {
+    display: none;
+  }
+
+  .inputWrapper,
+  .selectWrapper {
+    background-color: white;
+    border-radius: 4px;
+  }
+
+  .searchInput,
+  .dateInput,
+  .select {
+    // border: none;
+    background-color: transparent;
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  .icon {
+    width: 30px;
+    height: 30px;
+    right: 12px;
+  }
+}

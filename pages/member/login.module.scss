@@ -1,9 +1,13 @@
 @import '@/styles';
 
 //-------------------- Register
+.Registermain {
+  display: flex;
+  justify-content: center;
+}
 .RegisterContainer {
   width: 1440px;
-  height: 1024px;
+  height: 100vh;
   display: flex;
 }
 
@@ -111,10 +115,15 @@
     right: 50px;
   }
 }
+
 // -------------------------- Login
+.Loginmain {
+  display: flex;
+  justify-content: center;
+}
 .LoginContainer {
   width: 1440px;
-  height: 1024px;
+  height: 100vh;
   display: flex;
 }
 
@@ -131,7 +140,7 @@
   width: 734px;
   padding: 96px 137px 151px 124px;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   position: relative;
   .area1 {
     padding-bottom: 32px;

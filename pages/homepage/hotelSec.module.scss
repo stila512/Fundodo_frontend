@@ -45,6 +45,13 @@
     }
 }
 
+.btns{
+    display: flex;
+    gap: 20px;
+    align-items: end;
+    margin-bottom: 40px;
+}
+
 .hotelReview {
     display: flex;
     height: 389px;

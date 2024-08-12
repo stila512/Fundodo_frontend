@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
 import FddBtn from '@/components/buttons/fddBtn';
-import { NumberPanel } from './NumberPanel';
+import { NumberPanel } from '@/components/buttons/NumberPanel';
 import s from './cart-page.module.scss';
 import { TbTrashX } from "react-icons/tb";
 import { RxCross2 } from "react-icons/rx";
@@ -42,14 +42,14 @@ const testData = [
 //======= API =====================================
 //== parameters
 const USER_ID = 58;//todo: test
-const apiLink = `${apiBaseUrl}/carts/${USER_ID}`;
+const apiLink = `${apiBaseUrl}/cart/${USER_ID}`;
 
 //======= API END ==================================
 
-export default function ProdCartTable() {
+export default function ProdCartTable({ setAmount = () => { }, i_amt = -1 }) {
   const [dataArr, setDataArr] = useState([]);
   const [qtyArr, setQtyArr] = useState([]);
-  const [totArr, setTotArr] = useState([]);
+  const [subtotArr, setSubtotArr] = useState([]);
   useEffect(() => {
     //以下寫法參考 Axios 官方文件
     axios.get(apiLink)
@@ -74,9 +74,11 @@ export default function ProdCartTable() {
     setQtyArr(dataArr.flatMap(d => d.qty));
   }, [dataArr]);
   useEffect(() => {
-    const totList = qtyArr.map((q, i) => q * dataArr[i].price);
-    setTotArr(totList);
-  }, [qtyArr])
+    const subtotList = qtyArr.map((q, i) => q * dataArr[i].price);
+    const total = subtotList.reduce((total, cur) => total + cur, 0);
+    setSubtotArr(subtotList);
+    setAmount(arr => arr.map((v, i) => (i === i_amt) ? total : v));
+  }, [qtyArr]);
 
   const noData = (!dataArr || dataArr.length === 0);
 
@@ -86,8 +88,8 @@ export default function ProdCartTable() {
         <caption className='tx-default tx-shade4 tx-left'>共 {dataArr.length} 件商品</caption>
         <thead>
           <tr>
-            <th style={{ width: '4rem' }}><TbTrashX /></th>
-            <th style={{ width: '200px' }}></th>
+            <th><TbTrashX /></th>
+            <th></th>
             <th>商品資訊</th>
             <th>規格</th>
             <th style={{ width: '9rem' }}>單價</th>
@@ -96,7 +98,7 @@ export default function ProdCartTable() {
           </tr>
         </thead>
         <tbody className='tx-body'>
-          {noData ? <></> :
+          {noData ? <tr><th colSpan={7}><h2 className='tx-shade4'>購物車現在空無一物</h2></th></tr> :
             dataArr.map((item, i_data) => (
               <tr key={item.key}>
                 <td>
@@ -125,14 +127,12 @@ export default function ProdCartTable() {
                   </div>
                 </td>
                 <td><NumberPanel quantity={qtyArr[i_data]} setFunc={setQtyArr} index={i_data} /></td>
-                <td>${totArr[i_data]}</td>
+                <td>${subtotArr[i_data]}</td>
               </tr>
             ))
           }
         </tbody>
       </table>
-      {noData ? <h2 className='tx-shade4'>購物車現在空無一物</h2>
-        : <></>}
     </>
   )
 }

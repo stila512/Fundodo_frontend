@@ -20,4 +20,12 @@
   flex-shrink: 0;
   border-radius: 10px;
   background: $primary;
+  margin-bottom: 30px;
+}
+
+
+@media (max-width: 768px) {
+  .leftSide{
+    flex-direction: row;
+  }
 }

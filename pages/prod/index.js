@@ -1,15 +1,15 @@
 import scss from './index.module.scss';
 import Head from 'next/head';
 import DefaultLayout from '@/components/layout/default';
-import Section from './section';
-import Breadcrumb from './breadcrumb';
-import Select from './select';
-import Aside from './aside';
-import ProductGrid from './productGrid';
-import { useState } from 'react';
+import Section from './list/section';
+import Breadcrumb from './list/breadcrumb';
+import Select from './list/select';
+import Aside from './list/aside';
+import ProductGrid from './list/productGrid';
+import MobileFilter from './list/mobileFilter';
 
 export default function ProductList() {
-  
+
   return (
     <>
       <Head>
@@ -20,6 +20,7 @@ export default function ProductList() {
       </Head>
       <main className='container'>
         <Section />
+        <MobileFilter />
         <div
           className={[
             'd-flex',
@@ -30,11 +31,11 @@ export default function ProductList() {
           <Breadcrumb />
           <Select />
         </div>
-        <div className={['d-flex', scss.gap, scss.my].join(' ')}>
+        <div className={['row', scss.my].join(' ')}>
           <Aside />
           <ProductGrid />
         </div>
-        
+
       </main>
     </>
   );

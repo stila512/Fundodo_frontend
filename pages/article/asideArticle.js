@@ -13,6 +13,7 @@ export default function AsideArticle() {
           <p className={[scss.leftTime].join()}>2024-07-22</p>
         </div>
       </div>
+
     </>
   );
 }

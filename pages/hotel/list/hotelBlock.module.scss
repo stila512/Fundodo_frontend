@@ -1,3 +1,4 @@
+@use 'lib-global.scss' as s;
 @use '@/styles' as c;
 
 .container {
@@ -45,6 +46,13 @@
   padding: 0 15px;
 }
 
+.price {
+  display: none;
+  color: c.$shade4;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
 .button {
   background-color: c.$primary;
   color: c.$white;
@@ -56,6 +64,61 @@
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: darken(#B9A69D, 10%);
+    background-color: darken(#b9a69d, 10%);
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 20px 0 ;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 10px;
+  }
+  .card {
+    display: flex;
+    width: 175px;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-shrink: 0;
+    padding: 0; 
+    
+  }
+  .image {
+    width: 175px;
+    height: 135px;
+    flex-shrink: 0;
+  }
+
+  .description {
+    display: none;
+  }
+
+  .hotelName {
+    align-self: stretch;
+    color: var(--shade4, #37312e);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    // line-height: 20px;
+  }
+
+  .h3 {
+    margin-bottom: 0px;
+  }
+
+  .price {
+    display: block; 
+    align-self: stretch;
+    padding: 0 14px;
+    margin: 0px;
+  }
+  .button{
+    display: none;
+  }
+  .h3 {
+    display: none;
   }
 }

@@ -18,60 +18,8 @@
   gap: 20px;
 }
 
-.replyBlock {
-  display: flex;
-  width: 720px;
-  height: 100%;
-  padding: 20px 40px;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-  margin-left: 54px;
-  background: #fff;
-
-  /* Shadow */
-  box-shadow: 2px 1px 5px 0px rgba(0, 0, 0, 0.15);
-}
-
-.contentCreater {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
-.userData {
-  display: flex;
-}
-
-.userIcon {
-  border-radius: 40px;
-  background: lightgray 50% / cover no-repeat;
-}
-
-.nicknameArea {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-left: 15px;
-}
-
-.nickName {
-  color: #000;
-  font-family: 'Noto Sans';
-  font-size: 13px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  letter-spacing: 0.65px;
-}
-
-.creatTime {
-  color: var(--Subtitle-text-color, #808080);
-  font-family: 'Noto Sans';
-  font-size: 10px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  letter-spacing: 0.5px;
+.rwdAside{
+  @media (max-width:768px) {
+    display: none;
+  }
 }

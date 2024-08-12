@@ -3,12 +3,6 @@ import scss from './info.module.scss';
 import Image from 'next/image';
 import avatarPic from '@/public/memberPic/head.svg';
 import radio from '@/public/memberPic/radio.svg';
-import mdi_coupon from '@/public/memberPic/mdi_coupon.svg';
-import mdi_dog from '@/public/memberPic/mdi_dog.svg';
-import mdi_heart from '@/public/memberPic/mdi_heart.svg';
-import mdi_list from '@/public/memberPic/mdi_list.svg';
-import mdi_lock from '@/public/memberPic/mdi_lock.svg';
-import mdi_user from '@/public/memberPic/mdi_user.svg';
 import SideText from '@/components/member/SideText';
 
 export default function PeopleInfo() {
@@ -23,13 +17,13 @@ export default function PeopleInfo() {
             <div className={scss.area3}>性別
               <div className={scss.genderRadio}>
                 <input type="radio" name="gender" value="male"></input>
-                <label for="male"><Image className="imgWrap" src={radio} alt="Image" />先生</label>
+                <label html="male"><Image className="imgWrap" src={radio} alt="Image" />先生</label>
                 <input type="radio" name="gender" value="female"></input>
-                <label for="male"><Image className="imgWrap" src={radio} alt="Image" />女士</label>
+                <label html="male"><Image className="imgWrap" src={radio} alt="Image" />女士</label>
               </div>
             </div>
             <div className={scss.area4}>生日
-              <div><label for="birthday"></label>
+              <div><label html="birthday"></label>
                 <input type="month" id="birthday" name="birthday" min="1900-01" max="2023-12" required></input>
               </div>
             </div>
@@ -54,7 +48,7 @@ export default function PeopleInfo() {
             </div>
           </div>
         </div>
-        <div className="col-5 my-5">
+        <div className="col-3 my-5 d-none d-lg-block">
         <SideText></SideText>
         </div>
       </main>

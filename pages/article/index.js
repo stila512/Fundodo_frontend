@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import DefaultLayout from '@/components/layout/default';
 import scss from '@/pages/article/index.module.scss';
+import TitleAction from './titleAction';
 import UserAction from './userAction';
 import ArtiAside from './aside';
 import ArticleList from './articleList';
 import PageControl from './pageControl';
 import ArticleContent from './articleContent';
 import ReplyArea from './replyArea';
+import ReplyBlock from './replyBlock';
+import UserCard from './userCard'
 import Image from 'next/image';
 
 export default function Index() {
@@ -20,35 +23,20 @@ export default function Index() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={scss.mainbg}>
-        <main className="container" style={{paddingTop:'40px'}}>
+        <main className="container" style={{ paddingTop: '40px' }}>
+          <TitleAction />
           <UserAction />
 
           <div className={[scss.mainArea].join()}>
-            <ArtiAside />
-            <div className={scss.contentArea}>
-              <ArticleContent />
-              <ReplyArea />
-              <div className={scss.replyBlock}>
-                <div className={scss.contentCreater}>
-                  <div className={[scss.userData].join()}>
-                    <Image
-                      className={[scss.userIcon].join()}
-                      src="/logo.png"
-                      alt=""
-                      width={40}
-                      height={40}
-                    />
-                    <div className={[scss.nicknameArea].join()}>
-                      <p className={[scss.nickName].join()}>123123123</p>
-                      <p className={[scss.creatTime].join()}>2024-07-22</p>
-                    </div>
-                  </div>
-                  <div>點</div>
-                </div>
-              </div>
+            <div className={scss.rwdAside}>
+              <ArtiAside />
             </div>
 
-            {/* <ArticleList /> */}
+            {/* <div className={scss.contentArea}>
+
+            </div> */}
+
+            <ArticleList />
             <PageControl />
           </div>
         </main>

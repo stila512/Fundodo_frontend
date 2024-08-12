@@ -1,0 +1,47 @@
+@use '@/styles' as s;
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  align-items: stretch;
+  border-radius: 12px;
+  border: 1px solid s.$secondary;
+  height: 100%;
+}
+
+.prodImgBox {
+  margin: 10px auto;
+}
+
+.prodImg {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.textarea {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  margin-top: 0.5rem;
+  flex: 1;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 143.715px;
+  height: 38.171px;
+  background: s.$primary;
+  border-radius: 40px;
+  background: var(--Primary, #b9a399);
+  color: s.$white;
+  margin: 1rem auto;
+  position: relative;
+  bottom: 0;
+  &:hover {
+    color: s.$white;
+  }
+}

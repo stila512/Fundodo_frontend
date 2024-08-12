@@ -15,21 +15,21 @@ export default function PeopleInfo() {
   return (
     <>
       <main className={scss.PeopleInfoContainer}>
-        <div className="col-4"></div>
-        <div className={`${scss.midarea} col-5`}>
+        <div className="col-1 col-lg-4"></div>
+        <div className={`${scss.midarea} col-12 col-lg-5`}>
           <div className={`${scss.midtext}`}>
           <div className={`${scss.area2} `}>Email <p>example@gmail.com <span>沒收到驗證信?</span></p></div>
             <div className={scss.area3}>姓名 <input placeholder="姓名"></input></div>
             <div className={scss.area4}>性別
               <div className={scss.genderRadio}>
                 <input type="radio" name="gender" value="male"></input>
-                <label for="male"><Image className="imgWrap" src={radio} alt="Image" />先生</label>
+                <label html="male"><Image className="imgWrap" src={radio} alt="Image" />先生</label>
                 <input type="radio" name="gender" value="female"></input>
-                <label for="male"><Image className="imgWrap" src={radio} alt="Image" />女士</label>
+                <label html="male"><Image className="imgWrap" src={radio} alt="Image" />女士</label>
               </div>
             </div>
             <div className={scss.area5}>生日
-              <div><label for="birthday"></label>
+              <div><label html="birthday"></label>
                 <input type="month" id="birthday" name="birthday" min="1900-01" max="2023-12" required></input>
               </div>
             </div>
@@ -54,7 +54,7 @@ export default function PeopleInfo() {
             </div>
           </div>
         </div>
-        <div className="col-5 my-5">
+        <div className="col-5 my-5  d-none d-lg-block">
         <SideText></SideText>
         </div>
       </main>

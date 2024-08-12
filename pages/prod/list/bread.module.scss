@@ -1,0 +1,22 @@
+@use '@/styles' as s;
+
+.rwd {
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+.ul {
+  list-style-type: none;
+}
+
+.justifyContentBetween {
+  justify-content: space-between;
+}
+.alignItemCenter {
+  align-items: center;
+}
+
+.shade3 {
+  color: s.$shade3;
+  text-wrap: nowrap;
+}
