@@ -9,7 +9,7 @@
 .mainImg {
   width: 100%;
   height: 700px;
-  background-color: #c2db83;
+  /* background-color: #c2db83; */
   border-radius: 12px;
 }
 
@@ -25,4 +25,4 @@
   height: 110px;
   background-color: #dbac83;
   border-radius: 12px;
-}/*# sourceMappingURL=hotelImg.module.css.map */
+}

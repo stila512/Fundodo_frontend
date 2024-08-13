@@ -6,6 +6,7 @@ import SearchBar from '@/pages/hotel/list/SearchBar';
 import HotelBlock from './hotelBlock';
 import Sort from './sort';
 
+
 export default function HotelPage() {
   return (
     <>

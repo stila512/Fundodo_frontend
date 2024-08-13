@@ -8,17 +8,20 @@ import Icon2 from "@/public/hotelPic/icon/OBJECTS-2.svg"
 import Icon3 from "@/public/hotelPic/icon/OBJECTS-3.svg"
 import Icon4 from "@/public/hotelPic/icon/OBJECTS-4.svg"
 import Image from 'next/image';
+import hotels from '@/data/hotel.json'
 
 export default function Content() {
   return (
     <>
       <div className={styles.description}>
         <h3 className={styles.title}>旅館簡介</h3>
+        {hotels.length > 0 && (
         <p className={styles.content}>
-          D&amp;Y不僅提供寵物旅館服務，還有協助狗狗中途，尤其在旅館住宿方面，老闆堅持提供毛小孩24小時專業照顧，確保狗狗身旁有寵物保姆，而且會隨時記錄、主動告知飼主毛小孩狀況，飼主也能透過手機視訊查看自己寶貝的現況，環境相當令人安心。
-          D&amp;Y不僅提供寵物旅館服務，還有協助狗狗中途，尤其在旅館住宿方面，老闆堅持提供毛小孩24小時專業照顧，確保狗狗身旁有寵物保姆，而且會隨時記錄、主動告知飼主毛小孩狀況，飼主也能透過手機視訊查看自己寶貝的現況，環境相當令人安心。
+        {hotels[0].description}
         </p>
+        )}
       </div>
+     
 
       <div className={styles.service}>
         <h3 className={styles.title}>設施與服務</h3>

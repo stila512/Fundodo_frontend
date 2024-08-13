@@ -13,7 +13,7 @@
 }
 .title {
   color: c.$gray-800;
-  font-size: 24px;
+  font-size: 30px;
   font-style: normal;
   font-weight: 700;
   line-height: 34px;
@@ -35,7 +35,7 @@
   margin: 0 0 10px 0;
 }
 .price {
-  color: c.$gray-800;
+  color: c.$shade3;
   font-size: 36px;
   font-style: normal;
   font-weight: 700;
@@ -112,6 +112,17 @@
   display: flex;
   justify-content: center;
   margin-top: 26px;
+  border: 1px solid c.$shade3;
+  background: c.$tint5;
+  display: flex;
+  width: 100%;
+  height: 46px;
+  padding: 18px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  cursor: pointer;
 }
 .map {
   margin-top: 20px;
@@ -119,6 +130,7 @@
   flex-shrink: 0;
   background-color: #e1bdbd;
 }
+
 
 .wrapMobile {
   display: none;
@@ -135,7 +147,7 @@
     max-width: 100%;
     border-radius: 12px;
     margin: 0 auto;
-    padding: 0 10px; 
+    padding: 0 10px;
     box-sizing: border-box; // 確保 padding 不會增加總寬度
   }
 
