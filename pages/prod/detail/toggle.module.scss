@@ -1,12 +1,15 @@
 @use '@/styles' as s;
 
-.toggleGrid{
+.toggleGrid {
   padding-top: 30px;
   padding-bottom: 30px;
   margin-top: 75px;
   display: flex;
   gap: 34px;
   justify-content: center;
+  @media (max-width: 1200px) {
+    display: none;
+  }
 }
 .hiddenBtn {
   display: none;
@@ -22,11 +25,11 @@
   color: s.$primary;
   font-size: 24px;
 }
-.selected{
+.selected {
   background: s.$primary;
   color: s.$white;
 }
-.toggleText{
+.toggleText {
   margin-top: 45px;
   margin-bottom: 45px;
   justify-content: center;

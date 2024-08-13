@@ -22,7 +22,7 @@ export const NumberPanel = ({
       <div className='fx-center' onClick={() => changeBy(-1)}>
         <LuMinus />
       </div>
-      <div className='flex-grow-1'>{quantity}</div>
+      <div className='flex-grow-1 tx-center'>{quantity}</div>
       <div className='fx-center' onClick={() => changeBy(1)}>
         <LuPlus />
       </div>
