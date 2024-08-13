@@ -1,14 +1,19 @@
 @import '@/styles';
 
+.crsWrapper{
+  // gap: 16px;
+  // @include rwd-above(sm) {
+  //   gap: 25px;
+  // }
+
+}
+
 .cards {
   padding: 0;
   display: flex;
-  // align-items: center;
+  align-items: center;
   flex-wrap: wrap;
-  gap: 16px;
-  @include rwd-above(sm) {
-    gap: 25px;
-  }
+
 }
 
 .card {
@@ -22,8 +27,13 @@
 
 .crsPic {
   position: relative;
-  width: 433px;
-  height: 232px;
+  width: 175px;
+  height: 146px;
+  @include rwd-above(sm){
+    width: 433px;
+    height: 232px;
+  }
+
   margin-bottom: 20px;
 }
 
