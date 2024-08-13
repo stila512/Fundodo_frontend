@@ -1,5 +1,10 @@
 @use '@/styles' as s;
 
+.recommend{
+  @media (max-width:1200px) {
+    display: none;
+  }
+}
 .h3 {
   color: s.$shade2;
 }
@@ -9,7 +14,7 @@
 .cardGrid{
   display: flex;
   justify-content: center;
-  gap: 132px;
+  // gap: 132px;
   margin-top: 32px;
   margin-bottom: 183px;
 }

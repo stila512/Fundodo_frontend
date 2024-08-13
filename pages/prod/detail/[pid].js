@@ -1,4 +1,4 @@
-import scss from './datail.module.scss';
+import scss from './pid.module.scss';
 import Head from 'next/head';
 import DefaultLayout from '@/components/layout/default';
 import Breadcrumb from '../list/breadcrumb';
@@ -14,7 +14,7 @@ export default function Detail() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className='container'>
-        <h1 className={scss.shade3}>狗的飼料</h1>
+        <h1 className={[scss.shade3, 'd-none', 'd-xl-block'].join(' ')}>狗的飼料</h1>
         <div className='mt-3'>
           <Breadcrumb />
         </div>
