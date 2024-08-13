@@ -1,9 +1,16 @@
 import React from 'react';
 import styles from './hotelBlock.module.scss';
 import { useState, useEffect } from 'react';
-import hotels from '@/data/hotel.json'
+import Link from 'next/link';
+import Image from 'next/image';
+import HotelImg from "@/public/hotelPic/pic/HT000001.jpg"
 
 export default function HotelBlock() {
+  const [hotels, setHotels] =useState([]);
+
+  useEffect(()=> {
+
+  })
 
   return (
     <div className={['container', styles.container].join(' ')}>
@@ -11,11 +18,16 @@ export default function HotelBlock() {
       <div className={styles.grid}>
         {hotels.map((v, i) => (
           <div key={i} className={styles.card}>
-            <img src="/hotel-image.jpg" alt={v.name} className={styles.image} />
+          <Image src={HotelImg} width={0} height={0} alt={v.name} className={styles.image}/>
+            {/* <img src="/hotel-image.jpg" alt={v.name} className={styles.image} /> */}
             <h3 className={styles.hotelName}>{v.name}</h3>
             <p className={styles.description}>{v.description}</p>
-            <p className={styles.price}>{v.price}</p> 
-            <button className={styles.button}>立即預訂</button>
+            <p className={styles.price}>{v.price}</p>
+            <div className={styles.Btn}>
+            <Link href="/hotel/detail">
+              <button className={styles.button}>立即預訂</button>
+            </Link>
+            </div>
           </div>
         ))}
       </div>
