@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { useRouter } from 'next/router'; 
 import DefaultLayout from '@/components/layout/default';
 import scss from './login.module.scss';
 import Image from 'next/image';
@@ -5,6 +7,50 @@ import lfpic from '@/public/login.svg';
 import pswd_icon from '@/public/memberPic/password-icon.svg';
 
 export default function LoginPage() {
+  // 顯示密碼使用
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    // 获取表单数据
+    const formData = new FormData(e.target);
+
+    // 提交表单到伺服器
+    fetch('http://localhost:3005/api/member/login', {
+      method: 'POST',
+      body: formData,
+    })
+      .then(response => {
+        if (!response.ok) {
+          return response.json().then(errorData => {
+            throw new Error(`錯誤 ${response.status}: ${errorData.message}`);
+          });
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Response Data:', data);
+        if (data.status === 'success' && data.token) {
+          localStorage.setItem('token', data.token);
+          alert('登入成功');
+          router.push('/peopleIndoData');
+        } else {
+          setError(data.message || '登入失败');
+          alert(`登入失败:\n${data.message || '登入失败'}`);
+        }
+      })
+      .catch(error => {
+        setError(error.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
   return (
     <main className={scss.Loginmain}>
       <div className={scss.LoginContainer}>
@@ -15,23 +61,26 @@ export default function LoginPage() {
           <div className={scss.area1}>
             <p className={scss.h5}>歡迎回來</p>
           </div>
-          <div className={scss.area2}>
-            <label>電子郵件地址</label>
-            <input type="text" />
-            <div>
-              <div className={scss.passwordarea}><div><label>密碼</label></div> <div className={scss.passwordicon}><Image className="imgWrap" src={pswd_icon} alt="Image"
-                onClick={() => setShowPassword(!showPassword)}
-              />隱藏</div></div>
-              <input type="text" />
-              <p>使用8個或以上的字元, 包含字母數字和符號</p>
+          <form onSubmit={handleLogin}>
+            <div className={scss.area2}>
+              <label>電子郵件地址</label>
+              <input type="email" name="email" required/>
+              <div>
+                <div className={scss.passwordarea}><div><label>密碼</label></div> <div className={scss.passwordicon}><Image className="imgWrap" src={pswd_icon} alt="Image"
+                  onClick={() => setShowPassword(!showPassword)}
+                />隱藏</div></div>
+                <input type={showPassword ? 'text' : 'password'} name="password" required/>
+                <p>使用8個或以上的字元, 包含字母數字和符號</p>
+              </div>
             </div>
-          </div>
-          <div className={scss.area3}>
-            <p>忘記密碼?</p>
-          </div>
-          <div className={scss.area4}>
-            <button className={scss.createBtn}>登入</button>
-          </div>
+            <div className={scss.area3}>
+              <p>忘記密碼?</p>
+            </div>
+            <div className={scss.area4}>
+              <button className={scss.createBtn} type="submit"
+                disabled={loading}>{loading ? '登入中...' : '登入'}</button>
+            </div>
+          </form>
           <button className={scss.xBtn}>x</button>
         </div>
       </div>

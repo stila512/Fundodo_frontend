@@ -136,7 +136,7 @@ export default function RegisterPage() {
                 />
                 <label>電子郵件地址</label>
                 <input
-                  type="text"
+                  type="email"
                   name="email"
                   value={user.email}
                   onChange={handleFieldChange}
