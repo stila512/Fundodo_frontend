@@ -5,20 +5,20 @@ import Image from 'next/image';
 import lfpic from '@/public/login.svg';
 import pswd_icon from '@/public/memberPic/password-icon.svg';
 import Link from 'next/link';
-
+import { v4 as uuidv4 } from 'uuid';
 
 export default function RegisterPage() {
   // 狀態使用物件類型，物件中的屬性名稱對應到欄位的名稱(name屬性)
   const [user, setUser] = useState({
     nickname: '',
-    password_hash: '',
+    password: '',
     email: '',
   })
 
   // 記錄欄位錯誤訊息用
   const [errors, setErrors] = useState({
     nickname: '',
-    password_hash: '',
+    password: '',
     email: '',
   })
 
@@ -37,7 +37,7 @@ export default function RegisterPage() {
 
     // 表單檢查--- START ---
     // 建立一個新的錯誤訊息物件
-    const newErrors = { nickname: '', password_hash: '', email: '' , repassword: '' }
+    const newErrors = { nickname: '', password: '', email: '' , repassword: '' }
 
     // 開始檢查
     // if (user.username === '') {
@@ -50,18 +50,18 @@ export default function RegisterPage() {
     if (!user.email) {
       newErrors.email = '電子郵箱為必填'
     }
-    if (!user.password_hash) {
-      newErrors.password_hash = '密碼為必填'
+    if (!user.password) {
+      newErrors.password = '密碼為必填'
     }
     if (!user.repassword) {
       newErrors.repassword = '重複密碼為必填'
     }
-    if (user.password_hash !== user.repassword) {
-      newErrors.password_hash = '密碼與重複密碼不一致';
+    if (user.password !== user.repassword) {
+      newErrors.password = '密碼與重複密碼不一致';
       newErrors.repassword = '密碼與重複密碼不一致'
     }
 
-    if (user.password_hash.length < 8 || user.password_hash.length > 16) {
+    if (user.password.length < 8 || user.password.length > 16) {
       newErrors.password ||= '密碼最少8個字元至多16字元'
     }
 
@@ -82,7 +82,8 @@ export default function RegisterPage() {
     const formData = new FormData();
     formData.append('nickname', user.nickname);
     formData.append('email', user.email);
-    formData.append('password_hash', user.password_hash);
+    formData.append('password', user.password);
+    formData.append('uuid', uuidv4());
 
     // 提交表單到伺服器
     try {
@@ -93,9 +94,14 @@ export default function RegisterPage() {
       });
 
       const resData = await res.json();
-      console.log(resData);
-
-      alert('註冊成功');
+      
+      if (res.ok) {
+        alert('註冊成功');
+      } else {
+        // 從後端獲取錯誤信息並顯示
+        const errorMessages = resData.message || '註冊失敗';
+        alert(`註冊失敗:\n${errorMessages}`);
+      }
     } catch (e) {
       console.error(e);
       alert('註冊失敗');
@@ -141,8 +147,8 @@ export default function RegisterPage() {
                   />隱藏</div></div>
                   <input
                     type={showPassword ? 'text' : 'password'}
-                    name="password_hash"
-                    value={user.password_hash}
+                    name="password"
+                    value={user.password}
                     onChange={handleFieldChange}
                   />
                   <p>使用8個或以上的字元, 包含字母數字和符號</p>

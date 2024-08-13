@@ -1,14 +1,9 @@
+import { useState, useEffect } from 'react';
 import DefaultLayout from '@/components/layout/default';
 import scss from './info.module.scss';
 import Image from 'next/image';
 import avatarPic from '@/public/memberPic/head.svg';
 import radio from '@/public/memberPic/radio.svg';
-import mdi_coupon from '@/public/memberPic/mdi_coupon.svg';
-import mdi_dog from '@/public/memberPic/mdi_dog.svg';
-import mdi_heart from '@/public/memberPic/mdi_heart.svg';
-import mdi_list from '@/public/memberPic/mdi_list.svg';
-import mdi_lock from '@/public/memberPic/mdi_lock.svg';
-import mdi_user from '@/public/memberPic/mdi_user.svg';
 import SideText from '@/components/member/SideText';
 import Link from 'next/link';
 

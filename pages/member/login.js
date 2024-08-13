@@ -2,6 +2,7 @@ import DefaultLayout from '@/components/layout/default';
 import scss from './login.module.scss';
 import Image from 'next/image';
 import lfpic from '@/public/login.svg';
+import pswd_icon from '@/public/memberPic/password-icon.svg';
 
 export default function LoginPage() {
   return (
@@ -18,7 +19,9 @@ export default function LoginPage() {
             <label>電子郵件地址</label>
             <input type="text" />
             <div>
-              <label>密碼</label>
+              <div className={scss.passwordarea}><div><label>密碼</label></div> <div className={scss.passwordicon}><Image className="imgWrap" src={pswd_icon} alt="Image"
+                onClick={() => setShowPassword(!showPassword)}
+              />隱藏</div></div>
               <input type="text" />
               <p>使用8個或以上的字元, 包含字母數字和符號</p>
             </div>
