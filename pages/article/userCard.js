@@ -7,7 +7,7 @@ export default function PageControl() {
     <>
       {' '}
       <div className={[scss.pageCtrl].join()}>
-        <div className={[scss.ctrler].join()}>
+        <div className={scss.ctrler}>
           <Image
             className={scss.userImg}
             src="/logo.png"

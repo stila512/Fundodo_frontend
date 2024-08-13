@@ -1,6 +1,13 @@
 @import '@/styles';
 
-.articleList{
-    margin-top: 39px;
-    margin-left: 58px;
+.articleList {
+  margin-top: 39px;
+  margin-left: 58px;
+}
+
+@media (max-width: 768px) {
+  .articleList{
+    width: 100%;
+    margin: 0;
   }
+}
