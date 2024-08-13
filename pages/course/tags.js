@@ -1,10 +1,18 @@
 import FddBtn from '@/components/buttons/fddBtn'
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import scss from './tags.module.scss';
 import { MdArrowForwardIos } from "react-icons/md";
 
 
 export default function Tags() {
+  const [courseTag, setCourseTag]=useState([]);
+  useEffect(()=>{
+    fetch("http://localhost:3005/api/course")
+            .then(res => res.json())
+            .then(result => setCourseTag(result.data))
+            .catch(err => console.log(err));
+    }, [])
+
   return (
     <>
       <div className="box">

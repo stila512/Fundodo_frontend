@@ -18,14 +18,14 @@ export default function CourseGrid() {
 
     return (
         <>
-            <div className="row">
+            <div className={["row ",scss.crsWrapper].join(" ")}>
                 {courses.map((v) => {
                     return (
                         <div key={v.id} className={["col-6 col-lg-4", scss.cards].join(" ")}>
                             <div className={scss.card}>
                                 <Link href={`/course/detail/${v.id}`}>
                                     <div className={scss.crsPic}>
-                                        <Image src={`/coursePic/${v.img_path}`} layout='fill' objectFit='cover' />
+                                        <Image src={`/coursePic/${v.img_path}`} layout='fill' objectFit='cover' alt='課程圖片'/>
                                     </div>
                                     <div className={scss.cardText}>
                                         <h3>{v.title}</h3>
