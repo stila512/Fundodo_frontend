@@ -29,7 +29,7 @@ export default function ArticleBlock({ article }) {
             {article.title}
           </div>
           <div className={[scss.extract].join()}>
-            {article.content.substring(0, 50)}
+            {article.content.substring(0, 50)+'...'}
           </div>
         </div>
         <div className={[scss.artiInfo].join()}>
