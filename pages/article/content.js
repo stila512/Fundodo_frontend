@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import Head from 'next/head';
 import scss from '@/pages/article/content.module.scss';
 import DefaultLayout from '@/components/layout/default';
@@ -11,6 +11,16 @@ import UserCard from './userCard'
 import AsideRwd from './asideRwd';
 
 export default function Content() {
+    const [content, setContent] = useState({})
+    useEffect(() => {
+      fetch('http://localhost:3001/api/articleContent/31')
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === 'success') {
+            setContent(data.content[0])
+          }
+        }).catch(error => console.log(error.message))
+    }, [])
     return (
         <>
             <Head>
@@ -29,7 +39,7 @@ export default function Content() {
                         </div>
 
                         <div className={scss.contentArea}>
-                            <ArticleContent />
+                            <ArticleContent key={content.id} content={content}/>
                             <ReplyArea />
                             <ReplyBlock />
                             <AsideRwd />
