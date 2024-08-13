@@ -44,7 +44,10 @@ export default function Home() {
                   <Link href="/buy/cart">購物車</Link>
                 </div>
                 <div className="col-6 col-lg-4">
-                  <Link href="/test/">測試用</Link>
+                  <Link href="/test">測試用</Link>
+                </div>
+                <div className="col-6 col-lg-4">
+                  <Link href="/test/gallery">圖鑑</Link>
                 </div>
               </div>
             </div>
@@ -65,43 +68,18 @@ export default function Home() {
                   <dl className={hs.instructionList}>
                     <dt className="tx-center">背景、文字顏色</dt>
                     <dd>
-                      <span>.bg-primary</span>
-                      <FaArrowRightLong />
-                      <code>.bgPrimary</code>
+                      <span className='bg-primary tx-shade4 px-3 py-1'>.bg-primary & .tx-shade4</span>
                     </dd>
                     <dd>
-                      <span>.bg-secondary</span>
-                      <FaArrowRightLong />
-                      <code>.bgSecondary</code>
+                      <span className='bg-info tx-white px-3 py-1'>.bg-info & .tx-white</span>
                     </dd>
                     <dd>
-                      <span>.text-primary</span>
-                      <FaArrowRightLong />
-                      <code>.txPrimary</code>
-                    </dd>
-                    <dd>
-                      <span>.text-danger</span>
-                      <FaArrowRightLong />
-                      <code>.txError</code>
+                      <FddBtn color='shade2' outline href='/test/gallery'>所有顏色選項</FddBtn>
                     </dd>
                   </dl>
                   <dl className={hs.instructionList}>
                     <dt className="tx-center">grid system</dt>
-                    <dd>
-                      <span>.col-6</span>
-                      <FaArrowRightLong />
-                      <code>.col-6</code>
-                    </dd>
-                    <dd>
-                      <span>.col-md-6</span>
-                      <FaArrowRightLong />
-                      <code>.col_md6</code>
-                    </dd>
-                    <dd>
-                      <span>.row-cols-4</span>
-                      <FaArrowRightLong />
-                      <code>.rowCols4</code>
-                    </dd>
+                    <dd className="tx-center">語法與 Bootstrap 相同</dd>
                   </dl>
                   <dl className={hs.instructionList}>
                     <dt className="tx-center">置中</dt>
@@ -113,40 +91,35 @@ export default function Home() {
                     <dd>
                       <span>以 flex 置中</span>
                       <FaArrowRightLong />
-                      <code>.fxCenter</code>
+                      <code>.fx-center</code>
                     </dd>
                     <dd>
                       <span>以 grid 置中</span>
                       <FaArrowRightLong />
-                      <code>.grCenter</code>
+                      <code>.gr-center</code>
                     </dd>
                   </dl>
                   <dl className={hs.instructionList}>
                     <dt className="tx-center">flex 相關</dt>
                     <dd>
-                      <span>.d-flex</span>
-                      <FaArrowRightLong />
-                      <code>.dFlex</code>
-                    </dd>
-                    <dd>
                       <span>.justify-content-center</span>
                       <FaArrowRightLong />
-                      <code>.jcCenter</code>
+                      <code>.jc-center</code>
                     </dd>
                     <dd>
                       <span>.justify-content-around</span>
                       <FaArrowRightLong />
-                      <code>.jcAround</code>
+                      <code>.jc-around</code>
                     </dd>
                     <dd>
                       <span>.justify-content-between</span>
                       <FaArrowRightLong />
-                      <code>.jcBetween</code>
+                      <code>.jc-between</code>
                     </dd>
                     <dd>
                       <span>.justify-content-evenly</span>
                       <FaArrowRightLong />
-                      <code>.jcEvenly</code>
+                      <code>.jc-evenly</code>
                     </dd>
                   </dl>
                 </div>
@@ -162,11 +135,10 @@ export default function Home() {
                 </p>
                 <dl className={hs.instructionList}>
                   <dt>一般按鈕</dt>
-                  <dd>
-                    <p>
-                      <span>.btn-primary</span>
-                      <FaArrowRightLong />
-                      <FddBtn href="#">人家是按鈕</FddBtn>
+                  <dd className='vstack gap-3'>
+                    <p className='hstack gap-3'>
+                      <FddBtn color='primary' callback={() => { }}>預設樣式</FddBtn>
+                      <FddBtn color='primary' outline callback={() => { }}>外框樣式</FddBtn>
                     </p>
                     <p>
                       <FaArrowRightLong />
@@ -174,36 +146,64 @@ export default function Home() {
                         className="bg-shade4 tx-secondary"
                         style={{ padding: '.5rem' }}
                       >
-                        &lt;FddBtn
-                        href=&quot;#&quot;&gt;人家是按鈕&lt;/FddBtn&gt;
+                        &lt;FddBtn color=&quot;primary&quot;
+                        callback=&#123;()
+                        =&gt;&#123;&#125;&#125;&gt;&lt;/FddBtn&gt;
+                      </code>
+                    </p>
+                    <p>
+                      <FaArrowRightLong />
+                      <code
+                        className="bg-shade4 tx-secondary"
+                        style={{ padding: '.5rem' }}
+                      >
+                        &lt;FddBtn color=&quot;primary&quot; outline
+                        callback=&#123;()
+                        =&gt;&#123;&#125;&#125;&gt;&lt;/FddBtn&gt;
                       </code>
                     </p>
                   </dd>
-                  <dd>
-                    <p>
-                      <span>.btn-secondary</span>
-                      <FaArrowRightLong />
-
-                      <FddBtn color="info" outline callback={() => {}}>
-                        人家是按鈕
+                  <dd className='vstack gap-3'>
+                    <p className='hstack gap-3'>
+                      <FddBtn color="tint1" size="lg" outline callback={() => { }}>
+                        large
                       </FddBtn>
-                    </p>
-                    <p>
-                      <span>使用 $tint3</span>
-                      <FaArrowRightLong />
-
-                      <FddBtn color="tint3" outline callback={() => {}}>
-                        人家是按鈕
+                      <FddBtn color="info" outline callback={() => { }}>
+                        預設大小
+                      </FddBtn>
+                      <FddBtn color="shade3" size="sm" outline callback={() => { }}>
+                        small
                       </FddBtn>
                     </p>
                     <p>
                       <FaArrowRightLong />
-
                       <code
                         className="bg-shade4 tx-secondary"
                         style={{ padding: '.5rem' }}
                       >
-                        &lt;FddBtn color=&quot;secondary&quot; outline
+                        &lt;FddBtn color=&quot;tint1&quot; size=&quot;lg&quot; outline
+                        callback=&#123;()
+                        =&gt;&#123;&#125;&#125;&gt;&lt;/FddBtn&gt;
+                      </code>
+                    </p>
+                    <p>
+                      <FaArrowRightLong />
+                      <code
+                        className="bg-shade4 tx-secondary"
+                        style={{ padding: '.5rem' }}
+                      >
+                        &lt;FddBtn color=&quot;info&quot; outline
+                        callback=&#123;()
+                        =&gt;&#123;&#125;&#125;&gt;&lt;/FddBtn&gt;
+                      </code>
+                    </p>
+                    <p>
+                      <FaArrowRightLong />
+                      <code
+                        className="bg-shade4 tx-secondary"
+                        style={{ padding: '.5rem' }}
+                      >
+                        &lt;FddBtn color=&quot;shade3&quot; size=&quot;sm&quot; outline
                         callback=&#123;()
                         =&gt;&#123;&#125;&#125;&gt;&lt;/FddBtn&gt;
                       </code>
@@ -211,11 +211,11 @@ export default function Home() {
                   </dd>
                   <dt>圓形按鈕</dt>
                   <dd>
-                    <p>
-                      <span>.btn-secondary</span>
-                      <FaArrowRightLong />
-
-                      <FddBtn color="error" icon callback={() => {}}>
+                    <p className='hstack gap-3 jc-center'>
+                      <FddBtn color="warning" icon callback={() => { }}>
+                        <IoAddCircle />
+                      </FddBtn>
+                      <FddBtn color="warning" icon outline callback={() => { }}>
                         <IoAddCircle />
                       </FddBtn>
                     </p>
@@ -225,7 +225,18 @@ export default function Home() {
                         className="bg-shade4 tx-secondary"
                         style={{ padding: '.5rem' }}
                       >
-                        &lt;FddBtn color=&quot;secondary&quot; icon
+                        &lt;FddBtn color=&quot;warning&quot; icon
+                        callback=&#123;()
+                        =&gt;&#123;&#125;&#125;&gt;&lt;/FddBtn&gt;
+                      </code>
+                    </p>
+                    <p>
+                      <FaArrowRightLong />
+                      <code
+                        className="bg-shade4 tx-secondary"
+                        style={{ padding: '.5rem' }}
+                      >
+                        &lt;FddBtn color=&quot;warning&quot; icon outline
                         callback=&#123;()
                         =&gt;&#123;&#125;&#125;&gt;&lt;/FddBtn&gt;
                       </code>

@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import DefaultLayout from '@/components/layout/default';
+import BuyLayout from '@/components/layout/buy';
 import FddBtn from '@/components/buttons/fddBtn.js';
 import { FaCheck, FaChevronUp } from "react-icons/fa6";
 import { useState } from 'react';
@@ -27,62 +27,65 @@ const themeColors = [
   "muted",
 ];
 
-export default function TestPage() {
+export default function Gallery() {
   const [btnType, setBtnType] = useState(0);
   const isOutline = !!(Math.floor(btnType / 10));
   const isIcon = !!(btnType % 10);
 
   const bgMode = ["bg-white", "bg-secondary", "bg-shade4"];
-  const bgModetitle = ["白", "淺", "深"];
+  const bgModeTitle = ["白", "淺", "深"];
 
   return (
     <>
       <Head>
-        <title>按鈕圖鑑</title>
+        <title>色彩相關 | 樣式圖鑑</title>
       </Head>
+      <header className='bg-tint4 py-4 tx-center tx-sm'>
+        <p>以下陳列了翻肚肚色票組以及對應的按鈕</p>
+      </header>
       <div className="container">
         <div className="row jc-center">
-          <div className="col-12 mt-5">
+          <article className="col-12 mt-5">
             <h1 className='tx-center'>色票展示區</h1>
             <div className="row row-cols-3 row-cols-lg-4">
               {themeColors.map((color, i) => (
                 <div key={i} className='col'>
-                  <h2 className={'py-3 tx-center bg-' + color}>{color}</h2>
+                  <h2 className={'color-block py-3 tx-center bg-' + color}>{color}</h2>
                 </div>
               ))}
             </div>
-          </div>
-          <div className="col-12 mt-5">
+          </article>
+          <article className="col-12 mt-5">
             <h1>按鈕全種類</h1>
             <div className="showcase">
               <div className="row jc-center g-5">
-                <div className="col-auto tx-center">
+                <section className="col-auto tx-center">
                   <FddBtn color="primary" callback={() => { }}>按鈕</FddBtn>
                   <p className='mt-3'>膠囊型，背景色（預設）</p>
                   <p className='mt-1'>語法：不用外加</p>
-                </div>
-                <div className="col-auto tx-center">
+                </section>
+                <section className="col-auto tx-center">
                   <FddBtn color="primary" outline callback={() => { }}>按鈕</FddBtn>
                   <p className='mt-3'>膠囊型，邊框色</p>
                   <p className='mt-1'>語法：加 outline</p>
-                </div>
-                <div className="col-auto tx-center">
+                </section>
+                <section className="col-auto tx-center">
                   <FddBtn color="primary" icon callback={() => { }}><FaCheck /></FddBtn>
                   <p className='mt-3'>圓形，背景色</p>
                   <p className='mt-1'>語法：加 icon</p>
-                </div>
-                <div className="col-auto tx-center">
+                </section>
+                <section className="col-auto tx-center">
                   <FddBtn color="primary" icon outline callback={() => { }}><FaCheck /></FddBtn>
                   <p className='mt-3'>圓形，邊框色</p>
                   <p className='mt-1'>語法：加 outline、icon</p>
-                </div>
+                </section>
               </div>
             </div>
-          </div>
-          <div className="col-12 mt-5">
+          </article>
+          <article className="col-12 mt-5">
             <h1>按鈕全色系</h1>
             <p className="tx-center mb-3">請以下列四按鈕，切換翻肚肚按鈕的四種模式。</p>
-            <div className="row jc-center">
+            <section className="row jc-center">
               <div className="col-auto tx-center">
                 <FddBtn color={btnType === 0 ? "info" : "muted"} callback={() => setBtnType(0)}>按鈕</FddBtn>
               </div>
@@ -95,11 +98,11 @@ export default function TestPage() {
               <div className="col-auto tx-center">
                 <FddBtn color={btnType === 11 ? "info" : "muted"} icon outline callback={() => setBtnType(11)}><FaCheck /></FddBtn>
               </div>
-            </div>
-          </div>
+            </section>
+          </article>
           {bgMode.map((color, i_mode) => (
-            <div className={["col-12 showcase", color].join(' ')}>
-              <h2 className={['tx-center', i_mode === 2 ? 'tx-tint4' : ''].join(' ')}>按鈕展示區 - {bgModetitle[i_mode]}背景</h2>
+            <section className={["col-12 showcase", color].join(' ')}>
+              <h2 className={['tx-center', i_mode === 2 ? 'tx-tint4' : ''].join(' ')}>按鈕展示區 - {bgModeTitle[i_mode]}背景</h2>
               <div className="row row-cols-3 row-cols-lg-4 g-3">
                 {themeColors.map((color, i) => (
                   <div key={i} className='col tx-center'>
@@ -114,16 +117,16 @@ export default function TestPage() {
                   </div>
                 ))}
               </div>
-            </div>
+            </section>
           ))}
         </div>
       </div>
       <style jsx>{`
-      h1 {
-        margin-bottom: 2.5rem;
-        text-align: center; 
-      }
-      .showcase {
+        h1 {
+          margin-bottom: 2.5rem;
+          text-align: center; 
+        }
+        .showcase {
           margin-block: 1rem;
           padding-block: 3rem;
 
@@ -131,9 +134,12 @@ export default function TestPage() {
             margin-bottom: 2rem;
           }
         }
+        .color-block {
+          text-shadow: 2px 2px white, 2px 1px white, 1px 2px white, -1px -1px white;
+        }
         `}</style>
     </>
   );
 }
 
-TestPage.layout = DefaultLayout;
+Gallery.layout = BuyLayout;
