@@ -32,7 +32,7 @@ export default function ArticleList() {
             <ArticleBlock key={article.id} article={article} />
           ))}
         </div>
-        <div>
+        <div className={scss.pageChange}>
           <button
             onClick={() => changePage(page - 1)}
             disabled={page === 1}
