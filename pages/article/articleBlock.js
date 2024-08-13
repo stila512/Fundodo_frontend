@@ -1,6 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
 import scss from '@/pages/article/articleBlock.module.scss';
+import { FaRegEye } from "react-icons/fa";
+import { FiMessageSquare } from "react-icons/fi";
 
 export default function ArticleBlock({ article }) {
   return (
@@ -37,8 +39,8 @@ export default function ArticleBlock({ article }) {
             <div className={[scss.tag].join()}>內有惡犬</div>
           </div>
           <div className={[scss.info].join()}>
-            <div className={[scss.infoText].join()}>120</div>
-            <div className={[scss.infoText].join()}>15</div>
+            <div className={[scss.infoText].join()}><FaRegEye />120</div>
+            <div className={[scss.infoText].join()}><FiMessageSquare />15</div>
           </div>
         </div>
       </div>
