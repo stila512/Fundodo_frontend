@@ -3,27 +3,35 @@ import scss from './crsContent.module.scss';
 import Link from 'next/link';
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 
-export default function CrsContent() {
+export default function CrsContent({ chapters, lessons }) {
   return (
     <>
+
       <div className={scss.title}>
         <h3>課程內容</h3>
       </div>
-      <div className={scss.chapter}>
-        <h3>5月線上遊戲課</h3>
-        <Link href="">全部展開 <MdOutlineArrowForwardIos /> </Link>
-      </div>
-      <div className={scss.lessons}>
-        <div>
-          <Link href=""><p>浪犬博士-家長會！加入一起共學的大家庭</p></Link>
-        </div>
-        <div>
-          <Link href=""><p>浪犬博士-家長會！加入一起共學的大家庭</p></Link>
-        </div>
-        <div>
-          <Link href=""><p>浪犬博士-家長會！加入一起共學的大家庭</p></Link>
-        </div>
-      </div>
+      {chapters.map((chapter) => {
+        return (
+          <>
+            <div className={scss.chapter} key={chapter.id}>
+              <h3>{chapter.name}</h3>
+              <Link href="">全部展開 <MdOutlineArrowForwardIos /> </Link>
+            </div>
+            <div className={scss.lessons}>
+              <div>
+              {chapter.lessons.map(lesson=> (
+                <Link href="" key={lesson.id}><p>{lesson.name}</p></Link>
+              )
+              )}
+              </div>
+              
+            </div>
+          </>
+        )
+      }
+
+      )}
+
 
 
     </>
