@@ -3,13 +3,11 @@
 .cards {
   padding: 0;
   display: flex;
-  align-items: center;
+  // align-items: center;
   flex-wrap: wrap;
+  gap: 16px;
   @include rwd-above(sm) {
     gap: 25px;
-  }
-  @include rwd-above(xs) {
-    gap: 16px;
   }
 }
 
@@ -17,18 +15,16 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  padding-bottom: 16px;
   justify-content: center;
   align-items: center;
   margin-bottom: 30px;
+}
 
-  img {
-    padding: 0;
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    margin-bottom: 20px;
-  }
+.crsPic {
+  position: relative;
+  width: 433px;
+  height: 232px;
+  margin-bottom: 20px;
 }
 
 .cardText {
@@ -37,8 +33,7 @@
   flex-direction: column;
   margin-left: 10px;
   margin-right: 10px;
-  
-  
+
   h3 {
     margin-bottom: 8px;
     color: $shade4;
@@ -49,7 +44,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: 30px;
-    &:hover{
+    &:hover {
       color: $shade1;
       cursor: pointer;
     }
@@ -63,7 +58,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: 28px;
-    &:hover{
+    &:hover {
       color: $shade1;
       cursor: pointer;
     }

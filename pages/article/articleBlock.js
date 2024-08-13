@@ -1,13 +1,15 @@
 import React from 'react';
 import Image from 'next/image';
 import scss from '@/pages/article/articleBlock.module.scss';
+import { FaRegEye } from "react-icons/fa";
+import { FiMessageSquare } from "react-icons/fi";
 
-export default function ArticleBlock({article}) {
+export default function ArticleBlock({ article }) {
   return (
     <>
       {' '}
       <div className={[scss.article].join('')}>
-      <div>
+        <div>
           <div className={[scss.userData].join()}>
             <Image
               className={[scss.userIcon].join()}
@@ -23,11 +25,11 @@ export default function ArticleBlock({article}) {
           </div>
         </div>
         <div className={[scss.shortContent].join()}>
-          <div className={[scss.mainTitle].join()}>
+          <a className={[scss.mainTitle].join()} href={`/article/content?aid=${article.id}`}>
             {article.title}
-          </div>
+          </a>
           <div className={[scss.extract].join()}>
-            {article.content.substring(0, 50)}
+            {article.content.substring(0, 50)+'...'}
           </div>
         </div>
         <div className={[scss.artiInfo].join()}>
@@ -37,8 +39,8 @@ export default function ArticleBlock({article}) {
             <div className={[scss.tag].join()}>內有惡犬</div>
           </div>
           <div className={[scss.info].join()}>
-            <div className={[scss.infoText].join()}>120</div>
-            <div className={[scss.infoText].join()}>15</div>
+            <div className={[scss.infoText].join()}><FaRegEye />120</div>
+            <div className={[scss.infoText].join()}><FiMessageSquare />15</div>
           </div>
         </div>
       </div>

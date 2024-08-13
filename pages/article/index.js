@@ -7,11 +7,7 @@ import UserAction from './userAction';
 import ArtiAside from './aside';
 import ArticleList from './articleList';
 import PageControl from './pageControl';
-import ArticleContent from './articleContent';
-import ReplyArea from './replyArea';
-import ReplyBlock from './replyBlock';
-import UserCard from './userCard'
-import Image from 'next/image';
+import AsideRwd from './asideRwd';
 
 export default function Index() {
   return (
@@ -31,13 +27,12 @@ export default function Index() {
             <div className={scss.rwdAside}>
               <ArtiAside />
             </div>
+            <div className={scss.rwdList}>
+              <ArticleList />
+              <PageControl />
+              <AsideRwd />
+            </div>
 
-            {/* <div className={scss.contentArea}>
-
-            </div> */}
-
-            <ArticleList />
-            <PageControl />
           </div>
         </main>
       </div>
