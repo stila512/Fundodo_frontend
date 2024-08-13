@@ -2,12 +2,12 @@ import React from 'react';
 import Image from 'next/image';
 import scss from '@/pages/article/articleBlock.module.scss';
 
-export default function ArticleBlock({article}) {
+export default function ArticleBlock({ article }) {
   return (
     <>
       {' '}
       <div className={[scss.article].join('')}>
-      <div>
+        <div>
           <div className={[scss.userData].join()}>
             <Image
               className={[scss.userIcon].join()}

@@ -32,10 +32,6 @@ export default function Index() {
               <ArtiAside />
             </div>
 
-            {/* <div className={scss.contentArea}>
-
-            </div> */}
-
             <ArticleList />
             <PageControl />
           </div>
