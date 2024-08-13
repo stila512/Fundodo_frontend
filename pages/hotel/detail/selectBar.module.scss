@@ -37,3 +37,10 @@
     background: c.$primary;
   }
 }
+
+@media (max-width: 480px) {
+
+.selectBar{
+  display: none;
+}
+}

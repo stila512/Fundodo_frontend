@@ -31,6 +31,10 @@
   }
   .area2 {
     padding-bottom: 32px;
+    .passwordarea{
+      display: flex;
+      justify-content: space-between;
+    }
   }
   .area3 {
     padding-bottom: 32px;

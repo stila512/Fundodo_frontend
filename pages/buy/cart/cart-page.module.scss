@@ -15,10 +15,13 @@ table.cartTable thead {
     padding-block: 0.5rem;
   }
   th:nth-child(1) {
-    width: 4rem;
+      width: 4rem;
   }
   th:nth-child(2) {
-    width: rem(200px);
+    width: rem(120px);
+    @include rwd-above('lg') {
+      width: rem(200px);
+    }
   }
 }
 
@@ -27,6 +30,9 @@ table.cartTable tbody tr {
 
   td {
     padding-block: 1rem;
+  }
+  td:nth-child(3), td:nth-child(4) {
+    padding-inline: 1rem;
   }
   p {
     line-height: 2;
@@ -38,7 +44,7 @@ table.cartTable tbody tr {
   padding: rem(12px) rem(60px);
 }
 
-.payBtn {
+a.payBtn {
   margin-top: 1rem;
   padding-block: 1rem;
   display: block;
@@ -46,6 +52,18 @@ table.cartTable tbody tr {
   background-color: transparent;
   color: $white;
   border: 1px solid $white;
+  cursor: pointer;
+  text-align: center;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out, box-shadow 0.4s ease-in-out;
+
+  &:hover {
+    background-color: $shade3;
+    color: $white;
+  }
+  &:active {
+    background-color: shift-color($shade3, 10%);
+  }
 }
 
 .orderInfo {

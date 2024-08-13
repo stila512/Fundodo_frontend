@@ -73,6 +73,7 @@ export default function ProdCartTable({ setAmount = () => { }, i_amt = -1 }) {
   useEffect(() => {
     setQtyArr(dataArr.flatMap(d => d.qty));
   }, [dataArr]);
+
   useEffect(() => {
     const subtotList = qtyArr.map((q, i) => q * dataArr[i].price);
     const total = subtotList.reduce((total, cur) => total + cur, 0);

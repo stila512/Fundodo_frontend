@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import DefaultLayout from '@/components/layout/default';
 import scss from './index.module.scss';
@@ -11,6 +12,7 @@ import Tags from './tags';
 import AddCart from './addCart';
 
 export default function CourseDetail() {
+  
   return (
     <>
       <Head>

@@ -6,6 +6,7 @@ import HotelCartTable from './HotelCartTable';
 import CrsCartTable from './CrsCartTable';
 import s from "./cart-page.module.scss";
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 export default function CartPage() {
   const [amtArr, setAmtArr] = useState([0, 0, 0]);
@@ -35,6 +36,7 @@ export default function CartPage() {
         <HotelCartTable setAmount={setAmtArr} i_amt={1} />
         <CrsCartTable setAmount={setAmtArr} i_amt={2} />
         <div className='d-flex jc-end'>
+        {/*//todo  */}
           <button className={["bg-primary tx-white", s.continueBtn].join(' ')}>繼續購物</button>
         </div>
         <article className={s.orderInfo}>
@@ -63,7 +65,7 @@ export default function CartPage() {
               </tr>
               <tr>
                 <td colSpan={2}>
-                  <button className={s.payBtn}>前往結帳</button>
+                  <Link className={s.payBtn} href='/buy/confirm'>前往結帳</Link>
                 </td>
               </tr>
             </tbody>

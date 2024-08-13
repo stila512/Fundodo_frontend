@@ -1,10 +1,18 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import Image from 'next/image';
 import scss from './banner.module.scss';
 import dog from "@/public/homepagePic/whitedog.png"
 import Sort from './sort';
 
 export default function Banner() {
+
+  const [course, setCourse]=useState([]);
+  useEffect(()=>{
+    fetch("http://localhost:3005/api/course")
+            .then(res => res.json())
+            .then(result => setCourse(result.data))
+            .catch(err => console.log(err));
+    }, [])
   return (
     <>
       <div className="row">

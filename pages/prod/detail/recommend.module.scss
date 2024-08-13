@@ -1,0 +1,26 @@
+@use '@/styles' as s;
+
+.h3 {
+  color: s.$shade2;
+}
+.img  {
+  padding: 30px;
+}
+.cardGrid{
+  display: flex;
+  justify-content: center;
+  gap: 132px;
+  margin-top: 32px;
+  margin-bottom: 183px;
+}
+.card {
+  display: flex;
+  border-radius: 30px;
+  border: 1px solid s.$gray-400;
+}
+.aside{
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
