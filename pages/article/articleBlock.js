@@ -25,9 +25,9 @@ export default function ArticleBlock({ article }) {
           </div>
         </div>
         <div className={[scss.shortContent].join()}>
-          <div className={[scss.mainTitle].join()}>
+          <a className={[scss.mainTitle].join()} href={`/article/content?aid=${article.id}`}>
             {article.title}
-          </div>
+          </a>
           <div className={[scss.extract].join()}>
             {article.content.substring(0, 50)+'...'}
           </div>
