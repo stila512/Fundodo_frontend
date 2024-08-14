@@ -1,5 +1,5 @@
 import React from 'react'
-import scss from '@/pages/article/userAction.module.scss'
+import scss from '@/pages/article/commonItem/userAction.module.scss';
 
 export default function UserAction() {
     return (

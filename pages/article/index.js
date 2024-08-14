@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import DefaultLayout from '@/components/layout/default';
 import scss from '@/pages/article/index.module.scss';
-import TitleAction from './titleAction';
-import UserAction from './userAction';
-import ArtiAside from './aside';
-import ArticleList from './articleList';
-import PageControl from './pageControl';
-import AsideRwd from './asideRwd';
+import TitleAction from './commonItem/titleAction';
+import UserAction from './commonItem/userAction';
+import ArtiAside from './commonItem/aside';
+import ArticleList from './list/articleList';
+import PageControl from './list/pageControl';
+import AsideRwd from './commonItem/asideRwd';
 
 export default function Index() {
   return (
@@ -20,8 +20,9 @@ export default function Index() {
       </Head>
       <div className={scss.mainbg}>
         <main className="container" style={{ paddingTop: '40px' }}>
-          <TitleAction />
           <UserAction />
+          <TitleAction />
+
 
           <div className={[scss.mainArea].join()}>
             <div className={scss.rwdAside}>

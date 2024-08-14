@@ -1,5 +1,5 @@
 import React from 'react';
-import scss from '@/pages/article/replyArea.module.scss';
+import scss from '@/pages/article/contentItems/replyArea.module.scss';
 
 export default function ReplyArea() {
   return (

@@ -1,5 +1,5 @@
 import React from 'react'
-import scss from '@/pages/article/replyBlock.module.scss';
+import scss from '@/pages/article/contentItems/replyBlock.module.scss';
 import Image from 'next/image';
 
 export default function ReplyBlock() {
