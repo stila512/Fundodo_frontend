@@ -19,11 +19,13 @@ export default function CourseDetail() {
     summary: "",
     description: "",
     img_path: "",
-    price: 0,
+    original_price: 0,
+    sale_price: 0,
     viewed_count: "",
     chapters:[],
     lessons:[],
-    tags:[]
+    tags:[],
+    images:[]
   });
 
   const getCourse = async (id) => { 
@@ -60,7 +62,11 @@ export default function CourseDetail() {
             <LinkBar />
           </div>
           <main className="col-12 col-md-8 ">
-            <Summary />
+            <Summary 
+            summary= {course.summary}
+            description={course.description}
+            images={course.images}
+            />
             <CrsContent 
               chapters={course.chapters}
               lessons={course.lessons}
@@ -69,7 +75,10 @@ export default function CourseDetail() {
             <Tags  tags={course.tags}/>
           </main>
           <aside className={["col-12 col-md-4 ", scss.cart].join(" ")}>
-            <AddCart price={course.price}/>
+            <AddCart 
+            original_price={course.original_price}
+            sale_price={course.sale_price}
+            />
           </aside>
         </div>
       </div>

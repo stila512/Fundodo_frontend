@@ -2,13 +2,14 @@ import React, {useState, useEffect} from 'react'
 import scss from './addCart.module.scss';
 import { RiCoupon3Line } from "react-icons/ri";
 
-export default function AddCart({price}) {
+export default function AddCart({original_price,sale_price}) {
   
   return (
    <>
     <div className={scss.cartBox}>
     <div className={scss.price}>
-      <h2>NT$ {price} </h2>
+      <h2>NT$ {sale_price} </h2>
+      <p> NT$ {original_price}</p>
     </div>
     <div className={scss.coupon}>
     <RiCoupon3Line />

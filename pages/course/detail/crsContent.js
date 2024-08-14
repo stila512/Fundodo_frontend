@@ -18,13 +18,17 @@ export default function CrsContent({ chapters, lessons }) {
               <Link href="">全部展開 <MdOutlineArrowForwardIos /> </Link>
             </div>
             <div className={scss.lessons}>
-              <div>
-              {chapter.lessons.map(lesson=> (
-                <Link href="" key={lesson.id}><p>{lesson.name}</p></Link>
+              {chapter.lessons.map(lesson => (
+                <Link href="" key={lesson.id}>
+                <div className={scss.lesson}>
+                  <h2>{lesson.name}</h2>
+                  <p>{lesson.duration}min</p>
+                </div>
+                </Link>
               )
               )}
-              </div>
-              
+
+
             </div>
           </>
         )
