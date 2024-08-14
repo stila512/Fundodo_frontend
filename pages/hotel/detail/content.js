@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './content.module.scss';
 import { BsQuestionCircle } from "react-icons/bs";
 import { IoIosArrowDown } from "react-icons/io";
@@ -8,16 +8,34 @@ import Icon2 from "@/public/hotelPic/icon/OBJECTS-2.svg"
 import Icon3 from "@/public/hotelPic/icon/OBJECTS-3.svg"
 import Icon4 from "@/public/hotelPic/icon/OBJECTS-4.svg"
 import Image from 'next/image';
-import hotels from '@/data/hotel.json'
 
-export default function Content() {
+
+export default function Content({hotelCode}) {
+  const [hotel, setHotel] = useState(null);
+
+  useEffect(() => {
+    const getHotel = async () => {
+      const baseURL = `http://localhost:3005/api/hotel/detail/${hotelCode}`; 
+      const res = await fetch(baseURL);
+      const data = await res.json();
+      if (data.status === "success" && data.data) {
+        setHotel(data.data);
+      }
+    };
+
+    if (hotelCode) {
+      getHotel();
+    }
+  }, [hotelCode]);
+
+
   return (
     <>
       <div className={styles.description}>
         <h3 className={styles.title}>旅館簡介</h3>
-        {hotels.length > 0 && (
+        {hotel && (
         <p className={styles.content}>
-        {hotels[0].description}
+        {hotel.description}
         </p>
         )}
       </div>

@@ -6,9 +6,14 @@ import SelectDetail from './selectDetail';
 import HotelImg from './hotelImg';
 import SelectBar from './selectBar'
 import Content from './content'
+import { useRouter } from 'next/router';
 
 
 export default function HotelPage() {
+  
+  const router = useRouter();
+  const { hotelCode } = router.query;
+
   return (
     <>
       <Head>
@@ -18,11 +23,11 @@ export default function HotelPage() {
         <div className={styles.container}>
           <HotelImg />
           <div className={styles.wrapper}>
-            <SelectDetail />
+            <SelectDetail hotelCode={hotelCode} />
           </div>
         </div>
-        <SelectBar />
-        <Content />
+        <SelectBar hotelCode={hotelCode}/>
+        <Content hotelCode={hotelCode}/>
       </div>
     </>
   );

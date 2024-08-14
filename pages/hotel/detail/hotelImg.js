@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styles from './hotelImg.module.scss';
-import mainImg from '@/public/hotelPic/pic/HT000001.jpg'
-import subImg1 from '@/public/hotelPic/pic/HT000005.jpg'
-import subImg2 from '@/public/hotelPic/pic/HT000003.jpg'
+import mainImg from '@/public/hotelPic/pic/HT000021.jpg'
+import subImg1 from '@/public/hotelPic/pic/HT000022.jpg'
+import subImg2 from '@/public/hotelPic/pic/HT000023.jpg'
 import Image from 'next/image';
 
 

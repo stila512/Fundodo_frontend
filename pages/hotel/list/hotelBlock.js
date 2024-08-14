@@ -3,19 +3,19 @@ import styles from './hotelBlock.module.scss';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import HotelImg from "@/public/hotelPic/pic/HT000001.jpg"
+import HotelImg from "@/public/hotelPic/pic/HT0000102.jpg"
 
 export default function HotelBlock() {
   const [hotels, setHotels] =useState([]);
 
   const getHotels = async () => {
     try {
-      const URL = "http://localhost:3005/api/hotel"
-      const res = await fetch(URL)
+      const baseURL = "http://localhost:3005/api/hotel"
+      const res = await fetch(baseURL)
       const data = await res.json()
-
-      console.log("API response:", data);
-
+      
+      console.log( data);
+  
       if (data.status === "success" && Array.isArray(data.data)) {
         setHotels(data.data)
       } else {
