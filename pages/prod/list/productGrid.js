@@ -32,10 +32,10 @@ export default function ProductGrid() {
 
 			console.log(data);
 
-			if (Array.isArray(data.allProducts)) {
-				setProducts(data.allProducts)
+			if (Array.isArray(data.productList)) {
+				setProducts(data.productList)
 			} else {
-				console.log("API回應的allProducts不是陣列");
+				console.log("API回應的productList不是陣列");
 			}
 		} catch (error) {
 			console.log(error);

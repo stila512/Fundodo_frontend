@@ -2,19 +2,14 @@ import React, {useState, useEffect} from 'react'
 import scss from './addCart.module.scss';
 import { RiCoupon3Line } from "react-icons/ri";
 
-export default function AddCart() {
-  const [price, setPrice]=useState([]);
-  useEffect(()=>{
-    fetch("http://localhost:3005/api/course")
-            .then(res => res.json())
-            .then(result => setPrice(result.data))
-            .catch(err => console.log(err));
-    }, [])
+export default function AddCart({original_price,sale_price}) {
+  
   return (
    <>
     <div className={scss.cartBox}>
     <div className={scss.price}>
-      <h2>NT$ 3,600 </h2>
+      <h2>NT$ {sale_price} </h2>
+      <p> NT$ {original_price}</p>
     </div>
     <div className={scss.coupon}>
     <RiCoupon3Line />
