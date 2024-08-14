@@ -35,11 +35,17 @@
   }
 }
 .image {
+  position: relative;
   width: 100%;
-  height: 300px;
-  object-fit: cover;
+  height: 318px; 
+  // overflow: hidden;
 }
 
+.image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .hotelName {
   color: c.$shade4;
   font-weight: bold;
@@ -79,7 +85,7 @@
   cursor: pointer;
   transition: background-color 0.3s;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 600;
 
   &:hover {
     background-color: darken(#b9a69d, 10%);
@@ -133,7 +139,7 @@
   .price {
     display: block;
     align-self: stretch;
-    padding: 0 14px;
+    padding: 0 8px;
     margin: 0px;
   }
   .button {

@@ -3,7 +3,7 @@ import styles from './hotelBlock.module.scss';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import HotelImg from "@/public/hotelPic/pic/HT0000102.jpg"
+
 
 export default function HotelBlock() {
   const [hotels, setHotels] =useState([]);
@@ -38,10 +38,12 @@ export default function HotelBlock() {
       <div className={styles.grid}>
         {hotels.map((v) => (
           <div key={v.id} className={styles.card}>
-            <Image src={HotelImg} width={0} height={0} alt={v.name} className={styles.image} />
+          <div className={styles.image}>
+    <Image src={`/hotelPic/pic/${v.main_img_path}`} layout="fill" objectFit="cover" alt="旅館圖片" />
+  </div>
             <h3 className={styles.hotelName}>{v.name}</h3>
             <p className={styles.description}>{v.description}</p>
-            <p className={styles.price}>小型犬: {v.price_small_dog}元 / 中型犬: {v.price_medium_dog}元 / 大型犬: {v.price_large_dog}元</p>
+            <p className={styles.price}> ${v.price_small_dog}~${v.price_large_dog}</p>
             <div className={styles.Btn}>
               <Link href={`/hotel/detail/${v.id}`}>
                 <button className={styles.button}>立即預訂</button>

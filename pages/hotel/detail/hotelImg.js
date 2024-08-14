@@ -10,6 +10,30 @@ export default function HotelImg() {
   const [currentMainImg, setCurrentMainImg] = useState(mainImg);
   const handleImageClick = (imgSrc) => {
     setCurrentMainImg(imgSrc);
+
+    const [hotels, setHotels] =useState([]);
+
+  const getHotels = async () => {
+    try {
+      const baseURL = "http://localhost:3005/api/hotel"
+      const res = await fetch(baseURL)
+      const data = await res.json()
+      
+      console.log( data);
+  
+      if (data.status === "success" && Array.isArray(data.data)) {
+        setHotels(data.data)
+      } else {
+        console.log("API 響應格式不符合預期", data);
+      }
+    } catch (error) {
+      console.error("獲取失敗", error);
+    }
+  }
+
+    useEffect(() => {
+      getHotels()
+    }, [])
   };
 
 

@@ -60,7 +60,7 @@ export default function HotelPage() {
       </Head>
       <div className={styles.pageContainer}>
         <div className={styles.container}>
-          <HotelImg />
+          <HotelImg hotelCode={router.query.hotelCode}/>
           <div className={styles.wrapper}>
           <SelectDetail hotelCode={router.query.hotelCode} />
           </div>
