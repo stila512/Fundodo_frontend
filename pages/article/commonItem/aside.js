@@ -1,5 +1,5 @@
 import React from 'react';
-import scss from '@/pages/article/aside.module.scss';
+import scss from '@/pages/article/commonItem/aside.module.scss';
 import AsideArticle from './asideArticle';
 
 export default function ArtiAside() {

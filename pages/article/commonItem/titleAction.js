@@ -1,6 +1,7 @@
-import React, { useRef } from 'react';
-import scss from '@/pages/article/titleAction.module.scss'
+import React, { useRef, useState, useEffect } from 'react';
+import scss from '@/pages/article/commonItem/titleAction.module.scss';
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io"
+import Link from 'next/link';
 
 export default function TitleAction() {
   const scrollSort = useRef(null);
@@ -14,6 +15,17 @@ export default function TitleAction() {
       scrollSort.current.scrollBy({ left: 350, behavior: 'smooth' });
     }
   }
+  const [sort, setSort] = useState([])
+
+  useEffect(() => {
+    fetch('http://localhost:3001/api/sort')
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 'success') {
+          setSort(data.sorts)
+        }
+      }).catch(error => console.log(error.message))
+  }, [])
   return (
     <>
       <div className={[scss.titleAction].join()}>
@@ -22,11 +34,10 @@ export default function TitleAction() {
             <IoIosArrowBack />
           </button>
           <div className={[scss.sortList].join()} ref={scrollSort}>
-            <button className={[scss.sortBtn].join()}>全部分類</button>
-            <button className={[scss.sortBtn].join()}>毛孩百科</button>
-            <button className={[scss.sortBtn].join()}>寵食大評比</button>
-            <button className={[scss.sortBtn].join()}>寵物保健</button>
-            <button className={[scss.sortBtn].join()}>品牌好物推薦</button>
+            <Link className={[scss.sortBtn].join()} href='/article'>全部分類</Link>
+            {sort.map(sortitem => (
+              <Link key={sortitem.id} className={[scss.sortBtn].join()} href={`article?sort=${sortitem.id}`}>{sortitem.sort}</Link>)
+              )}
           </div>
           <button className={scss.moreBtn} onClick={scrollLeft}>
             <IoIosArrowForward />

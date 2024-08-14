@@ -1,5 +1,5 @@
 import React from 'react';
-import scss from '@/pages/article/userCard.module.scss';
+import scss from '@/pages/article/contentItems/userCard.module.scss';
 import Image from 'next/image';
 
 export default function PageControl() {

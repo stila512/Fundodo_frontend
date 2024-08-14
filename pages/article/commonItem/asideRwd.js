@@ -1,5 +1,5 @@
 import React,{useRef} from 'react';
-import scss from '@/pages/article/asideRwd.module.scss';
+import scss from '@/pages/article/commonItem/asideRwd.module.scss';
 import AsideArticle from './asideArticle';
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io"
 

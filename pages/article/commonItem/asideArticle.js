@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import scss from '@/pages/article/asideArticle.module.scss';
+import scss from '@/pages/article/commonItem/asideArticle.module.scss';
 
 export default function AsideArticle() {
   return (

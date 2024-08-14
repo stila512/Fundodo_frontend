@@ -1,26 +1,18 @@
-import React,{useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import scss from '@/pages/article/content.module.scss';
 import DefaultLayout from '@/components/layout/default';
-import TitleAction from './titleAction';
-import ArticleContent from './articleContent';
-import ArtiAside from './aside';
-import ReplyArea from './replyArea';
-import ReplyBlock from './replyBlock';
-import UserCard from './userCard'
-import AsideRwd from './asideRwd';
+import TitleAction from './commonItem/titleAction';
+import ArticleContent from './contentItems/articleContent';
+import ArtiAside from './commonItem/aside';
+import ReplyArea from './contentItems/replyArea';
+import ReplyBlock from './contentItems/replyBlock';
+import UserCard from './contentItems/userCard'
+import AsideRwd from './commonItem/asideRwd';
+import UserAction from './commonItem/userAction';
 
 export default function Content() {
-    const [content, setContent] = useState({})
-    useEffect(() => {
-      fetch('http://localhost:3001/api/articleContent/31')
-        .then(response => response.json())
-        .then(data => {
-          if (data.status === 'success') {
-            setContent(data.content[0])
-          }
-        }).catch(error => console.log(error.message))
-    }, [])
     return (
         <>
             <Head>
@@ -31,6 +23,9 @@ export default function Content() {
             </Head>
             <div className={scss.mainbg}>
                 <main className="container" style={{ paddingTop: '40px' }}>
+                    <div className={scss.userActionRwd}>
+                        <UserAction />
+                    </div>
                     <TitleAction />
 
                     <div className={[scss.mainArea].join()}>
@@ -39,7 +34,7 @@ export default function Content() {
                         </div>
 
                         <div className={scss.contentArea}>
-                            <ArticleContent key={content.id} content={content}/>
+                            <ArticleContent />
                             <ReplyArea />
                             <ReplyBlock />
                             <AsideRwd />

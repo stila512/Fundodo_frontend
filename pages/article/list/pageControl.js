@@ -1,5 +1,5 @@
 import React from 'react';
-import scss from '@/pages/article/pageControl.module.scss';
+import scss from '@/pages/article/list/pageControl.module.scss';
 
 export default function PageControl() {
   return (
