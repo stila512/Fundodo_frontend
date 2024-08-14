@@ -3,7 +3,6 @@ import scss from './productGrid.module.scss'
 import Image from 'next/image'
 import FavoriteIcon from './favoriteIcon'
 import Link from 'next/link'
-
 export default function ProductGrid() {
 	const [products, setProducts] = useState([])
 	const [page, setPage] = useState(1)
@@ -30,7 +29,7 @@ export default function ProductGrid() {
 			const res = await fetch(URL)
 			const data = await res.json()
 
-			console.log(data);
+			// console.log(data);
 
 			if (Array.isArray(data.productList)) {
 				setProducts(data.productList)
@@ -55,7 +54,7 @@ export default function ProductGrid() {
 					return (
 						<div key={i} className='col-xxl-3 col-xl-4 col-6'>
 							<div className={scss.card}>
-								<FavoriteIcon />
+								<FavoriteIcon style={{color:'#B9A399'}} className={scss.cardFavIcon}/>
 								<div className={scss.prodImgBox}>
 									<div className={[scss.prodImg, 'img-wrap-w100', 'img-wrap-h100'].join(' ')}>
 										<Image src={`/pic-prod/${v.picNameArr[0]}`} width={0} height={0} layout="responsive" />

@@ -10,7 +10,11 @@
   border: 1px solid s.$secondary;
   height: 100%;
 }
-
+.cardFavIcon{
+  text-align: end;
+  margin-right: 15px;
+  margin-top: 15px;
+}
 .prodImgBox {
   margin: 10px auto;
 }
