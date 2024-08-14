@@ -44,24 +44,30 @@ export default function Content({hotelCode}) {
       <div className={styles.service}>
         <h3 className={styles.title}>設施與服務</h3>
         <ul>
-          <li>
-            {/* <div className='img-wrap-w100' styles={{ width: 30 }}> */}
-              <Image src={Icon1} width={0} height={0} alt='icon' />
-            {/* </div> */}
-            室內活動區
-          </li>
-          <li>
-              <Image src={Icon2} width={0} height={0} alt='icon' />
-            提供飼料鮮食
-          </li>
-          <li>
-              <Image src={Icon3} width={0} height={0} alt='icon' />
-            24小時家長網路遠端監控
-          </li>
-          <li>
-              <Image src={Icon4} width={0} height={0} alt='icon' />
-            寵物洗澡服務
-          </li>
+          {hotel && hotel.service_playground === 1 && (
+            <li>
+              <Image src={Icon1} width={30} height={30} alt='室內活動區' />
+              室內活動區
+            </li>
+          )}
+          {hotel && hotel.service_food === 1 && (
+            <li>
+              <Image src={Icon2} width={30} height={30} alt='提供飼料鮮食' />
+              提供飼料鮮食
+            </li>
+          )}
+          {hotel && hotel.service_live_stream === 1 && (
+            <li>
+              <Image src={Icon3} width={30} height={30} alt='24小時家長網路遠端監控' />
+              24小時家長網路遠端監控
+            </li>
+          )}
+          {hotel && hotel.service_bath === 1 && (
+            <li>
+              <Image src={Icon4} width={30} height={30} alt='寵物洗澡服務' />
+              寵物洗澡服務
+            </li>
+          )}
         </ul>
       </div>
 
