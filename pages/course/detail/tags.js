@@ -3,7 +3,7 @@ import React from 'react'
 import scss from './tags.module.scss';
 
 
-export default function Tags() {
+export default function Tags({tags}) {
   return (
     <>
       <div className='container'>
@@ -13,9 +13,9 @@ export default function Tags() {
           <FddBtn color='secondary' size="sm" outline href='/'>感情增溫</FddBtn>
           <FddBtn color='secondary' size="sm" outline href='/'>正向教養體驗式課程</FddBtn>
           <FddBtn color='secondary' size="sm" outline href='/'>線上行為知識講座</FddBtn> */}
-          <button className={scss.btn}>全部分類</button>
-          <button className={scss.btn}>感情增溫</button>
-          <button className={scss.btn}>線上行為知識講座</button>
+          {tags.map(tag => (
+            <button className={scss.btn}>{tag}</button>
+              ))}
         </div>
       </div>
 
