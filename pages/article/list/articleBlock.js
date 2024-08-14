@@ -1,10 +1,22 @@
 import React from 'react';
 import Image from 'next/image';
-import scss from '@/pages/article/articleBlock.module.scss';
+import scss from '@/pages/article/list/articleBlock.module.scss';
 import { FaRegEye } from "react-icons/fa";
 import { FiMessageSquare } from "react-icons/fi";
 
 export default function ArticleBlock({ article }) {
+  const formatDate = (dateString) => {
+    const date = new Date(dateString)
+    return date.toLocaleString('zh-TW', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    })
+  }
   return (
     <>
       {' '}
@@ -19,8 +31,8 @@ export default function ArticleBlock({ article }) {
               height={40}
             />
             <div className={[scss.nicknameArea].join()}>
-              <p className={[scss.nickName].join()}>123123123</p>
-              <p className={[scss.creatTime].join()}>{article.create_at}</p>
+              <p className={[scss.nickName].join()}>{'@'+article.userid}</p>
+              <p className={[scss.creatTime].join()}>{formatDate(article.create_at)}</p>
             </div>
           </div>
         </div>
