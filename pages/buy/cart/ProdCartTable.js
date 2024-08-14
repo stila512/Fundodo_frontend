@@ -8,7 +8,9 @@ import { TbTrashX } from "react-icons/tb";
 import { RxCross2 } from "react-icons/rx";
 import { apiBaseUrl } from '@/configs';
 
-//TODO: 以下 testData 僅供無後台情況時，本機測試用
+/**
+ * 僅供無後台情況時使用
+ */
 const testData = [
   {
     name: 'Plus+機能保健系列 泌尿道紓壓保健',
@@ -38,10 +40,10 @@ const testData = [
     key: 'ld073f3j'
   },
 ];
-
+//todo 將 isOutOfStock 與 stock_when_few 納入機制
 //======= API =====================================
 //== parameters
-const USER_ID = 58;//todo: test
+const USER_ID = 59;//todo: test
 const apiLink = `${apiBaseUrl}/cart/${USER_ID}`;
 
 //======= API END ==================================
@@ -50,11 +52,12 @@ export default function ProdCartTable({ setAmount = () => { }, i_amt = -1 }) {
   const [dataArr, setDataArr] = useState([]);
   const [qtyArr, setQtyArr] = useState([]);
   const [subtotArr, setSubtotArr] = useState([]);
+
   useEffect(() => {
     //以下寫法參考 Axios 官方文件
     axios.get(apiLink)
       .then(res => {
-        setDataArr(res.data.result);
+        setDataArr(res.data.result.PD);
       }).catch(err => {
         console.log("未得到如預期的回應，已啟用備援資料");
         setDataArr(testData);
@@ -70,8 +73,9 @@ export default function ProdCartTable({ setAmount = () => { }, i_amt = -1 }) {
         }
       });
   }, []);
+
   useEffect(() => {
-    setQtyArr(dataArr.flatMap(d => d.qty));
+    setQtyArr(dataArr.flatMap(d => d.quantity));
   }, [dataArr]);
 
   useEffect(() => {
@@ -80,6 +84,10 @@ export default function ProdCartTable({ setAmount = () => { }, i_amt = -1 }) {
     setSubtotArr(subtotList);
     setAmount(arr => arr.map((v, i) => (i === i_amt) ? total : v));
   }, [qtyArr]);
+
+  const handleZero = () => {
+    console.log('ㄟ，不能歸零');
+  }
 
   const noData = (!dataArr || dataArr.length === 0);
 
@@ -110,24 +118,33 @@ export default function ProdCartTable({ setAmount = () => { }, i_amt = -1 }) {
                 <td>
                   <div className="img-wrap-h100" style={{ height: 100 }}>
                     <Image
-                      src={'/pic-prod/' + item.pic_path}
+                      src={'/pic-prod/' + item.pic_name}
                       width={0}
                       height={0}
-                      alt={item.name}
+                      alt={item.prod_name}
                     />
                   </div>
                 </td>
-                <td>{item.name}</td>
+                <td>{item.prod_name}</td>
                 <td>
                   {item.sort_name ? <p>{item.sort_name}</p> : <></>}
                   {item.spec_name ? <p>{item.spec_name}</p> : <></>}
                 </td>
                 <td>
                   <div className="mx-auto pe-1 tx-right w-fit">
-                    ${item.price}
+                    ${item.price_sp ? item.price_sp : item.price}
                   </div>
                 </td>
-                <td><NumberPanel quantity={qtyArr[i_data]} setFunc={setQtyArr} index={i_data} /></td>
+                <td>
+                  <NumberPanel
+                    quantity={qtyArr[i_data]}
+                    setFunc={setQtyArr}
+                    index={i_data}
+                    min={1}
+                    onOverMin={() => handleZero()}
+                    doesDisableMinus={qtyArr[i_data] <= 0}
+                  />
+                </td>
                 <td>${subtotArr[i_data]}</td>
               </tr>
             ))
