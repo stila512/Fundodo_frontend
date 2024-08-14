@@ -151,6 +151,10 @@
   }
   .area2 {
     padding-bottom: 32px;
+    .passwordarea{
+      display: flex;
+      justify-content: space-between;
+    }
   }
   .area3 {
     padding-bottom: 32px;
@@ -201,6 +205,7 @@
     border-radius: 47.273px;
     background: var(--Primary, #b9a399);
     color: white;
+    border: #ccc;
   }
   .xBtn {
     display: flex;
