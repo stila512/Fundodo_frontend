@@ -13,6 +13,7 @@ import s from './number-panel.module.scss';
  * @param {function} onOverMax 當數量在最大值，按下減少時觸發的事件
  * @param {bool} doesDisbleMinus 切換 minus button 之 disabled 狀態
  * @param {bool} doesDisblePlus 切換 plus button 之 disabled 狀態
+ * @param {string} className 自訂樣式
  * @description 搭配的 state 變數請自行宣告；若有數量歸零的特殊處遇，請使用 min 與 onOverMin 的機制。
  */
 export const NumberPanel = ({
@@ -25,6 +26,7 @@ export const NumberPanel = ({
   onOverMax = () => { },
   doesDisbleMinus = false,
   doesDisblePlus = false,
+  className = {}
 }) => {
   const changeBy = delta => {
     if (index === -1) setFunc(n => n + delta);
@@ -36,12 +38,12 @@ export const NumberPanel = ({
     ? onOverMax() : changeBy(1);
 
   return (
-    <div className={['hstack mx-auto', s.panel].join(' ')} >
+    <div className={['hstack', 'mx-auto', s.panel, `${className}`].join(' ') } >
       <button disabled={doesDisbleMinus} onClick={() => handleMinus()}>
         <LuMinus />
       </button>
-      <div className='tx-center'>{quantity}</div>
-      <button disabled={doesDisblePlus} onClick={() => handlePlus()}>
+      <div className='tx-center flex-grow-1'>{quantity}</div>
+      <button className='fx-center' disabled={doesDisblePlus} onClick={() => handlePlus()}>
         <LuPlus />
       </button>
     </div>
