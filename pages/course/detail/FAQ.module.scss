@@ -25,6 +25,7 @@
   padding: 16px 19px;
   border-radius: 2px;
   background: $secondary;
+  border: 1px solid $primary;
   cursor: pointer;
   &:hover{
     background-color: $tint3;
