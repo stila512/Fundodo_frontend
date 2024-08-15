@@ -1,5 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/router';
+
+
 
 const MyUploadAdapter = class {
   constructor(loader) {
@@ -55,7 +58,7 @@ export default function CreateArticle() {
     try {
       const response = await axios.post('http://localhost:3001/api/createArticle', { title, content, sort });
       console.log('Article created:', response.data);
-      // 可以在這裡加入成功提示或重定向
+      alert("文章發表成功")
     } catch (error) {
       console.error('Error creating article:', error);
       // 可以在這裡加入錯誤處理
