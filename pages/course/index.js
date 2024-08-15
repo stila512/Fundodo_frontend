@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Head from 'next/head';
 import DefaultLayout from '@/components/layout/default';
 import Banner from './banner';
@@ -7,6 +7,8 @@ import Breadcrumb from '../prod/list/breadcrumb';
 import CourseGrid from './courseGrid';
 
 export default function Course() {
+  const [selectedCate, setSelectedCate] = useState(null);
+
   return (
     <>
       <Head>
@@ -14,8 +16,8 @@ export default function Course() {
       </Head>
       <div className="container">
         <Banner />
-        <Tags />
-        <CourseGrid />
+        <Tags selectedCate={selectedCate} setSelectedCate={setSelectedCate}/>
+        <CourseGrid selectedCate={selectedCate}/>
       </div>
 
 
