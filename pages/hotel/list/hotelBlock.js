@@ -43,7 +43,7 @@ export default function HotelBlock() {
   </div>
             <h3 className={styles.hotelName}>{v.name}</h3>
             <p className={styles.description}>{v.description}</p>
-            <p className={styles.price}> ${v.price_small_dog}~${v.price_large_dog}</p>
+            <p className={styles.price}> ${v.price_s}~${v.price_l}</p>
             <div className={styles.Btn}>
               <Link href={`/hotel/detail/${v.id}`}>
                 <button className={styles.button}>立即預訂</button>
