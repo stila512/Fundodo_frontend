@@ -50,8 +50,10 @@ export default function SelectDetail({ hotelCode }) {
                 <input type="date" />
                 <input type="date" />
               </div>
-              <select className={styles.petSelect}>
+              <div className={styles.detailTitle}>
               <p>房型</p>
+              </div>
+              <select className={styles.petSelect}>
                 <option value="大型犬 1 , 中型犬1">大型犬 1 , 中型犬1</option>
               </select>
               <div>
