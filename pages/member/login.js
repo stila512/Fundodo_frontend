@@ -1,16 +1,20 @@
 import { useState } from 'react';
-import { useRouter } from 'next/router'; 
+import { useRouter } from 'next/router';
 import DefaultLayout from '@/components/layout/default';
 import scss from './login.module.scss';
 import Image from 'next/image';
 import lfpic from '@/public/login.svg';
 import pswd_icon from '@/public/memberPic/password-icon.svg';
+import { useContext } from 'react';
+import { AuthContext } from '@/context/AuthContext';
 
 export default function LoginPage() {
   // 顯示密碼使用
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const { login } = useContext(AuthContext);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -35,9 +39,13 @@ export default function LoginPage() {
       .then(data => {
         console.log('Response Data:', data);
         if (data.status === 'success' && data.token) {
-          localStorage.setItem('token', data.token);
+          console.log('Login successful, about to call login() and router.push()');
+          login(data.token);
           alert('登入成功');
-          router.push('/peopleIndoData');
+          console.log('Login function called, about to redirect');
+          router.push('/member/peopleInfoData')
+            .then(() => console.log('Navigation successful'))
+            .catch((err) => console.error('Navigation failed:', err));
         } else {
           setError(data.message || '登入失败');
           alert(`登入失败:\n${data.message || '登入失败'}`);
@@ -64,12 +72,12 @@ export default function LoginPage() {
           <form onSubmit={handleLogin}>
             <div className={scss.area2}>
               <label>電子郵件地址</label>
-              <input type="email" name="email" required/>
+              <input type="email" name="email" required />
               <div>
                 <div className={scss.passwordarea}><div><label>密碼</label></div> <div className={scss.passwordicon}><Image className="imgWrap" src={pswd_icon} alt="Image"
                   onClick={() => setShowPassword(!showPassword)}
                 />隱藏</div></div>
-                <input type={showPassword ? 'text' : 'password'} name="password" required/>
+                <input type={showPassword ? 'text' : 'password'} name="password" required />
                 <p>使用8個或以上的字元, 包含字母數字和符號</p>
               </div>
             </div>

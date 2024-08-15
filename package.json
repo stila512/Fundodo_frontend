@@ -16,6 +16,7 @@
     "@fontsource/zen-maru-gothic": "^5.0.19",
     "axios": "^1.6.8",
     "install": "^0.13.0",
+    "jwt-decode": "^4.0.0",
     "lodash": "^4.17.21",
     "next": "14.2.3",
     "nextjs-toploader": "^1.6.12",
