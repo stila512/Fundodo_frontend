@@ -1,24 +1,67 @@
+import { useState, useEffect, useContext } from 'react';
 import DefaultLayout from '@/components/layout/default';
 import scss from './info.module.scss';
 import Image from 'next/image';
 import avatarPic from '@/public/memberPic/head.svg';
 import radio from '@/public/memberPic/radio.svg';
-import mdi_coupon from '@/public/memberPic/mdi_coupon.svg';
-import mdi_dog from '@/public/memberPic/mdi_dog.svg';
-import mdi_heart from '@/public/memberPic/mdi_heart.svg';
-import mdi_list from '@/public/memberPic/mdi_list.svg';
-import mdi_lock from '@/public/memberPic/mdi_lock.svg';
-import mdi_user from '@/public/memberPic/mdi_user.svg';
 import SideText from '@/components/member/SideText';
+import { AuthProvider, AuthContext } from '@/context/AuthContext';
 
 export default function PeopleInfo() {
+  const { user: authUser, loading: authLoading } = useContext(AuthContext);
+  const [user, setUser] = useState({
+    nickname: '',
+    password: '',
+    email: '',
+  })
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchgetMember = (uuid) => {
+    const url = `http://localhost:3005/api/member/${uuid}`;
+
+    fetch(url)
+      .then(response => {
+        if (!response.ok) {
+          return response.json().then(errorData => {
+            throw new Error(`错误 ${response.status}: ${errorData.message}`);
+          });
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data.status === 'success') {
+          setUser(data.result);
+        } else {
+          setError(data.message);
+        }
+      })
+      .catch(error => {
+        setError(error.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    if (authLoading) return;
+
+    if (authUser && authUser.uuid) {
+      fetchgetMember(authUser.uuid);
+    } else {
+      setError('User not authenticated');
+      setLoading(false);
+    }
+  }, [authUser, authLoading]);
   return (
     <>
       <main className={scss.PeopleInfoContainer}>
         <div className="col-1 col-lg-4"></div>
         <div className={`${scss.midarea} col-12 col-lg-5`}>
           <div className={`${scss.midtext}`}>
-          <div className={`${scss.area2} `}>Email <p>example@gmail.com <span>沒收到驗證信?</span></p></div>
+          <div className={`${scss.area2} `}>Email <p>{user.email || 'example@gmail.com'} <span>沒收到驗證信?</span></p></div>
             <div className={scss.area3}>姓名 <input placeholder="姓名"></input></div>
             <div className={scss.area4}>性別
               <div className={scss.genderRadio}>
