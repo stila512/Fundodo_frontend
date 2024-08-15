@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import DefaultLayout from '@/components/layout/default';
 import styles from '@/pages/hotel/detail/index.module.scss';
@@ -6,8 +7,7 @@ import SelectDetail from './selectDetail';
 import HotelImg from './hotelImg';
 import SelectBar from './selectBar'
 import Content from './content'
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router';
+
 
 
 export default function HotelPage() {
@@ -53,18 +53,24 @@ export default function HotelPage() {
     }
   }, [router.isReady])
 
+  useEffect(() => {
+    if(hotel.name) {
+      document.title = `${hotel.name} - 立即預定`;
+    }
+  },[hotel.name])
+
 
   return (
     <>
       <Head>
-        <title>立即預定</title>
+      <title>{hotel.name ? `${hotel.name} - 立即預定` : '立即預定'}</title>
       </Head>
       <div className={styles.pageContainer}>
         <div className={styles.container}>
           <HotelImg hotelCode={router.query.hotelCode}/>
-          <div className={styles.wrapper}>
+          {/* <div className={styles.wrapper}> */}
           <SelectDetail hotelCode={router.query.hotelCode} />
-          </div>
+          {/* </div> */}
         </div>
         <SelectBar/>
         <Content hotelCode={router.query.hotelCode}/>
