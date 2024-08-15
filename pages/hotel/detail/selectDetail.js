@@ -31,7 +31,7 @@ export default function SelectDetail({ hotelCode }) {
               <p className={styles.address}>{hotel.address}</p>
               <p className={styles.date}>1晚房價 (7月10日~ 7月11日)</p>
               <h1 className={styles.price}>
-                ${hotel.price_small_dog}~${hotel.price_large_dog}
+                ${hotel.price_s}~${hotel.price_l}
               </h1>
               <p className={styles.detail}>含稅費及其他費用</p>
             </div>
@@ -43,10 +43,15 @@ export default function SelectDetail({ hotelCode }) {
 
             <div className={styles.select}>
               <div className={styles.selectContainer}>
+              <div className={styles.detailTitle}>
+                <p>入住日</p>  
+                <p>退房日</p>
+                </div>
                 <input type="date" />
                 <input type="date" />
               </div>
               <select className={styles.petSelect}>
+              <p>房型</p>
                 <option value="大型犬 1 , 中型犬1">大型犬 1 , 中型犬1</option>
               </select>
               <div>
@@ -78,7 +83,7 @@ export default function SelectDetail({ hotelCode }) {
             <div className={styles.priceInfo}>
               <p className={styles.date}>1晚房價 (7月10日~ 7月11日)</p>
               <h1 className={styles.price}>
-                ${hotel.price_small_dog}~${hotel.price_large_dog}
+                ${hotel.price_s}~${hotel.price_l}
               </h1>
               <p className={styles.detail}>含稅費及其他費用</p>
             </div>
@@ -100,7 +105,7 @@ export default function SelectDetail({ hotelCode }) {
               /> */}
             </div>
 
-            <p className={styles.address}>{hotel.address}</p> {/* 修正錯誤變量名 */}
+            <p className={styles.address}>{hotel.address}</p> 
           </div>
         </>
       )}
