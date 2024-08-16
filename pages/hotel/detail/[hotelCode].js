@@ -21,6 +21,8 @@ export default function HotelPage() {
     name: '',
     description: '',
     address: '',
+    Latitude: '0',
+    Longitude: '0',
     main_img_path: '',
     price_s: 0,
     price_m: 0,

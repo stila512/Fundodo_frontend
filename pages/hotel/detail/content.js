@@ -9,6 +9,9 @@ import Icon3 from "@/public/hotelPic/icon/OBJECTS-3.svg"
 import Icon4 from "@/public/hotelPic/icon/OBJECTS-4.svg"
 import Image from 'next/image';
 
+//總價算的怪怪
+//日期限制往後選
+//接map
 
 export default function Content({hotelCode}) {
   const [hotel, setHotel] = useState(null);
@@ -43,6 +46,7 @@ export default function Content({hotelCode}) {
 
       <div className={styles.service}>
         <h3 className={styles.title}>設施與服務</h3>
+        <p>每間旅館接提供不同設施及服務請參考此處</p>
         <ul>
           {hotel && hotel.service_playground === 1 && (
             <li>
