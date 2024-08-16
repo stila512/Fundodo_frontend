@@ -4,6 +4,7 @@ import Image from 'next/image'
 import FavoriteIcon from './favoriteIcon'
 import Link from 'next/link'
 export default function ProductGrid() {
+	// ===================================
 	const [products, setProducts] = useState([])
 	const [page, setPage] = useState(1)
 	const perPage = 12
@@ -12,7 +13,7 @@ export default function ProductGrid() {
 	const currentProduct = products.slice(fitstProduct, thisPage)
 
 	const changePage = (pageNum) => setPage(pageNum)
-
+//=====================================================
 	const getMaxMinPrice = (priceArr) => {
 		const prices = priceArr.map(price => parseFloat(price)).filter(price => price > 0);
 		if (prices.length === 0) return { maxPrice: 0, minPrice: 0 };

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import scss from './filter.module.scss';
 import PropTypes from 'prop-types';// PropTypes 是一個檢查 React 元件 props 類型的工具，可以幫助確保傳入的 props 符合預期。
 
-function Filter({ categories, onChange, multiple = false }) {// Filter 函數是這個元件的定義，接收 categories 和 onChange 這兩個 props，根據 multiple 決定狀態類型
+function Filter({ classname = {}, categories, onChange, multiple = false }) {// Filter 函數是這個元件的定義，接收 categories 和 onChange 這兩個 props，根據 multiple 決定狀態類型
 	const [selectedCategories, setSelectedCategories] = useState(multiple ? [] : '');// useState 用來創建 selectedCategory 狀態變量和 setSelectedCategory 更新函數。初始值設為空字串 ''，表示沒有選擇任何類別。
 
 	const handleChange = (e) => {
@@ -31,7 +31,7 @@ function Filter({ categories, onChange, multiple = false }) {// Filter 函數是
 	};
 
 	return (
-		<div className={scss.radioWrapper}>
+		<>
 			{categories.map((category, i) => (
 				<label
 					key={i}
@@ -40,6 +40,7 @@ function Filter({ categories, onChange, multiple = false }) {// Filter 函數是
 						: ''}`}// 處理被選中的btn加上樣式
 				>
 					<input
+						classname={classname}
 						type={multiple ? "checkbox" : "radio"}
 						value={category}
 						checked={multiple
@@ -52,7 +53,7 @@ function Filter({ categories, onChange, multiple = false }) {// Filter 函數是
 					{category}
 				</label>
 			))}
-		</div>
+			</>
 	);
 }
 Filter.propTypes = {
