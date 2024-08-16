@@ -36,7 +36,7 @@ export default function TitleAction() {
           <div className={[scss.sortList].join()} ref={scrollSort}>
             <Link className={[scss.sortBtn].join()} href='/article'>全部分類</Link>
             {sort.map(sortitem => (
-              <Link key={sortitem.id} className={[scss.sortBtn].join()} href={`article?sort=${sortitem.id}`}>{sortitem.sort}</Link>)
+              <Link key={sortitem.id} className={[scss.sortBtn].join()} href={`/article?sort=${sortitem.id}`}>{sortitem.sort}</Link>)
               )}
           </div>
           <button className={scss.moreBtn} onClick={scrollLeft}>
