@@ -20,7 +20,7 @@ export default function DogInfoData() {
   const [error, setError] = useState(null);
 
 
-  //從localstorage 找狗狗資料
+  //從localstorage 找狗狗的資料
   const loadDogDataFromLocalStorage = (uuid) => {
     const data = localStorage.getItem(`dogData_${uuid}`);
     if (data) {
