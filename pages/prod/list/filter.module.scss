@@ -1,18 +1,11 @@
 @use '@/styles' as s;
 
-.radioWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 10px; /* 調整項目之間的間距 */
-}
-
 .hiddenRadio {
   display: none;
 }
 
 .customRadio {
   width: fit-content;
-  height: 36px;
   display: flex;
   align-items: center;
   position: relative;
