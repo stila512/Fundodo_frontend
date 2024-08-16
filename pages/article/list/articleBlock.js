@@ -41,7 +41,8 @@ export default function ArticleBlock({ article }) {
             {article.title}
           </a>
           <div className={[scss.extract].join()}>
-            {article.content.substring(0, 50)+'...'}
+          <div dangerouslySetInnerHTML={{ __html: article.content.substring(0, 20)+'...' }} />
+            {/* {article.content.substring(0, 50)+'...'} */}
           </div>
         </div>
         <div className={[scss.artiInfo].join()}>

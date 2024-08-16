@@ -6,7 +6,7 @@
   border-radius: 12px;
   border: 1px solid c.$shade2;
   padding: 20px;
-  margin-left: 90px;
+  margin-left: 40px;
 }
 .info {
   margin-bottom: 20px;
@@ -29,10 +29,11 @@
 }
 .date {
   color: c.$gray-600;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 20px;
   margin: 0 0 10px 0;
+  padding-top: 10px;
 }
 .price {
   color: c.$shade3;
@@ -54,7 +55,7 @@
 .detailTitle{
   display: flex;
   gap: 170px;
-
+  color: c.$heading
 }
 
 .coupon {
@@ -132,9 +133,11 @@
 }
 .map {
   margin-top: 20px;
-  height: 216px;
+  height: 216px; /* 保持高度 */
   flex-shrink: 0;
-  background-color: #e1bdbd;
+  background-color: c.$primary;
+  overflow: hidden; /* 防止内容溢出 */
+  position: relative; /* 用于相对定位 iframe */
 }
 
 

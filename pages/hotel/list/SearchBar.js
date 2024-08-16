@@ -32,7 +32,9 @@ export default function SearchBar() {
             <p>房型</p>
             <div className={styles.selectWrapper}>
               <select className={styles.select}>
-                <option>大型犬 1, 中型犬1</option>
+                <option>大型犬</option>
+                <option>中型犬</option>
+                <option>小型犬</option>
               </select>
             </div>
           </div>
