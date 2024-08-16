@@ -11,8 +11,6 @@ const testData = [
   {
     name: '玩出好感情！與狗兒的互動遊戲課',
     pic_path: 'CR0000011.png',
-    start_date: '2024-08-16',
-    end_date: '2024-08-17',
     plan: '單堂線上遊戲課(5/18的重播教學)',
     price: 1200,
     key: 'semv8942lm'
