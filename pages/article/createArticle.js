@@ -19,7 +19,8 @@ const MyUploadAdapter = class {
             .then((response) => response.json())
             .then((result) => {
               resolve({
-                default: result.url
+                default: `http://localhost:3001${result.url}`,
+                imageId: result.imageId
               });
             })
             .catch(reject);
@@ -53,8 +54,12 @@ export default function CreateArticle() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3001/api/createArticle', { title, content, sort });
-      console.log('Article created:', response.data);
+      // 從 content 中提取所有的 imageId
+      const imageIds = Array.from(content.matchAll(/imageId=(\d+)/g)).map(match => parseInt(match[1]));
+      
+      const response = await axios.post('http://localhost:3001/api/createArticle', { title, content, sort, imageIds });
+      console.log('Article created:', response.data)
+      alert('文章發表成功')
       // 可以在這裡加入成功提示或重定向
     } catch (error) {
       console.error('Error creating article:', error);

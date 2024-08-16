@@ -21,15 +21,15 @@ export default function ArticleContent() {
   const router = useRouter()
   const { aid } = router.query
   useEffect(() => {
-      if (aid) {
-          fetch(`http://localhost:3001/api/articleContent/${aid}`)
-              .then(response => response.json())
-              .then(data => {
-                  if (data.status === 'success') {
-                      setContent(data.content[0])
-                  }
-              }).catch(error => console.log(error.message))
-      }
+    if (aid) {
+      fetch(`http://localhost:3001/api/articleContent/${aid}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === 'success') {
+            setContent(data.content[0])
+          }
+        }).catch(error => console.log(error.message))
+    }
   }, [aid])
   return (
     <>
@@ -52,7 +52,7 @@ export default function ArticleContent() {
         </div>
         <div className={[scss.articleTitle].join()}>{content.title}</div>
         <div className={[scss.mainContent].join()}>
-          {content.content}
+          <div dangerouslySetInnerHTML={{ __html: content.content }} />
         </div>
         <div className={[scss.artiInfo].join()}>
           <div className={[scss.artiTags].join()}>
