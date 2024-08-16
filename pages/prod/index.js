@@ -7,6 +7,7 @@ import Select from './list/select';
 import Aside from './list/aside';
 import ProductGrid from './list/productGrid';
 import MobileFilter from './list/mobileFilter';
+import ProductPage from './list/productPage';
 
 export default function ProductList() {
 
@@ -32,8 +33,7 @@ export default function ProductList() {
           <Select />
         </div>
         <div className={['row', scss.my].join(' ')}>
-          <Aside />
-          <ProductGrid />
+          <ProductPage />
         </div>
 
       </main>
