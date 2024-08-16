@@ -1,5 +1,14 @@
 @use '@/styles' as s;
 
+
+/* .shade3 */
+.shade3 {
+  color: s.$shade3;
+  margin-top: 123px;
+  font-family: 'Zen Maru Gothic';
+}
+
+/* .detailGroup */
 .detailGroup {
   display: flex;
   justify-content: space-between;
@@ -8,37 +17,48 @@
   }
 }
 
+/* .prodImgSmBox */
 .prodImgSmBox {
   width: 129px;
   height: 129px;
 }
+
+/* .headerGrid */
 .headerGrid {
   display: flex;
   align-items: self-start;
   justify-content: space-between;
 }
+
+/* .header */
 .header {
   color: s.$gray-800;
   margin-bottom: 40px;
   font-weight: 700;
 }
 
-@media (max-width: 992px) {
-  .handleFavIcon {
+/* .handleFavIcon */
+.handleFavIcon {
+  @media (max-width: 992px) {
     display: none;
   }
 }
 
+/* .btnGroup */
 .btnGroup {
   margin-top: 37px;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
+
+/* .p */
 .p {
   font-size: 18px;
   font-weight: 400;
 }
+
+/* .radio */
 .radio {
   cursor: pointer;
   text-wrap: nowrap;
@@ -48,18 +68,22 @@
   color: s.$gray-600;
   font-size: 18px;
   text-align: center;
-  font-size: 18px;
   font-weight: 600;
   line-height: 18px;
 }
+
+/* .selected */
 .selected {
   background: s.$primary;
   color: s.$white;
 }
+
+/* .hidden */
 .hidden {
   display: none;
 }
 
+/* .mt */
 .mt {
   margin-top: 60px;
   align-items: center;
@@ -69,30 +93,34 @@
     margin-bottom: 20px;
   }
 }
+
+/* .NumberPanel */
 .NumberPanel {
   @media (max-width: 992px) {
     width: 100% !important;
     font-size: 24px;
   }
 }
+
+/* .fixed */
 .fixed {
   bottom: 0;
   left: 0;
   right: 0;
   width: 100%;
-  display: flex; /* 使用 flexbox 進行布局 */
-  justify-content: center; /* 居中對齊 */
-  align-items: center; /* 垂直居中對齊 */
-  gap: 10px; /* 元素之間的間距 */
-  padding: 10px; /* 可選的內邊距 */
-  
-  /* 當螢幕寬度小於 992px 時 */
-  @media (max-width: 992px) {
-  position: fixed;
+  display: flex; /* 使用 flexbox 进行布局 */
+  justify-content: center; /* 居中对齐 */
+  align-items: center; /* 垂直居中对齐 */
+  gap: 10px; /* 元素之间的间距 */
+  padding: 10px; /* 可选的内边距 */
 
-    justify-content: space-between; /* 元素之間的間距，並且讓元素排列在兩側 */
+  @media (max-width: 992px) {
+    position: fixed;
+    justify-content: space-between; /* 元素之间的间距，并且让元素排列在两侧 */
   }
 }
+
+/* .btnSubmit */
 .btnSubmit {
   cursor: pointer;
   padding: 18px 45px;
@@ -102,33 +130,40 @@
   color: s.$white;
   font-size: 18px;
   text-align: center;
-  font-size: 18px;
   font-weight: 600;
-  line-height: 18px;
   text-wrap: nowrap;
-  flex-grow: 1
+  flex-grow: 1;
 }
+
+/* .btnDisable */
 .btnDisable {
-  width: 111px;
-  height: 36px;
-  border-radius: 8px;
   border: none;
   background: s.$gray-400;
   color: s.$white;
+  text-wrap: nowrap;
+  padding: 15px 25px;
+  border-radius: 8px;
+  font-size: 18px;
+  text-align: center;
+  font-weight: 600;
+  line-height: 18px;
 }
 
+/* .priceGroup */
 .priceGroup {
   margin-top: 47px;
 }
+
+/* .price */
 .price {
   color: s.$shade3;
   font-size: 36px;
-  font-style: normal;
   font-weight: 700;
   line-height: 20px;
   margin-right: 27px;
 }
 
+/* .cs3 */
 .cs3 {
   color: s.$shade3;
   font-size: 18px;
@@ -136,14 +171,9 @@
   font-weight: 400;
 }
 
-.shade3 {
-  color: s.$shade3;
-  margin-top: 123px;
-  font-family: 'Zen Maru Gothic';
-}
-.mbFavIcon{
-  @media (min-width:992px) {
+/* .mbFavIcon */
+.mbFavIcon {
+  @media (min-width: 992px) {
     display: none;
   }
 }
-

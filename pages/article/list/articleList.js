@@ -30,29 +30,6 @@ export default function ArticleList() {
 
     fetchArticles();
   }, [sort])
-  // if(sort){
-  //   useEffect(() => {
-      
-  //     fetch(`http://localhost:3001/api/articles/${sort}`)
-  //       .then(response => response.json())
-  //       .then(data => {
-  //         if (data.status === 'success') {
-  //           setArticles(data.articles)
-  //         }
-  //       }).catch(error => console.log(error.message))
-  //   }, [])
-  // }else{
-  //   useEffect(() => {
-
-  //     fetch(`http://localhost:3001/api/articles/`)
-  //       .then(response => response.json())
-  //       .then(data => {
-  //         if (data.status === 'success') {
-  //           setArticles(data.articles)
-  //         }
-  //       }).catch(error => console.log(error.message))
-  //   }, [])
-  // }
   
 
   const thisPage = page * perPage

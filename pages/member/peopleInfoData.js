@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import DefaultLayout from '@/components/layout/default';
 import scss from './info.module.scss';
 import Image from 'next/image';
@@ -6,8 +6,11 @@ import avatarPic from '@/public/memberPic/head.svg';
 import radio from '@/public/memberPic/radio.svg';
 import SideText from '@/components/member/SideText';
 import Link from 'next/link';
+import { AuthProvider, AuthContext } from '@/context/AuthContext';
+
 
 export default function PeopleInfoData() {
+  const { user: authUser, loading: authLoading } = useContext(AuthContext);
   const [user, setUser] = useState({
     nickname: '',
     password: '',
@@ -45,9 +48,15 @@ export default function PeopleInfoData() {
   };
 
   useEffect(() => {
-    const uuid = '1eaf3f71-0568-4541-86fe-c6e9f0108636';
-    fetchgetMember(uuid);
-  }, []);
+    if (authLoading) return;
+
+    if (authUser && authUser.uuid) {
+      fetchgetMember(authUser.uuid);
+    } else {
+      setError('User not authenticated');
+      setLoading(false);
+    }
+  }, [authUser, authLoading]);
 
   return (
     <>
