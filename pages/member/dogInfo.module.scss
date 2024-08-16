@@ -508,10 +508,15 @@
           gap: 30px;
           flex-shrink: 0;
           border-bottom: 1px solid var(--tint5, #f1edeb);
+          
           .a0 {
             display: flex;
             flex-direction: column;
             gap: 15px;
+            .textgroup{
+              display: flex;
+              flex-direction: row;
+            }
           }
           .a1 {
             display: flex;
