@@ -1,67 +1,82 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import scss from './filter.module.scss';
-import PropTypes from 'prop-types';// PropTypes 是一個檢查 React 元件 props 類型的工具，可以幫助確保傳入的 props 符合預期。
+import PropTypes from 'prop-types';
 
-function Filter({ classname = {}, categories, onChange, multiple = false }) {// Filter 函數是這個元件的定義，接收 categories 和 onChange 這兩個 props，根據 multiple 決定狀態類型
-	const [selectedCategories, setSelectedCategories] = useState(multiple ? [] : '');// useState 用來創建 selectedCategory 狀態變量和 setSelectedCategory 更新函數。初始值設為空字串 ''，表示沒有選擇任何類別。
+function Filter({ className = {}, categories = [], onChange, multiple = false }) {
+  const [selectedCategories, setSelectedCategories] = useState(multiple ? [] : '');
 
-	const handleChange = (e) => {
-		const newValue = e.target.value;
+  useEffect(() => {
+    setSelectedCategories(multiple ? [] : '');
+  }, [categories, multiple]);
 
-		if (multiple) {
-			// 複選模式
-			setSelectedCategories((prev) => {
-				const newSelection = prev.includes(newValue)
-					? prev.filter((category) => category !== newValue)
-					: [...prev, newValue];
+  const handleChange = (e) => {
+    const newValue = e.target.value;
 
-				if (onChange) {
-					onChange(newSelection);
-				}
+    if (multiple) {
+      setSelectedCategories((prev) => {
+        const newSelection = prev.includes(newValue)
+          ? prev.filter((category) => category !== newValue)
+          : [...prev, newValue];
 
-				return newSelection;
-			});
-		} else {
-			// 單選模式
-			setSelectedCategories(newValue);
-			if (onChange) {
-				onChange(newValue);
-			}
-		}
-	};
+        if (onChange) {
+          onChange(newSelection);
+        }
 
-	return (
+        return newSelection;
+      });
+    } else {
+      setSelectedCategories(newValue);
+      if (onChange) {
+        onChange(newValue);
+      }
+    }
+  };
+
+  if (!Array.isArray(categories) || categories.length === 0) {
+    return <div className={className.wrapper || ''}>無可用選項</div>;
+  }
+
+  return (
 		<>
-			{categories.map((category, i) => (
-				<label
-					key={i}
-					className={`${scss.customRadio} ${(multiple ? selectedCategories.includes(category) : category === selectedCategories)
-						? scss.selected
-						: ''}`}// 處理被選中的btn加上樣式
-				>
-					<input
-						classname={classname}
-						type={multiple ? "checkbox" : "radio"}
-						value={category}
-						checked={multiple
-							? selectedCategories.includes(category)
-							: category === selectedCategories}// 根據 selectedCategory 是否匹配來決定按鈕是否選中。
-						onChange={handleChange}
-						className={scss.hiddenRadio}// 應用隱藏的樣式，以隱藏標準的單選按鈕樣式。
-					/>
-					<span className={scss.radioIndicator}></span>
-					{category}
-				</label>
-			))}
+      {categories.map((category, i) => (
+        <label
+          key={i}
+          className={`
+            ${scss.customRadio} 
+            ${className.radio || ''}
+            ${(multiple ? selectedCategories.includes(category) : category === selectedCategories)
+              ? `${scss.selected} ${className.selected || ''}`
+              : ''}
+          `}
+        >
+          <input
+            type={multiple ? "checkbox" : "radio"}
+            value={category}
+            checked={multiple
+              ? selectedCategories.includes(category)
+              : category === selectedCategories}
+            onChange={handleChange}
+            className={`${scss.hiddenRadio}`}
+          />
+          <span className={`${scss.radioIndicator} ${className.indicator || ''}`}></span>
+          {category}
+        </label>
+      ))}
 			</>
-	);
+  );
 }
+
 Filter.propTypes = {
-	categories: PropTypes.arrayOf(PropTypes.string).isRequired,// PropTypes.arrayOf 是一個 PropTypes 的驗證器，用來驗證數組的每個元素是否符合指定的類型。
-	// PropTypes.string 指定了數組中的每個元素必須是字符串類型。這意味著 categories 應該是一個由字符串組成的數組。
-	// isRequired 是一個鏈式方法，用來指示該 prop 是必須的。這意味著在使用 Filter 元件時，categories 屬性是必須提供的。如果未提供這個屬性，React 會在開發模式下發出警告。
-	onChange: PropTypes.func,// PropTypes.func 確保 onChange 必須是函數類型（如果提供的話），但不要求必需提供。
-	multiple: PropTypes.bool
+  categories: PropTypes.arrayOf(PropTypes.string),
+  onChange: PropTypes.func,
+  multiple: PropTypes.bool,
+  className: PropTypes.shape({
+    wrapper: PropTypes.string,
+    radio: PropTypes.string,
+    selected: PropTypes.string,
+    input: PropTypes.string,
+    indicator: PropTypes.string
+  })
 };
 
-export default Filter
+export default Filter;
