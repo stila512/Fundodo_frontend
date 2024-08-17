@@ -5,7 +5,7 @@ import FddBtn from '@/components/buttons/fddBtn';
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoAddCircle } from 'react-icons/io5';
-import review from "@/public/homepagePic/review.png";
+import review from "@/public/homePic/review.png";
 
 
 
