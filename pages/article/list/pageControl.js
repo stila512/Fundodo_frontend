@@ -7,7 +7,7 @@ export default function PageControl() {
       {' '}
       <div className={[scss.pageCtrl].join()}>
         <div className={[scss.ctrler].join()}>
-          <span className={[scss.ctrlText].join()}>發表新文章</span>
+          <a className={[scss.ctrlText].join()} href='/article/createArticle'>發表新文章</a>
         </div>
         <div className={[scss.ctrler].join()}>
           <span className={[scss.ctrlText].join()}>回到頂端</span>
