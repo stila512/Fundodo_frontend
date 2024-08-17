@@ -6,19 +6,22 @@ import scss from './navHeader.module.scss';
 export default function NavFuncBtns({ showCart = true }) {
   return (
     <ul className={scss.ulFunc}>
+    {/* 站內搜尋 */}
       <li>
         <button>
           <AiOutlineSearch />
         </button>
       </li>
+    {/* 會員 */}
       <li>
-        <a href="#">
+        <a href="/member/peopleInfoData">
           <IoMdPerson />
         </a>
       </li>
+    {/* 購物車 */}
       {showCart ? (
         <li>
-          <a href="#">
+          <a href="/buy/cart">
             <IoCart />
           </a>
         </li>
