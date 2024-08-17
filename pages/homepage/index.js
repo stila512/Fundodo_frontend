@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
 import Head from 'next/head';
 import DefaultLayout from '@/components/layout/default';
 import Hero from './hero';
