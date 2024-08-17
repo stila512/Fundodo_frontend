@@ -14,7 +14,7 @@ export default function NavFuncBtns({ showCart = true }) {
       </li>
     {/* 會員 */}
       <li>
-        <a href="/member/peopleInfoData">
+        <a href="/member/login">
           <IoMdPerson />
         </a>
       </li>
