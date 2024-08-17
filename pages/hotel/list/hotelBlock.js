@@ -29,8 +29,12 @@ export default function HotelBlock({ searchQuery, sortOption }) {
   }, [])
 
   useEffect(() => {
-    filterHotels();
-  }, [searchQuery, hotels])
+    if (searchQuery) {
+      filterHotels();
+    } else {
+      setFilteredHotels(hotels);  // 如果 searchQuery 為空，顯示所有酒店
+    }
+  }, [searchQuery, hotels]);
 
   useEffect(() => {
     sortHotels();
