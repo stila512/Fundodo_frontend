@@ -6,29 +6,29 @@ export default function NavLinks() {
   return (
     <ul className={scss.ulLink}>
       <li>
-        <Link href="#">首頁</Link>
+        <Link href="/home">首頁</Link>
       </li>
       <li className={scss.listBtn}>
-        <Link href="#">商品列表</Link>
+        <Link href="/prod">商品列表</Link>
         <IoIosArrowDown />
         <ul className={scss.prodList}>
           <li>
-            <Link href="#">狗勾飼料</Link>
+            <Link href="/prod">狗勾飼料</Link>
           </li>
           <li>
-            <Link href="#">狗勾罐頭</Link>
+            <Link href="/prod">狗勾罐頭</Link>
           </li>
           <li>
-            <Link href="#">狗勾零食</Link>
+            <Link href="/prod">狗勾零食</Link>
           </li>
           <li>
-            <Link href="#">保健食品</Link>
+            <Link href="/prod">保健食品</Link>
           </li>
           <li>
-            <Link href="#">狗勾玩具</Link>
+            <Link href="/prod">狗勾玩具</Link>
           </li>
           <li>
-            <Link href="#">外出用品</Link>
+            <Link href="/prod">外出用品</Link>
           </li>
         </ul>
       </li>
@@ -51,10 +51,10 @@ export default function NavLinks() {
         </ul>
       </li>
       <li>
-        <Link href="#">寵物旅館</Link>
+        <Link href="/hotel/list">寵物旅館</Link>
       </li>
       <li>
-        <Link href="#">討論區</Link>
+        <Link href="/article">討論區</Link>
       </li>
     </ul>
   );

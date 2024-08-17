@@ -101,9 +101,26 @@ export default function SelectDetail({ hotelCode }) {
     return `${date.getMonth() + 1} 月 ${date.getDate()}日`;
   };
 
-  //座標帶入地圖
+  //座標格式
 
-  
+  // useEffect(() => {
+  //   if (hotel) {
+  //     console.log('Latitude:', hotel.latitude);
+  //     console.log('Longitude:', hotel.longitude);
+  //   }
+  // }, [hotel]);
+
+  //座標帶入地圖
+  // const generateMapUrl = (latitude, longitude) => {
+  //   const lat = parseFloat(latitude);
+  //   const lng = parseFloat(longitude);
+    
+  //   if (isNaN(lat) || isNaN(lng)) {
+  //     console.error('無法辨識的座標格式');
+  //     return '';
+  //   }
+  //   return `https://www.google.com/maps/embed/v1/place?key=AIzaSyA4mbO2oQzhqWA7b8QDCOsOFp67LP9kjdY&q=${lat.toFixed(6)},${lng.toFixed(6)}`;
+  // };
 
 
   return (
@@ -165,8 +182,8 @@ export default function SelectDetail({ hotelCode }) {
               </div>
             </div>
 
-            
             <div className={styles.map} >
+              {/* 固定的 */}
               <iframe
                 src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA4mbO2oQzhqWA7b8QDCOsOFp67LP9kjdY&q=24.99610300,121.29479900"
                 width="100%"
@@ -176,6 +193,18 @@ export default function SelectDetail({ hotelCode }) {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               ></iframe>
+              {/* 測試的 */}
+              {/* <iframe
+                width="450"
+                height="250"
+                frameBorder="0"
+                style={{ border: 0 }}
+                referrerPolicy="no-referrer-when-downgrade"
+                src={hotel ? generateMapUrl(hotel.latitude, hotel.longitude) : ''}
+                allowFullScreen=""
+                loading="lazy"
+              ></iframe> */}
+
             </div>
           </div>
 
@@ -213,6 +242,15 @@ export default function SelectDetail({ hotelCode }) {
             </div>
 
             <div className={styles.map} />
+            <iframe
+              src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA4mbO2oQzhqWA7b8QDCOsOFp67LP9kjdY&q=24.99610300,121.29479900"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
             <p className={styles.address}>{hotel.address}</p>
           </div>
         </>

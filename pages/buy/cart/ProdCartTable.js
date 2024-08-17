@@ -56,9 +56,8 @@ export default function ProdCartTable({ setAmount = () => { }, i_amt = -1 }) {
   useEffect(() => {
     //以下寫法參考 Axios 官方文件
     axios.get(apiLink)
-      .then(res => {
-        setDataArr(res.data.result.PD);
-      }).catch(err => {
+      .then(res => setDataArr(res.data.result.PD))
+      .catch(err => {
         console.log("未得到如預期的回應，已啟用備援資料");
         setDataArr(testData);
         if (err.response) {
@@ -75,7 +74,7 @@ export default function ProdCartTable({ setAmount = () => { }, i_amt = -1 }) {
   }, []);
 
   useEffect(() => {
-    setQtyArr(dataArr.flatMap(d => d.quantity));
+    setQtyArr(dataArr.map(d => d.quantity));
   }, [dataArr]);
 
   useEffect(() => {
