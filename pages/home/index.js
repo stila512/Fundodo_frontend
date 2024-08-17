@@ -7,11 +7,11 @@ import CourseSec from './CourseSec';
 import HotelSec from './HotelSec';
 import ArticleSec from './ArticleSec';
 
-export default function Homepage() {
+export default function Home() {
   return (
     <>
       <Head>
-        <title>Homepage</title>
+        <title>Home</title>
       </Head>
       <Hero />
       <ProdSec />
@@ -22,4 +22,4 @@ export default function Homepage() {
   );
 }
 
-Homepage.layout = DefaultLayout;
+Home.layout = DefaultLayout;
