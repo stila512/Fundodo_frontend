@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import FddBtn from '@/components/buttons/fddBtn';
 import Image from 'next/image';
-import { apiBaseUrl } from '@/configs';
 import { TbTrashX } from "react-icons/tb";
 import { RxCross2 } from "react-icons/rx";
 import s from './cart-page.module.scss';
@@ -17,16 +16,17 @@ export default function HotelCartTable({
   i_amt = -1
 }) {
   useEffect(() => {
-    const total = data.reduce((sum, cur) => sum + cur.tot, 0);
-    setAmount(arr => arr.map((v, i) => (i === i_amt) ? total : v));
+    if (data) {
+      const total = data.reduce((sum, cur) => sum + cur.amount, 0);
+      setAmount(arr => arr.map((v, i) => (i === i_amt) ? total : v));
+    }
   }, [data]);
 
-  const noData = (!data || data.length === 0);
 
   return (
     <>
       <table className={s.cartTable}>
-        <caption className='tx-default tx-shade4 tx-left'>共 {data.length} 間旅館</caption>
+        <caption className='tx-default tx-shade4 tx-left'>共 {data ? data.length : 0} 間旅館</caption>
         <thead>
           <tr>
             <th><TbTrashX /></th>
@@ -38,8 +38,7 @@ export default function HotelCartTable({
           </tr>
         </thead>
         <tbody className='tx-body'>
-          {noData ? <tr><th colSpan={6}><h2 className='tx-shade4'>購物車現在空無一物</h2></th></tr> :
-            data.map((item) => (
+          {data.map((item) => (
               <tr key={item.key}>
                 <td>
                   <FddBtn color='tint4' size='sm' icon callback={() => { }}>
@@ -51,20 +50,19 @@ export default function HotelCartTable({
                     src={"/hotelPic/pic/" + item.pic_name}
                     width={100}
                     height={100}
-                    alt={item.hotel_name}
+                    alt={item.prod_name}
                   />
                 </td>
                 <td>
-                {console.log(item.hotel_name)}
-                  <p>{item.hotel_name}</p>
+                  <p>{item.prod_name}</p>
                   <p>{date2str(item.check_in_date) + '—' + date2str(item.check_out_date)}</p>
                 </td>
                 <td>
                   <p>
-                    <span>{item.room_type}</span>
+                    <span>{item.room_type}（{item.dog_name}）</span>
                     <br className="d-lg-none" />
                     <span className="d-none d-lg-inline">{' '}</span>
-                    <span>{'item.qty'} 間</span>
+                    <span>1 間</span>
                   </p>
 
                 </td>
@@ -75,7 +73,7 @@ export default function HotelCartTable({
                 </td>
                 <td>
                   <div className="mx-auto pe-1 tx-right w-fit">
-                    ${'item.tot'}
+                    ${item.amount}
                   </div></td>
               </tr>
             ))

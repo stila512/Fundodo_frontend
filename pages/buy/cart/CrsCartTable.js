@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { TbTrashX } from "react-icons/tb";
 import { RxCross2 } from "react-icons/rx";
 import s from './cart-page.module.scss';
+import { node } from 'prop-types';
 
 export default function CrsCartTable({
   data = null,
@@ -11,16 +12,17 @@ export default function CrsCartTable({
   i_amt = -1
 }) {
   useEffect(() => {
-    const total = data.reduce((sum, cur) => sum + cur.price, 0);
-    setAmount(arr => arr.map((v, i) => (i === i_amt) ? total : v));
+    if (data) {
+      const total = data.reduce((sum, cur) => sum + cur.price, 0);
+      setAmount(arr => arr.map((v, i) => (i === i_amt) ? total : v));
+    }
   }, [data]);
 
-  const noData = (!data || data.length === 0);
 
   return (
     <>
       <table className={s.cartTable}>
-        <caption className='tx-default tx-shade4 tx-left'>共 {data.length} 堂課程</caption>
+        <caption className='tx-default tx-shade4 tx-left'>共 {data ? 0 : data.length} 堂課程</caption>
         <thead>
           <tr>
             <th><TbTrashX /></th>
@@ -31,8 +33,7 @@ export default function CrsCartTable({
           </tr>
         </thead>
         <tbody className='tx-body'>
-          {noData ? <tr><th colSpan={6}><h2 className='tx-shade4'>購物車現在空無一物</h2></th></tr> :
-            data.map((item) => (
+          {data.map((item) => (
               <tr key={item.key}>
                 <td>
                   <FddBtn color='tint4' size='sm' icon callback={() => { }}>
