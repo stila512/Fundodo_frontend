@@ -1,0 +1,64 @@
+{
+  "status": "failed",
+  "message": "伺服器沒有如預期回應，此包資料為應急措施",
+  "result": {
+    "PD": [
+      {
+        "name": "Plus+機能保健系列 泌尿道紓壓保健",
+        "pic_path": "PR0000001611.jpg",
+        "sort": "",
+        "spec": "1.5g x 30入",
+        "price": 450,
+        "number": 1
+      },
+      {
+        "name": "花花拾便器套裝",
+        "pic_path": "PR0000002581.jpg",
+        "sort": "補充替換袋",
+        "spec": "單入 (拾便器+拾便袋1捲)",
+        "price": 150,
+        "number": 2
+      },
+      {
+        "name": "LINSLINS寵物漏食玩具 - 魔法小兔帽",
+        "pic_path": "PR0000003971.jpg",
+        "sort": "魔法小兔帽",
+        "spec": "",
+        "price": 250,
+        "number": 1
+      }
+    ],
+    "CR": [
+      {
+        "name": "玩出好感情！與狗兒的互動遊戲課",
+        "pic_path": "CR0000011.png",
+        "price": 1200,
+        "key": "semv8942lm"
+      }
+    ],
+    "HT": [
+      {
+        "hotel_name": "毛起來住寵物旅館",
+        "pic_path": "HT0000011.jpg",
+        "start_date": "2024-08-16",
+        "end_date": "2024-08-17",
+        "bodytype": "中型犬",
+        "price": 337,
+        "qty": 1,
+        "tot": 337,
+        "key": "dfjiaoejga"
+      },
+      {
+        "hotel_name": "毛起來住寵物旅館",
+        "pic_path": "HT0000011.jpg",
+        "start_date": "2024-08-16",
+        "end_date": "2024-08-17",
+        "bodytype": "大型犬",
+        "price": 422,
+        "qty": 1,
+        "tot": 422,
+        "key": "ef53dsegkj"
+      }
+    ]
+  }
+}

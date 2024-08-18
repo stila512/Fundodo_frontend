@@ -2,9 +2,9 @@ import React from 'react';
 import Image from 'next/image';
 import scss from './hero.module.scss';
 import FddBtn from '@/components/buttons/fddBtn';
-import dog1 from '@/public/homepagePic/dog1.png';
-import dog2 from '@/public/homepagePic/dog2.png';
-import dog3 from '@/public/homepagePic/dog3.png';
+import dog1 from '@/public/homePic/dog1.png';
+import dog2 from '@/public/homePic/dog2.png';
+import dog3 from '@/public/homePic/dog3.png';
 
 export default function Hero() {
   return (

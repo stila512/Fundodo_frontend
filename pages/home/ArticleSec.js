@@ -2,7 +2,7 @@ import React from 'react'
 import FddBtn from '@/components/buttons/fddBtn';
 import scss from './articleSec.module.scss';
 import Image from 'next/image';
-import artdog1 from '@/public/homepagePic/artdog2.png';
+import artdog1 from '@/public/homePic/artdog2.png';
 import Link from 'next/link';
 
 
