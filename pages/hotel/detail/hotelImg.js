@@ -4,6 +4,7 @@ import Image from 'next/image';
 
 export default function HotelImg({ hotelCode }) {
   const [hotel, setHotel] = useState(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     const getHotel = async () => {
@@ -14,10 +15,7 @@ export default function HotelImg({ hotelCode }) {
         const imgArr = data.data.images.split(',');
         setHotel({
           ...data.data,
-          mainImg: imgArr[0],
-          subImg: imgArr[0],
-          subImg1: imgArr[1],
-          subImg2: imgArr[2]
+          images: imgArr,
         });
       }
     };
@@ -27,6 +25,17 @@ export default function HotelImg({ hotelCode }) {
     }
   }, [hotelCode]);
 
+  const handlePrevImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === 0 ? hotel.images.length - 1 : prevIndex - 1
+    );
+  };
+
+  const handleNextImage = () => {
+    setCurrentImageIndex((prevIndex) => 
+    (prevIndex + 1) % hotel.images.length
+    );
+  };
 
 
 
@@ -37,42 +46,32 @@ export default function HotelImg({ hotelCode }) {
           <div className={styles.hotelImg}>
             <div className={styles.mainImgContainer}>
               <Image
-                src={`/hotelPic/pic/${hotel.mainImg}`}
+                src={`/hotelPic/pic/${hotel.images[currentImageIndex]}`}
                 width={0}
                 height={0}
                 className={styles.mainImg}
                 alt="Main Image"
               />
+              <button 
+                className={`${styles.arrowBtn} ${styles.rightArrow}`} 
+                onClick={handleNextImage}
+              >
+                &gt;
+              </button>
             </div>
 
             <div className={styles.subImg}>
-              <div className={styles.subImgContainer}>
-                <Image
-                  src={`/hotelPic/pic/${hotel.subImg}`}
-                  width={150}
-                  height={110}
-                  className={styles.img}
-                  alt="Sub Image 1"
-                />
-              </div>
-              <div className={styles.subImgContainer}>
-                <Image
-                  src={`/hotelPic/pic/${hotel.subImg1}`}
-                  width={150}
-                  height={110}
-                  className={styles.img}
-                  alt="Sub Image 1"
-                />
-              </div>
-              <div className={styles.subImgContainer}>
-                <Image
-                  src={`/hotelPic/pic/${hotel.subImg2}`}
-                  width={150}
-                  height={110}
-                  className={styles.img}
-                  alt="Sub Image 2"
-                />
-              </div>
+              {hotel.images.slice(0, 3).map((img, index) => (
+                <div key={index} className={styles.subImgContainer}>
+                  <Image
+                    src={`/hotelPic/pic/${img}`}
+                    width={150}
+                    height={110}
+                    className={styles.img}
+                    alt={`Sub Image ${index + 1}`}
+                  />
+                </div>
+                ))}
             </div>
           </div>
         </>

@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import scss from './courseSec.module.scss';
 import FddBtn from '@/components/buttons/fddBtn';
-// import course from '@/public/homepagePic/bgc.png';
+// import course from '@/public/homePic/bgc.png';
 import { FaArrowRight } from "react-icons/fa";
 
 

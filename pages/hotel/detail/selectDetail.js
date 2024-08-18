@@ -29,15 +29,24 @@ export default function SelectDetail({ hotelCode }) {
     }
   }, [hotelCode]);
 
-  //依照選擇日期計算幾晚
+  //依照選擇日期計算幾晚+審查機制
   const handleDateChange = useCallback((e, type) => {
     const date = e.target.value;
     if (type === 'checkIn') {
       setCheckInDate(date);
-    } else {
+      //退房日早於入住日就清空退房日
+      if(checkOutDate && date > checkOutDate) {
+        setCheckOutDate('');
+      }
+    } else if (type === 'checkOut'){
+      //確保退房不早於入住
+      if(date < checkInDate) {
+        alert('退房需晚於入住日')
+        return;
+      }
       setCheckOutDate(date);
     }
-  }, []);
+  }, [checkInDate, checkOutDate]);
 
   const calculateNights = useCallback((checkIn, checkOut) => {
     if (!checkIn || !checkOut) return 1;
@@ -55,9 +64,12 @@ export default function SelectDetail({ hotelCode }) {
     }
   }, [checkInDate, checkOutDate, calculateNights]);
 
-  const handleRoomTypeChange = useCallback((e) => {
-    setRoomType(e.target.value);
+  const handleRoomTypeChange = useCallback((type) => {
+    setRoomType(type);
   }, []);
+  
+//切換房型的style
+  const getWeightRangeClass = (type) => roomType === type ? styles.active : '';
 
   const handleRoomCountChange = useCallback((e) => {
     setRoomCount(Number(e.target.value));
@@ -114,7 +126,7 @@ export default function SelectDetail({ hotelCode }) {
   // const generateMapUrl = (latitude, longitude) => {
   //   const lat = parseFloat(latitude);
   //   const lng = parseFloat(longitude);
-    
+
   //   if (isNaN(lat) || isNaN(lng)) {
   //     console.error('無法辨識的座標格式');
   //     return '';
@@ -157,16 +169,37 @@ export default function SelectDetail({ hotelCode }) {
               <div className={styles.detailTitle}>
                 <p>房型</p>
               </div>
-              <select
-                className={styles.petSelect}
-                value={roomType}
-                onChange={handleRoomTypeChange}
-              >
-                <option value="">請選擇房型</option>
-                <option value="小型犬">小型犬</option>
-                <option value="中型犬">中型犬</option>
-                <option value="大型犬">大型犬</option>
-              </select>
+              <div className={styles.roomTypeButtons}>
+                <button
+                  className={`${styles.roomTypeButton} ${roomType === '小型犬' ? styles.active : ''}`}
+                  onClick={() => handleRoomTypeChange('小型犬')}
+                >
+                  小型犬 <br />
+                  <span className={`${styles.weightRange} ${getWeightRangeClass('小型犬')}`}>
+                    (10公斤以下)
+                  </span>
+                </button>
+
+                <button
+                  className={`${styles.roomTypeButton} ${roomType === '中型犬' ? styles.active : ''}`}
+                  onClick={() => handleRoomTypeChange('中型犬')}
+                >
+                  中型犬 <br />
+                  <span className={`${styles.weightRange} ${getWeightRangeClass('中型犬')}`}>
+                    (10公斤~25公斤)
+                  </span>
+                </button>
+
+                <button
+                  className={`${styles.roomTypeButton} ${roomType === '大型犬' ? styles.active : ''}`}
+                  onClick={() => handleRoomTypeChange('大型犬')}
+                >
+                  大型犬 <br />
+                  <span className={`${styles.weightRange} ${getWeightRangeClass('大型犬')}`}>
+                    (25公斤以上)
+                  </span>
+                </button>
+              </div>
               <div className={styles.detailTitle}>
                 <p>間數</p>
               </div>

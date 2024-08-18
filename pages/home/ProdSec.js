@@ -2,10 +2,10 @@ import React from 'react';
 import Image from 'next/image';
 import scss from  './prodSec.module.scss';
 import FddBtn from '@/components/buttons/fddBtn';
-import feed1 from '@/public/homepagePic/feed1.png';
-import feed2 from '@/public/homepagePic/feed2.png';
-import feed3 from '@/public/homepagePic/feed3.png';
-import feed4 from '@/public/homepagePic/feed4.png';
+import feed1 from '@/public/homePic/feed1.png';
+import feed2 from '@/public/homePic/feed2.png';
+import feed3 from '@/public/homePic/feed3.png';
+import feed4 from '@/public/homePic/feed4.png';
 import { FaArrowRight } from "react-icons/fa";
 
 export default function ProdSec() {
