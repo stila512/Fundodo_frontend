@@ -9,10 +9,12 @@ import icon_i from '@/public/memberPic/i.svg';
 import dog from '@/public/memberPic/dog.svg';
 import Shiba from '@/public/memberPic/Shiba.png';
 import Link from 'next/link';
+import useAuthRedirect from '@/hooks/useAuthRedirect';
 
 
 
 export default function DogInfoData() {
+  useAuthRedirect();
   const { user: authUser, loading: authLoading } = useContext(AuthContext);
   const [dogData, setDogData] = useState(null);
 
@@ -20,7 +22,7 @@ export default function DogInfoData() {
   const [error, setError] = useState(null);
 
 
-  //從localstorage 找狗狗資料
+  //從localstorage 找狗狗的資料
   const loadDogDataFromLocalStorage = (uuid) => {
     const data = localStorage.getItem(`dogData_${uuid}`);
     if (data) {
@@ -122,7 +124,17 @@ export default function DogInfoData() {
         return '未知';
     }
   };
+  
+  const formatDate = (dateString) => {
+    if (!dateString) return '未知';
 
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  };
   return (
     <>
       {loading ? (
@@ -158,7 +170,8 @@ export default function DogInfoData() {
                       <div className={`${scss.a0} col-6`}>
                         <div className={`${scss.textgroup}`}>
                           <div className={`col-2`}>性別<br /><p>{dogData[0].gender === 1 ? '公' : '母' || '未知'}</p></div>
-                          <div className={`col-6`}>年齡<br /><p>{dogData[0].age || '未知'}</p></div>
+                          <div className={`col-6`}>生日<br /><p>{formatDate(dogData[0].birthday)}</p></div>
+                          <div className={`col-6`}>體重<br /><p>{dogData[0].weight || '未知'}kg</p></div>
                           <div className={`col-4`}>犬型<br /><p>{getBodyTypeDescription(dogData[0].bodytype) || '未知'} </p></div>
                         </div>
                         <div>

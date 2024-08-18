@@ -7,9 +7,11 @@ import radio from '@/public/memberPic/radio.svg';
 import SideText from '@/components/member/SideText';
 import Link from 'next/link';
 import { AuthProvider, AuthContext } from '@/context/AuthContext';
-
+import { useRouter } from 'next/router';
+import useAuthRedirect from '@/hooks/useAuthRedirect';
 
 export default function PeopleInfoData() {
+  useAuthRedirect();
   const { user: authUser, loading: authLoading } = useContext(AuthContext);
   const [user, setUser] = useState({
     nickname: '',
@@ -27,7 +29,7 @@ export default function PeopleInfoData() {
       .then(response => {
         if (!response.ok) {
           return response.json().then(errorData => {
-            throw new Error(`错误 ${response.status}: ${errorData.message}`);
+            throw new Error(`錯誤 ${response.status}: ${errorData.message}`);
           });
         }
         return response.json();

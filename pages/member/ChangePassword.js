@@ -3,8 +3,10 @@ import scss from './info.module.scss';
 import Image from 'next/image';
 import SideText from '@/components/member/SideText';
 import Link from 'next/link';
+import useAuthRedirect from '@/hooks/useAuthRedirect';
 
 export default function ChangePassword() {
+  useAuthRedirect();
   return (
     <>
       <main className={scss.ChangePasswordContainer}>
