@@ -140,6 +140,46 @@
   position: relative; /* 用于相对定位 iframe */
 }
 
+.roomTypeButtons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.roomTypeButton {
+  flex: 1;
+  padding: 0.3rem;
+  border: 1px solid #ccc;
+  background-color: c.$white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 18px;
+  color: c.$heading;
+  border-radius: 5px;
+
+  &:not(:last-child) {
+    margin-right: 0.5rem;
+  }
+
+  &:hover {
+    background-color: c.$tint5;
+  }
+
+  &.active {
+    background-color: c.$shade2;
+    color: #fff;
+    border-color: c.$shade1;
+  }
+}
+
+.weightRange {
+  font-size: 12px;
+  color: c.$gray-600;
+
+  &.active {
+    color: c.$tint3;
+  }
+}
 
 .wrapMobile {
   display: none;

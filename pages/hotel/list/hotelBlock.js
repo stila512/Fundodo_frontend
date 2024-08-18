@@ -7,6 +7,7 @@ export default function HotelBlock({ searchQuery, sortOption }) {
   const [hotels, setHotels] = useState([]);
   const [filteredHotels, setFilteredHotels] = useState([]);
 
+
   const getHotels = async () => {
     try {
       const baseURL = "http://localhost:3005/api/hotel"
@@ -29,47 +30,37 @@ export default function HotelBlock({ searchQuery, sortOption }) {
   }, [])
 
   useEffect(() => {
-    if (searchQuery) {
-      filterHotels();
-    } else {
-      setFilteredHotels(hotels);  // 如果 searchQuery 為空，顯示所有酒店
-    }
-  }, [searchQuery, hotels]);
+    if (hotels.length > 0) {
+      let result = [...hotels];
 
-  useEffect(() => {
-    sortHotels();
-  }, [sortOption, filteredHotels]);
+      // 篩選
+      if (searchQuery.trim()) {
+        result = result.filter(hotel =>
+          hotel.address && hotel.address.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      }
 
-  // 排序規則
-  const sortHotels = () => {
-    const sortedHotels = [...filteredHotels];
-    switch (sortOption) {
-      case 'new':
-        sortedHotels.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-        break;
-      case 'priceAsc':
-        sortedHotels.sort((a, b) => a.price_s - b.price_s);
-        break;
-      case 'priceDesc':
-        sortedHotels.sort((a, b) => b.price_s - a.price_s);
-        break;
-      default:
-        break;
-    }
-    setFilteredHotels(sortedHotels);
-  };
 
-  // 篩選
-  const filterHotels = () => {
-    if (!searchQuery) {
-      setFilteredHotels(hotels);
-    } else {
-      const filtered = hotels.filter(hotel =>
-        hotel.address.includes(searchQuery)
-      );
-      setFilteredHotels(filtered);
+      // 排序
+      switch (sortOption) {
+        case 'new':
+          result.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+          break;
+        case 'priceAsc':
+          result.sort((a, b) => a.price_s - b.price_s);
+          break;
+        case 'priceDesc':
+          result.sort((a, b) => b.price_s - a.price_s);
+          break;
+        default:
+          break;
+      }
+
+      setFilteredHotels(result);
     }
-  }
+  }, [hotels, searchQuery, sortOption]);
+
+
 
   return (
     <div className={['container', styles.container].join(' ')}>
