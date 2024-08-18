@@ -23,6 +23,7 @@ export default function CartPage() {
   });
 
   const [amtArr, setAmtArr] = useState([0, 0, 0]);
+
   // totalArr[0] | 商品總金額
   // totalArr[1] | 實付總金額
   /** @type {[number[], React.Dispatch<number[]>]} */
@@ -38,7 +39,7 @@ export default function CartPage() {
   }, [])
   //===== 以會員 ID 索取購物車資料
   useEffect(() => {
-    if(uID === 0) return;
+    if (uID === 0) return;
     //以下寫法參考 Axios 官方文件
     axios.get(`${apiBaseUrl}/cart/${uID}`)
       .then(res => setCartPkg(res.data.result))
@@ -57,13 +58,15 @@ export default function CartPage() {
         }
       });
   }, [uID])
-  //===== 加總購物車總金額
+  //===== 計算總購物車總金額
   useEffect(() => {
     setTotalArr([
       amtArr.reduce((sum, subtotal) => sum + subtotal, 0),
       amtArr.reduce((sum, subtotal) => sum + subtotal, delivery_fee + discount),
     ]);
   }, [amtArr]);
+
+  const isEmpty = !(cartPkg.CR || cartPkg.HT || cartPkg.CR);
 
   return (
     <>
@@ -72,45 +75,46 @@ export default function CartPage() {
       </Head>
       <BuyProgress stage={1} />
       <section className="container mt-5">
-        <ProdCartTable data={cartPkg.PD} setAmount={setAmtArr} i_amt={0} />
-        <HotelCartTable data={cartPkg.HT} setAmount={setAmtArr} i_amt={1} />
-        <CrsCartTable data={cartPkg.CR} setAmount={setAmtArr} i_amt={2} />
+        {cartPkg.PD && <ProdCartTable data={cartPkg.PD} setAmount={setAmtArr} i_amt={0} />}
+        {cartPkg.HT && <HotelCartTable data={cartPkg.HT} setAmount={setAmtArr} i_amt={1} />}
+        {cartPkg.CR && <CrsCartTable data={cartPkg.CR} setAmount={setAmtArr} i_amt={2} />}
+        {isEmpty && <h2 className='tx-shade4 tx-center' style={{ marginBlock: '8rem' }}>購物車現在空無一物</h2>}
         <div className='d-flex jc-end'>
-          {/*//todo  */}
-          <button className={["bg-primary tx-white", s.continueBtn].join(' ')}>繼續購物</button>
+          <Link href="/prod" className={["bg-primary tx-white", s.continueBtn].join(' ')}>繼續購物</Link>
         </div>
-        <article className={s.orderInfo}>
-          <table>
-            <thead>
-              <tr>
-                <th>訂單資訊</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th>商品金額</th>
-                <td>NT ${totalArr[0]}</td>
-              </tr>
-              <tr>
-                <th>運費</th>
-                <td>NT ${delivery_fee}</td>
-              </tr>
-              <tr>
-                <th>優惠折扣</th>
-                <td>NT ${discount}</td>
-              </tr>
-              <tr>
-                <th>結帳金額</th>
-                <td>NT ${totalArr[1]}</td>
-              </tr>
-              <tr>
-                <td colSpan={2}>
-                  <Link className={s.payBtn} href='/buy/confirm'>前往結帳</Link>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </article>
+        {isEmpty ||
+          <article className={s.orderInfo}>
+            <table>
+              <thead>
+                <tr>
+                  <th>訂單資訊</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>商品金額</th>
+                  <td>NT ${totalArr[0]}</td>
+                </tr>
+                <tr>
+                  <th>運費</th>
+                  <td>NT ${delivery_fee}</td>
+                </tr>
+                <tr>
+                  <th>優惠折扣</th>
+                  <td>NT ${discount}</td>
+                </tr>
+                <tr>
+                  <th>結帳金額</th>
+                  <td>NT ${totalArr[1]}</td>
+                </tr>
+                <tr>
+                  <td colSpan={2}>
+                    <Link className={s.payBtn} href='/buy/confirm'>前往結帳</Link>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </article>}
       </section>
     </>
   );
