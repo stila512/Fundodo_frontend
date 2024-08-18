@@ -8,7 +8,6 @@ import { RxCross2 } from "react-icons/rx";
 
 //todo 將 isOutOfStock 與 stock_when_few 納入機制
 
-
 export default function ProdCartTable({
   data = null,
   setAmount = () => { },
@@ -19,8 +18,9 @@ export default function ProdCartTable({
 
   useEffect(() => {
     setQtyArr(data.map(d => d.quantity));
-  }, []);
+  }, [data]);
 
+  //===== 計算 PD 購物車小計
   useEffect(() => {
     const subtotList = qtyArr.map((q, i) => q * data[i].price);
     const total = subtotList.reduce((total, cur) => total + cur, 0);
@@ -37,7 +37,9 @@ export default function ProdCartTable({
   return (
     <>
       <table className={s.cartTable}>
-        <caption className='tx-default tx-shade4 tx-left'>共 {data.length} 件商品</caption>
+        <caption className='tx-default tx-shade4 tx-left'>
+          共 {data.length} 件商品
+        </caption>
         <thead>
           <tr>
             <th><TbTrashX /></th>
@@ -50,10 +52,6 @@ export default function ProdCartTable({
           </tr>
         </thead>
         <tbody className='tx-body'>
-          {noData &&
-            <tr><th colSpan={7}>
-              <h2 className='tx-shade4'>購物車現在空無一物</h2>
-            </th></tr>}
           {noData || data.map((item, i_data) => (
             <tr key={item.key}>
               <td>
