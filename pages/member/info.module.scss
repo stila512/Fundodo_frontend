@@ -5,7 +5,7 @@
   flex-direction: row;
   height: 80vh;
   @media (max-width: 768px) {
-    .midtext input{
+    .midtext input {
       max-width: 70%;
     }
   }
@@ -87,9 +87,53 @@
       padding: 5px 71px 5px 0px;
       align-items: flex-start;
       gap: 34px;
+      input[type='radio'] {
+        display: none;
+      }
     }
-    input[type='radio'] {
-      display: none;
+    //自訂radio
+    .genderRadio input[type='radio'] + label {
+      position: relative;
+      display: inline-flex; 
+      align-items: center;
+      padding-left: 30px; /* 給自訂按鈕留出空間 */
+      cursor: pointer;
+      line-height: 20px;
+      font-size: 16px;
+      text-align: left;
+    }
+
+    /* 自訂單選按鈕的偽元素 */
+    .genderRadio input[type='radio'] + label::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 14px;
+      height: 14px;
+      border: 2px solid #E5E6EB;
+      border-radius: 50%;
+      background: #fff;
+      transform: translateY(-50%);
+    }
+
+    /* 選中狀態的樣式 */
+    .genderRadio input[type='radio']:checked + label::before {
+      background: #b9a399; /* 選中時的背景顏色 */
+      border-color: #E5E6EB; /* 選中時的邊框顏色 */
+    }
+
+    /* 自訂單選按鈕的選中效果 */
+    .genderRadio input[type='radio']:checked + label::after {
+      content: '';
+      position: absolute;
+      left: 7px; /* 定位於左側 */
+      top: 50%;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #fff;
+      transform: translateY(-50%);
     }
   }
   .area5 {
@@ -177,10 +221,10 @@
   flex-direction: row;
   height: 80vh;
   @media (max-width: 768px) {
-    .midtext input{
+    .midtext input {
       max-width: 70%;
     }
-    .midtext textarea{
+    .midtext textarea {
       max-width: 70%;
     }
   }

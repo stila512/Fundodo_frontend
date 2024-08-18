@@ -11,11 +11,10 @@ import TWZipCode from '@/components/member/tw-zipcode';
 export default function PeopleInfo() {
   const { user: authUser, loading: authLoading } = useContext(AuthContext);
   const [user, setUser] = useState({
-    nickname: '',
-    email: '',
+    name: '',
     gender: '',
     dob: '',
-    phone: '',
+    tel: '',
     address: ''
   })
 
@@ -72,13 +71,42 @@ export default function PeopleInfo() {
     setSelectedDistrict(district);
   };
 
+   // 提交表單處理函數
+   const handleSubmit = (event) => {
+    event.preventDefault();
+  
+    const formData = new FormData();
+    formData.append('name', user.name);
+    formData.append('gender', user.gender);
+    formData.append('dob', user.dob);
+    formData.append('tel', user.tel);
+    formData.append('address', `${selectedCity}${selectedDistrict}${user.address}`);
+  
+    const url = `http://localhost:3005/api/member/${authUser.uuid}`;
+  
+    fetch(url, {
+      method: 'PUT',
+      body: formData,
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 'success') {
+          alert('資料更新成功');
+        } else {
+          setError(data.message);
+        }
+      })
+      .catch(error => {
+        setError(error.message);
+      });
+  };
 
   return (
     <>
       <main className={scss.PeopleInfoContainer}>
         <div className="col-1 col-lg-4"></div>
         <div className={`${scss.midarea} col-12 col-lg-5`}>
-          <form className={`${scss.midtext}`}>
+          <form className={`${scss.midtext}`} onSubmit={handleSubmit}>
             <div className={`${scss.area2} `}>Email <p>{user.email || 'example@gmail.com'} <span>沒收到驗證信?</span></p></div>
             <div className={scss.area3}>姓名 <input type="text"
               value={user.name}
@@ -90,29 +118,37 @@ export default function PeopleInfo() {
               <div className={scss.genderRadio}>
                 <input type="radio"
                   name="gender"
-                  value="male"
-                  checked={user.gender === 'male'}
-                  onChange={() => setUser({ ...user, gender: 'male' })}>
+                  value="1"
+                  id="male"
+                  checked={user.gender === '1'}
+                  onChange={() => setUser({ ...user, gender: '1' })}>
                 </input>
-                <label html="male"><Image className="imgWrap" src={radio} alt="Image" />先生</label>
-                <input type="radio"
+                <label htmlFor="male">先生</label>
+                <input
+                  type="radio"
                   name="gender"
-                  value="female"
-                  checked={user.gender === 'female'}
-                  onChange={() => setUser({ ...user, gender: 'female' })}>
-                </input>
-                <label html="male"><Image className="imgWrap" src={radio} alt="Image" />女士</label>
+                  value="2"
+                  id="female"
+                  checked={user.gender === '2'}
+                  onChange={() => setUser({ ...user, gender: '2' })}
+                />
+                <label htmlFor="female">女士</label>
               </div>
             </div>
             <div className={scss.area5}>生日
-              <div><label html="birthday"></label>
-                <input type="month" id="birthday" name="dob" min="1900-01" max="2030-12-31" required></input>
+              <div><label htmlFor="birthday"></label>
+                <input 
+                type="date" id="birthday" name="dob" 
+                value={user.dob} 
+                onChange={(e) => setUser({ ...user, dob: e.target.value })}
+                min="1900-01" max="2030-12-31" required>
+                </input>
               </div>
             </div>
             <div className={scss.area6}>行動電話
               <input type="tel"
-                value={user.phone}
-                onChange={(e) => setUser({ ...user, phone: e.target.value })}
+                value={user.tel}
+                onChange={(e) => setUser({ ...user, tel: e.target.value })}
                 placeholder="請輸入電話">
               </input></div>
             <div className={scss.area7}>聯絡地址
@@ -132,7 +168,7 @@ export default function PeopleInfo() {
             </div>
             <div className={`${scss.botarea} my-5 mx-5`}>
               <button className={scss.btn1}>編輯資料</button>
-              <button className={scss.btn2}>確認送出</button>
+              <button type="submit" className={scss.btn2}>確認送出</button>
             </div>
           </form>
         </div>

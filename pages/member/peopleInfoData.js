@@ -27,7 +27,7 @@ export default function PeopleInfoData() {
       .then(response => {
         if (!response.ok) {
           return response.json().then(errorData => {
-            throw new Error(`错误 ${response.status}: ${errorData.message}`);
+            throw new Error(`錯誤 ${response.status}: ${errorData.message}`);
           });
         }
         return response.json();
