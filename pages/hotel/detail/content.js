@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './content.module.scss';
 import { BsQuestionCircle } from "react-icons/bs";
-import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowDown, IoIosArrowUp  } from "react-icons/io";
 import { FaBone } from "react-icons/fa6";
 import Icon1 from "@/public/hotelPic/icon/OBJECTS.svg"
 import Icon2 from "@/public/hotelPic/icon/OBJECTS-2.svg"
@@ -9,12 +9,15 @@ import Icon3 from "@/public/hotelPic/icon/OBJECTS-3.svg"
 import Icon4 from "@/public/hotelPic/icon/OBJECTS-4.svg"
 import Image from 'next/image';
 
-//總價算的怪怪
-//日期限制往後選
-//接map
-
 export default function Content({hotelCode}) {
   const [hotel, setHotel] = useState(null);
+  const [expandedQuestions, setExpandedQuestions] = useState({
+    preparation: false,
+    checkIn: false,
+    food: false,
+    items: false
+  });
+
 
   useEffect(() => {
     const getHotel = async () => {
@@ -31,6 +34,13 @@ export default function Content({hotelCode}) {
     }
   }, [hotelCode]);
 
+  const toggleQuestion = (question) => {
+    setExpandedQuestions(prev => ({
+      ...prev,
+      [question]: !prev[question]
+    }));
+  };
+
 
   return (
     <>
@@ -46,7 +56,7 @@ export default function Content({hotelCode}) {
 
       <div className={styles.service}>
         <h3 className={styles.title}>設施與服務</h3>
-        <p>每間旅館接提供不同設施及服務請參考此處</p>
+        <p className={styles.titleDetail}>每間旅館接提供不同設施及服務請參考此處</p>
         <ul>
           {hotel && hotel.service_playground === 1 && (
             <li>
@@ -77,13 +87,18 @@ export default function Content({hotelCode}) {
 
       <div className={styles.faqSection}>
         <h3 className={styles.title}>常見問題</h3>
-        <div className={styles.faqQuestion}>
+        <div className={styles.faqQuestion}
+          onClick={() => toggleQuestion('preparation')}
+        >
           <div className={styles.leftContent}>
             <span className={styles.faqIcon}><BsQuestionCircle /></span>
             行前需要做哪些準備？
           </div>
-          <span className={styles.faqIcon}><IoIosArrowDown /></span>
+          <span className={styles.faqIcon}>
+          {expandedQuestions.preparation ? <IoIosArrowUp /> : <IoIosArrowDown />}
+          </span>
         </div>
+        {expandedQuestions.preparation && (
         <div className={styles.faqAnswer}>
           <ul>
             <li>
@@ -120,14 +135,21 @@ export default function Content({hotelCode}) {
             </li>
           </ul>
         </div>
-
-        <div className={styles.faqQuestion}>
+        )}
+        
+       
+        <div className={styles.faqQuestion}
+          onClick={() => toggleQuestion('checkIn')}
+        >
           <div className={styles.leftContent}>
             <span className={styles.faqIcon}><BsQuestionCircle /></span>
             每次辦理入住應提供？
           </div>
-          <span className={styles.faqIcon}><IoIosArrowDown /></span>
+          <span className={styles.faqIcon}>
+          {expandedQuestions.checkIn ? <IoIosArrowUp /> : <IoIosArrowDown />}
+          </span>
         </div>
+        {expandedQuestions.checkIn && (
         <div className={styles.faqAnswer}>
           <ul>
             <li><FaBone className={styles.boneIcon} />7歲以下狗狗：入館日期一年內已施打『狂犬病疫苗』、多合一疫苗</li>
@@ -138,13 +160,21 @@ export default function Content({hotelCode}) {
             </li>
           </ul>
         </div>
-        <div className={styles.faqQuestion}>
+        )}
+
+
+        <div className={styles.faqQuestion}
+          onClick={() => toggleQuestion('food')}
+        >
           <div className={styles.leftContent}>
             <span className={styles.faqIcon}><BsQuestionCircle /></span>
             狗狗住宿要自備飼料嗎?
           </div>
-          <span className={styles.faqIcon}><IoIosArrowDown /></span>
+          <span className={styles.faqIcon}>
+          {expandedQuestions.food ? <IoIosArrowUp /> : <IoIosArrowDown />}
+          </span>
         </div>
+        {expandedQuestions.food && (
         <div className={styles.faqAnswer}>
           <ul>
             <li><FaBone className={styles.boneIcon} />
@@ -154,15 +184,24 @@ export default function Content({hotelCode}) {
             </li>
           </ul>
         </div>
-        <div className={styles.faqQuestion}>
+        )}
+
+        <div className={styles.faqQuestion}
+          onClick={() => toggleQuestion('items')}
+        >
           <div className={styles.leftContent}>
             <span className={styles.faqIcon}><BsQuestionCircle /></span>
             要自備寶貝習慣的用品嗎
           </div>
-          <span className={styles.faqIcon}><IoIosArrowDown /></span>
+          <span className={styles.faqIcon}>
+          {expandedQuestions.items ? <IoIosArrowUp /> : <IoIosArrowDown />}
+          </span>
         </div>
+
+        {expandedQuestions.items && (
         <div className={styles.faqAnswer}>
           <ul>
+          <li>建議可自備以下用品：</li>
             <li><FaBone className={styles.boneIcon} />寵物的食物和零食</li>
             <li><FaBone className={styles.boneIcon} />日常使用的碗具</li>
             <li><FaBone className={styles.boneIcon} />喜愛的玩具或安撫物</li>
@@ -170,10 +209,11 @@ export default function Content({hotelCode}) {
             <li><FaBone className={styles.boneIcon} />牽繩和項圈</li>
             <li><FaBone className={styles.boneIcon} />必要的藥物</li>
             <li><FaBone className={styles.boneIcon} />
-              自備熟悉的物品可以幫助寵物適應新環境，減少焦慮。需要攜帶的物品可能因旅館政策而異，建議在預訂時詢問工作人員具體要求。
+              準備熟悉的物品可以幫助寵物適應新環境，減少焦慮。需要攜帶的物品可能因旅館政策而異，建議在預訂時詢問工作人員具體要求。
             </li>
           </ul>
         </div>
+        )}
       </div>
 
     </>
