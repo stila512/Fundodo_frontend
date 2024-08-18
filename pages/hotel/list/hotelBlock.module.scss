@@ -5,6 +5,9 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  position: relative;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
 .h3 {
@@ -17,6 +20,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
+  flex-grow: 1;
 }
 
 .card {
@@ -90,6 +94,13 @@
   &:hover {
     background-color: darken(#b9a69d, 10%);
   }
+}
+
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 @media (max-width: 480px) {

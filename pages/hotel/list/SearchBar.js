@@ -50,9 +50,9 @@ const handleSearch = () => {
             <div className={styles.selectWrapper}>
               <select className={styles.select}>
               <option value="">請選擇房型</option>
-                <option value="小型犬">小型犬</option>
-                <option value="中型犬">中型犬</option>
-                <option value="大型犬">大型犬</option>
+                <option value="小型犬">小型犬(10公斤以下)</option>
+                <option value="中型犬">中型犬(10~25公斤)</option>
+                <option value="大型犬">大型犬(25公斤以上)</option>
               </select>
             </div>
           </div>
