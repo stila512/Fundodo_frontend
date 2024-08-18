@@ -7,8 +7,10 @@ import radio from '@/public/memberPic/radio.svg';
 import SideText from '@/components/member/SideText';
 import { AuthProvider, AuthContext } from '@/context/AuthContext';
 import TWZipCode from '@/components/member/tw-zipcode';
+import useAuthRedirect from '@/hooks/useAuthRedirect';
 
 export default function PeopleInfo() {
+  useAuthRedirect();
   const { user: authUser, loading: authLoading } = useContext(AuthContext);
   const [user, setUser] = useState({
     name: '',

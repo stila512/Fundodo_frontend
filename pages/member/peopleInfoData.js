@@ -7,9 +7,11 @@ import radio from '@/public/memberPic/radio.svg';
 import SideText from '@/components/member/SideText';
 import Link from 'next/link';
 import { AuthProvider, AuthContext } from '@/context/AuthContext';
-
+import { useRouter } from 'next/router';
+import useAuthRedirect from '@/hooks/useAuthRedirect';
 
 export default function PeopleInfoData() {
+  useAuthRedirect();
   const { user: authUser, loading: authLoading } = useContext(AuthContext);
   const [user, setUser] = useState({
     nickname: '',

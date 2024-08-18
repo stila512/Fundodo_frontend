@@ -6,10 +6,11 @@ import mdi_dogAvatar from '@/public/memberPic/mdi_dogAvatar.svg';
 import icon_i from '@/public/memberPic/i.svg';
 import dog from '@/public/memberPic/dog.svg';
 import radio from '@/public/memberPic/radio.svg';
-
+import useAuthRedirect from '@/hooks/useAuthRedirect';
 
 
 export default function DogInfo() {
+  useAuthRedirect();
   return (
     <>
       <main className={`${scss.dogInfoContainer} pt-5`}>

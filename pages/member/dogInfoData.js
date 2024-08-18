@@ -9,10 +9,12 @@ import icon_i from '@/public/memberPic/i.svg';
 import dog from '@/public/memberPic/dog.svg';
 import Shiba from '@/public/memberPic/Shiba.png';
 import Link from 'next/link';
+import useAuthRedirect from '@/hooks/useAuthRedirect';
 
 
 
 export default function DogInfoData() {
+  useAuthRedirect();
   const { user: authUser, loading: authLoading } = useContext(AuthContext);
   const [dogData, setDogData] = useState(null);
 

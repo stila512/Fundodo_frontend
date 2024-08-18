@@ -3,10 +3,10 @@ import scss from './member.module.scss';
 import logo from '@/public/logo_temp.png';
 import Image from 'next/image';
 import Link from 'next/link';
+import useAuthRedirect from '@/hooks/useAuthRedirect';
 
 export default function MemberPage() {
-
-  
+  useAuthRedirect();
   return (
     <>
       <main className={scss.container}>
