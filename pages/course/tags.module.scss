@@ -2,7 +2,7 @@
 
 .tags {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   gap: 8px;
   margin-top: 36px;
   margin-bottom: 50px;
@@ -10,6 +10,7 @@
   @include rwd-above(sm){
     gap: 20px;
     flex-wrap: wrap;
+    overflow-x: visible;
   }
   
 }
@@ -20,9 +21,11 @@
   cursor: pointer;
 }
 .tag {
+  flex-shrink: 0;
   width: auto;
   height: auto;
-  display: flex;
+  display: inline-block;
+  justify-content: center;
   align-items: center;
   padding: 8px 20px;
   border-radius: 36.55px;

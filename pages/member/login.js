@@ -20,10 +20,8 @@ export default function LoginPage() {
     e.preventDefault();
     setLoading(true);
 
-    // 获取表单数据
     const formData = new FormData(e.target);
 
-    // 提交表单到伺服器
     fetch('http://localhost:3005/api/member/login', {
       method: 'POST',
       body: formData,

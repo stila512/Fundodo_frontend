@@ -11,6 +11,7 @@ import Link from 'next/link';
 import tokenDecoder from '@/context/token-decoder';
 import dataEmergency from '@/data/cart-emergency.json';
 import { apiBaseUrl } from '@/configs';
+import useAuthRedirect from '@/hooks/useAuthRedirect';
 
 export default function CartPage() {
   /** @type {[number, React.Dispatch<number>]} */
@@ -32,6 +33,8 @@ export default function CartPage() {
   const delivery_fee = 60;
   const discount = -10;
 
+  //===== 驗證登入狀態
+  useAuthRedirect();
   //===== 解讀登入的會員 ID
   useEffect(() => {
     const { userId } = tokenDecoder();

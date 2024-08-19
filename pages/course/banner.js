@@ -1,8 +1,8 @@
 import React from 'react'
 import Image from 'next/image';
 import scss from './banner.module.scss';
-import dog from "@/public/homePic/whitedog.png"
-import Sort from './sort';
+import dog from "@/public/homepagePic/whitedog.png"
+
 
 export default function Banner() {
 
@@ -17,12 +17,7 @@ export default function Banner() {
         </div>
       </div>
 
-      <div className='d-flex jc-between ai-center'>
-        <p>Home 狗狗課程</p>
-        <div className="d-flex ai-center">
-          <Sort />
-        </div>
-      </div>
+      
     </>
   );
 }

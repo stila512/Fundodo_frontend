@@ -1,0 +1,76 @@
+@import '@/styles';
+
+
+.videoWrapper {
+  width: 100%;
+  height: auto;
+  
+}
+
+.videoPlayer {
+  width: 100%;
+  height: auto;
+}
+
+.courseContent {
+  padding: 20px;
+
+  h4 {
+    margin-bottom: 5px;
+  }
+}
+
+.section {
+  margin-bottom: 20px;
+
+  h3 {
+    margin-bottom: 10px;
+  }
+
+}
+
+
+.lesson {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+
+  &.active {
+    background-color: $tint5;
+  }
+
+  input[type="checkbox"] {
+    margin-right: 10px;
+  }
+
+  span:last-child {
+    margin-left: auto;
+  }
+}
+
+.containerFluid{
+  background-color: $primary;
+  padding-top: 34px;
+  padding-bottom: 148px;
+}
+
+.mainContent{
+background-color: $tint4;
+}
+
+
+.videoContent {
+  flex: 1;
+  padding: 20px 16px;
+  
+}
+
+
+.sidebar {
+  overflow-y: auto;
+}
+
+  
+
+  

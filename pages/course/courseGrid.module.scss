@@ -1,76 +1,81 @@
 @import '@/styles';
 
-.crsWrapper{
-  // gap: 16px;
-  // @include rwd-above(sm) {
-  //   gap: 25px;
-  // }
-
-}
-
-.cards {
+.cardWrapper {
   padding: 0;
   display: flex;
-  align-items: center;
   flex-wrap: wrap;
-
+  
 }
 
 .card {
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 30px;
+  width: 90%;
+  border-radius: 4px;
+  box-shadow: 0 0 2px  $primary;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 15px;
+  @include rwd-above(sm){
+    margin-bottom: 30px;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px $primary;
+  }
 }
 
 .crsPic {
   position: relative;
-  width: 175px;
-  height: 146px;
-  @include rwd-above(sm){
-    width: 433px;
-    height: 232px;
-  }
+  width: 100%;
+  height: 146px; 
 
-  margin-bottom: 20px;
+  @include rwd-above(sm) {
+    height: 232px; 
+  }
 }
 
-.cardText {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  margin-left: 10px;
-  margin-right: 10px;
+.courseImage {
+  object-fit: cover ;
+  object-position: center; 
+}
+
+.cardBody {
+  padding: 10px 5px;
+  @include rwd-above(sm){
+    padding: 15px;
+  }
+ 
 
   h3 {
     margin-bottom: 8px;
-    color: $shade4;
     font-size: 14px;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: $shade4;
+    transition: color 0.3s ease;
+
     @include rwd-above(sm) {
       font-size: 18px;
     }
-    font-style: normal;
-    font-weight: 400;
-    line-height: 30px;
-    &:hover {
-      color: $shade1;
-      cursor: pointer;
-    }
   }
+
   p {
-    color: $heading;
     font-size: 12px;
+    color: $heading;
+    transition: color 0.3s ease;
+    
     @include rwd-above(sm) {
       font-size: 16px;
     }
-    font-style: normal;
-    font-weight: 400;
-    line-height: 28px;
-    &:hover {
+  }
+}
+
+.card:hover {
+  .cardBody {
+    h3, p {
       color: $shade1;
-      cursor: pointer;
     }
   }
 }
