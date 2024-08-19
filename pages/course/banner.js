@@ -1,8 +1,8 @@
 import React from 'react'
 import Image from 'next/image';
 import scss from './banner.module.scss';
-import dog from "@/public/homepagePic/whitedog.png"
-
+import dog from "@/public/homePic/whitedog.png"
+import Sort from './sort';
 
 export default function Banner() {
 

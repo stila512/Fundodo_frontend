@@ -1,15 +1,21 @@
+import { useState, useCallback } from 'react';
 import scss from './index.module.scss';
 import Head from 'next/head';
 import DefaultLayout from '@/components/layout/default';
 import Section from './list/section';
 import Breadcrumb from './list/breadcrumb';
 import Select from './list/select';
-import Aside from './list/aside';
-import ProductGrid from './list/productGrid';
 import MobileFilter from './list/mobileFilter';
 import ProductPage from './list/productPage';
 
 export default function ProductList() {
+  // 新增排序狀態
+  const [sortBy, setSortBy] = useState('newest');
+
+  // 處理排序變更的函數
+  const handleSortChange = useCallback((newSortBy) => {
+    setSortBy(newSortBy);
+  }, []);
 
   return (
     <>
@@ -30,14 +36,16 @@ export default function ProductList() {
           ].join(' ')}
         >
           <Breadcrumb />
-          <Select />
+          {/* 將 handleSortChange 傳遞給 Select 組件 */}
+          <Select onChange={handleSortChange} />
         </div>
         <div className={['row', scss.my].join(' ')}>
-          <ProductPage />
+          {/* 將 sortBy 傳遞給 ProductPage 組件 */}
+          <ProductPage sortBy={sortBy} />
         </div>
-
       </main>
     </>
   );
 }
+
 ProductList.layout = DefaultLayout;
