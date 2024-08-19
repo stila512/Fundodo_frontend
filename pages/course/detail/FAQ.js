@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import scss from './FAQ.module.scss';
-import Link from 'next/link';
 import { IoIosArrowDown } from "react-icons/io";
 import { FaRegQuestionCircle } from "react-icons/fa";
 

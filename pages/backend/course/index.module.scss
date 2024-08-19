@@ -1,0 +1,82 @@
+@import '@/styles';
+
+.coursePage {
+  h1 {
+    display: flex;
+    width: 252px;
+    height: 52px;
+    margin-bottom: 20px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: $heading;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; 
+  }
+}
+
+.subheader{
+    display: flex;
+}
+
+.topBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.searchBar {
+    display: flex;
+    align-items: center;
+}
+.searchInput {
+    padding: 8px;
+    border: 1px solid #CACACA;
+    border-radius: 4px 0 0 4px;
+    width: 200px;
+}
+.searchBtn {
+    padding: 8px 15px;
+    background-color: $info;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+.addBtn {
+    padding: 8px 15px;
+    background-color: $info;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.courseTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+.courseTable th {
+    background-color: $body;
+    color: white;
+    text-align: left;
+    padding: 12px;
+}
+.courseTable td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+.courseTable tr:nth-child(even) {
+    background-color: #DAE2EE;
+}
+.actionBtns {
+    display: flex;
+    gap: 5px;
+}
+.actionBtn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+

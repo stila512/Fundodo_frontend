@@ -17,12 +17,7 @@ export default function Banner() {
         </div>
       </div>
 
-      <div className='d-flex jc-between ai-center'>
-        <p>Home 狗狗課程</p>
-        <div className="d-flex ai-center">
-          <Sort />
-        </div>
-      </div>
+      
     </>
   );
 }

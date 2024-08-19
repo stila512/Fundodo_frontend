@@ -1,16 +1,22 @@
-import BuyProgress from '@/components/buy/buyProgress';
-import BuyLayout from '@/components/layout/buy';
+//== Parameters ================================================================
+import { apiBaseUrl } from '@/configs';
+import dataEmergency from '@/data/cart-emergency.json';
+//== Functions =================================================================
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import tokenDecoder from '@/context/token-decoder';
+import useAuthRedirect from '@/hooks/useAuthRedirect';
+//== Components ================================================================
 import Head from 'next/head';
+import Link from 'next/link';
+import BuyLayout from '@/components/layout/buy';
+import BuyProgress from '@/components/buy/buyProgress';
 import ProdCartTable from './ProdCartTable';
 import HotelCartTable from './HotelCartTable';
 import CrsCartTable from './CrsCartTable';
+//== Styles =================================================================
 import s from "./cart-page.module.scss";
-import axios from 'axios';
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import tokenDecoder from '@/context/token-decoder';
-import dataEmergency from '@/data/cart-emergency.json';
-import { apiBaseUrl } from '@/configs';
+import emptyCart from '@/public/cart/dog-in-cart.jpg';
 
 export default function CartPage() {
   /** @type {[number, React.Dispatch<number>]} */
@@ -22,16 +28,22 @@ export default function CartPage() {
     HT: []
   });
 
+  // 三台購物車各自的筆數
+  const [lengArr, setLengArr] = useState([0, 0, 0]);
+
+  // 三台購物車各自的總金額
   const [amtArr, setAmtArr] = useState([0, 0, 0]);
 
+  // 三台購物車合算的總金額
   // totalArr[0] | 商品總金額
   // totalArr[1] | 實付總金額
-  /** @type {[number[], React.Dispatch<number[]>]} */
   const [totalArr, setTotalArr] = useState([0, 0]);
 
   const delivery_fee = 60;
   const discount = -10;
 
+  //===== 驗證登入狀態
+  useAuthRedirect();
   //===== 解讀登入的會員 ID
   useEffect(() => {
     const { userId } = tokenDecoder();
@@ -75,12 +87,33 @@ export default function CartPage() {
       </Head>
       <BuyProgress stage={1} />
       <section className="container mt-5">
-        {cartPkg.PD && <ProdCartTable data={cartPkg.PD} setAmount={setAmtArr} i_amt={0} />}
-        {cartPkg.HT && <HotelCartTable data={cartPkg.HT} setAmount={setAmtArr} i_amt={1} />}
-        {cartPkg.CR && <CrsCartTable data={cartPkg.CR} setAmount={setAmtArr} i_amt={2} />}
-        {isEmpty && <h2 className='tx-shade4 tx-center' style={{ marginBlock: '8rem' }}>購物車現在空無一物</h2>}
+        <ProdCartTable
+          data={cartPkg.PD}
+          cartLength={lengArr}
+          setLengArr={setLengArr}
+          setAmount={setAmtArr}
+        />
+        <HotelCartTable
+          data={cartPkg.HT}
+          cartLength={lengArr}
+          setLengArr={setLengArr}
+          setAmount={setAmtArr}
+        />
+        <CrsCartTable
+          data={cartPkg.CR}
+          cartLength={lengArr}
+          setLengArr={setLengArr}
+          setAmount={setAmtArr}
+        />
+        {isEmpty &&
+          <h2 className='tx-shade4 tx-center' style={{ marginBlock: '8rem' }}>
+            購物車現在空無一物
+          </h2>}
         <div className='d-flex jc-end'>
-          <Link href="/prod" className={["bg-primary tx-white", s.continueBtn].join(' ')}>繼續購物</Link>
+          <Link
+            href="/prod"
+            className={["bg-primary tx-white", s.continueBtn].join(' ')}
+          >繼續購物</Link>
         </div>
         {isEmpty ||
           <article className={s.orderInfo}>
@@ -115,6 +148,9 @@ export default function CartPage() {
               </tbody>
             </table>
           </article>}
+          {isEmpty && <div className='img-wrap-w100' style={{width: '60vw'}}>
+            <Image src={emptyCart} alt="empty cart" width={0} height={0} />
+          </div>}
       </section>
     </>
   );

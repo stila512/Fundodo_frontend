@@ -42,8 +42,6 @@ export default function TitleAction() {
           <button className={scss.moreBtn} onClick={scrollLeft}>
             <IoIosArrowForward />
           </button>
-
-
         </div>
       </div>
     </>
