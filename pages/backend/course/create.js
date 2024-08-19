@@ -22,18 +22,18 @@ export default function CourseAdd() {
     e.preventDefault();
     // 這裡處理表單提交邏輯
     console.log('Adding new course:', course);
-    
+
     // 模擬 API 調用
     // const response = await fetch('/api/courses', {
     //   method: 'POST',
     //   headers: { 'Content-Type': 'application/json' },
     //   body: JSON.stringify(course)
     // });
-    
+
     // if (response.ok) {
     //   router.push('/courses');
     // }
-    
+
     // 暫時直接導航回課程列表頁面
     router.push('/courses');
   };
@@ -41,67 +41,126 @@ export default function CourseAdd() {
   return (
     <BackendLayout>
       <div className={scss.addContent}>
-            <h1>新增課程</h1>
-            <form onSubmit={handleSubmit}>
-              <div className={scss.formGroup}>
-                <label htmlFor="title">課程名稱</label>
-                <input
-                  type="text"
-                  id="title"
-                  name="title"
-                  value={course.title}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              <div className={scss.formGroup}>
-                <label htmlFor="summary">課程摘要</label>
-                <textarea
-                  id="summary"
-                  name="summary"
-                  value={course.summary}
-                  onChange={handleInputChange}
-                  required
-                ></textarea>
-              </div>
-              <div className={scss.formGroup}>
-                <label htmlFor="description">課程描述</label>
-                <textarea
-                  id="description"
-                  name="description"
-                  value={course.description}
-                  onChange={handleInputChange}
-                  required
-                ></textarea>
-              </div>
-              <div className={scss.formGroup}>
-                <label htmlFor="originalPrice">原價</label>
-                <input
-                  type="number"
-                  id="originalPrice"
-                  name="originalPrice"
-                  value={course.originalPrice}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              <div className={scss.formGroup}>
-                <label htmlFor="salePrice">優惠價</label>
-                <input
-                  type="number"
-                  id="salePrice"
-                  name="salePrice"
-                  value={course.salePrice}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              <div className={scss.buttonGroup}>
-                <button type="button" className={scss.cancel}>取消</button>
-                <button type="submit" className={scss.save}>儲存</button>
-              </div>
-            </form>
+        <h1>新增課程</h1>
+        <form onSubmit={handleSubmit}>
+          <div className={scss.inputBody}>
+            <div className={scss.formGroup}>
+              <label htmlFor="title">課程名稱</label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                value={course.title}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className={scss.formGroup}>
+              <label htmlFor="summary">課程簡介</label>
+              <textarea
+                id="summary"
+                name="summary"
+                value={course.summary}
+                onChange={handleInputChange}
+                required
+              ></textarea>
+            </div>
+            <div className={scss.formGroup}>
+              <label htmlFor="description">課程描述</label>
+              <textarea
+                id="description"
+                name="description"
+                value={course.description}
+                onChange={handleInputChange}
+                required
+              ></textarea>
+            </div>
+            <div className={scss.formGroup}>
+              <p>課程分類</p>
+              <label for="checkbox">外出禮儀</label>
+              <input type="checkbox" name="check1" id="checkbox" />
+              <label for="checkbox">感情增溫</label>
+              <input type="checkbox" name="check2" id="checkbox" />
+              {/* 加其他sql分類 */}
+            </div>
+            <div className={scss.formGroup}>
+              <label htmlFor="img_path">課程列表圖片</label>
+              <input
+                type="file"
+                id="img_path"
+                name="img_path"
+                value={course.img_path}
+                onChange={handleInputChange}
+                accept=".jpg, .jpeg, .png"
+                required
+              />
+            </div>
+            <div className={scss.formGroup}>
+            {/* 有多個章節 */}
+              <label htmlFor="chapter">課程章節</label>
+              <input
+              type='text'
+                id=""
+                name=""
+                value={course.chapter}
+                onChange={handleInputChange}
+                required
+              ></input>
+            </div>
+            <div className={scss.formGroup}>
+            {/* 有多個單元 */}
+              <label htmlFor="chapter">課程單元</label>
+              <input
+              type='text'
+                id=""
+                name=""
+                value={course.chapter}
+                onChange={handleInputChange}
+                required
+              ></input>
+            </div>
+
+            <div className={scss.formGroup}>
+              <label htmlFor="img_path">課程單元影片</label>
+              <input
+                type="file"
+                id="video_path"
+                name="video_path"
+                value={course.video_path}
+                onChange={handleInputChange}
+                accept=".mp4"
+                required
+              />
+            </div>
+            <div className={scss.formGroup}>
+              <label htmlFor="originalPrice">原價</label>
+              <input
+                type="number"
+                id="originalPrice"
+                name="originalPrice"
+                value={course.originalPrice}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className={scss.formGroup}>
+              <label htmlFor="salePrice">優惠價</label>
+              <input
+                type="number"
+                id="salePrice"
+                name="salePrice"
+                value={course.salePrice}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
           </div>
+          <div className={scss.buttonGroup}>
+            <button type="button" className={scss.cancel}>取消</button>
+            <button type="submit" className={scss.save}>儲存</button>
+          </div>
+        </form>
+      </div>
     </BackendLayout>
   );
 }
