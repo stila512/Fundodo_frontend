@@ -1,6 +1,5 @@
 import React from 'react'
 import Image from 'next/image';
-import crsInfo from "@/public/coursePic/detail_info.jpg"
 import scss from './summary.module.scss';
 
 

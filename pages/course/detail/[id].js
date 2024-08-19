@@ -19,13 +19,14 @@ export default function CourseDetail() {
     summary: "",
     description: "",
     img_path: "",
-    original_price: 0,
-    sale_price: 0,
-    viewed_count: "",
-    chapters:[],
-    lessons:[],
-    tags:[],
-    images:[]
+    original_price: "0",
+    sale_price: "0",
+    viewed_count: 0,
+    created_at: "",
+    deleted_at: null,
+    chapters: [],
+    tags: [],
+    images: []
   });
 
   const getCourse = async (id) => { 

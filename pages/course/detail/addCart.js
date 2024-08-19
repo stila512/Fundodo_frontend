@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import scss from './addCart.module.scss';
 import { RiCoupon3Line } from "react-icons/ri";
+import Link from 'next/link';
 
-export default function AddCart({original_price,sale_price}) {
+
+export default function AddCart({original_price,sale_price, id}) {
   
   return (
    <>
@@ -22,6 +24,9 @@ export default function AddCart({original_price,sale_price}) {
       <button>
         加入購物車
       </button>
+      <div>
+      <Link href={`/course/play/1`} > Go to Course Video </Link>
+      </div>
     </div>
 
     </div>
