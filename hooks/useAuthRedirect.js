@@ -14,8 +14,8 @@ export default function useAuthRedirect() {
       return;
     }
 
-    if (!authLoading && (!authUser || !authUser.uuid)) {
-      router.push('/member/login');
-    }
+    // if (!authLoading && (!authUser || !authUser.uuid)) {
+    //   router.push('/member/login');
+    // }
   }, [authUser, authLoading, router]);
 }
