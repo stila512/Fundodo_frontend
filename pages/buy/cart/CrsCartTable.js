@@ -1,5 +1,5 @@
 // function
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import deleteCartOf from './doSoftDelete';
 // component
 import Image from 'next/image';
@@ -14,10 +14,12 @@ const i_cart = 2;
 
 export default function CrsCartTable({
   data = null,
-  cartLength = 0,
-  setLengArr = () => { },
+  itemStateArr = [],
+  setItemStateArr = () => { },
   setAmount = () => { },
 }) {
+  const noData = (!data || data.length === 0
+    || itemStateArr.filter(v => v).length === 0);
 
   useEffect(() => {
     if (data) {
@@ -26,12 +28,25 @@ export default function CrsCartTable({
     }
   }, [data]);
 
-  const noData = (!data || data.length === 0);
+  /** 刪除購物車資料 */
+  const handleDelete = (i_item, db_id) => {
+    // 更新前端的監控數據
+    const new_arr = itemStateArr.map(
+      (state, j_item) => i_item === j_item ? false : state
+    );
+    setItemStateArr(prev => prev.map(
+      (arr, i_cart) => (i_cart === CART_INDEX) ? new_arr : arr)
+    );
+    // 更新後台的資料庫
+    deleteCartOf(db_id);
+  }
 
   return (
     <>
       <table className={s.cartTable}>
-        <caption className='tx-default tx-shade4 tx-left'>共 {data ? data.length : 0} 堂課程</caption>
+        <caption className='tx-default tx-shade4 tx-left'>
+          共 {itemStateArr.filter(v => v).length} 堂課程
+        </caption>
         <thead>
           <tr>
             <th><TbTrashX /></th>
@@ -42,10 +57,10 @@ export default function CrsCartTable({
           </tr>
         </thead>
         <tbody className='tx-body'>
-          {noData || data.map((item) => (
+          {noData || data.map((item, i_item) => (
             <tr key={item.key}>
               <td>
-                <FddBtn color='tint4' size='sm' icon callback={() => deleteCartOf(item.key)}>
+                <FddBtn color='tint4' size='sm' icon callback={() => handleDelete(i_item, item.key)}>
                   <RxCross2 />
                 </FddBtn>
               </td>
@@ -74,6 +89,9 @@ export default function CrsCartTable({
             </tr>
           ))
           }
+          {noData && <tr><td colSpan={7}>
+            <FddBtn color='secondary' size='sm' href='/course'>來去逛逛寵物課程</FddBtn>
+          </td></tr>}
         </tbody>
       </table>
     </>
