@@ -11,7 +11,7 @@ import useAuthRedirect from '@/hooks/useAuthRedirect';
 
 
 export default function HotelPage() {
-  useAuthRedirect();
+  // useAuthRedirect();
   
   const router = useRouter();
   const { hotelCode } = router.query; 
