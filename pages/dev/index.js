@@ -5,7 +5,7 @@ import FddBtn from '@/components/buttons/fddBtn';
 import hs from './devHome.module.scss';
 import { IconContext } from 'react-icons';
 import { FaArrowRightLong } from 'react-icons/fa6';
-import { IoAddCircle } from 'react-icons/io5';
+import { IoAddCircle, IoArrowUndoSharp } from 'react-icons/io5';
 
 export default function Home() {
   return (
@@ -59,7 +59,7 @@ export default function Home() {
             <div className="row">
               <article className="col-12 col-lg-6">
                 <h2 className="tx-center">可以使用的樣式</h2>
-                <p className="tx-center">
+                <p className="tx-center mt-3">
                   Bootstrap 的語法
                   <FaArrowRightLong />
                   Fundodo 專案的語法
@@ -127,14 +127,13 @@ export default function Home() {
               <article className="col-12 col-lg-6">
                 <h2 className="tx-center">按鈕元件</h2>
                 <p className="tx-center">
-                  Bootstrap 的語法
-                  <FaArrowRightLong />
                   實際的樣式
                   <FaArrowRightLong />
                   Fundodo 專案的語法
                 </p>
                 <dl className={hs.instructionList}>
                   <dt>一般按鈕</dt>
+                  <dd>按鈕的「樣式」與「大小」不會互相干涉，各自所屬不同的 prop</dd>
                   <dd className='vstack gap-3'>
                     <p className='hstack gap-3'>
                       <FddBtn color='primary' callback={() => { }}>預設樣式</FddBtn>
@@ -237,6 +236,49 @@ export default function Home() {
                         style={{ padding: '.5rem' }}
                       >
                         &lt;FddBtn color=&quot;warning&quot; icon outline
+                        callback=&#123;()
+                        =&gt;&#123;&#125;&#125;&gt;&lt;/FddBtn&gt;
+                      </code>
+                    </p>
+                  </dd>
+                  <dd className='vstack gap-3'>
+                    <p className='hstack gap-3'>
+                      <FddBtn color="tint1" icon size="lg" outline callback={() => { }}>
+                        <IoArrowUndoSharp />
+                      </FddBtn>
+                      <FddBtn color="info" icon outline callback={() => { }}>
+                        <IoArrowUndoSharp />
+                      </FddBtn>
+                      <FddBtn color="shade3" icon size="sm" outline callback={() => { }}>
+                        <IoArrowUndoSharp />
+                      </FddBtn>
+                    </p>
+                    <p>
+                      <FaArrowRightLong />
+                      <code
+                        className="bg-shade4 tx-secondary"
+                      >
+                        &lt;FddBtn color=&quot;tint1&quot; icon size=&quot;lg&quot; outline
+                        callback=&#123;()
+                        =&gt;&#123;&#125;&#125;&gt;&lt;/FddBtn&gt;
+                      </code>
+                    </p>
+                    <p>
+                      <FaArrowRightLong />
+                      <code
+                        className="bg-shade4 tx-secondary"
+                      >
+                        &lt;FddBtn color=&quot;info&quot; icon outline
+                        callback=&#123;()
+                        =&gt;&#123;&#125;&#125;&gt;&lt;/FddBtn&gt;
+                      </code>
+                    </p>
+                    <p>
+                      <FaArrowRightLong />
+                      <code
+                        className="bg-shade4 tx-secondary"
+                      >
+                        &lt;FddBtn color=&quot;shade3&quot; icon size=&quot;sm&quot; outline
                         callback=&#123;()
                         =&gt;&#123;&#125;&#125;&gt;&lt;/FddBtn&gt;
                       </code>

@@ -5,10 +5,10 @@ export default function Index() {
   const router = useRouter();
 
   useEffect(() => {
-    router.push('/dev');
-  })
+    router.push('/home');
+  }, [])
 
-  // router.push('/home');
+  // router.push('/dev');
   return (<></>)
 
 }

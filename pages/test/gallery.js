@@ -101,7 +101,7 @@ export default function Gallery() {
             </section>
           </article>
           {bgMode.map((color, i_mode) => (
-            <section className={["col-12 showcase", color].join(' ')}>
+            <section className={["col-12 showcase", color].join(' ')} key={i_mode}>
               <h2 className={['tx-center', i_mode === 2 ? 'tx-tint4' : ''].join(' ')}>按鈕展示區 - {bgModeTitle[i_mode]}背景</h2>
               <div className="row row-cols-3 row-cols-lg-4 g-3">
                 {themeColors.map((color, i) => (
