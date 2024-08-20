@@ -100,7 +100,7 @@ export default function DogInfo() {
             const formData2 = new FormData();
             formData2.append('avatar', user.avatar_file);
 
-            const url2 = `http://localhost:3005/api/member/uploadAvatar_dog/${authUser.id}`;
+            const url2 = `http://localhost:3005/api/member/uploadAvatar_dog/${id}`;
 
             return fetch(url2, {
               method: 'POST',
