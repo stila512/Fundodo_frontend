@@ -28,7 +28,7 @@ export default function SideBar() {
             <button className=""><GiDogHouse className={scss.icon}/>旅館管理</button>
             <button className=""><GiJumpingDog className={scss.icon}/>課程管理</button>
             <button className=""><PiArticleNyTimesBold className={scss.icon}/>文章管理</button>
-            <button className=""><RiCoupon2Fill />優惠券管理</button>
+            <button className=""><RiCoupon2Fill className={scss.icon}/>優惠券管理</button>
           </div>
         </nav>
       </aside>
