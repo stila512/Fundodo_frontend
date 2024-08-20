@@ -38,6 +38,18 @@
   display: none;
 }
 
+.search{
+  display: flex;
+}
+
+.searchBtn{
+  display: flex;
+  border: 0;
+  font-size: 26px;
+  align-items: center;
+  cursor: pointer;
+}
+
 @media (max-width: 768px) {
   .userAction h4{
     display: none;
