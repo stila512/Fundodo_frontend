@@ -23,9 +23,9 @@ export default function PeopleInfo() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const BASE_URL = 'http://localhost:3005/upload/';
   const fetchgetMember = (uuid) => {
     const url = `http://localhost:3005/api/member/${uuid}`;
-
     fetch(url)
       .then(response => {
         if (!response.ok) {
@@ -39,27 +39,19 @@ export default function PeopleInfo() {
         if (data.status === 'success') {
           setUser(data.result);
           if (data.result.avatar_file) {
-            // 檢查頭像是否存在
-            fetch(`/upload/${data.result.avatar_file}`)
-              .then(response => {
-                if (response.ok) {
-                  setAvatar(`/upload/${data.result.avatar_file}`);
-                } else {
-                  // 如果頭像不存在，使用預設頭像
-                  setAvatar(null);
-                }
-              })
-              .catch(() => setAvatar(null));
+            const avatarUrl = `${BASE_URL}${data.result.avatar_file}`; // 組合完整的圖片 URL
+            setAvatar(avatarUrl);
           } else {
-            setAvatar(null);
+            setAvatar(avatarPic); // 如果沒有頭像，設置為預設頭像
           }
-        } else {
+        }
+        else {
           setError(data.message);
         }
       })
       .catch(error => {
         setError(error.message);
-        setAvatar(avatarPic); // 發生錯誤時也設置為預設頭像
+        //setAvatar(avatarPic); // 發生錯誤時也設置為預設頭像
       })
       .finally(() => {
         setLoading(false);
@@ -94,38 +86,16 @@ export default function PeopleInfo() {
       reader.readAsDataURL(file);
       setUser({ ...user, avatar_file: file });
     }
-    const formData = new FormData();
-    formData.append('avatar', file);
-
-    fetch(`http://localhost:3005/api/member/uploadAvatar/${user.id}`, {
-      method: 'POST',
-      body: formData,
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (data.status === 'success') {
-          const filePath = `/upload/${authUser.uuid}.png`;
-          setAvatar(filePath); // 更新頭像路徑
-          setUser({ ...user, avatar_file: filePath });
-        } else {
-          setError(data.message);
-        }
-      })
-      .catch(error => {
-        setError(error.message);
-      });
   };
 
   // 提交表單處理函數
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    // 更新用戶資料
     const formData = new FormData();
     formData.append('nickname', user.nickname);
     formData.append('introduce', user.introduce);
-    if (user.avatar_file) {
-      formData.append('avatar_file', user.avatar_file);
-    }
 
     const url = `http://localhost:3005/api/member/ForumMemberInfo/${authUser.uuid}`;
 
@@ -137,12 +107,36 @@ export default function PeopleInfo() {
       .then(data => {
         if (data.status === 'success') {
           alert('資料更新成功');
+
+          // 如果有新的頭像，則上傳頭像
+          if (user.avatar_file) {
+            const formData2 = new FormData();
+            formData2.append('avatar', user.avatar_file);
+
+            const url2 = `http://localhost:3005/api/member/uploadAvatar/${authUser.uuid}`;
+
+            return fetch(url2, {
+              method: 'POST',
+              body: formData2,
+            });
+          }
         } else {
           setError(data.message);
+          throw new Error(data.message);
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (user.avatar_file && data.status === 'success') {
+          const updatedAvatarUrl = `http://localhost:3005/upload/${authUser.uuid}.png`;
+          setAvatar(updatedAvatarUrl);
         }
       })
       .catch(error => {
         setError(error.message);
+      }).finally(() => {
+        // 在資料提交和頭像上傳成功後重整頁面
+        window.location.reload();
       });
   };
 
@@ -206,7 +200,7 @@ export default function PeopleInfo() {
             </div>
             <div className={`${scss.botarea} my-5 mx-5`}>
               <button className={scss.btn1}>編輯資料</button>
-              <button className={scss.btn2}>確認送出</button>
+              <button type="submit" className={scss.btn2}>確認送出</button>
             </div>
           </form>
         </div>
