@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import scss from './filter.module.scss';
 import PropTypes from 'prop-types';
 
-function Filter({ className = {}, categories = [], onChange, multiple = false }) {
+function Filter({ className = {}, categories = [], onChange, multiple = false, resetTrigger  }) {
   const [selectedCategories, setSelectedCategories] = useState(multiple ? [] : '');
 
   useEffect(() => {
     setSelectedCategories(multiple ? [] : '');
-  }, [categories, multiple]);
+  }, [categories, multiple, resetTrigger]);
 
   const handleChange = (e) => {
     const newValue = e.target.value;
@@ -76,7 +76,8 @@ Filter.propTypes = {
     selected: PropTypes.string,
     input: PropTypes.string,
     indicator: PropTypes.string
-  })
+  }),
+  resetTrigger: PropTypes.number 
 };
 
 export default Filter;

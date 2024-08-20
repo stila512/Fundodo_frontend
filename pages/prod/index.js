@@ -10,7 +10,7 @@ import ProductPage from './list/productPage';
 
 export default function ProductList() {
   // 新增排序狀態
-  const [sortBy, setSortBy] = useState('newest');
+  const [sortBy, setSortBy] = useState('default');
 
   // 處理排序變更的函數
   const handleSortChange = useCallback((newSortBy) => {
