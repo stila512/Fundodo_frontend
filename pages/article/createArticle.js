@@ -4,7 +4,7 @@ import axios from 'axios';
 import Editor from './editor';
 import Head from 'next/head';
 import DefaultLayout from '@/components/layout/default';
-import { useRouter } from 'next/router';
+import { Router, useRouter } from 'next/router';
 
 
 export default function CreateArticle() {
@@ -36,9 +36,8 @@ export default function CreateArticle() {
       // 可以在這裡加入成功提示或重定向
     } catch (error) {
       console.error('Error creating article:', error)
-      // 可以在這裡加入錯誤處理
     }
-  };
+  }
 
   return (
     <>

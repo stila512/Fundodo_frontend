@@ -9,13 +9,21 @@ export default function ArticleList() {
   const [page, setPage] = useState(1)
   const perPage = 6
   const router=useRouter()
-  const { sort } = router.query
+  const { sort,search } = router.query
   
   useEffect(() => {
     const fetchArticles = async () => {
-      const url = sort
-        ? `http://localhost:3001/api/articles/${sort}`
-        : 'http://localhost:3001/api/articles';
+      let url = 'http://localhost:3001/api/articles?'
+      const params = new URLSearchParams()
+
+      if (sort) {
+        params.append('sort', sort)
+      }
+      if (search) {
+        params.append('search', search)
+      }
+
+      url += params.toString()
 
       try {
         const response = await fetch(url);
@@ -24,12 +32,12 @@ export default function ArticleList() {
           setArticles(data.articles);
         }
       } catch (error) {
-        console.log(error.message);
+        console.error('Failed to fetch articles:', error);
       }
     };
 
     fetchArticles();
-  }, [sort])
+  }, [sort, search])
   
 
   const thisPage = page * perPage
