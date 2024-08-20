@@ -254,18 +254,16 @@
       .toparea {
         display: flex;
         flex-direction: row;
-        padding: 91px 0px 93px 0px;
         justify-content: center;
         flex: 1 0 0;
         align-self: stretch;
-        .topPic {
-          .imgDogavatar {
-            display: flex;
-            width: 76px;
-            height: 76px;
-            justify-content: center;
-            align-items: center;
-          }
+        .avatarWrapper {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
       }
       .textarea {
@@ -287,8 +285,161 @@
           flex-direction: row;
           border-bottom: 1px solid var(--tint5, #f1edeb);
 
-          input[type='radio'] {
-            display: none;
+          .genderRadio {
+            display: flex;
+            width: 205px;
+            height: 32px;
+            padding: 5px 71px 5px 0px;
+            align-items: flex-start;
+            gap: 34px;
+            input[type='radio'] {
+              display: none;
+            }
+          }
+          //自訂radio
+          .genderRadio input[type='radio'] + label {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            padding-left: 30px; /* 給自訂按鈕留出空間 */
+            cursor: pointer;
+            line-height: 20px;
+            font-size: 16px;
+            text-align: left;
+          }
+
+          /* 自訂單選按鈕的偽元素 */
+          .genderRadio input[type='radio'] + label::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 14px;
+            height: 14px;
+            border: 2px solid #e5e6eb;
+            border-radius: 50%;
+            background: #fff;
+            transform: translateY(-50%);
+          }
+
+          /* 選中狀態的樣式 */
+          .genderRadio input[type='radio']:checked + label::before {
+            background: #b9a399; /* 選中時的背景顏色 */
+            border-color: #e5e6eb; /* 選中時的邊框顏色 */
+          }
+
+          /* 自訂單選按鈕的選中效果 */
+          .genderRadio input[type='radio']:checked + label::after {
+            content: '';
+            position: absolute;
+            left: 7px; /* 定位於左側 */
+            top: 50%;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #fff;
+            transform: translateY(-50%);
+          }
+
+          .inputRadioGroup {
+            // 隱藏原始單選按鈕
+            input[type='radio'] {
+              display: none;
+            }
+            input[type='checkbox'] {
+              display: none;
+            }
+            // 自訂 radio 的樣式
+            input[type='radio'] + label {
+              position: relative;
+              display: inline-flex;
+              align-items: center;
+              padding-left: 30px; /* 給自訂按鈕留出空間 */
+              margin-right: 30px;
+              cursor: pointer;
+              line-height: 20px;
+              font-size: 16px;
+              text-align: left;
+            }
+
+            // 自訂單選按鈕的偽元素
+            input[type='radio'] + label::before {
+              content: '';
+              position: absolute;
+              left: 0;
+              top: 50%;
+              width: 14px;
+              height: 14px;
+              border: 2px solid #e5e6eb;
+              border-radius: 50%;
+              background: #fff;
+              transform: translateY(-50%);
+            }
+
+            // 選中狀態的樣式
+            input[type='radio']:checked + label::before {
+              background: #b9a399; /* 選中時的背景顏色 */
+              border-color: #b9a399; /* 選中時的邊框顏色 */
+            }
+
+            // 自訂單選按鈕的選中效果
+            input[type='radio']:checked + label::after {
+              content: '';
+              position: absolute;
+              left: 7px; /* 定位於左側 */
+              top: 50%;
+              width: 4px;
+              height: 4px;
+              border-radius: 50%;
+              background: #fff;
+              transform: translateY(-50%);
+            }
+          }
+
+          // 自訂 checkbox 的樣式
+          input[type='checkbox'] + label {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            padding-left: 30px; /* 給自訂按鈕留出空間 */
+            margin-right: 30px;
+            cursor: pointer;
+            line-height: 20px;
+            font-size: 16px;
+            text-align: left;
+          }
+
+          // 自訂 checkbox 的偽元素
+          input[type='checkbox'] + label::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 14px;
+            height: 14px;
+            border: 2px solid #e5e6eb;
+            border-radius: 50%;
+            background: #fff;
+            transform: translateY(-50%);
+          }
+
+          // 選中狀態的樣式
+          input[type='checkbox']:checked + label::before {
+            background: #b9a399; /* 選中時的背景顏色 */
+            border-color: #b9a399; /* 選中時的邊框顏色 */
+          }
+
+          // 自訂 checkbox 的選中效果
+          input[type='checkbox']:checked + label::after {
+            content: '';
+            position: absolute;
+            left: 7px; /* 定位於左側 */
+            top: 50%;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #fff;
+            transform: translateY(-50%);
           }
           .labelGroup {
             display: flex;
@@ -360,7 +511,7 @@
     display: flex;
     justify-content: center;
     width: 100%;
-  
+
     .btn2 {
       color: #fff;
       background: var(--Primary, #b9a399);
@@ -379,8 +530,6 @@
     }
   }
 }
-
-
 
 // ---------------- dogInfoData
 .dogInfoDataContainer {
@@ -406,8 +555,12 @@
     .tags {
       display: flex;
       flex-direction: row;
-      gap: 6px;
-
+      gap: 50px;
+      .tagGroup {
+        display: flex;
+        flex-direction: row;
+        gap: 6px;
+      }
       .tag1 {
         display: inline-flex;
         height: 28px;
@@ -445,6 +598,30 @@
         font-style: normal;
         font-weight: 400;
         line-height: 18px;
+      }
+
+      .tag3 {
+        display: inline-flex;
+        height: 28px;
+        padding: 4px 16px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+        border-radius: 5px 5px 0px 0px;
+        background: var(--tint4, #eae3e0);
+        color: var(--tint5, #f1edeb);
+        color: var(--shade3, #5d524d);
+        font-feature-settings: 'liga' off, 'clig' off;
+        font-family: 'Noto Sans';
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 18px;
+        cursor: pointer;
+      }
+      .activeTag{
+        background-color: yellow;
       }
     }
     .mainArea {
@@ -508,12 +685,13 @@
           gap: 30px;
           flex-shrink: 0;
           border-bottom: 1px solid var(--tint5, #f1edeb);
-          
+
           .a0 {
             display: flex;
             flex-direction: column;
             gap: 15px;
-            .textgroup{
+            .textgroup {
+              gap: 30px;
               display: flex;
               flex-direction: row;
             }
