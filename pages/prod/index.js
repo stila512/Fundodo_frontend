@@ -39,7 +39,7 @@ export default function ProductList() {
           {/* 將 handleSortChange 傳遞給 Select 組件 */}
           <Select onChange={handleSortChange} />
         </div>
-        <div className={['row', scss.my].join(' ')}>
+        <div className={scss.my}>
           {/* 將 sortBy 傳遞給 ProductPage 組件 */}
           <ProductPage sortBy={sortBy} />
         </div>
