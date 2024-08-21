@@ -4,9 +4,21 @@
   display: flex;
   align-items: center;
   align-self: stretch;
+  margin-bottom: 10px;
   a {
     cursor: pointer;
   }
+}
+.imgWrapper{
+  position: relative;
+  width: 138px;
+  height: 100px;
+  overflow: hidden;
+}
+
+.leftArtiImg{
+  object-fit: cover;
+  object-position: center;
 }
 
 .leftArticleTitle {

@@ -12,7 +12,7 @@ export default function CreateArticle() {
   const [content, setContent] = useState('')
   const [sortOptions, setSortOptions] = useState([])
   const [selectedSort, setSelectedSort] = useState('0')
-
+  const router = useRouter()
 
   useEffect(() => {
     fetch('http://localhost:3001/api/sort')
@@ -26,14 +26,26 @@ export default function CreateArticle() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (selectedSort === '0') {
+      alert('請選擇文章分類');
+      return;
+    }
     try {
       // 從 content 中提取所有的 imageId
-      const imageIds = Array.from(content.matchAll(/imageId=(\d+)/g)).map(match => parseInt(match[1]));
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(content, 'text/html');
+      const imageElements = doc.getElementsByTagName('img');
 
+      const imageIds = Array.from(imageElements).map(img => {
+        const src = img.getAttribute('src');
+        const match = src.match(/articleImage-(\d+)-\d+.png/);
+        return match ? parseInt(match[1]) : null;
+      }).filter(id => id !== null);
       const response = await axios.post('http://localhost:3001/api/createArticle', { title, content, sort: selectedSort, imageIds });
       console.log('Article created:', response.data)
       alert('文章發表成功')
-      // 可以在這裡加入成功提示或重定向
+      router.push(`/article`)
     } catch (error) {
       console.error('Error creating article:', error)
     }
