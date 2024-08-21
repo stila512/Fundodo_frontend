@@ -56,7 +56,7 @@ export default function CoursePlay() {
 
 
     const getCourse = async (id) => {
-        const apiURL = `http://localhost:3005/api/course/detail/${id}`;
+        const apiURL = `http://localhost:3005/api/course/${id}`;
         const res = await fetch(apiURL);
         const result = await res.json();
         setCourse(result.data);
