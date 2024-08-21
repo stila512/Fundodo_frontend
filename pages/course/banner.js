@@ -2,11 +2,6 @@ import React from 'react'
 import Image from 'next/image';
 import scss from './banner.module.scss';
 import dog from "@/public/homePic/whitedog.png"
-<<<<<<<<< Temporary merge branch 1
-import Sort from './sort';
-=========
-
->>>>>>>>> Temporary merge branch 2
 
 export default function Banner() {
 
