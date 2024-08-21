@@ -21,7 +21,7 @@ export default function HotelBlock({ searchQuery, sortOption }) {
       const baseURL = 'http://localhost:3005/api/hotel';
       const res = await fetch(baseURL);
       const data = await res.json();
-      console.log(data);
+      // console.log(data);
       if (data.status === 'success' && Array.isArray(data.data)) {
         setHotels(data.data);
         setFilteredHotels(data.data);
