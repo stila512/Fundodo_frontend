@@ -15,6 +15,7 @@
 }
 @mixin btn-prototype() {
   box-sizing: border-box;
+  border: 3px solid transparent;
   user-select: none;
   cursor: pointer;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
@@ -26,7 +27,6 @@
   display: inline-block;
   text-align: center;
   vertical-align: middle;
-  border: 3px solid s.$black;
   border-radius: 99rem;
 
   // 預設值
@@ -45,21 +45,24 @@
 //*====== 圓形按鈕
 @mixin icon-btn-prototype() {
   @include btn-prototype();
-  // @extend .fxCenter;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   //default
   @include s.circle-of(64px);
-  font-size: 1.5rem;
+  font-size: 2rem;//1.5rem
 
   &.btn-sm {
     @include s.circle-of(30px);
-    font-size: 1rem;
+    font-size: 1.5rem;//1rem
   }
   &.btn-lg {
     @include s.circle-of(88px);
-    font-size: 1.75rem;
+    font-size: 2.5rem;//1.75rem
+  }
+
+  & > svg {
+    flex-shrink: 0;
   }
 }
 
@@ -99,7 +102,7 @@
       &:hover {
         background-color: s.$white;
         color: $value;
-        border: 2px solid $value;
+        border: 3px solid $value;
       }
       &:active {
         background-color: shift-color($value, -50%);

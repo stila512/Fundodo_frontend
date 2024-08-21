@@ -7,10 +7,12 @@ import SelectDetail from './selectDetail';
 import HotelImg from './hotelImg';
 import SelectBar from './selectBar'
 import Content from './content'
-
+import useAuthRedirect from '@/hooks/useAuthRedirect';
 
 
 export default function HotelPage() {
+  // useAuthRedirect();
+  
   const router = useRouter();
   const { hotelCode } = router.query; 
 

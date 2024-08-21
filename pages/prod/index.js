@@ -10,7 +10,7 @@ import ProductPage from './list/productPage';
 
 export default function ProductList() {
   // 新增排序狀態
-  const [sortBy, setSortBy] = useState('newest');
+  const [sortBy, setSortBy] = useState('default');
 
   // 處理排序變更的函數
   const handleSortChange = useCallback((newSortBy) => {
@@ -39,7 +39,7 @@ export default function ProductList() {
           {/* 將 handleSortChange 傳遞給 Select 組件 */}
           <Select onChange={handleSortChange} />
         </div>
-        <div className={['row', scss.my].join(' ')}>
+        <div className={scss.my}>
           {/* 將 sortBy 傳遞給 ProductPage 組件 */}
           <ProductPage sortBy={sortBy} />
         </div>

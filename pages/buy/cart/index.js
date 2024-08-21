@@ -17,6 +17,7 @@ import CrsCartTable from './CrsCartTable';
 //== Styles =================================================================
 import s from "./cart-page.module.scss";
 import emptyCart from '@/public/cart/dog-in-cart.jpg';
+import Image from 'next/image';
 
 export default function CartPage() {
   /** @type {[number, React.Dispatch<number>]} */
@@ -28,8 +29,9 @@ export default function CartPage() {
     HT: []
   });
 
-  // 三台購物車各自的筆數
-  const [lengArr, setLengArr] = useState([0, 0, 0]);
+  // 三台購物車各自的刪除狀態紀錄
+  /** @type {[ boolean[][], React.Dispatch<boolean[][]> ]} */
+  const [itemStateArr, setItemStateArr] = useState([[], [], []]);
 
   // 三台購物車各自的總金額
   const [amtArr, setAmtArr] = useState([0, 0, 0]);
@@ -52,9 +54,35 @@ export default function CartPage() {
   //===== 以會員 ID 索取購物車資料
   useEffect(() => {
     if (uID === 0) return;
+
+    const CancalToken = axios.CancelToken;//中止情況用的信號彈
+    const source = CancalToken.source();
+    
     //以下寫法參考 Axios 官方文件
-    axios.get(`${apiBaseUrl}/cart/${uID}`)
-      .then(res => setCartPkg(res.data.result))
+    axios.get(`${apiBaseUrl}/cart/${uID}`, {cancelToken: source.token})
+      .then(res => {
+        // 略過將之前被刪除的購物車項目
+        //===== 可以避免購物車在回復刪除階段時，將重複品項救回
+        const dataPkg = res.data.result;
+        const PD_pkg = dataPkg.PD ? dataPkg.PD.filter(item => !item.deleted_at) : [];
+        const HT_pkg = dataPkg.HT ? dataPkg.HT.filter(item => !item.deleted_at) : [];
+        const CR_pkg = dataPkg.CR ? dataPkg.CR.filter(item => !item.deleted_at) : [];
+
+        setCartPkg(
+          {
+            PD: PD_pkg,
+            HT: HT_pkg,
+            CR: CR_pkg,
+          }
+        );
+
+        // 表列每個購物車項目是否被（軟）刪除的狀態
+        setItemStateArr([
+          Array(PD_pkg.length).fill(true),
+          Array(HT_pkg.length).fill(true),
+          Array(CR_pkg.length).fill(true),
+        ]);
+      })
       .catch(err => {
         console.log("未得到如預期的回應，已啟用備援資料");
         setCartPkg(dataEmergency);
@@ -69,6 +97,14 @@ export default function CartPage() {
           console.log(err);
         }
       });
+
+      return () => {
+        //取消 API request
+        // 主要在為了在 API 還沒跑完的時間點，使用者就離開頁面的情況
+        // 避免 API 無法正常結束
+        err.request && err.request.abort();
+        source.cancel("API 請求已被臨時取消");
+      }
   }, [uID])
   //===== 計算總購物車總金額
   useEffect(() => {
@@ -78,7 +114,10 @@ export default function CartPage() {
     ]);
   }, [amtArr]);
 
-  const isEmpty = !(cartPkg.CR || cartPkg.HT || cartPkg.CR);
+  const isEmpty = !(cartPkg.CR || cartPkg.HT || cartPkg.CR)
+    || !itemStateArr.reduce(
+      (indicator, currentArr) => indicator || currentArr.some(v => v),
+      false);
 
   return (
     <>
@@ -89,20 +128,20 @@ export default function CartPage() {
       <section className="container mt-5">
         <ProdCartTable
           data={cartPkg.PD}
-          cartLength={lengArr}
-          setLengArr={setLengArr}
+          itemStateArr={itemStateArr[0]}
+          setItemStateArr={setItemStateArr}
           setAmount={setAmtArr}
         />
         <HotelCartTable
           data={cartPkg.HT}
-          cartLength={lengArr}
-          setLengArr={setLengArr}
+          itemStateArr={itemStateArr[1]}
+          setItemStateArr={setItemStateArr}
           setAmount={setAmtArr}
         />
         <CrsCartTable
           data={cartPkg.CR}
-          cartLength={lengArr}
-          setLengArr={setLengArr}
+          itemStateArr={itemStateArr[2]}
+          setItemStateArr={setItemStateArr}
           setAmount={setAmtArr}
         />
         {isEmpty &&
@@ -148,9 +187,9 @@ export default function CartPage() {
               </tbody>
             </table>
           </article>}
-          {isEmpty && <div className='img-wrap-w100' style={{width: '60vw'}}>
-            <Image src={emptyCart} alt="empty cart" width={0} height={0} />
-          </div>}
+        {isEmpty && <div className='img-wrap-w100' style={{ width: '60vw' }}>
+          <Image src={emptyCart} alt="empty cart" width={0} height={0} />
+        </div>}
       </section>
     </>
   );
