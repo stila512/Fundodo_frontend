@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styles from './hotelImg.module.scss';
 import Image from 'next/image';
+import FddBtn from '@/components/buttons/fddBtn';
+import { IoIosArrowForward } from "react-icons/io";
 
 export default function HotelImg({ hotelCode }) {
   const [hotel, setHotel] = useState(null);
@@ -56,7 +58,7 @@ export default function HotelImg({ hotelCode }) {
                 className={`${styles.arrowBtn} ${styles.rightArrow}`} 
                 onClick={handleNextImage}
               >
-                &gt;
+                <IoIosArrowForward />
               </button>
             </div>
 

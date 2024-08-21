@@ -6,7 +6,7 @@ import Image from 'next/image';
 import SideText from '@/components/member/SideText';
 import mdi_dogAvatar from '@/public/memberPic/mdi_dogAvatar.svg';
 import icon_i from '@/public/memberPic/i.svg';
-import dog from '@/public/memberPic/dog.svg';
+import dogicon from '@/public/memberPic/dogicon.svg';
 import Shiba from '@/public/memberPic/Shiba.png';
 import Link from 'next/link';
 import useAuthRedirect from '@/hooks/useAuthRedirect';
@@ -17,22 +17,25 @@ export default function DogInfoData() {
   useAuthRedirect();
   const { user: authUser, loading: authLoading } = useContext(AuthContext);
   const [dogData, setDogData] = useState(null);
-
+  const [selectedDogIndex, setSelectedDogIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
 
   //從localstorage 找狗狗的資料
   const loadDogDataFromLocalStorage = (uuid) => {
-    const data = localStorage.getItem(`dogData_${uuid}`);
-    if (data) {
-      setDogData(JSON.parse(data));
-      setLoading(false);
-    } else {
-      fetchgetDog(uuid);
-    }
+    const dogs = [];
+    Object.keys(localStorage).forEach(key => {
+      if (key.startsWith(`dogData_${uuid}`)) {
+        const data = JSON.parse(localStorage.getItem(key));
+        if (data) {
+          dogs.push(...data);
+        }
+      }
+    });
+    setDogData(dogs);
+    setLoading(false);
   };
-
 
   const fetchgetMember = (uuid) => {
     const url = `http://localhost:3005/api/member/${uuid}`;
@@ -105,7 +108,7 @@ export default function DogInfoData() {
     if (authUser && authUser.uuid) {
       loadDogDataFromLocalStorage(authUser.uuid);
     } else {
-      setError('User not authenticated');
+      setError('用戶未認證');
       setLoading(false);
     }
   }, [authUser, authLoading]);
@@ -124,7 +127,7 @@ export default function DogInfoData() {
         return '未知';
     }
   };
-  
+
   const formatDate = (dateString) => {
     if (!dateString) return '未知';
 
@@ -135,12 +138,63 @@ export default function DogInfoData() {
 
     return `${year}-${month}-${day}`;
   };
+
+  const renderDogInfo = (dog) => (
+    <div className={`${scss.mainArea}`}>
+      <div className={`${scss.leftPic} col-6`}>
+        <div className={`${scss.imgDogavatar}`}>
+          <Image className="img" src={dog.dog_avatar_file || Shiba} alt="Dog Avatar" />
+        </div>
+        <div className={`${scss.Dogname}`}>
+          {dog.name || '小廢柴'}
+        </div>
+      </div>
+      <div className={`${scss.rightText} col-6`}>
+        <div className={`${scss.rightA1}`}>
+          <div className={`col-2`}>
+            <Image className="img" src={dogicon} alt="Dog Icon" />
+          </div>
+          <div className={`${scss.a0} col-6`}>
+            <div className={`${scss.textgroup}`}>
+              <div className={`col-2`}>性別<br /><p>{dog.gender === 1 ? '公' : '母'}</p></div>
+              <div className={`col-6`}>生日<br /><p>{formatDate(dog.dob)}</p></div>
+              <div className={`col-6`}>體重<br /><p>{dog.weight}kg</p></div>
+              {/* <div className={`col-4`}>犬型<br /><p>{getBodyTypeDescription(dog.bodytype)}</p></div> */}
+            </div>
+            <div>
+              <div>疫苗接種紀錄<br /><p>{dog.vaccination === 1 ? '是' : '否'}</p></div>
+            </div>
+            <div>
+              <div>絕育狀態<br /><p>{dog.neutered === 1 ? '是' : '否'}</p></div>
+            </div>
+          </div>
+          <div className={`col-4`}></div>
+        </div>
+        <div className={`${scss.rightA2}`}>
+          <div className={`col-2`}>
+            <Image className="img" src={icon_i} alt="Info Icon" />
+          </div>
+          <div className={`${scss.a3} col-8`}>
+            <div>
+              <div>性格描述<br /><p>{dog.personality || '-'}</p></div>
+            </div>
+            <div>
+              <div>行為習慣<br /><p>{dog.behavior || '-'}</p></div>
+            </div>
+          </div>
+          <div className={`col-2`}></div>
+        </div>
+      </div>
+    </div>
+  );
+
+
   return (
     <>
       {loading ? (
-        <p>Loading...</p>
+        <p>加載中...</p>
       ) : error ? (
-        <p>Error: {error}</p>
+        <p>錯誤: {error}</p>
       ) : (
         <main className={scss.dogInfoDataContainer}>
           <div className="col-3"></div>
@@ -148,60 +202,32 @@ export default function DogInfoData() {
             <div className={`${scss.midtext}`}>
               <div className={`${scss.toparea}`}>
                 <div className={`${scss.tags}`}>
-                  <div className={`${scss.tag1}`}>狗狗的資料</div>
-                  <div className={`${scss.tag2}`}>新增狗狗</div>
-                </div>
-                <div className={`${scss.mainArea}`}>
-                  <div className={`${scss.leftPic} col-6`}>
-                    <div className={`${scss.imgDogavatar}`}>
-                      {/* 顯示狗狗圖片 */}
-                      <Image className="img" src={dogData[0].image || Shiba} alt="Dog Avatar" />
-                    </div>
-                    <div className={`${scss.Dogname}`}>
-                      {/* 顯示狗狗名稱 */}
-                      { dogData[0].name || '小廢柴'}
-                    </div>
+                  <div className={`${scss.tagGroup}`}>
+                    <div className={`${scss.tag1}`}>狗狗的資料</div>
+                    <div className={`${scss.tag2}`}>新增狗狗</div>
                   </div>
-                  <div className={`${scss.rightText} col-6`}>
-                    <div className={`${scss.rightA1}`}>
-                      <div className={`col-2`}>
-                        <Image className="img" src={dog} alt="Dog Icon" />
+                  <div className={`${scss.tagGroup}`}>
+                    {dogData.map((dog, index) => (
+                      <div
+                        key={index}
+                        className={`${scss.tag3} ${selectedDogIndex === index ? scss.activeTag : ''}`}
+                        onClick={() => setSelectedDogIndex(index)}
+                      >
+                        {dog.name || `狗狗${index + 1}`}
                       </div>
-                      <div className={`${scss.a0} col-6`}>
-                        <div className={`${scss.textgroup}`}>
-                          <div className={`col-2`}>性別<br /><p>{dogData[0].gender === 1 ? '公' : '母' || '未知'}</p></div>
-                          <div className={`col-6`}>生日<br /><p>{formatDate(dogData[0].birthday)}</p></div>
-                          <div className={`col-6`}>體重<br /><p>{dogData[0].weight || '未知'}kg</p></div>
-                          <div className={`col-4`}>犬型<br /><p>{getBodyTypeDescription(dogData[0].bodytype) || '未知'} </p></div>
-                        </div>
-                        <div>
-                          <div>疫苗接種紀錄<br /><p>{dogData[0].vaccination || '未知'}</p></div>
-                        </div>
-                        <div>
-                          <div>絕育狀態<br /><p>{dogData[0].neutered ? '是' : '否'}</p></div>
-                        </div>
-                      </div>
-                      <div className={`col-4`}></div>
-                    </div>
-                    <div className={`${scss.rightA2}`}>
-                      <div className={`col-2`}>
-                        <Image className="img" src={icon_i} alt="Info Icon" />
-                      </div>
-                      <div className={`${scss.a3} col-8`}>
-                        <div>
-                          <div>性格描述<br /><p>{dogData[0].personality || '未知'}</p></div>
-                        </div>
-                        <div>
-                          <div>行為習慣<br /><p>{dogData[0].behavior || '未知'}</p></div>
-                        </div>
-                      </div>
-                      <div className={`col-2`}></div>
-                    </div>
+                    ))}
                   </div>
                 </div>
+                {dogData.length > 0 && renderDogInfo(dogData[selectedDogIndex])}
               </div>
               <div className={`${scss.botarea}`}>
-                <Link href="/member/dogInfo"><button className={`${scss.btn2}`}>編輯資料</button></Link>
+                {dogData && dogData.length > 0 && (
+                  <div className="">
+                    <Link href={`/member/dogInfo?id=${dogData[selectedDogIndex].id}`}>
+                      <button className={`${scss.btn2}`}>編輯資料</button>
+                    </Link>
+                  </div>
+                )}
               </div>
             </div>
           </div>

@@ -1,33 +1,163 @@
+import { useRef, useState, useEffect, useContext } from 'react';
+import { useRouter } from 'next/router';
+import { AuthProvider, AuthContext } from '@/context/AuthContext';
 import DefaultLayout from '@/components/layout/default';
 import scss from './dogInfo.module.scss';
 import Image from 'next/image';
 import SideText from '@/components/member/SideText';
 import mdi_dogAvatar from '@/public/memberPic/mdi_dogAvatar.svg';
 import icon_i from '@/public/memberPic/i.svg';
-import dog from '@/public/memberPic/dog.svg';
-import radio from '@/public/memberPic/radio.svg';
+import dogicon from '@/public/memberPic/dogicon.svg';
 import useAuthRedirect from '@/hooks/useAuthRedirect';
 
 
 export default function DogInfo() {
   useAuthRedirect();
+  const fileInputRef = useRef(null);
+  const [avatar, setAvatar] = useState(null);
+  const [weight, setWeight] = useState('');
+  const { user: authUser, loading: authLoading } = useContext(AuthContext);
+  const [dog, setDog] = useState({
+    name: '',
+    gender: '',
+    dob: '',
+    weight: '',
+    introduce: '',
+    behavior: '',
+    avatar_file: '',
+    vaccinations: [],
+    neutering: ''
+  });
+  const [error, setError] = useState(null);
+  const router = useRouter();
+  const { id } = router.query;
+
+  //體重
+  const handleWeightChange = (event) => {
+    const newWeight = event.target.value;
+    setWeight(event.target.value);
+    setDog(prevState => ({ ...prevState, weight: newWeight }));
+    console.log('Selected weight:', event.target.value);
+  };
+
+  // checkbox 勾選狀態
+  const handleVaccinationChange = (value) => {
+    setDog(prevState => {
+      const updatedVaccinations = prevState.vaccinations.includes(value)
+        ? prevState.vaccinations.filter(vac => vac !== value)
+        : [...prevState.vaccinations, value];
+
+      return { ...prevState, vaccinations: updatedVaccinations };
+    });
+  };
+
+  // 頭像點擊
+  const handleAvatarClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setAvatar(reader.result);
+      };
+      reader.readAsDataURL(file);
+      setDog({ ...dog, avatar_file: file });
+    }
+  };
+
+  //表單送出事件
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append('name', dog.name);
+    formData.append('gender', dog.gender);
+    formData.append('dob', dog.dob);
+    formData.append('weight', dog.weight);
+    formData.append('introduce', dog.introduce);
+    formData.append('behavior', dog.behavior);
+    formData.append('avatar_file', dog.avatar_file);
+    formData.append('vaccinations', dog.vaccinations);
+    formData.append('neutering', dog.neutering);
+    
+    const url = `http://localhost:3005/api/member/dogInfo/${id}`;
+
+    fetch(url, {
+      method: 'PUT',
+      body: formData,
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 'success') {
+          alert('資料更新成功');
+
+          // 如果有新的頭像，則上傳頭像
+          if (user.avatar_file) {
+            const formData2 = new FormData();
+            formData2.append('avatar', user.avatar_file);
+
+            const url2 = `http://localhost:3005/api/member/uploadAvatar_dog/${id}`;
+
+            return fetch(url2, {
+              method: 'POST',
+              body: formData2,
+            });
+          }
+        } else {
+          setError(data.message);
+          throw new Error(data.message);
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (user.avatar_file && data.status === 'success') {
+          const updatedAvatarUrl = `http://localhost:3005/upload/${authUser.uuid}.png`;
+          setAvatar(updatedAvatarUrl);
+        }
+      })
+      .catch(error => {
+        setError(error.message);
+      }).finally(() => {
+        // 在資料提交和頭像上傳成功後重整頁面
+        window.location.reload();
+      });
+  };
+
   return (
     <>
       <main className={`${scss.dogInfoContainer} pt-5`}>
         <div className="col-1 col-xl-1 col-xxl-3"></div>
-        <div className={`${scss.midarea} col-10 col-xl-8 col-xxl-6`}>
+        <form className={`${scss.midarea} col-10 col-xl-8 col-xxl-6`} onSubmit={handleSubmit}>
           <div className={`${scss.tags} col-12`}>
             <div className={`${scss.tag1}`}>狗狗的資料</div>
             <div className={`${scss.tag2}`}>新增狗勾</div>
           </div>
           <div className={`${scss.mainarea} col-12`}>
-            <div className={`${scss.toparea}`}>
-              <Image className="img" src={mdi_dogAvatar} alt="Image" />
+            <div className={`${scss.toparea}`} onClick={handleAvatarClick}>
+              <div className={['img-wrap-h100', scss.avatarWrapper].join(' ')}>
+                <Image
+                  className="img"
+                  src={avatar || mdi_dogAvatar}
+                  alt="Image"
+                  width={0}
+                  height={0}
+                />
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  style={{ display: 'none' }}
+                  onChange={handleFileChange}
+                />
+              </div>
             </div>
             <div className={`${scss.textarea}`}>
               <div className={`${scss.TOPtext}`}>
                 <div className={`col-1`}>
-                  <div><Image className="img" src={dog} alt="Image" /></div>
+                  <div><Image className="img" src={dogicon} alt="Image" /></div>
                 </div>
                 <div className={`${scss.labelGroup} col-2`}>
                   <div>毛孩名 </div>
@@ -38,42 +168,102 @@ export default function DogInfo() {
                   <div>絕育狀態</div>
                 </div>
                 <div className={`${scss.inputGroup} col-9`}>
-                  <div><input type="text" placeholder="姓名" /></div>
                   <div>
-                    <input type="radio" name="dog_gender" value="male"></input>
-                    <label htmlFor="male"><Image className="imgWrap" src={radio} alt="Image" />公</label>
-                    <input type="radio" name="dog_gender" value="female"></input>
-                    <label htmlFor="female"><Image className="imgWrap" src={radio} alt="Image" />母</label>
+                    <input type="text" placeholder="姓名"
+                      value={dog.name}
+                      onChange={(e) => setDog({ ...dog, name: e.target.value })}
+                    />
+                  </div>
+                  <div className={scss.genderRadio}>
+                    <input type="radio"
+                      name="gender"
+                      value="1"
+                      id="male"
+                      checked={dog.gender === '1'}
+                      onChange={() => setDog({ ...dog, gender: '1' })}>
+                    </input>
+                    <label htmlFor="male">男孩</label>
+                    <input type="radio"
+                      name="gender"
+                      value="2"
+                      id="female"
+                      checked={dog.gender === '2'}
+                      onChange={() => setDog({ ...dog, gender: '2' })}>
+                    </input>
+                    <label htmlFor="female">女孩</label>
                   </div>
                   <div>
-                    <select>
-                      <option>毛孩出生年</option>
-                    </select>
-                    <select>
-                      <option>月份</option>
-                    </select>
-                    <select>
-                      <option>日期</option>
-                    </select>
+                    <input
+                      type="date" id="dob" name="dob"
+                      value={dog.dob}
+                      onChange={(e) => setDog({ ...dog, dob: e.target.value })}
+                      min="1900-01" max="2030-12-31" required>
+                    </input>
                   </div>
                   <div>
-                    <select>
-                      <option>請選擇</option>
+                    <select id="weight" value={weight} onChange={handleWeightChange}>
+                      <option value="">請選擇體重</option>
+                      {Array.from({ length: 100 }, (_, index) => (
+                        <option key={index + 1} value={index + 1}>
+                          {index + 1} 公斤
+                        </option>
+                      ))}
                     </select>
                   </div>
-                  <div>
-                    <input type="radio" name="dog_gender" value="Vac"></input>
-                    <label htmlFor="Vac"><Image className="imgWrap" src={radio} alt="Image" />多合一疫苗</label>
-                    <input type="radio" name="dog_gender" value="Vac"></input>
-                    <label htmlFor="Vac"><Image className="imgWrap" src={radio} alt="Image" />狂犬病疫苗</label>
-                    <input type="radio" name="dog_gender" value="Vac"></input>
-                    <label htmlFor="Vac"><Image className="imgWrap" src={radio} alt="Image" />萊姆病疫苗</label>
-                  </div>
-                  <div>
-                    <input type="radio" name="dog_gender" value="Neutering"></input>
-                    <label htmlFor="Neutering"><Image className="imgWrap" src={radio} alt="Image" />是</label>
-                    <input type="radio" name="dog_gender" value="Neutering"></input>
-                    <label htmlFor="Neutering"><Image className="imgWrap" src={radio} alt="Image" />否</label>
+                  <div className={`${scss.inputRadioGroup}`}>
+                    <div className="mb-3">
+                      <input
+                        type="checkbox"
+                        id="vac-multi"
+                        name="vaccinations"
+                        value="multi"
+                        checked={dog.vaccinations.includes('multi')}
+                        onChange={() => handleVaccinationChange('multi')}
+                      />
+                      <label htmlFor="vac-multi">多合一疫苗</label>
+
+                      <input
+                        type="checkbox"
+                        id="vac-rabies"
+                        name="vaccinations"
+                        value="rabies"
+                        checked={dog.vaccinations.includes('rabies')}
+                        onChange={() => handleVaccinationChange('rabies')}
+                      />
+                      <label htmlFor="vac-rabies">狂犬病疫苗</label>
+
+                      <input
+                        type="checkbox"
+                        id="vac-lyme"
+                        name="vaccinations"
+                        value="lyme"
+                        checked={dog.vaccinations.includes('lyme')}
+                        onChange={() => handleVaccinationChange('lyme')}
+                      />
+                      <label htmlFor="vac-lyme">萊姆病疫苗</label>
+                    </div>
+
+                    <div>
+                      <input
+                        type="radio"
+                        id="neutering-yes"
+                        name="neutering"
+                        value="yes"
+                        checked={dog.neutering === 'yes'}
+                        onChange={() => setDog({ ...dog, neutering: 'yes' })}
+                      />
+                      <label htmlFor="neutering-yes">是</label>
+
+                      <input
+                        type="radio"
+                        id="neutering-no"
+                        name="neutering"
+                        value="no"
+                        checked={dog.neutering === 'no'}
+                        onChange={() => setDog({ ...dog, neutering: 'no' })}
+                      />
+                      <label htmlFor="neutering-no">否</label>
+                    </div>
                   </div>
                 </div>
 
@@ -88,8 +278,18 @@ export default function DogInfo() {
                   <div>行為習慣</div>
                 </div>
                 <div className={`${scss.inputGroup_b} col-9`}>
-                <div><textarea type="text" placeholder="如活潑、安靜、友善等..." /></div>
-                <div><textarea type="text" placeholder="如是否容易焦慮、是否有攻擊性..." /></div>
+                  <div>
+                    <textarea placeholder="如活潑、安靜、友善等..."
+                      value={dog.introduce}
+                      onChange={(e) => setDog({ ...dog, introduce: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <textarea placeholder="如是否容易焦慮、是否有攻擊性..."
+                      value={dog.behavior}
+                      onChange={(e) => setDog({ ...dog, behavior: e.target.value })}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -97,9 +297,9 @@ export default function DogInfo() {
 
 
           <div className={`${scss.btnarea} mt-5`}>
-            <button className={`${scss.btn2}`}>確認送出</button>
+            <button type="submit" className={`${scss.btn2}`}>確認送出</button>
           </div>
-        </div>
+        </form>
 
 
         <div className="col-1 col-xl-3 col-xxl-3 my-2 d-none d-xl-block">

@@ -9,6 +9,7 @@ export default function SelectDetail({ hotelCode }) {
   const [checkOutDate, setCheckOutDate] = useState('');
   const [nightCount, setNightCount] = useState(1);
   const [roomType, setRoomType] = useState('');
+  const [roomTypeCode, setRoomTypeCode] = useState('');
   const [roomCount, setRoomCount] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -66,7 +67,21 @@ export default function SelectDetail({ hotelCode }) {
 
   const handleRoomTypeChange = useCallback((type) => {
     setRoomType(type);
-  }, []);
+
+ switch(type) {
+    case '小型犬':
+      setRoomTypeCode('S');
+      break;
+    case '中型犬':
+      setRoomTypeCode('M');
+      break;
+    case '大型犬':
+      setRoomTypeCode('L');
+      break;
+    default:
+      setRoomTypeCode('');
+  }
+}, []);
   
 //切換房型的style
   const getWeightRangeClass = (type) => roomType === type ? styles.active : '';
@@ -112,6 +127,50 @@ export default function SelectDetail({ hotelCode }) {
     const date = new Date(dateString);
     return `${date.getMonth() + 1} 月 ${date.getDate()}日`;
   };
+
+  //放入購物車
+  const handleBooking = async () => {
+    if(!checkInDate || !checkOutDate || !roomType || !roomCount) {
+      alert('訂房資訊尚未選取完成');
+      return;
+    }
+
+  //cart api
+  const bookingData = {
+    user_id: 13, //從會員資料來
+    dog_id: null,
+    buy_sort: "HT",
+    buy_id: hotelCode,
+    amount: totalPrice,
+    room_type: roomTypeCode,
+    check_in_date: checkInDate,
+    check_out_date: checkOutDate,
+  };
+
+  try {
+    const response = await fetch('http://localhost:3005/cart', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(bookingData)
+    });
+
+    if(!response.ok) {
+      throw new Error('加入購物車失敗');
+    }
+
+    const result = await response.json();
+
+    console.log('成功加入購物車:', result);
+    alert('已成功加入購物車');
+
+  } catch (error) {
+    console.error('加入購物車失敗:', error);
+    alert('加入購物車失敗，請稍後再試')
+  }
+};
+
 
   //座標格式
 
@@ -211,7 +270,7 @@ export default function SelectDetail({ hotelCode }) {
                 <option value="5">5</option>
               </select>
               <div>
-                <button className={styles.btn}>立即預定</button>
+                <button className={styles.btn} onClick={handleBooking}>立即預定</button>
               </div>
             </div>
 

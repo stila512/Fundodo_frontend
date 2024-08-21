@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import scss from '@/pages/article/commonItem/userAction.module.scss';
+import Link from 'next/link';
+import { IoIosSearch } from "react-icons/io";
 
 export default function UserAction() {
+    const [search, setSearch] = useState('')
     return (
         <>
             <div className={[scss.userAction].join()}>
@@ -15,7 +18,16 @@ export default function UserAction() {
                         <option value="2">熱門文章</option>
                         <option value="3">按讚最多</option>
                     </select>
-                    <input type="text" placeholder='使用關鍵字搜尋' className={[scss.searchBar].join()} />
+                    <div className={scss.search}>
+                        <input 
+                        type="text" 
+                        placeholder='使用關鍵字搜尋' 
+                        className={[scss.searchBar].join()} 
+                        value={search} 
+                        onChange={e => setSearch(e.target.value)} />
+                        <Link className={scss.searchBtn} href={`/article?search=${search}`}><IoIosSearch /></Link>
+                    </div>
+
                 </div>
             </div>
         </>

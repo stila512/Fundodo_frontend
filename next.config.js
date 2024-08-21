@@ -5,6 +5,7 @@ const path = require('path');
 const nextConfig = {
   reactStrictMode: false,
   images: {
+    domains: ['localhost'],
     remotePatterns: [
       {
         protocol: 'https',

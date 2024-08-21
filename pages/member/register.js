@@ -127,7 +127,7 @@ export default function RegisterPage() {
                 </p>
               </div>
               <div className={scss.area2}>
-                <label>使用者名稱</label>
+                <label>暱稱</label>
                 <input
                   type="text"
                   name="nickname"

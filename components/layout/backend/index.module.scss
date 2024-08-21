@@ -1,15 +1,24 @@
 @import '@/styles';
 
-.container{
-    width: 100%;
-    height: 100vh;
+.container {
     display: flex;
-    box-sizing: border-box;
+    width: 100%;
+    min-height: 100vh;
     margin: 0;
     padding: 0;
-}
-
-.main{
+    box-sizing: border-box;
+  }
+  
+  .sideBarWrapper {
+    width: 300px; 
+    flex-shrink: 0; 
+  }
+  
+  .mainContent {
+    flex-grow: 1;
+    overflow-x: auto; 
+  }
+  
+  .main {
     padding: 0 45px;
-}
-
+  }
