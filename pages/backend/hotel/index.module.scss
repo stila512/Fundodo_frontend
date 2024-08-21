@@ -1,6 +1,6 @@
 @import '@/styles';
 
-.coursePage {
+.hotelPage {
   h1 {
     display: flex;
     width: 252px;
@@ -15,4 +15,100 @@
     font-weight: 500;
     line-height: 150%; 
   }
+}
+.statusBar li {
+  display: inline-block;
+  margin-right: 15px; 
+  font-size: 20px;
+  padding: 10px 14px;
+  color: $shade2;
+  cursor: pointer;
+  
+
+  &:hover {
+    color: $shade4
+  }
+}
+
+
+.tableWrap{
+  border: 1px solid $shade3;
+}
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.searchBar {
+  display: flex;
+  align-items: center;
+}
+.searchInput {
+  padding: 8px;
+  border: 1px solid #CACACA;
+  border-radius: 4px 0 0 4px;
+  width: 200px;
+}
+.searchBtn {
+  padding: 8px 15px;
+  background-color: $info;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+.addBtn {
+  padding: 8px 15px;
+  background-color: $info;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.Table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 18px;
+
+  
+}
+.Table th {
+  background-color: $body;
+  color: white;
+  text-align: left;
+  padding: 12px;
+  font-weight: 500;
+
+}
+.Table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  color: $gray-700; 
+}
+
+.actionBtn {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 2px;
+}
+
+.icon {
+  width: 26px;
+  height: 26px;
+}
+
+.statusBtn {
+  padding: 6px;
+  border: 0.5px solid #8bcb97;
+  background-color: #f1f1f1;
+  color: #00953e;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.statusDot {
+  color: #6fdd60;
+  margin: 0 4px;
 }
