@@ -1,8 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import scss from '@/pages/article/commonItem/asideArticle.module.scss';
+import axios from 'axios';
 
-export default function AsideArticle({article}) {
+export default function AsideArticle({ article }) {
+  const [imagePath, setImagePath] = useState('/defaltImg.png');
+  const baseUrl = 'http://localhost:3001'
+  useEffect(() => {
+    if (article && article.id) {
+      // 發送請求到後端 API 來獲取圖片路徑
+      axios.get(`http://localhost:3001/api/images/${article.id}`)
+        .then(response => {
+          if (response.data && response.data.imagePath) {
+            setImagePath(`${baseUrl}${response.data.imagePath}`);
+            // `http://localhost:3001/${response.data.imagePath}`
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching image:', error);
+        });
+    }
+  }, [article]);
+
   if (!article) return null
   const formatDate = (dateString) => {
     const date = new Date(dateString)
@@ -20,7 +39,14 @@ export default function AsideArticle({article}) {
     <>
       {' '}
       <div className={[scss.leftArticle].join()}>
-        <Image src="/logo.png" alt="" width={138} height={100} />
+        <div className={scss.imgWrapper}>
+          <Image src={imagePath}
+            alt=""
+            layout="fill"
+            className={scss.leftArtiImg}
+             />
+        </div>
+
         <div className={[scss.leftArticleTitle].join()}>
           <a className={[scss.leftTitle].join()} href={`/article/content?aid=${article.id}`}>{article.title}</a>
           <p className={[scss.leftTime].join()}>{formatDate(article.create_at)}</p>
