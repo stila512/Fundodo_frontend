@@ -36,12 +36,14 @@ export default function ProductGrid({ products, className, page, totalPages, onP
   }
 
   return (
-    <div className={['row', 'col-lg-9', 'g-3', className].join(' ')}>
+    <div className={['row', 'g-3', className].join(' ')}>
       {products.length > 0 ? (
         products.map((v, i) => (
           <div key={i} className={['col-xxl-3 col-xl-4 col-6', scss.cardGrid].join(' ')}>
             <div className={scss.card}>
-              <FavoriteIcon style={{ color: '#B9A399' }} className={scss.cardFavIcon} />
+              <div className='d-flex jc-end'>
+                <FavoriteIcon style={{ color: '#B9A399' }} className={scss.cardFavIcon} />
+              </div>
               <div className={scss.prodImgBox}>
                 <div className={[scss.prodImg, 'img-wrap-w100', 'img-wrap-h100'].join(' ')}>
                   <Image src={`/pic-prod/${v.picNameArr[0]}`} width={0} height={0} layout="responsive" />
@@ -94,6 +96,8 @@ export default function ProductGrid({ products, className, page, totalPages, onP
           </button>
         </div>
       )}
+      
     </div>
+    
   )
 }
