@@ -2,12 +2,12 @@ import React, { useState, useEffect, useCallback } from 'react';
 import ReactSlider from 'react-slider';
 import scss from './priceFilter.module.scss';
 
-export default function PriceFilter({ min, max, onChange }) {
+export default function PriceFilter({ min, max, onChange, resetTrigger }) {
   const [values, setValues] = useState([min, max]);
 
   useEffect(() => {
     setValues([min, max]);
-  }, [min, max]);
+  }, [min, max, resetTrigger]); // 添加 resetTrigger 到依賴數組
 
   const handleSliderChange = useCallback((newValues) => {
     setValues(newValues);

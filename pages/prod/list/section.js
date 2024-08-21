@@ -10,7 +10,7 @@ export default function Section() {
 					<div className={scss.shibaBox}>
 						<Image src={shiba} alt={shiba} />
 					</div>
-					<h1 className={[scss.pt3, scss.dogFood].join(' ')}>狗的食物</h1>
+					<h1 className={[scss.pt3, scss.dogFood].join(' ')}>柴犬商城</h1>
 				</div>
 			</section>
 		</>

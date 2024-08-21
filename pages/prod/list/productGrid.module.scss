@@ -1,5 +1,7 @@
 @use '@/styles' as s;
-
+// .cardGrid{
+//   height:
+// }
 .card {
   height: 100%;
   display: flex;
@@ -52,5 +54,26 @@
   bottom: 0;
   &:hover {
     color: s.$white;
+  }
+}
+.activePage {
+  font-weight: bold;
+  color: s.$primary;
+}
+
+.myButton {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &:hover:not(:disabled) {
+    background-color: #fff;
   }
 }

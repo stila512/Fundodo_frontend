@@ -1,20 +1,30 @@
+// function
 import { useEffect, useState } from 'react';
+import deleteCartOf from './doSoftDelete';
+// component
 import Image from 'next/image';
 import FddBtn from '@/components/buttons/fddBtn';
 import { NumberPanel } from '@/components/buttons/NumberPanel';
+// styles
 import s from './cart-page.module.scss';
 import { TbTrashX } from "react-icons/tb";
 import { RxCross2 } from "react-icons/rx";
 
 //todo 將 isOutOfStock 與 stock_when_few 納入機制
 
+//* 不可更改
+const i_cart = 0;
+
 export default function ProdCartTable({
   data = null,
+  cartLength = 0,
+  setLengArr = () => { },
   setAmount = () => { },
-  i_amt = -1
 }) {
   const [qtyArr, setQtyArr] = useState([]);
   const [subtotArr, setSubtotArr] = useState([]);
+
+  const noData = (!data || data.length === 0);
 
   useEffect(() => {
     setQtyArr(data.map(d => d.quantity));
@@ -22,23 +32,22 @@ export default function ProdCartTable({
 
   //===== 計算 PD 購物車小計
   useEffect(() => {
+    if (noData) return;
     const subtotList = qtyArr.map((q, i) => q * data[i].price);
     const total = subtotList.reduce((total, cur) => total + cur, 0);
     setSubtotArr(subtotList);
-    setAmount(arr => arr.map((v, i) => (i === i_amt) ? total : v));
+    setAmount(arr => arr.map((v, i) => (i === i_cart) ? total : v));
   }, [qtyArr]);
 
   const handleZero = () => {
     console.log('ㄟ，不能歸零');
   }
 
-  const noData = (!data || data.length === 0);
-
   return (
     <>
       <table className={s.cartTable}>
         <caption className='tx-default tx-shade4 tx-left'>
-          共 {data.length} 件商品
+          共 {data ? data.length : 0} 件商品
         </caption>
         <thead>
           <tr>
@@ -52,10 +61,11 @@ export default function ProdCartTable({
           </tr>
         </thead>
         <tbody className='tx-body'>
-          {noData || data.map((item, i_data) => (
+        {console.log(data.length)}
+          {noData || data.map((item, i_data) => item.deleted_at && (
             <tr key={item.key}>
               <td>
-                <FddBtn color='tint4' size='sm' icon callback={() => { }}>
+                <FddBtn color='tint4' size='sm' icon callback={() => deleteCartOf(item.key)}>
                   <RxCross2 />
                 </FddBtn>
               </td>

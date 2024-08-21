@@ -94,6 +94,9 @@ export default function PeopleInfo() {
       .then(data => {
         if (data.status === 'success') {
           alert('資料更新成功');
+          if (data.token) {
+            localStorage.setItem('token', data.token);
+          }
         } else {
           setError(data.message);
         }

@@ -2,15 +2,19 @@ import React, { useState, useEffect, useCallback } from 'react';
 import scss from './aside.module.scss';
 import Filter from './filter';
 import PriceFilter from './priceFilter';
+import { FaFilterCircleXmark } from "react-icons/fa6";
 
 export default function Aside({ onFilterChange, className }) {
   const [filterOptions, setFilterOptions] = useState({
     categories: {},
     categoryBrands: {},
     allCategories: [],
-    priceRange: { min: 0, max: 10000 }
+    priceRange: { min: 0, max: 10000 },
+    ages: []
   });
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedAge, setSelectedAge] = useState('');
+  const [resetTrigger, setResetTrigger] = useState(0);
 
   useEffect(() => {
     fetchFilterOptions();
@@ -30,7 +34,7 @@ export default function Aside({ onFilterChange, className }) {
 
   const handleCategoryChange = useCallback((category) => {
     setSelectedCategory(category);
-    onFilterChange({ category, subcategory: '', brand: '' });
+    onFilterChange({ category, subcategory: '', brand: '', age: '' });
   }, [onFilterChange]);
 
   const handleSubcategoryChange = useCallback((subcategory) => {
@@ -41,13 +45,37 @@ export default function Aside({ onFilterChange, className }) {
     onFilterChange({ brand });
   }, [onFilterChange]);
 
+  const handleAgeChange = useCallback((age) => {
+    setSelectedAge(age);
+    onFilterChange({ age });
+  }, [onFilterChange]);
+
   const handlePriceChange = useCallback((minPrice, maxPrice) => {
     onFilterChange({ minPrice, maxPrice });
   }, [onFilterChange]);
 
+   // 新增清除篩選的函數
+   const clearFilters = useCallback(() => {
+    setSelectedCategory('');
+    setResetTrigger(prev => prev + 1); 
+    onFilterChange({
+      category: '',
+      subcategory: '',
+      brand: '',
+      age: '',
+      minPrice: filterOptions.priceRange.min,
+      maxPrice: filterOptions.priceRange.max
+    });
+  }, [onFilterChange, filterOptions.priceRange]);
+
+  const showAgeFilter = ['飼料', '罐頭', '保健'].includes(selectedCategory);
+
   return (
     <aside className={['col-3', scss.rwd, className].join(' ')}>
-      <h2 className={[scss.mb, scss.font].join(' ')}>篩選</h2>
+      <div className={['hstack', scss.mb, 'jc-between'].join(' ')}>
+        <h2 className={scss.font}>篩選</h2>
+        <FaFilterCircleXmark size={30} color={"#B9A399"} onClick={clearFilters} style={{cursor:'pointer'}}/>
+      </div>
       <div className={scss.filters}>
         <div className={scss.ractangle}>
           <div className={scss.margin}>
@@ -58,6 +86,7 @@ export default function Aside({ onFilterChange, className }) {
               <Filter
                 categories={filterOptions.allCategories}
                 onChange={handleCategoryChange}
+                resetTrigger={resetTrigger}
               />
             </div>
           </div>
@@ -72,6 +101,7 @@ export default function Aside({ onFilterChange, className }) {
                 <Filter
                   categories={filterOptions.categories[selectedCategory] || []}
                   onChange={handleSubcategoryChange}
+                  resetTrigger={resetTrigger}
                 />
               </div>
             </div>
@@ -92,6 +122,22 @@ export default function Aside({ onFilterChange, className }) {
             </div>
           </div>
         )}
+        {showAgeFilter && (
+          <div className={scss.ractangle}>
+            <div className={scss.margin}>
+              <div className={scss.header}>
+                <h2 className={scss.font}>年齡</h2>
+              </div>
+              <div className='row gap-2 mt-3'>
+                <Filter
+                  categories={filterOptions.ages}
+                  onChange={handleAgeChange}
+                  resetTrigger={resetTrigger}
+                />
+              </div>
+            </div>
+          </div>
+        )}
         <div className={scss.ractangle}>
           <div className={scss.margin}>
             <div className={scss.header}>
@@ -101,6 +147,7 @@ export default function Aside({ onFilterChange, className }) {
               min={filterOptions.priceRange.min}
               max={filterOptions.priceRange.max}
               onChange={handlePriceChange}
+              resetTrigger={resetTrigger}
             />
           </div>
         </div>
