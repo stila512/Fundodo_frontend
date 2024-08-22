@@ -23,7 +23,7 @@ export default function HotelCartTable({
 }) {
   const noData = (!data || data.length === 0
     || itemStateArr.filter(v => v).length === 0);
-  
+
   useEffect(() => {
     if (data) {
       const total = data.reduce((sum, cur) => sum + cur.amount, 0);
@@ -56,7 +56,6 @@ export default function HotelCartTable({
             <th></th>
             <th>入住資訊</th>
             <th>房型</th>
-            <th style={{ width: '9rem' }}>單房總額</th>
             <th style={{ width: '9rem' }}>小計</th>
           </tr>
         </thead>
@@ -92,17 +91,12 @@ export default function HotelCartTable({
               <td>
                 <div className="mx-auto pe-1 tx-right w-fit">
                   ${item.amount}
-                </div>
-              </td>
-              <td>
-                <div className="mx-auto pe-1 tx-right w-fit">
-                  ${item.amount}
                 </div></td>
             </tr>
           ))
           }
           {noData && <tr><td colSpan={6}>
-          <FddBtn color='secondary' size='sm' href='/course'>來去逛逛寵物旅館</FddBtn>
+            <FddBtn color='secondary' size='sm' href='/course'>來去逛逛寵物旅館</FddBtn>
           </td></tr>}
         </tbody>
       </table>
