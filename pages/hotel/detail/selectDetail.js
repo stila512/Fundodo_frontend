@@ -211,11 +211,6 @@ export default function SelectDetail({ hotelCode }) {
               <p className={styles.detail}>含稅費及其他費用</p>
             </div>
 
-            <div className={styles.coupon}>
-              <span className={styles.couponIcon}><RiCoupon2Line /></span>
-              專屬優惠券 NT$ 50
-            </div>
-
             <div className={styles.select}>
               <div className={styles.selectContainer}>
                 <div className={styles.detailTitle}>
@@ -326,11 +321,6 @@ export default function SelectDetail({ hotelCode }) {
                 ${hotel.price_s}~${hotel.price_l}
               </h1>
               <p className={styles.detail}>含稅費及其他費用</p>
-            </div>
-
-            <div className={styles.coupon}>
-              <span className={styles.couponIcon}><RiCoupon2Line /></span>
-              專屬優惠券 NT$ 50
             </div>
 
             <div className={styles.map} />

@@ -92,14 +92,19 @@
   border-radius: 4px;
   cursor: pointer;
   margin: 2px;
+  &:hover {
+    background-color: $tint4;
+
+  }
 }
 
 .icon {
   width: 26px;
   height: 26px;
+  color: $shade3
 }
 
-.statusBtn {
+.statusBtnOnline {
   padding: 6px;
   border: 0.5px solid #8bcb97;
   background-color: #f1f1f1;
@@ -108,7 +113,22 @@
   cursor: pointer;
 }
 
-.statusDot {
+.statusBtnOffline{
+  padding: 6px;
+  border: 0.5px solid #cb958b;
+  background-color: #f1f1f1;
+  color: #e23535;
+  border-radius: 6px;
+  cursor: pointer;
+
+}
+
+.statusDotOnline {
   color: #6fdd60;
+  margin: 0 4px;
+}
+
+.statusDotOffline {
+  color: #f04545;
   margin: 0 4px;
 }
