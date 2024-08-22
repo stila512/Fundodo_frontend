@@ -54,11 +54,14 @@ export default function FddBtn({
   switch (size) {
     case '':
       break;
+    case 'lg':
+      size = 'btn-lg';
+      break;
     case 'sm':
       size = 'btn-sm';
       break;
-    case 'lg':
-      size = 'btn-lg';
+    case 'mini':
+      size = 'btn-mini';
       break;
     default:
       throw new Error('FddBtn 的 size 只有三種選項：不填、sm、lg');

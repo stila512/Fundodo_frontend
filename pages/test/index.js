@@ -9,7 +9,7 @@ import Modal from '@/components/common/modal/Modal';
 
 export default function TestPage() {
   const [showModal, setShowModal] = useState(false);
-  
+
   return (
     <>
       <Head>
@@ -30,7 +30,7 @@ export default function TestPage() {
                   完善會員資料
                 </FddBtn>
 
-                <FddBtn color="primary" outline icon callback={()=>setShowModal(true)}>
+                <FddBtn color="primary" outline icon callback={() => setShowModal(true)}>
                   <IconContext.Provider value={{ size: '2.5rem' }}>
                     <DiApple />
                   </IconContext.Provider>
@@ -42,9 +42,19 @@ export default function TestPage() {
             </div>
           </div>
         </div>
-        <Modal mode={1} active={showModal}>
+        {/* <Modal mode={1} active={false} onClose={() => setShowModal(false)}>
           <h1>確認成功！</h1>
-          <p>布拉布拉布拉布拉布拉布拉布拉布拉布拉布拉布拉布拉</p>
+          <span>拉不拉多拉不拉多拉布拉布拉布拉布拉布拉布拉布拉不拉多拉布拉布拉布拉布拉布拉布拉不拉多拉布拉布拉布拉布拉布拉不拉多拉布拉布拉布拉布拉不拉多拉布拉布拉布拉</span>
+        </Modal> */}
+        <Modal
+          mode={2}
+          active={showModal}
+          onClose={() => setShowModal(false)}
+          confirmText='確定'
+          cancelText='算了'
+        >
+          <h1>你確定這樣的行為是正確的嗎？</h1>
+          <p>拉不拉多拉不拉多拉布拉布拉布拉布拉布拉布拉布拉不拉多拉布拉布拉布拉布拉布拉布拉不拉多拉布拉布拉布拉布拉布拉不拉多拉布拉布拉布拉布拉不拉多拉布拉布拉布拉</p>
         </Modal>
       </div>
     </>
