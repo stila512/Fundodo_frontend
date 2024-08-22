@@ -1,5 +1,6 @@
 import React from 'react'
 import scss from './sideBar.module.scss';
+import Link from 'next/link';
 import Logo from '@/public/logo-backend.png';
 import Image from 'next/image';
 import { IoMdPerson } from 'react-icons/io';
@@ -25,8 +26,12 @@ export default function SideBar() {
           <button className=""><IoMdPerson className={scss.icon}/> 會員管理</button>
             <button className=""><IoCart className={scss.icon}/>訂單管理</button>
             <button className=""><FaBone className={scss.icon}/>商品管理</button>
+            <Link href={`/backend/hotel`}>
             <button className=""><GiDogHouse className={scss.icon}/>旅館管理</button>
+            </Link>
+            <Link href={`/backend/course`}>
             <button className=""><GiJumpingDog className={scss.icon}/>課程管理</button>
+            </Link>
             <button className=""><PiArticleNyTimesBold className={scss.icon}/>文章管理</button>
             <button className=""><RiCoupon2Fill className={scss.icon}/>優惠券管理</button>
           </div>

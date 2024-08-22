@@ -24,7 +24,6 @@
     background-color: #f9f9f9;
     padding: 30px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
     .imgGroup {
       margin-bottom: 20px;
@@ -52,6 +51,7 @@
         display: inline-block;
         margin-bottom: 6px;
         margin-right: 14px;
+        margin-left: 4px;
       }
       .price {
         width: 20%;
@@ -86,7 +86,7 @@
     .addImg {
       width: 100px;
       height: 100px;
-      background-color: $tint5;
+      background-color: $secondary;
       border-radius: 4px;
       display: flex;
       align-items: center;
@@ -177,3 +177,4 @@
   background-color: $primary;
   border: none;
 }
+
