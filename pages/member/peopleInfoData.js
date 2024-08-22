@@ -60,6 +60,17 @@ export default function PeopleInfoData() {
     }
   }, [authUser, authLoading]);
 
+  const formatDate = (dateString) => {
+    if (!dateString) return '未知';
+
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  };
+
   return (
     <>
       <main>
@@ -77,18 +88,18 @@ export default function PeopleInfoData() {
                   <div className={scss.area3}>姓名<p>{user.name || '-'}</p></div>
                   <div className={scss.area4}>性別
                     <div className={scss.genderRadio}>
-                      <p>{user.gender || '-'}</p>
+                      <p>{user.gender === 1 ? '先生' : '女士'}</p>
                     </div>
                   </div>
                   <div className={scss.area5}>生日
                     <div><label html="birthday"></label>
-                      {user.dob || '-'}
+                    {formatDate(user.dob)}
                     </div>
                   </div>
                   <div className={scss.area6}>行動電話 <p>{user.tel || '-'}</p></div>
                   <div className={scss.area7}>聯絡地址
                     <div className={scss.address}>
-                    {user.adr_city || '-'} {user.address || '-'}
+                    {user.address || '-'}
                     </div>
 
                   </div>
