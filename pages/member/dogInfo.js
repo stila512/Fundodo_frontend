@@ -80,10 +80,9 @@ export default function DogInfo() {
     formData.append('weight', dog.weight);
     formData.append('introduce', dog.introduce);
     formData.append('behavior', dog.behavior);
-    formData.append('avatar_file', dog.avatar_file);
-    formData.append('vaccinations', dog.vaccinations);
+    formData.append('vaccinations', JSON.stringify(dog.vaccinations));
     formData.append('neutering', dog.neutering);
-    
+
     const url = `http://localhost:3005/api/member/dogInfo/${id}`;
 
     fetch(url, {
@@ -95,10 +94,34 @@ export default function DogInfo() {
         if (data.status === 'success') {
           alert('資料更新成功');
 
+          // 取得當前 localStorage 中的狗狗資料
+          const existingData = [];
+          Object.keys(localStorage).forEach(key => {
+            if (key.startsWith(`dogData_${authUser.uuid}`)) {
+              const data = JSON.parse(localStorage.getItem(key));
+              if (Array.isArray(data)) {
+                existingData.push(...data);
+              } else if (data) {
+                existingData.push(data);
+              }
+            }
+          });
+
+          // 合併更新的狗狗資料
+          const updatedDog = data.data;
+          const updatedData = existingData.filter(dog => dog.id !== updatedDog.id).concat(updatedDog);
+
+          // 更新 localStorage
+          localStorage.setItem(`dogData_${authUser.uuid}`, JSON.stringify(updatedData));
+
+          // 其他操作，如顯示成功訊息或刷新頁面
+          console.log('狗狗資料更新成功');
+          window.location.reload();  // 重整頁面
+
           // 如果有新的頭像，則上傳頭像
-          if (user.avatar_file) {
+          if (dog.avatar_file) {
             const formData2 = new FormData();
-            formData2.append('avatar', user.avatar_file);
+            formData2.append('avatar', dog.avatar_file);
 
             const url2 = `http://localhost:3005/api/member/uploadAvatar_dog/${id}`;
 
@@ -114,8 +137,8 @@ export default function DogInfo() {
       })
       .then(response => response.json())
       .then(data => {
-        if (user.avatar_file && data.status === 'success') {
-          const updatedAvatarUrl = `http://localhost:3005/upload/${authUser.uuid}.png`;
+        if (dog.avatar_file && data.status === 'success') {
+          const updatedAvatarUrl = `http://localhost:3005/upload_dog/${id}.png`;
           setAvatar(updatedAvatarUrl);
         }
       })
