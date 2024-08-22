@@ -20,23 +20,25 @@ $tint-names: ('tint1', 'tint2', 'tint3', 'tint4', 'tint5');
   }
 
   #{$elem}.btn-tint1,
-    #{$elem}.btn-tint1-icon {
-      color: c.$white;
-    }
-}
+  #{$elem}.btn-tint1-icon {
+    color: c.$white;
+  }
 
-@each $name in ('tint3', 'tint4', 'tint5') {
-  a.btn-#{$name}-2,
-  button.btn-#{$name}-2,
-  a.btn-#{$name}-icon-2,
-  button.btn-#{$name}-icon-2 {
-    &:hover {
-      border-color: c.$tint1;
-      color: c.$tint1;
-    }
-    &:active {
-      border-color: c.$shade1;
-      color: c.$shade1;
+  @each $name in ('tint3', 'tint4', 'tint5') {
+    #{$elem}.btn-#{$name},
+    #{$elem}.btn-#{$name}-2,
+    #{$elem}.btn-#{$name}-icon,
+    #{$elem}.btn-#{$name}-icon-2 {
+      color: c.$shade4;
+
+      &:hover {
+        border-color: c.$tint1;
+        color: c.$tint1;
+      }
+      &:active {
+        border-color: c.$shade1;
+        color: c.$shade1;
+      }
     }
   }
 }
