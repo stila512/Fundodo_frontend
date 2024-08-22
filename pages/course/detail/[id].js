@@ -30,7 +30,7 @@ export default function CourseDetail() {
   });
 
   const getCourse = async (id) => { 
-    const apiURL = `http://localhost:3005/api/course/detail/${id}`
+    const apiURL = `http://localhost:3005/api/course/${id}`
     const res = await fetch(apiURL)
     const data = await res.json()
 

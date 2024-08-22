@@ -70,14 +70,14 @@ Filter.propTypes = {
   categories: PropTypes.arrayOf(PropTypes.string),
   onChange: PropTypes.func,
   multiple: PropTypes.bool,
+  resetTrigger: PropTypes.number,
   className: PropTypes.shape({
     wrapper: PropTypes.string,
     radio: PropTypes.string,
     selected: PropTypes.string,
     input: PropTypes.string,
     indicator: PropTypes.string
-  }),
-  resetTrigger: PropTypes.number 
+  })
 };
 
 export default Filter;

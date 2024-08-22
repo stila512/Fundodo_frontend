@@ -13,6 +13,20 @@ import AsideRwd from './commonItem/asideRwd';
 import UserAction from './commonItem/userAction';
 
 export default function Content() {
+    const [replies, setReplies] = useState([]);
+    const router = useRouter()
+    const { aid } = router.query
+    useEffect(() => {
+        if (aid) {
+            fetch(`http://localhost:3001/api/replys/${aid}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        setReplies(data.articles);
+                    }
+                }).catch(error => console.log(error.message))
+        }
+    }, [aid])
     return (
         <>
             <Head>
@@ -36,7 +50,10 @@ export default function Content() {
                         <div className={scss.contentArea}>
                             <ArticleContent />
                             <ReplyArea />
-                            <ReplyBlock />
+                            {replies.map(reply => (
+                                <ReplyBlock key={reply.id} reply={reply} />
+                            ))}
+
                             <AsideRwd />
                         </div>
                         <UserCard />

@@ -29,7 +29,7 @@ export default function Course() {
   }, []);
 
   const filteredAndSortedCourses = courses
-    .filter(course => selectedCategory === '全部分類' || course.tags.includes(selectedCategory))
+    .filter(course => selectedCategory === '全部分類' || course.tags && course.tags.includes(selectedCategory))
     .sort((a, b) => {
       switch (sortBy) {
         case 'newest':
@@ -58,10 +58,10 @@ export default function Course() {
             <Sort sortBy={sortBy} setSortBy={setSortBy} />
           </div>
         </div>
-        <Tags 
-        selectedCategory={selectedCategory} 
-        setSelectedCategory={setSelectedCategory} 
-        categories={categories} />
+        <Tags
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+          categories={categories} />
         <CourseGrid courses={filteredAndSortedCourses} />
       </div>
 

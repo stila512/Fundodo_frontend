@@ -13,45 +13,61 @@ import { RxCross2 } from "react-icons/rx";
 //todo 將 isOutOfStock 與 stock_when_few 納入機制
 
 //* 不可更改
-const i_cart = 0;
+const CART_INDEX = 0;
 
 export default function ProdCartTable({
   data = null,
-  cartLength = 0,
-  setLengArr = () => { },
+  itemStateArr = [],
+  setItemStateArr = () => { },
   setAmount = () => { },
 }) {
+  const noData = (!data || data.length === 0
+    || itemStateArr.filter(v => v).length === 0);
+
   const [qtyArr, setQtyArr] = useState([]);
   const [subtotArr, setSubtotArr] = useState([]);
 
-  const noData = (!data || data.length === 0);
 
   useEffect(() => {
-    setQtyArr(data.map(d => d.quantity));
+    if(data) setQtyArr(data.map(d => d.quantity));
   }, [data]);
 
   //===== 計算 PD 購物車小計
   useEffect(() => {
     if (noData) return;
+
     const subtotList = qtyArr.map((q, i) => q * data[i].price);
     const total = subtotList.reduce((total, cur) => total + cur, 0);
     setSubtotArr(subtotList);
-    setAmount(arr => arr.map((v, i) => (i === i_cart) ? total : v));
+    setAmount(arr => arr.map((v, i) => (i === CART_INDEX) ? total : v));
   }, [qtyArr]);
 
   const handleZero = () => {
     console.log('ㄟ，不能歸零');
   }
 
+  /** 刪除購物車資料 */
+  const handleDelete = (i_item, db_id) => {
+    // 更新前端的監控數據
+    const new_arr = itemStateArr.map(
+      (state, j_item) => i_item === j_item ? false : state
+    );
+    setItemStateArr(prev => prev.map(
+      (arr, i_cart) => (i_cart === CART_INDEX) ? new_arr : arr)
+    );
+    // 更新後台的資料庫
+    deleteCartOf(db_id);
+  }
+
   return (
     <>
       <table className={s.cartTable}>
         <caption className='tx-default tx-shade4 tx-left'>
-          共 {data ? data.length : 0} 件商品
+          共 {itemStateArr.filter(v => v).length} 件商品
         </caption>
         <thead>
           <tr>
-            <th><TbTrashX /></th>
+            <th className='d-none d-lg-table-cell'><TbTrashX /></th>
             <th></th>
             <th>商品資訊</th>
             <th>規格</th>
@@ -61,11 +77,14 @@ export default function ProdCartTable({
           </tr>
         </thead>
         <tbody className='tx-body'>
-        {console.log(data.length)}
-          {noData || data.map((item, i_data) => item.deleted_at && (
+          {noData || data.map((item, i_item) => itemStateArr[i_item] && (
             <tr key={item.key}>
-              <td>
-                <FddBtn color='tint4' size='sm' icon callback={() => deleteCartOf(item.key)}>
+              <td className='d-none d-lg-table-cell'>
+                <FddBtn
+                  color='tint4'
+                  size='sm' icon
+                  callback={() => handleDelete(i_item, item.key)}
+                >
                   <RxCross2 />
                 </FddBtn>
               </td>
@@ -91,18 +110,20 @@ export default function ProdCartTable({
               </td>
               <td>
                 <NumberPanel
-                  quantity={qtyArr[i_data]}
+                  quantity={qtyArr[i_item]}
                   setFunc={setQtyArr}
-                  index={i_data}
+                  index={i_item}
                   min={1}
                   onOverMin={() => handleZero()}
-                  doesDisableMinus={qtyArr[i_data] <= 0}
+                  doesDisableMinus={qtyArr[i_item] <= 0}
                 />
               </td>
-              <td>${subtotArr[i_data]}</td>
+              <td>${subtotArr[i_item]}</td>
             </tr>
-          ))
-          }
+          ))}
+          {noData && <tr><td colSpan={7}>
+          <FddBtn color='secondary' size='sm' href='/course'>來去逛逛寵物商城</FddBtn>
+          </td></tr>}
         </tbody>
       </table>
     </>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import Head from 'next/head'
 import BackendLayout from '@/components/layout/backend'
 import scss from './index.module.scss';
@@ -6,7 +6,28 @@ import { CiRead } from "react-icons/ci";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin5Line } from "react-icons/ri";
 
+
+// 待調整: style/search/sortby/pagination
 export default function CourseList() {
+  const [courses, setCourses] = useState([]);
+
+
+  useEffect(() => {
+    fetchCourses();
+  }, []);
+
+  const fetchCourses = async () => {
+    try {
+      const res = await fetch('http://localhost:3005/api/course');
+      const data = await res.json();
+      setCourses(data.data);
+    } catch (error) {
+      console.error('Error fetching courses:', error);
+    }
+  };
+
+
+
   return (
     <>
       <Head>
@@ -36,30 +57,20 @@ export default function CourseList() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>玩出好感情！與狗兒的互動遊戲課</td>
-                <td>培養感情</td>
-                <td>NT$1200</td>
-                <td>2023-10-18</td>
-                <td className={scss.actionBtns}>
-                  <button className={scss.actionBtn}> <CiRead /> </button>
-                  <button className={scss.actionBtn}> <FaEdit /> </button>
-                  <button className={scss.actionBtn}> <RiDeleteBin5Line /> </button>
-                </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>狗狗教養實作- 線上體驗課</td>
-                <td>培養感情</td>
-                <td>NT$350</td>
-                <td>2023-10-18</td>
-                <td className={scss.actionBtns}>
-                  <button className={scss.actionBtn}> <CiRead /> </button>
-                  <button className={scss.actionBtn}> <FaEdit /> </button>
-                  <button className={scss.actionBtn}> <RiDeleteBin5Line /> </button>
-                </td>
-              </tr>
+              {courses.map((course) => (
+                <tr key={course.id}>
+                  <td>{course.id}</td>
+                  <td>{course.title}</td>
+                  <td>{course.tags.join(', ')}</td>
+                  <td>NT${course.sale_price}</td>
+                  <td>{new Date(course.created_at).toLocaleDateString()}</td>
+                  <td className={scss.actionBtns}>
+                    <button className={scss.actionBtn}> <CiRead /> </button>
+                    <button className={scss.actionBtn}> <FaEdit /> </button>
+                    <button className={scss.actionBtn}> <RiDeleteBin5Line /> </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

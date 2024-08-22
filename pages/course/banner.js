@@ -3,7 +3,6 @@ import Image from 'next/image';
 import scss from './banner.module.scss';
 import dog from "@/public/homePic/whitedog.png"
 
-
 export default function Banner() {
 
   return (
