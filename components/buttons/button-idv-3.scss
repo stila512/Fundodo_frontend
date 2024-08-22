@@ -29,7 +29,7 @@ $tint-names: ('tint1', 'tint2', 'tint3', 'tint4', 'tint5');
     #{$elem}.btn-#{$name}-2,
     #{$elem}.btn-#{$name}-icon,
     #{$elem}.btn-#{$name}-icon-2 {
-      color: c.$shade4;
+      color: c.$shade3;
 
       &:hover {
         border-color: c.$tint1;
@@ -41,49 +41,23 @@ $tint-names: ('tint1', 'tint2', 'tint3', 'tint4', 'tint5');
       }
     }
   }
-}
 
-a.btn-tint4,
-button.btn-tint4,
-a.btn-tint4-icon,
-button.btn-tint4-icon {
-  color: c.$shade3;
-  border-color: transparent;
-
-  &:hover {
-    background-color: c.$tint5;
-    color: c.$shade4;
-  }
-  &:active {
-    background-color: c.$white;
-  }
-}
-a.btn-tint4,
-button.btn-tint4,
-a.btn-tint4-icon,
-button.btn-tint4-icon {
-  color: c.$shade3;
-  border-color: transparent;
-
-  &:hover {
-    background-color: c.$tint5;
-    color: c.$shade4;
-  }
-  &:active {
-    background-color: c.$white;
+  #{$elem}.btn-tint4,
+  #{$elem}.btn-tint4-icon {
+    color: c.$primary;
   }
 }
 
 //================= shade =================//
 $shade-names: ('shade1', 'shade2', 'shade3', 'shade4', 'shade5');
 
-@each $name in $shade-names {
-  a.btn-#{$name},
-  button.btn-#{$name},
-  a.btn-#{$name}-icon,
-  button.btn-#{$name}-icon {
-    color: c.$tint5;
-    border-color: transparent;
+@each $elem in (a, button) {
+  @each $name in $shade-names {
+    #{$elem}.btn-#{$name},
+    #{$elem}.btn-#{$name}-icon {
+      color: c.$tint5;
+      border-color: transparent;
+    }
   }
 }
 
