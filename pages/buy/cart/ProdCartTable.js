@@ -67,7 +67,7 @@ export default function ProdCartTable({
         </caption>
         <thead>
           <tr>
-            <th><TbTrashX /></th>
+            <th className='d-none d-lg-table-cell'><TbTrashX /></th>
             <th></th>
             <th>商品資訊</th>
             <th>規格</th>
@@ -79,7 +79,7 @@ export default function ProdCartTable({
         <tbody className='tx-body'>
           {noData || data.map((item, i_item) => itemStateArr[i_item] && (
             <tr key={item.key}>
-              <td>
+              <td className='d-none d-lg-table-cell'>
                 <FddBtn
                   color='tint4'
                   size='sm' icon

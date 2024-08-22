@@ -39,11 +39,6 @@ table.cartTable tbody tr {
   }
 }
 
-.continueBtn {
-  border: none;
-  padding: rem(12px) rem(60px);
-}
-
 a.payBtn {
   margin-top: 1rem;
   padding-block: 1rem;
@@ -86,14 +81,10 @@ a.payBtn {
     }
   }
   @include rwd-above('lg') {
-    display: flex;
-    justify-content: flex-end;
-
     table {
       padding: rem(40px) rem(50px);
       background-color: $shade2;
       color: $white;
-      width: rem(540px);
     }
   }
 }
