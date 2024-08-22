@@ -1,5 +1,5 @@
 $white:    hsl(0, 0%, 100%);
-$gray-100: hsl(19, 2%, 98%);
+$gray-100: #fafafa;
 $gray-200: #eeeded;
 $gray-300: #e4e3e2;
 $gray-400: #d5d3d3;
@@ -7,24 +7,24 @@ $gray-500: #b7b5b4;
 $gray-600: #787473;
 $gray-700: #514e4d;
 $gray-800: #3c3a39;
-$gray-900: hsl(19, 2%, 15%);
+$gray-900: #272625;
 $black:    hsl(0, 0%, 0%);
 
-$primary: #B9A399;// hsl(19, 19%, 66%)
+$primary:   #B9A399;// hsl(19, 19%, 66%)
 $secondary: #E7E1DB;// hsl(30, 20%, 88%)
-$warning: #FBC02D; // hsl(43, 96%, 58%)
-$error: #E53835; // hsl(1, 77%, 55%)
-$info: #71c4ef; // hsl(200, 80%, 69%)
+$warning:   #FBC02D; // hsl(43, 96%, 58%)
+$error:     #E53835; // hsl(1, 77%, 55%)
+$info:      #71c4ef; // hsl(200, 80%, 69%)
 
 /* text color 灰階 */
 $heading: $gray-800;
-$body: $gray-600;
-$muted: $gray-400;
+$body:    $gray-600;
+$muted:   $gray-400;
 
 /* text color 帶色 */
 $primary-text: #49352c;//hsl(19, 25%, 23%)
-$info-text: #2c4049;
-$error-text: #492c2c;
+$info-text:    #2c4049;
+$error-text:   #492c2c;
 
 /* color shade */
 $shade1: #857A79;// hsl(5, 5%, 50%)
@@ -38,7 +38,7 @@ $tint1: #C0ACA3;
 $tint2: #CEBFB8;
 $tint3: #DCD1CC;
 $tint4: #EAE3E0;
-$tint5: #F1EDEB;//also theme-light
+$tint5: #F1EDEB;
 
 //* 沒有 success，沒有 danger
 $theme-colors: (
