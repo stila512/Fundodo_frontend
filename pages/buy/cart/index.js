@@ -18,6 +18,7 @@ import CrsCartTable from './CrsCartTable';
 import s from "./cart-page.module.scss";
 import emptyCart from '@/public/cart/dog-in-cart.jpg';
 import Image from 'next/image';
+import FddBtn from '@/components/buttons/fddBtn';
 
 export default function CartPage() {
   /** @type {[number, React.Dispatch<number>]} */
@@ -57,9 +58,9 @@ export default function CartPage() {
 
     const CancalToken = axios.CancelToken;//中止情況用的信號彈
     const source = CancalToken.source();
-    
+
     //以下寫法參考 Axios 官方文件
-    axios.get(`${apiBaseUrl}/cart/${uID}`, {cancelToken: source.token})
+    axios.get(`${apiBaseUrl}/cart/${uID}`, { cancelToken: source.token })
       .then(res => {
         // 略過將之前被刪除的購物車項目
         //===== 可以避免購物車在回復刪除階段時，將重複品項救回
@@ -84,6 +85,11 @@ export default function CartPage() {
         ]);
       })
       .catch(err => {
+        if (axios.isCancel(err)) {
+          console.log('此請求已成功取消');
+          return;
+        }
+
         console.log("未得到如預期的回應，已啟用備援資料");
         setCartPkg(dataEmergency);
         if (err.response) {
@@ -98,13 +104,12 @@ export default function CartPage() {
         }
       });
 
-      return () => {
-        //取消 API request
-        // 主要在為了在 API 還沒跑完的時間點，使用者就離開頁面的情況
-        // 避免 API 無法正常結束
-        err.request && err.request.abort();
-        source.cancel("API 請求已被臨時取消");
-      }
+    return () => {
+      //取消 API request
+      // 主要在為了在 API 還沒跑完的時間點，使用者就離開頁面的情況
+      // 避免 API 無法正常結束
+      source.cancel("API 請求已被臨時取消");
+    }
   }, [uID])
   //===== 計算總購物車總金額
   useEffect(() => {
@@ -149,43 +154,49 @@ export default function CartPage() {
             購物車現在空無一物
           </h2>}
         <div className='d-flex jc-end'>
-          <Link
-            href="/prod"
-            className={["bg-primary tx-white", s.continueBtn].join(' ')}
-          >繼續購物</Link>
+          <FddBtn color='primary' pill={false} href='/prod'>
+            繼續購物
+          </FddBtn>
         </div>
         {isEmpty ||
-          <article className={s.orderInfo}>
-            <table>
-              <thead>
-                <tr>
-                  <th>訂單資訊</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th>商品金額</th>
-                  <td>NT ${totalArr[0]}</td>
-                </tr>
-                <tr>
-                  <th>運費</th>
-                  <td>NT ${delivery_fee}</td>
-                </tr>
-                <tr>
-                  <th>優惠折扣</th>
-                  <td>NT ${discount}</td>
-                </tr>
-                <tr>
-                  <th>結帳金額</th>
-                  <td>NT ${totalArr[1]}</td>
-                </tr>
-                <tr>
-                  <td colSpan={2}>
-                    <Link className={s.payBtn} href='/buy/confirm'>前往結帳</Link>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <article className={['row', s.orderInfo].join(' ')}>
+            <div className="col-12 col-lg-8">
+              <div className="bg-tint3 p-3 h-100">
+                <h3>這裡要擺優惠券</h3>
+              </div>
+            </div>
+            <div className="col-12 col-lg-4">
+              <table>
+                <thead>
+                  <tr>
+                    <th>訂單資訊</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>商品金額</th>
+                    <td>NT ${totalArr[0]}</td>
+                  </tr>
+                  <tr>
+                    <th>運費</th>
+                    <td>NT ${delivery_fee}</td>
+                  </tr>
+                  <tr>
+                    <th>優惠折扣</th>
+                    <td>NT ${discount}</td>
+                  </tr>
+                  <tr>
+                    <th>結帳金額</th>
+                    <td>NT ${totalArr[1]}</td>
+                  </tr>
+                  <tr>
+                    <td colSpan={2}>
+                      <Link className={s.payBtn} href='/buy/confirm'>前往結帳</Link>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </article>}
         {isEmpty && <div className='img-wrap-w100' style={{ width: '60vw' }}>
           <Image src={emptyCart} alt="empty cart" width={0} height={0} />
