@@ -1,0 +1,82 @@
+@import "@/styles/";
+
+//請勿使用 prototype，因為已經套用進下面的 popout 模組
+@mixin popout-prototype() {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	// background-color: transparent;
+	background-color: rgba($heading, 0.2);
+	z-index: 9999;
+  // display 由他處操控
+	justify-content: center;
+	align-items: center;
+
+	.window {
+		padding: rem(40px) rem(36px);
+		min-width: 300px;
+		min-height: 200px;
+    position: relative;
+		background-color: $white;
+		color: $heading;
+		border-radius: 3px;
+    box-shadow: 0 0 4px rgba($heading, 0.75), 0 20px 20px rgba($heading, 0.35);
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		align-items: center;
+		// z-index: 99;
+	}
+}
+//* 請使用以下的 popout 模組
+// 通知型：一進入網頁即出現
+//=== 按鈕：[關閉]
+.notice {
+	@include popout-prototype();
+	display: flex;
+}
+// 確認型：點擊事件觸發才會出現
+//=== 按鈕：[取消][確認]
+.confirm {
+	@include popout-prototype();
+	display: none;
+}
+
+.style11 {
+  .closeBtnBox {
+    $l: rem(24px);
+    width: $l;
+    height: $l;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+  
+  .membrane {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  .icon {
+    $l: rem(56px);
+    width: $l;
+    height: $l;
+    border-radius: 8px;
+    @extend .fx-center;
+    font-size: rem(24px);
+    background-color: $tint5;
+    color: $primary;
+  }
+  h1 {
+    font-size: rem(22px);
+    font-weight: 600;
+    color: $heading;
+  }
+  p {
+    color: $body;
+  }
+
+}

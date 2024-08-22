@@ -1,11 +1,14 @@
 import Head from 'next/head';
 import DefaultLayout from '@/components/layout/default';
 import FddBtn from '@/components/buttons/fddBtn.js';
+import { useState } from 'react'
 import scss from './test.module.scss';
 import { DiApple } from 'react-icons/di';
 import { IconContext } from 'react-icons';
+import Modal from '@/components/common/modal/Modal';
 
 export default function TestPage() {
+  const [showModal, setShowModal] = useState(false);
   
   return (
     <>
@@ -27,7 +30,7 @@ export default function TestPage() {
                   完善會員資料
                 </FddBtn>
 
-                <FddBtn color="primary" outline icon callback={()=>{}}>
+                <FddBtn color="primary" outline icon callback={()=>setShowModal(true)}>
                   <IconContext.Provider value={{ size: '2.5rem' }}>
                     <DiApple />
                   </IconContext.Provider>
@@ -39,6 +42,10 @@ export default function TestPage() {
             </div>
           </div>
         </div>
+        <Modal mode={1} active={showModal}>
+          <h1>確認成功！</h1>
+          <p>布拉布拉布拉布拉布拉布拉布拉布拉布拉布拉布拉布拉</p>
+        </Modal>
       </div>
     </>
   );
