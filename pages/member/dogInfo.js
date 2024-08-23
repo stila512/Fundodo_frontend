@@ -326,7 +326,7 @@ export default function DogInfo() {
 
 
         <div className="col-1 col-xl-3 col-xxl-3 my-2 d-none d-xl-block">
-          <SideText></SideText>
+        <SideText activeIndex={1} />
         </div>
       </main>
     </>
