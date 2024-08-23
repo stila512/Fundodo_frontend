@@ -2,12 +2,13 @@ import {useState,useEffect} from 'react';
 import scss from '@/pages/article/contentItems/replyArea.module.scss';
 import Editor from '../editor';
 import axios from 'axios';
-import { useSearchParams } from 'react-router-dom'
+import { Router, useRouter } from 'next/router';
 
 export default function ReplyArea() {
   const [content, setContent] = useState('')
   const [articleId, setArticleId] = useState(null);
   const userId = 0;
+  const router = useRouter()
 
   useEffect(() => {
     // 從 URL 獲取 articleId
@@ -27,6 +28,7 @@ export default function ReplyArea() {
       console.log('Reply created:', response.data);
       alert('回覆發表成功');
       setContent(''); // 清空輸入框
+      router.push(`/article/content?aid=${articleId}`)
     } catch (error) {
       console.error('Error creating reply:', error);
       alert('回覆發表失敗');

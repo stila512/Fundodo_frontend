@@ -48,12 +48,11 @@ export default function ArticleContent() {
               <p className={[scss.creatTime].join()}>{formatDate(content.create_at)}</p>
             </div>
           </div>
-          <a href=""><BsThreeDotsVertical /></a>
+          <a href={`/article/editArticle?aid=${aid}`}><BsThreeDotsVertical /></a>
         </div>
         <div className={[scss.articleTitle].join()}>{content.title}</div>
         <div className={[scss.mainContent].join()}>
           <div dangerouslySetInnerHTML={{ __html: content.content }} />
-          {/* {content.content} */}
         </div>
         <div className={[scss.artiInfo].join()}>
           <div className={[scss.artiTags].join()}>
