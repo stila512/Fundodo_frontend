@@ -16,6 +16,7 @@ export default function HotelPage() {
   const router = useRouter();
   const { hotelCode } = router.query; 
 
+
   const [hotel, setHotel] = useState({
 
     id: 0,
