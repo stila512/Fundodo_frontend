@@ -47,7 +47,7 @@ export default function TestPage() {
           <span>拉不拉多拉不拉多拉布拉布拉布拉布拉布拉布拉布拉不拉多拉布拉布拉布拉布拉布拉布拉不拉多拉布拉布拉布拉布拉布拉不拉多拉布拉布拉布拉布拉不拉多拉布拉布拉布拉</span>
         </Modal> */}
         <Modal
-          mode={1}
+          mode={2}
           active={showModal}
           onClose={() => setShowModal(false)}
           confirmText='確定'

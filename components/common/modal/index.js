@@ -23,8 +23,8 @@ export default function Modal({
   mode = null, style = 1,
   active = false,
   onClose = () => { },
-  onConfirm = () => { },
-  onCancel = () => { },
+  onConfirm = () => onClose(),
+  onCancel = () => onClose(),
   confirmText = '確定',
   cancelText = '取消',
   children = (<><h4>請用 h4 輸入標題</h4><p>請用 p 輸入內文</p></>),
@@ -41,16 +41,24 @@ export default function Modal({
   const code = 10 * mode + style;
   //todo delete next line
   // active = true;
+
+  const handleBgClick = () => {
+    if (mode === 2) return; //此模式不得逃避選擇
+
+    onClose();
+  }
+
   return active && (<>
     {/* <RemoveScrollBar /> */}
     <div
       className={['pos-a w-100 h-100', s.notice].join(' ')}
-      onClick={() => onClose()}
+      onClick={() => handleBgClick()}
     >
       <div className={s.window} onClick={e => e.stopPropagation()}>
-        <div className={s.closeBtnBox}>
-          <FddBtn color="tint4" size='mini' icon callback={onClose}><RxCross2 /></FddBtn>
-        </div>
+        {mode === 1 &&
+          <div className={s.closeBtnBox}>
+            <FddBtn color="tint4" size='mini' icon callback={onClose}><RxCross2 /></FddBtn>
+          </div>}
         {code === 11 &&
           <>
             <div className={s.style_11}>

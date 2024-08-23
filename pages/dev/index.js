@@ -47,7 +47,10 @@ export default function Home() {
                   <Link href="/test">測試用</Link>
                 </div>
                 <div className="col-6 col-lg-4">
-                  <Link href="/test/gallery">圖鑑</Link>
+                  <Link href="/dev/gallery-fddbtn">按鈕圖鑑</Link>
+                </div>
+                <div className="col-6 col-lg-4">
+                  <Link href="/dev/gallery-modal">Modal</Link>
                 </div>
               </div>
             </div>
