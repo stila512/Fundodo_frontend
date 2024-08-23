@@ -5,7 +5,7 @@ import { useState } from 'react'
 import scss from './test.module.scss';
 import { DiApple } from 'react-icons/di';
 import { IconContext } from 'react-icons';
-import Modal from '@/components/common/modal/Modal';
+import Modal from '@/components/common/modal';
 
 export default function TestPage() {
   const [showModal, setShowModal] = useState(false);
@@ -47,7 +47,7 @@ export default function TestPage() {
           <span>拉不拉多拉不拉多拉布拉布拉布拉布拉布拉布拉布拉不拉多拉布拉布拉布拉布拉布拉布拉不拉多拉布拉布拉布拉布拉布拉不拉多拉布拉布拉布拉布拉不拉多拉布拉布拉布拉</span>
         </Modal> */}
         <Modal
-          mode={2}
+          mode={1}
           active={showModal}
           onClose={() => setShowModal(false)}
           confirmText='確定'
