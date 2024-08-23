@@ -30,7 +30,8 @@ const themeColors = [
 export default function Gallery() {
   const [btnType, setBtnType] = useState(0);
   const isOutline = !!(Math.floor(btnType / 10));
-  const isIcon = !!(btnType % 10);
+  const isPill = (btnType % 2) === 0;
+  const isIcon = (btnType % 10) === 2;
 
   const bgMode = ["bg-white", "bg-secondary", "bg-shade4"];
   const bgModeTitle = ["白", "淺", "深"];
@@ -38,7 +39,7 @@ export default function Gallery() {
   return (
     <>
       <Head>
-        <title>色彩相關 | 樣式圖鑑</title>
+        <title>FddBtn 圖鑑 | 翻肚肚元件</title>
       </Head>
       <header className='bg-tint4 py-4 tx-center tx-sm'>
         <p>以下陳列了翻肚肚色票組以及對應的按鈕</p>
@@ -70,6 +71,16 @@ export default function Gallery() {
                   <p className='mt-1'>語法：加 outline</p>
                 </section>
                 <section className="col-auto tx-center">
+                  <FddBtn color="primary" pill={false} callback={() => { }}>按鈕</FddBtn>
+                  <p className='mt-3'>方塊型，背景色（預設）</p>
+                  <p className='mt-1'>語法：不用外加</p>
+                </section>
+                <section className="col-auto tx-center">
+                  <FddBtn color="primary" pill={false} outline callback={() => { }}>按鈕</FddBtn>
+                  <p className='mt-3'>方塊型，邊框色</p>
+                  <p className='mt-1'>語法：加 outline</p>
+                </section>
+                <section className="col-auto tx-center">
                   <FddBtn color="primary" icon callback={() => { }}><FaCheck /></FddBtn>
                   <p className='mt-3'>圓形，背景色</p>
                   <p className='mt-1'>語法：加 icon</p>
@@ -93,10 +104,16 @@ export default function Gallery() {
                 <FddBtn color={btnType === 10 ? "info" : "muted"} outline callback={() => setBtnType(10)}>按鈕</FddBtn>
               </div>
               <div className="col-auto tx-center">
-                <FddBtn color={btnType === 1 ? "info" : "muted"} icon callback={() => setBtnType(1)}><FaCheck /></FddBtn>
+                <FddBtn color={btnType === 1 ? "info" : "muted"} pill={false} callback={() => setBtnType(1)}>按鈕</FddBtn>
               </div>
               <div className="col-auto tx-center">
-                <FddBtn color={btnType === 11 ? "info" : "muted"} icon outline callback={() => setBtnType(11)}><FaCheck /></FddBtn>
+                <FddBtn color={btnType === 11 ? "info" : "muted"} pill={false} outline callback={() => setBtnType(11)}>按鈕</FddBtn>
+              </div>
+              <div className="col-auto tx-center">
+                <FddBtn color={btnType === 2 ? "info" : "muted"} icon callback={() => setBtnType(2)}><FaCheck /></FddBtn>
+              </div>
+              <div className="col-auto tx-center">
+                <FddBtn color={btnType === 12 ? "info" : "muted"} icon outline callback={() => setBtnType(12)}><FaCheck /></FddBtn>
               </div>
             </section>
           </article>
@@ -109,6 +126,7 @@ export default function Gallery() {
                     <FddBtn
                       color={color}
                       outline={isOutline}
+                      pill={isPill}
                       icon={isIcon} callback={() => { }}
                     >
                       {isIcon ? <FaChevronUp /> : color}

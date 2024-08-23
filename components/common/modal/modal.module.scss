@@ -9,7 +9,7 @@ $bd-radius: 8px;
   left: 0;
   right: 0;
   // background-color: transparent;
-  background-color: rgba($heading, 0.2);
+  background-color: rgba($heading, 0.5);
   z-index: 9999;
   // display 由他處操控
   justify-content: center;
@@ -30,7 +30,8 @@ $bd-radius: 8px;
     color: $heading;
     border: 1px solid $tint3;
     border-radius: $bd-radius;
-    box-shadow: 0 0 4px rgba($heading, 0.5), 0 20px 20px rgba($heading, 0.25);
+    box-shadow: 0 0 4px rgba($heading, 0.5), 0 20px 20px rgba($gray-200, 0.25);
+    // box-shadow: 0 0 4px rgba($gray-200, 0.5), 0 20px 20px rgba($gray-200, 0.25);
     @extend .fx-center;
     flex-direction: column;
     // z-index: 99;

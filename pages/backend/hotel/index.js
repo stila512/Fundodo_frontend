@@ -22,10 +22,11 @@ export default function List() {
   const [selectedStatus, setSelectedStatus] = useState('all');
   const [isLoading, setIsLoading] = useState(false);
 
+  const baseURL = 'http://localhost:3005/api/hotel';
+
   //獲取全部
   const getHotels = async () => {
     try {
-      const baseURL = 'http://localhost:3005/api/hotel';
       const res = await fetch(baseURL);
       const data = await res.json();
       // console.log(data);
@@ -201,7 +202,7 @@ export default function List() {
                 <tr key={hotel.id || index}>
                   <td>{hotel.id}</td>
                   <td> <Image
-                    src={`/hotelPic/pic/${hotel.main_img_path}`}
+                    src={`http://localhost:3005/api/hotel/images/${hotel.main_img_path}`}
                     width={100} height={80}
                     alt="旅館圖片"
                   /></td>

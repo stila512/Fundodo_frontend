@@ -8,9 +8,11 @@ export default function HotelImg({ hotelCode }) {
   const [hotel, setHotel] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+  const baseURL = `http://localhost:3005/api/hotel/detail/${hotelCode}`;
+
   useEffect(() => {
     const getHotel = async () => {
-      const baseURL = `http://localhost:3005/api/hotel/detail/${hotelCode}`;
+  
       const res = await fetch(baseURL);
       const data = await res.json();
       if (data.status === "success" && data.data) {
@@ -48,7 +50,7 @@ export default function HotelImg({ hotelCode }) {
           <div className={styles.hotelImg}>
             <div className={styles.mainImgContainer}>
               <Image
-                src={`/hotelPic/pic/${hotel.images[currentImageIndex]}`}
+                src={`http://localhost:3005/api/hotel/images/${hotel.images[currentImageIndex]}`}
                 width={0}
                 height={0}
                 className={styles.mainImg}
@@ -66,7 +68,7 @@ export default function HotelImg({ hotelCode }) {
               {hotel.images.slice(0, 3).map((img, index) => (
                 <div key={index} className={styles.subImgContainer}>
                   <Image
-                    src={`/hotelPic/pic/${img}`}
+                    src={`http://localhost:3005/api/hotel/images/${img}`}
                     width={150}
                     height={110}
                     className={styles.img}

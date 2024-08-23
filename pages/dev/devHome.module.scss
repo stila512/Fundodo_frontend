@@ -51,6 +51,10 @@
     background-color: c.$tint3;
     color: c.$shade2;
   }
+  div:nth-child(10) a {
+    background-color: c.$primary-text;
+    color: c.$secondary;
+  }
 }
 
 .dlBox {
