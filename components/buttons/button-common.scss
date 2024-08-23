@@ -116,6 +116,7 @@
       color: s.$white;
     }
     #{$elem}.btn-#{$color}-2,
+    #{$elem}.btn-#{$color}-brick-2,
     #{$elem}.btn-#{$color}-icon-2 {
       background-color: s.$white;
       color: $value;
