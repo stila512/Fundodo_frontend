@@ -48,7 +48,7 @@ export default function DogInfoData() {
     }
   };
 
-  //從localstorage 找狗狗的資料
+  //從localstorage 找狗狗資料
   const loadDogDataFromLocalStorage = (uuid) => {
     const dogs = [];
     Object.keys(localStorage).forEach(key => {
@@ -314,8 +314,8 @@ export default function DogInfoData() {
               </div>
             </div>
           </div>
-          <div className="col-3 my-2">
-            <SideText />
+          <div className="col-3 my-5">
+          <SideText activeIndex={1} />
           </div>
         </main>
       )}

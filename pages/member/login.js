@@ -41,7 +41,7 @@ export default function LoginPage() {
           login(data.token);
           alert('登入成功');
           console.log('Login function called, about to redirect');
-          router.push('/member/peopleInfoData')
+          router.push('/member')
             .then(() => console.log('Navigation successful'))
             .catch((err) => console.error('Navigation failed:', err));
         } else {
