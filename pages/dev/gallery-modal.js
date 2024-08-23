@@ -2,7 +2,7 @@ import Head from 'next/head';
 import FddBtn from '@/components/buttons/fddBtn.js';
 import DefaultLayout from '@/components/layout/default'
 import { useState } from 'react'
-import { DiApple } from 'react-icons/di';
+import { FaUpRightFromSquare } from "react-icons/fa6";
 import { IconContext } from 'react-icons';
 import Modal from '@/components/common/modal';
 
@@ -24,21 +24,32 @@ export default function galleryModal() {
       </Head>
       <div className="container">
         <div className="row jc-center">
-          <div className="col-12 col-lg-6">
-            <h2>彈出式視窗</h2>
-            <p>點擊下列按鈕以啟動 modal</p>
-            <div>
-              <FddBtn color="primary" outline icon callback={() => setModalState(gene(0))}>
-                <IconContext.Provider value={{ size: '2.5rem' }}>
-                  <DiApple />
-                </IconContext.Provider>
-              </FddBtn>
-              <FddBtn color="primary" outline icon callback={() => setModalState(gene(3))}>
-                <IconContext.Provider value={{ size: '2.5rem' }}>
-                  <DiApple />
-                </IconContext.Provider>
-              </FddBtn>
+          <div className="col-12 col-lg-6 py-3 my-5">
+            <h2 className='tx-center'>彈出式視窗</h2>
+            <h5 className='tx-center'>點擊下列按鈕以啟動 modal</h5>
+            <p className='tx-center'>詳細語法請參考本 js 檔</p>
+          </div>
+          <div className="col-12 col-lg-8 py-3 mb-5">
+            <div className="row row-cols-2 row-cols-lg-3">
+              <div className="col">
+                <FddBtn color="primary" outline icon callback={() => setModalState(gene(0))}>
+                  <IconContext.Provider value={{ size: '2.5rem' }}>
+                    <FaUpRightFromSquare />
+                  </IconContext.Provider>
+                </FddBtn>
+                <p>mode = 1</p>
+              </div>
+              <div className="col">
+                <FddBtn color="primary" outline icon callback={() => setModalState(gene(3))}>
+                  <IconContext.Provider value={{ size: '2.5rem' }}>
+                    <FaUpRightFromSquare />
+                  </IconContext.Provider>
+                </FddBtn>
+                <p>mode = 2</p>
+              </div>
             </div>
+
+
           </div>
         </div>
       </div>
