@@ -129,36 +129,32 @@ export default function CartPage() {
       <Head>
         <title>購物車 | Fundodo</title>
       </Head>
-      <BuyProgress stage={1} />
-      <section className="container mt-5">
-        <ProdCartTable
-          data={cartPkg.PD}
-          itemStateArr={itemStateArr[0]}
-          setItemStateArr={setItemStateArr}
-          setAmount={setAmtArr}
-        />
-        <HotelCartTable
-          data={cartPkg.HT}
-          itemStateArr={itemStateArr[1]}
-          setItemStateArr={setItemStateArr}
-          setAmount={setAmtArr}
-        />
-        <CrsCartTable
-          data={cartPkg.CR}
-          itemStateArr={itemStateArr[2]}
-          setItemStateArr={setItemStateArr}
-          setAmount={setAmtArr}
-        />
-        {isEmpty &&
-          <h2 className='tx-shade4 tx-center' style={{ marginBlock: '8rem' }}>
-            購物車現在空無一物
-          </h2>}
-        <div className='d-flex jc-end'>
-          <FddBtn color='primary' pill={false} href='/prod'>
-            繼續購物
-          </FddBtn>
-        </div>
-        {isEmpty ||
+      {isEmpty || <>
+        <BuyProgress stage={1} />
+        <section className="container mt-5">
+          <ProdCartTable
+            data={cartPkg.PD}
+            itemStateArr={itemStateArr[0]}
+            setItemStateArr={setItemStateArr}
+            setAmount={setAmtArr}
+          />
+          <HotelCartTable
+            data={cartPkg.HT}
+            itemStateArr={itemStateArr[1]}
+            setItemStateArr={setItemStateArr}
+            setAmount={setAmtArr}
+          />
+          <CrsCartTable
+            data={cartPkg.CR}
+            itemStateArr={itemStateArr[2]}
+            setItemStateArr={setItemStateArr}
+            setAmount={setAmtArr}
+          />
+          <div className='d-flex jc-end'>
+            <FddBtn color='primary' pill={false} href='/prod'>
+              繼續購物
+            </FddBtn>
+          </div>
           <article className={['row', s.orderInfo].join(' ')}>
             <div className="col-12 col-lg-8">
               <div className="bg-tint3 p-3 h-100">
@@ -197,11 +193,20 @@ export default function CartPage() {
                 </tbody>
               </table>
             </div>
-          </article>}
-        {isEmpty && <div className='img-wrap-w100' style={{ width: '60vw' }}>
+          </article>
+        </section>
+      </>}
+      {isEmpty && <section className="container pt-3">
+      <h4 className='my-5 tx-lg tx-shade3 tx-center'>現在購物車空無一物</h4>
+        <div className='hstack jc-around'>
+          <FddBtn color='tint1' size='sm' href='/course'>來去逛逛寵物商城</FddBtn>
+          <FddBtn color='tint1' size='sm' href='/course'>來去逛逛寵物旅館</FddBtn>
+          <FddBtn color='tint1' size='sm' href='/course'>來去逛逛寵物課程</FddBtn>
+        </div>
+        <div className='img-wrap-w100 mx-auto' style={{ width: '40vw' }}>
           <Image src={emptyCart} alt="empty cart" width={0} height={0} />
-        </div>}
-      </section>
+        </div>
+      </section>}
     </>
   );
 };

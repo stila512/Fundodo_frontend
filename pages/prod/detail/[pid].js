@@ -8,6 +8,7 @@ import { NumberPanel } from '@/components/buttons/NumberPanel';
 import Recommend from './recommend';
 import FavoriteIcon from '../list/favoriteIcon';
 import ProductImages from './productImages';
+import Toggle from './toggle';
 
 export default function Pid() {
   const router = useRouter();
@@ -219,7 +220,8 @@ export default function Pid() {
               </div>
             </div>
           </div>
-          <Recommend />
+          <Toggle />
+          <Recommend currentProductId={product.id} currentProductCategory={product.cate_1}/>
         </div>
       </main>
     </>
