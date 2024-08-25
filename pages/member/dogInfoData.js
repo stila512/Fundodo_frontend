@@ -284,7 +284,7 @@ export default function DogInfoData() {
   };
 
   const renderDogInfo = (dog) => (
-    <div className={`${scss.mainArea}`}>
+    <div className={`${scss.mainArea} col-12 col-lg-6`}>
       <div className={`${scss.leftPic} col-6`}>
         <div className={['img-wrap-h100', scss.imgDogavatar].join(' ')}>
           <Image
@@ -300,7 +300,7 @@ export default function DogInfoData() {
         </div>
       </div>
       <div className={`${scss.rightText} col-6`}>
-        <div className={`${scss.rightA1}`}>
+        <div className={`${scss.rightA1} col-12`}>
           <div className={`col-2`}>
             <Image className="img" src={dogicon} alt="Dog Icon" />
           </div>
@@ -320,7 +320,7 @@ export default function DogInfoData() {
           </div>
           <div className={`col-4`}></div>
         </div>
-        <div className={`${scss.rightA2}`}>
+        <div className={`${scss.rightA2} col-12`}>
           <div className={`col-2`}>
             <Image className="img" src={icon_i} alt="Info Icon" />
           </div>
@@ -364,8 +364,8 @@ export default function DogInfoData() {
         <p>錯誤: {error}</p>
       ) : (
         <main className={scss.dogInfoDataContainer}>
-          <div className="col-3"></div>
-          <div className={`${scss.midarea} col-6`}>
+          <div className="col-1 col-xxl-2"></div>
+          <div className={`${scss.midarea} col-10 col-xxl-8`}>
             <div className={`${scss.midtext}`}>
               <div className={`${scss.toparea}`}>
                 <div className={`${scss.tags}`}>
@@ -398,7 +398,7 @@ export default function DogInfoData() {
               </div>
             </div>
           </div>
-          <div className="col-3 my-5">
+          <div className="col-1 col-xxl-2 d-none d-xxl-block mx-5 my-5">
             <SideText activeIndex={1} />
           </div>
         </main>

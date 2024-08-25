@@ -539,6 +539,7 @@
   height: 100vh;
 
   .midarea {
+    display: flex;
     margin-top: 60px;
     justify-content: center;
     align-items: center;
@@ -547,7 +548,6 @@
   //----------
   .midtext {
     display: flex;
-    width: 560px;
     flex-direction: column;
     gap: 22px;
     padding-bottom: 141px;
@@ -628,7 +628,8 @@
     }
     .mainArea {
       display: flex;
-      width: 804px;
+      width: 100%;
+      max-width: 804px;
       height: 545px;
       padding: 18px 20px;
       justify-content: center;
@@ -638,7 +639,8 @@
       border-radius: 0px 0px 10px 10px;
       background: var(--tint4, #eae3e0);
       .leftPic {
-        width: 374px;
+        width: 100%;
+        max-width: 374px;
         height: 483px;
         display: flex;
         flex-direction: column;
@@ -665,6 +667,8 @@
         }
       }
       .rightText {
+        width: 100%;
+        max-width: 374px;
         display: flex;
         flex-direction: column;
         border-radius: 0px 0px 10px 10px;
@@ -679,7 +683,8 @@
         line-height: 18px;
         .rightA1 {
           display: flex;
-          width: 374px;
+          width: 100%;
+          max-width: 374px;
           height: 272px;
           padding: 39px 24px;
           align-items: flex-start;
@@ -758,8 +763,6 @@
       align-items: center;
       flex-shrink: 0;
       border: none;
-      position: relative;
-      left: 150px;
     }
   }
 }
