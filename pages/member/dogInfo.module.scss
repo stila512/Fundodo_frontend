@@ -621,8 +621,8 @@
         line-height: 18px;
         cursor: pointer;
       }
-      .activeTag{
-        background-color: #6D5541;
+      .activeTag {
+        background-color: #6d5541;
         color: #fff;
       }
     }
@@ -655,7 +655,7 @@
         }
         .Dogname {
           bottom: -100px;
-          color: var(--shade1, #B9A399);
+          color: var(--shade1, #b9a399);
           font-feature-settings: 'liga' off, 'clig' off;
           font-family: 'Noto Sans';
           font-size: 22px;
@@ -715,6 +715,26 @@
             display: flex;
             flex-direction: column;
             gap: 22px;
+            .delBTN {
+              display: inline-flex;
+              height: 28px;
+              padding: 4px 16px;
+              justify-content: center;
+              align-items: center;
+              flex-shrink: 0;
+              background: var(--tint4, #eae3e0);
+              color: var(--tint5, #f1edeb);
+              color: var(--shade3, #5d524d);
+              font-feature-settings: 'liga' off, 'clig' off;
+              font-family: 'Noto Sans';
+              font-size: 14px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: 18px;
+              cursor: pointer;
+              // display: flex;
+              // background-color: red;
+            }
           }
         }
       }

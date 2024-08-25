@@ -7,6 +7,7 @@ import lfpic from '@/public/login.svg';
 import pswd_icon from '@/public/memberPic/password-icon.svg';
 import { useContext } from 'react';
 import { AuthContext } from '@/context/AuthContext';
+import Link from 'next/link';
 
 export default function LoginPage() {
   // 顯示密碼使用
@@ -77,6 +78,7 @@ export default function LoginPage() {
                 />隱藏</div></div>
                 <input type={showPassword ? 'text' : 'password'} name="password" required />
                 <p>使用8個或以上的字元, 包含字母數字和符號</p>
+                <Link href="/member/register">註冊會員</Link>
               </div>
             </div>
             <div className={scss.area3}>

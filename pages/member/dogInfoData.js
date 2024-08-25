@@ -10,6 +10,8 @@ import dogicon from '@/public/memberPic/dogicon.svg';
 import Shiba from '@/public/memberPic/Shiba.png';
 import Link from 'next/link';
 import useAuthRedirect from '@/hooks/useAuthRedirect';
+import { RiDeleteBin2Fill } from "react-icons/ri";
+import Modal from '@/components/common/modal/Modal';
 
 
 
@@ -20,6 +22,9 @@ export default function DogInfoData() {
   const [selectedDogIndex, setSelectedDogIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   // 處理疫苗數據
   const getVaccinationDescription = (vaccinations) => {
@@ -172,6 +177,68 @@ export default function DogInfoData() {
       });
   };
 
+  const handleDeleteDog = () => {
+    const dogId = dogData[selectedDogIndex]?.id;
+  
+    if (!dogId) {
+      alert('無效的狗狗 ID');
+      return;
+    }
+  
+    const url = `http://localhost:3005/api/member/deleteDog/${dogId}`;
+    const token = localStorage.getItem('token');
+  
+    fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    })
+      .then(async response => {
+        if (!response.ok) {
+          try {
+            const errorData = await response.json();
+            throw new Error(errorData.message || '刪除失敗');
+          } catch {
+            const errorText = await response.text();
+            throw new Error(errorText || '刪除失敗');
+          }
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data.status === 'success') {
+          alert('狗狗已刪除');
+          
+          // 更新 localStorage
+          const updatedDogData = dogData.filter((dog, index) => index !== selectedDogIndex);
+          localStorage.setItem(`dogData_${authUser.uuid}`, JSON.stringify(updatedDogData));
+          
+          // 更新狀態
+          setDogData(updatedDogData);
+          
+          // 如果刪除的是最後一隻狗，將 selectedDogIndex 設為 0
+          if (selectedDogIndex >= updatedDogData.length) {
+            setSelectedDogIndex(Math.max(0, updatedDogData.length - 1));
+          }
+          
+          closeModal();
+        } else {
+          alert('刪除失敗: ' + data.message);
+        }
+      })
+      .catch(error => {
+        console.error('刪除狗狗錯誤:', error);
+        alert('刪除狗狗時發生錯誤: ' + error.message);
+      });
+  };
+
+  // 取消刪除
+  const handleCancelDelete = () => {
+    setIsModalOpen(false);
+    setDogToDelete(null);
+  };
+
   useEffect(() => {
     if (authLoading) return;
 
@@ -264,10 +331,27 @@ export default function DogInfoData() {
             <div>
               <div>行為習慣<br /><p>{dog.behavior || '-'}</p></div>
             </div>
+            <div>
+              <div>
+                <div className={`${scss.delBTN}`} onClick={openModal}><RiDeleteBin2Fill /></div>
+                {/* <Modal mode={1}>
+                  <h4>這是標題</h4>
+                  <p>這是內文</p>
+                </Modal> */}
+              </div>
+            </div>
           </div>
           <div className={`col-2`}></div>
         </div>
       </div>
+      {isModalOpen && (
+        <Modal mode={1} onClose={closeModal} onConfirm={handleDeleteDog}>
+          <h4>刪除確認</h4>
+          <p>你確定要刪除這隻狗狗嗎？這個操作無法撤銷。</p>
+          <button onClick={handleDeleteDog}>確認</button>
+          <button onClick={handleCancelDelete}>取消</button>
+        </Modal>
+      )}
     </div>
   );
 
@@ -315,7 +399,7 @@ export default function DogInfoData() {
             </div>
           </div>
           <div className="col-3 my-5">
-          <SideText activeIndex={1} />
+            <SideText activeIndex={1} />
           </div>
         </main>
       )}

@@ -6,8 +6,10 @@ import lfpic from '@/public/login.svg';
 import pswd_icon from '@/public/memberPic/password-icon.svg';
 import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid';
+import { useRouter } from 'next/router';
 
 export default function RegisterPage() {
+  const router = useRouter();
   // 狀態使用物件類型，物件中的屬性名稱對應到欄位的名稱(name屬性)
   const [user, setUser] = useState({
     nickname: '',
@@ -97,6 +99,7 @@ export default function RegisterPage() {
       
       if (res.ok) {
         alert('註冊成功');
+        router.push('/member/login');
       } else {
         // 從後端獲取錯誤信息並顯示
         const errorMessages = resData.message || '註冊失敗';
