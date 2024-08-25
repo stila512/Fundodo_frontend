@@ -4,7 +4,7 @@ import ProductGrid from './productGrid';
 import TagFilter from './tagFilter';
 import scss from './productPage.module.scss';
 
-function ProductPage({ sortBy }) {
+function ProductPage({ sortBy, searchTerm }) {
   const [filters, setFilters] = useState({
     category: '',
     subcategory: '',
@@ -18,15 +18,15 @@ function ProductPage({ sortBy }) {
   const [totalPages, setTotalPages] = useState(1);
   const [tags, setTags] = useState([]);
 
-  const fetchProducts = useCallback(async (currentFilters, currentSortBy, currentPage) => {
+  const fetchProducts = useCallback(async (currentFilters, currentSortBy, currentPage, currentSearchTerm) => {
     try {
       const queryParams = new URLSearchParams({
         ...currentFilters,
         sortBy: currentSortBy,
         page: currentPage,
-        limit: 12
+        limit: 12,
+        search: currentSearchTerm
       }).toString();
-      console.log('Fetching products with params:', queryParams); // 添加日誌
       const response = await fetch(`http://localhost:3005/api/prod?${queryParams}`);
       const data = await response.json();
       if (data.status === "success") {
@@ -51,12 +51,13 @@ function ProductPage({ sortBy }) {
   }, []);
 
   useEffect(() => {
-    fetchProducts(filters, sortBy, page);
-  }, [filters, sortBy, page, fetchProducts]);
+    fetchProducts(filters, sortBy, page, searchTerm);
+  }, [filters, sortBy, page, searchTerm, fetchProducts]);
 
   useEffect(() => {
     fetchTags();
   }, [fetchTags]);
+
 
   const handleFilterChange = useCallback((newFilters) => {
     setFilters(prevFilters => ({
@@ -71,12 +72,15 @@ function ProductPage({ sortBy }) {
   }, []);
 
   const handleTagChange = useCallback((tag) => {
+    console.log('Tag changed:', tag);
     setFilters(prevFilters => ({
       ...prevFilters,
       tag: prevFilters.tag === tag ? '' : tag
     }));
     setPage(1);
   }, []);
+
+  console.log('ProductPage rendering. Current page:', page);
 
   return (
     <div className={["row", '', scss.jcb].join(' ')}>
