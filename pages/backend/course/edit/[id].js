@@ -123,6 +123,7 @@ export default function CourseEdit() {
     }));
     formData.append('chapters', JSON.stringify(chaptersData));
 
+      // 處理影片文件
     course.chapters.forEach((chapter, chapterIndex) => {
       chapter.lessons.forEach((lesson, lessonIndex) => {
         if (lesson.video_path instanceof File) {
@@ -195,10 +196,10 @@ export default function CourseEdit() {
                 </div>
 
                 <div className={scss.formGroup}>
-                  <label>課程標籤</label>
-                  <div className={scss.tagGroup}>
+                  <label>課程分類</label>
+                  <div className={scss.categoryGroup}>
                     {tags.map(tag => (
-                      <label key={tag.id} className={scss.tagLabel}>
+                      <label key={tag.id} className={scss.categoryLabel}>
                         <input
                           type="checkbox"
                           value={tag.id}
