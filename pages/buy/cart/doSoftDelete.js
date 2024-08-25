@@ -2,7 +2,7 @@ import { apiBaseUrl } from '@/configs';
 import axios from 'axios';
 
 export default async function (cartID) {
-  await axios.patch(`${apiBaseUrl}/cart/${cartID}`)
+  await axios.patch(`${apiBaseUrl}/cart/${cartID}`, {deleted_at: 1})
     .then(res => res)
     .catch(err => {
       if (err.response) {

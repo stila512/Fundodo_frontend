@@ -61,7 +61,7 @@ export default function EditArticle() {
   
       const imageIds = Array.from(imageElements).map(img => {
         const src = img.getAttribute('src');
-        const match = src.match(/articleImage-(\d+)-\d+.png/);
+        const match = src.match(/articleImage-(\d+)-\d+\.[a-zA-Z0-9]+/);
         return match ? parseInt(match[1]) : null;
       }).filter(id => id !== null);
       

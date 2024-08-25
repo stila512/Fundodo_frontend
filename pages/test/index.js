@@ -5,7 +5,7 @@ import { useState } from 'react'
 import scss from './test.module.scss';
 import { DiApple } from 'react-icons/di';
 import { IconContext } from 'react-icons';
-import Modal from '@/components/common/modal/Modal';
+import Modal from '@/components/common/modal';
 
 export default function TestPage() {
   const [showModal, setShowModal] = useState(false);

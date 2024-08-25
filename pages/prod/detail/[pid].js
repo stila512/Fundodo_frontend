@@ -8,7 +8,10 @@ import { NumberPanel } from '@/components/buttons/NumberPanel';
 import Recommend from './recommend';
 import FavoriteIcon from '../list/favoriteIcon';
 import ProductImages from './productImages';
-import Toggle from './toggle';
+import Table from './table';
+import { FaBackspace } from "react-icons/fa";
+import FddBtn from '@/components/buttons/fddBtn';
+import Link from 'next/link';
 
 export default function Pid() {
   const router = useRouter();
@@ -106,7 +109,7 @@ export default function Pid() {
       // 只有規格
       index = product.specArr.indexOf(spec);
     }
-    
+
     if (index !== -1) {
       setSelectedPrice(product.priceArr[index]);
     } else {
@@ -149,8 +152,9 @@ export default function Pid() {
       </Head>
       <main className='container'>
         <h1 className={[scss.shade3, 'd-none', 'd-lg-block'].join(' ')}>{product.name}</h1>
-        <div className='mt-3'>
+        <div className='mt-3 d-flex'>
           <Breadcrumb />
+          <Link className={['text-nowrap', scss.backBtn].join(' ')} href='http://localhost:3000/prod'>回到上一頁</Link>
         </div>
         <div>
           <div className={[scss.detailGroup, 'row'].join(' ')}>
@@ -220,8 +224,8 @@ export default function Pid() {
               </div>
             </div>
           </div>
-          <Toggle />
-          <Recommend currentProductId={product.id} currentProductCategory={product.cate_1}/>
+          <Table product={product} />
+          <Recommend currentProductId={product.id} currentProductCategory={product.cate_1} />
         </div>
       </main>
     </>

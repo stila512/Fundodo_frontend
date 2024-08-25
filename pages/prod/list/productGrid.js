@@ -3,6 +3,8 @@ import scss from './productGrid.module.scss'
 import Image from 'next/image'
 import FavoriteIcon from './favoriteIcon'
 import Link from 'next/link'
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
 
 export default function ProductGrid({ products, className, page, totalPages, onPageChange }) {
   const perPage = 12
@@ -69,31 +71,34 @@ export default function ProductGrid({ products, className, page, totalPages, onP
         </div>
       )}
       {totalPages > 1 && (
-        <div className='text-center mt-4'>
-          <button
+        <div className='text-center mt-4 d-flex jc-center'>
+          <label
             onClick={() => onPageChange(page - 1)}
             disabled={page === 1}
             className={scss.myButton}
           >
-            上一頁
-          </button>
+          <input type="button" className='d-none'/>
+          <IoIosArrowBack />
+          </label>
           {[...Array(totalPages)].map((v, i) => (
-            <button
+            <label
               key={i}
               onClick={() => onPageChange(i + 1)}
               disabled={page === i + 1}
               className={[page === i + 1 ? scss.activePage : '', scss.myButton].join(' ')}
             >
+            <input type="button" className='d-none'/>
               {i + 1}
-            </button>
+            </label>
           ))}
-          <button
+          <label
             onClick={() => onPageChange(page + 1)}
             disabled={page === totalPages}
             className={scss.myButton}
           >
-            下一頁
-          </button>
+          <input type="button" className='d-none'/>
+          <IoIosArrowForward />
+          </label>
         </div>
       )}
       
