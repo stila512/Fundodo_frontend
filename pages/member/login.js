@@ -73,9 +73,13 @@ export default function LoginPage() {
               <label>電子郵件地址</label>
               <input type="email" name="email" required />
               <div>
-                <div className={scss.passwordarea}><div><label>密碼</label></div> <div className={scss.passwordicon}><Image className="imgWrap" src={pswd_icon} alt="Image"
-                  onClick={() => setShowPassword(!showPassword)}
-                />隱藏</div></div>
+                <div className={scss.passwordarea}>
+                  <div><label>密碼</label></div>
+                  <div className={scss.passwordicon} onClick={() => setShowPassword(!showPassword)}>
+                    <div className={scss.point}>
+                      <Image className="imgWrap" src={pswd_icon} alt="Image"
+                      />隱藏</div>
+                  </div></div>
                 <input type={showPassword ? 'text' : 'password'} name="password" required />
                 <p>使用8個或以上的字元, 包含字母數字和符號</p>
                 <Link href="/member/register">註冊會員</Link>
