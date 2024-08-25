@@ -4,6 +4,7 @@ import DefaultLayout from '@/components/layout/default';
 import Banner from './banner';
 import Sort from './sort';
 import Tags from './tags';
+import scss from './index.module.scss';
 import Breadcrumb from '../prod/list/breadcrumb';
 import CourseGrid from './courseGrid';
 
@@ -12,6 +13,9 @@ export default function Course() {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('全部分類');
   const [sortBy, setSortBy] = useState('newest');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const coursesPerPage = 10;
 
 
   useEffect(() => {
@@ -26,7 +30,7 @@ export default function Course() {
       .then(res => res.json())
       .then(result => setCategories([{ id: 0, name: '全部分類' }, ...result.data]))
       .catch(err => console.log(err));
-  }, []);
+  }, [currentPage]);
 
   const filteredAndSortedCourses = courses
     .filter(course => selectedCategory === '全部分類' || course.tags && course.tags.includes(selectedCategory))
@@ -44,6 +48,24 @@ export default function Course() {
           return 0;
       }
     });
+
+    const renderPagination = () => {
+      const pageNumbers = [];
+      for (let i = 1; i <= totalPages; i++) {
+        pageNumbers.push(i);
+      }
+  
+      return pageNumbers.map(number => (
+        <button
+          key={number}
+          onClick={() => handlePageChange(number)}
+          className={number === currentPage ? scss.activePage : ''}
+        >
+          {number}
+        </button>
+      ));
+    };
+  
 
   return (
     <>
@@ -63,6 +85,10 @@ export default function Course() {
           setSelectedCategory={setSelectedCategory}
           categories={categories} />
         <CourseGrid courses={filteredAndSortedCourses} />
+
+        <div className={scss.pagination}>
+            {renderPagination()}
+          </div>
       </div>
 
 

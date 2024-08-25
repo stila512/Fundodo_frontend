@@ -36,7 +36,7 @@ export default function CourseDetail() {
 
     // console.log(data)
     setCourse(data.data)
-  }
+}
   // console.log(router.query)
 
   useEffect(() => {
