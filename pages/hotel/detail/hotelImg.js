@@ -12,15 +12,22 @@ export default function HotelImg({ hotelCode }) {
 
   useEffect(() => {
     const getHotel = async () => {
-  
-      const res = await fetch(baseURL);
-      const data = await res.json();
-      if (data.status === "success" && data.data) {
-        const imgArr = data.data.images.split(',');
-        setHotel({
-          ...data.data,
-          images: imgArr,
-        });
+      try {
+        const res = await fetch(baseURL);
+        const data = await res.json();
+        if (data.status === "success" && data.data) {
+          const images = data.data.images ? data.data.images.split(',') : [];
+          setHotel({
+            ...data.data,
+            images: images,
+          });
+        } else {
+          console.error("API返回了意外的數據結構:", data);
+          setHotel({ images: [] });
+        }
+      } catch (error) {
+        console.error("獲取酒店數據時發生錯誤:", error);
+        setHotel({ images: [] });
       }
     };
 
@@ -41,6 +48,10 @@ export default function HotelImg({ hotelCode }) {
     );
   };
 
+  // 無讀取到圖片
+  const handleImageError = (event) => {
+    event.target.src = 'http://localhost:3005/api/hotel/images/404.jpg';
+  };
 
 
   return (
@@ -55,6 +66,7 @@ export default function HotelImg({ hotelCode }) {
                 height={0}
                 className={styles.mainImg}
                 alt="Main Image"
+                onError={handleImageError}
               />
               <button 
                 className={`${styles.arrowBtn} ${styles.rightArrow}`} 
@@ -73,6 +85,7 @@ export default function HotelImg({ hotelCode }) {
                     height={110}
                     className={styles.img}
                     alt={`Sub Image ${index + 1}`}
+                    onError={handleImageError}
                   />
                 </div>
                 ))}

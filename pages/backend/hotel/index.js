@@ -108,6 +108,11 @@ export default function List() {
     }
   };
 
+  // 無讀取到圖片
+  const handleImageError = (event) => {
+    event.target.src = 'http://localhost:3005/api/hotel/images/404.jpg';
+  };
+
   //切換上下架狀態
   // const handleStatusToggle = async (hotel) => {
   //   setIsLoading(true);
@@ -205,9 +210,10 @@ export default function List() {
                     src={`http://localhost:3005/api/hotel/images/${hotel.main_img_path}`}
                     width={100} height={80}
                     alt="旅館圖片"
+                    onError={handleImageError}
                   /></td>
-                  <td>{hotel.name}</td>
-                  <td>{hotel.address}</td>
+                  <td class={styles.name}>{hotel.name}</td>
+                  <td class={styles.address}>{hotel.address}</td>
                   <td>NT${hotel.price_s}~NT${hotel.price_l}</td>
                   <td>
                     <button
