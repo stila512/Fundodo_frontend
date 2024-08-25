@@ -70,6 +70,8 @@ export default function Add() {
   };
 
 
+
+
   return (
     <>
       <BackendLayout>
@@ -85,7 +87,6 @@ export default function Add() {
               <p className={styles.title}>旅館圖片</p>
               <div className={styles.addImg}>
       <RiImageAddFill className={styles.addImgIcon} />
-        
               </div>
             </div>
             <div className={styles.formGroup}>
