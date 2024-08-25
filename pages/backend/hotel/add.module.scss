@@ -24,17 +24,10 @@
     background-color: #f9f9f9;
     padding: 30px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-width: 788px;
 
     .imgGroup {
-      margin-bottom: 20px;
-
-      p {
-        font-weight: 400;
-        margin-bottom: 10px;
-        color: $heading;
-        font-size: 16px;
-      }
+      margin-bottom: 30px;
 
       img {
         margin-right: 10px;
@@ -52,6 +45,7 @@
         display: inline-block;
         margin-bottom: 6px;
         margin-right: 14px;
+        margin-left: 4px;
       }
       .price {
         width: 20%;
@@ -84,9 +78,9 @@
     }
 
     .addImg {
-      width: 100px;
-      height: 100px;
-      background-color: $tint5;
+      width: 200px;
+      height: 200px;
+      background-color: $secondary;
       border-radius: 4px;
       display: flex;
       align-items: center;
@@ -94,9 +88,9 @@
       margin-bottom: 20px;
     }
     .addImgIcon {
-      width: 30px;
-      height: 30px;
-      color: $shade3;
+      width: 40px;
+      height: 40px;
+      color: $primary;
     }
 
     .buttonGroup {
@@ -177,3 +171,4 @@
   background-color: $primary;
   border: none;
 }
+

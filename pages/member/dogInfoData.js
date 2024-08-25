@@ -10,6 +10,8 @@ import dogicon from '@/public/memberPic/dogicon.svg';
 import Shiba from '@/public/memberPic/Shiba.png';
 import Link from 'next/link';
 import useAuthRedirect from '@/hooks/useAuthRedirect';
+import { RiDeleteBin2Fill } from "react-icons/ri";
+import Modal from '@/components/common/modal/Modal';
 
 
 
@@ -20,16 +22,49 @@ export default function DogInfoData() {
   const [selectedDogIndex, setSelectedDogIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
+  // 處理疫苗數據
+  const getVaccinationDescription = (vaccinations) => {
+    if (!vaccinations || vaccinations === '[]') return '未接種疫苗';
 
-  //從localstorage 找狗狗的資料
+    try {
+      // 去掉首尾的引號，並解碼字符串中的轉義字符
+      const cleanedVaccinations = vaccinations.replace(/^"|"$/g, '').replace(/\\"/g, '"');
+      const parsedVaccinations = JSON.parse(cleanedVaccinations);
+
+      return parsedVaccinations.map(vaccine => {
+        switch (vaccine) {
+          case 'multi':
+            return '多合一疫苗';
+          case 'rabies':
+            return '狂犬疫苗';
+          case 'lyme':
+            return '萊姆疫苗';
+          default:
+            return '未知疫苗';
+        }
+      }).join(', ');
+    } catch (error) {
+      console.error('解析疫苗數據時出錯:', error);
+      return '否';
+    }
+  };
+
+  //從localstorage 找狗狗資料
   const loadDogDataFromLocalStorage = (uuid) => {
     const dogs = [];
     Object.keys(localStorage).forEach(key => {
       if (key.startsWith(`dogData_${uuid}`)) {
         const data = JSON.parse(localStorage.getItem(key));
-        if (data) {
+        if (Array.isArray(data)) {
+          // 如果 data 是數組，展開並推入 dogs
           dogs.push(...data);
+        } else if (data) {
+          // 如果 data 不是數組，直接推入 dogs
+          dogs.push(data);
         }
       }
     });
@@ -102,11 +137,120 @@ export default function DogInfoData() {
       });
   };
 
+  const addDog = () => {
+    const url = `http://localhost:3005/api/member/addDog/${authUser.userId}`;
+
+    const dogData = {
+      name: '新狗狗',
+      vaccinations: JSON.stringify([]),
+      neutering: 'no',
+      introduce: '',
+      behavior: '',
+    };
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${authUser.token}` // 假設您有一個認證令牌
+      },
+      body: JSON.stringify(dogData)
+    })
+      .then(response => {
+        if (!response.ok) {
+          return response.json().then(data => {
+            throw new Error(data.message || '新增狗狗失敗');
+          });
+        }
+        return response.json();
+      })
+      .then(data => {
+        alert(data.message || '操作成功');
+        if (data.status === 'success') {
+          fetchgetDog(authUser.uuid); // 重新加載狗狗資料
+        }
+      })
+      .catch(error => {
+        console.error('新增狗狗錯誤:', error);
+        alert(error.message);
+        // setError(error.message);
+      });
+  };
+
+  const handleDeleteDog = () => {
+    const dogId = dogData[selectedDogIndex]?.id;
+  
+    if (!dogId) {
+      alert('無效的狗狗 ID');
+      return;
+    }
+  
+    const url = `http://localhost:3005/api/member/deleteDog/${dogId}`;
+    const token = localStorage.getItem('token');
+  
+    fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    })
+      .then(async response => {
+        if (!response.ok) {
+          try {
+            const errorData = await response.json();
+            throw new Error(errorData.message || '刪除失敗');
+          } catch {
+            const errorText = await response.text();
+            throw new Error(errorText || '刪除失敗');
+          }
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data.status === 'success') {
+          alert('狗狗已刪除');
+          
+          // 更新 localStorage
+          const updatedDogData = dogData.filter((dog, index) => index !== selectedDogIndex);
+          localStorage.setItem(`dogData_${authUser.uuid}`, JSON.stringify(updatedDogData));
+          
+          // 更新狀態
+          setDogData(updatedDogData);
+          
+          // 如果刪除的是最後一隻狗，將 selectedDogIndex 設為 0
+          if (selectedDogIndex >= updatedDogData.length) {
+            setSelectedDogIndex(Math.max(0, updatedDogData.length - 1));
+          }
+          
+          closeModal();
+        } else {
+          alert('刪除失敗: ' + data.message);
+        }
+      })
+      .catch(error => {
+        console.error('刪除狗狗錯誤:', error);
+        alert('刪除狗狗時發生錯誤: ' + error.message);
+      });
+  };
+
+  // 取消刪除
+  const handleCancelDelete = () => {
+    setIsModalOpen(false);
+    setDogToDelete(null);
+  };
+
   useEffect(() => {
     if (authLoading) return;
 
     if (authUser && authUser.uuid) {
-      loadDogDataFromLocalStorage(authUser.uuid);
+      const dogDataFromLocalStorage = loadDogDataFromLocalStorage(authUser.uuid);
+
+      if (!dogDataFromLocalStorage || dogDataFromLocalStorage.length === 0) {
+        fetchgetDog(authUser.uuid);
+      } else {
+        setDogData(dogDataFromLocalStorage);
+        setLoading(false);
+      }
     } else {
       setError('用戶未認證');
       setLoading(false);
@@ -140,17 +284,23 @@ export default function DogInfoData() {
   };
 
   const renderDogInfo = (dog) => (
-    <div className={`${scss.mainArea}`}>
+    <div className={`${scss.mainArea} col-12 col-lg-6`}>
       <div className={`${scss.leftPic} col-6`}>
-        <div className={`${scss.imgDogavatar}`}>
-          <Image className="img" src={dog.dog_avatar_file || Shiba} alt="Dog Avatar" />
+        <div className={['img-wrap-h100', scss.imgDogavatar].join(' ')}>
+          <Image
+            className="img"
+            src={dog.dog_avatar_file ? `http://localhost:3005/upload_dog/${dog.dog_avatar_file}` : Shiba}
+            alt="Dog Avatar"
+            width={0}
+            height={0}
+          />
         </div>
         <div className={`${scss.Dogname}`}>
           {dog.name || '小廢柴'}
         </div>
       </div>
       <div className={`${scss.rightText} col-6`}>
-        <div className={`${scss.rightA1}`}>
+        <div className={`${scss.rightA1} col-12`}>
           <div className={`col-2`}>
             <Image className="img" src={dogicon} alt="Dog Icon" />
           </div>
@@ -162,29 +312,46 @@ export default function DogInfoData() {
               {/* <div className={`col-4`}>犬型<br /><p>{getBodyTypeDescription(dog.bodytype)}</p></div> */}
             </div>
             <div>
-              <div>疫苗接種紀錄<br /><p>{dog.vaccination === 1 ? '是' : '否'}</p></div>
+              <div>疫苗接種紀錄<br /><p>{getVaccinationDescription(dog.vaccinations)}</p></div>
             </div>
             <div>
-              <div>絕育狀態<br /><p>{dog.neutered === 1 ? '是' : '否'}</p></div>
+              <div>絕育狀態<br /><p>{dog.neutering === 'yes' ? '是' : (dog.neutering === 'no' ? '否' : '-')}</p></div>
             </div>
           </div>
           <div className={`col-4`}></div>
         </div>
-        <div className={`${scss.rightA2}`}>
+        <div className={`${scss.rightA2} col-12`}>
           <div className={`col-2`}>
             <Image className="img" src={icon_i} alt="Info Icon" />
           </div>
           <div className={`${scss.a3} col-8`}>
             <div>
-              <div>性格描述<br /><p>{dog.personality || '-'}</p></div>
+              <div>性格描述<br /><p>{dog.introduce || '-'}</p></div>
             </div>
             <div>
               <div>行為習慣<br /><p>{dog.behavior || '-'}</p></div>
+            </div>
+            <div>
+              <div>
+                <div className={`${scss.delBTN}`} onClick={openModal}><RiDeleteBin2Fill /></div>
+                {/* <Modal mode={1}>
+                  <h4>這是標題</h4>
+                  <p>這是內文</p>
+                </Modal> */}
+              </div>
             </div>
           </div>
           <div className={`col-2`}></div>
         </div>
       </div>
+      {isModalOpen && (
+        <Modal mode={1} onClose={closeModal} onConfirm={handleDeleteDog}>
+          <h4>刪除確認</h4>
+          <p>你確定要刪除這隻狗狗嗎？這個操作無法撤銷。</p>
+          <button onClick={handleDeleteDog}>確認</button>
+          <button onClick={handleCancelDelete}>取消</button>
+        </Modal>
+      )}
     </div>
   );
 
@@ -197,14 +364,14 @@ export default function DogInfoData() {
         <p>錯誤: {error}</p>
       ) : (
         <main className={scss.dogInfoDataContainer}>
-          <div className="col-3"></div>
-          <div className={`${scss.midarea} col-6`}>
+          <div className="col-1 col-xxl-2"></div>
+          <div className={`${scss.midarea} col-10 col-xxl-8`}>
             <div className={`${scss.midtext}`}>
               <div className={`${scss.toparea}`}>
                 <div className={`${scss.tags}`}>
                   <div className={`${scss.tagGroup}`}>
                     <div className={`${scss.tag1}`}>狗狗的資料</div>
-                    <div className={`${scss.tag2}`}>新增狗狗</div>
+                    <div onClick={addDog} className={`${scss.tag2}`}>新增狗狗</div>
                   </div>
                   <div className={`${scss.tagGroup}`}>
                     {dogData.map((dog, index) => (
@@ -222,7 +389,7 @@ export default function DogInfoData() {
               </div>
               <div className={`${scss.botarea}`}>
                 {dogData && dogData.length > 0 && (
-                  <div className="">
+                  <div className="my-5">
                     <Link href={`/member/dogInfo?id=${dogData[selectedDogIndex].id}`}>
                       <button className={`${scss.btn2}`}>編輯資料</button>
                     </Link>
@@ -231,8 +398,8 @@ export default function DogInfoData() {
               </div>
             </div>
           </div>
-          <div className="col-3 my-2">
-            <SideText />
+          <div className="col-1 col-xxl-2 d-none d-xxl-block mx-5 my-5">
+            <SideText activeIndex={1} />
           </div>
         </main>
       )}

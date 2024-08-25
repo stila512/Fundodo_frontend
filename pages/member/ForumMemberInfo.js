@@ -205,7 +205,7 @@ export default function PeopleInfo() {
           </form>
         </div>
         <div className="col-3 my-5 d-none d-lg-block">
-          <SideText></SideText>
+          <SideText activeIndex={0} />
         </div>
       </main>
     </>

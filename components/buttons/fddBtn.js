@@ -29,6 +29,7 @@ const colorList = {
  * @param {string} children 按鈕文字
  * @param {string} color 按鈕色系
  * @param {string} size 按鈕大小 (optional)
+ * @param {bool} pill 膠囊款式 (optional)
  * @param {bool} icon 圓形款式 (optional)
  * @param {bool} outline 外框款式 (optional)
  * @param {string} href 連結路徑 (optional)
@@ -39,6 +40,7 @@ export default function FddBtn({
   children = '人家是按鈕',
   color = 'primary',
   size = '',
+  pill = true,
   icon = false,
   outline = false,
   callback = undefined,
@@ -52,18 +54,24 @@ export default function FddBtn({
   switch (size) {
     case '':
       break;
+    case 'lg':
+      size = 'btn-lg';
+      break;
     case 'sm':
       size = 'btn-sm';
       break;
-    case 'lg':
-      size = 'btn-lg';
+    case 'mini':
+      size = 'btn-mini';
       break;
     default:
       throw new Error('FddBtn 的 size 只有三種選項：不填、sm、lg');
   }
 
   const tagArr = ['btn', colorList[color]];
-  if (icon) tagArr.push('icon');
+  if (pill) {
+    if (icon) tagArr.push('icon');
+  } else tagArr.push('brick');
+
   if (outline) tagArr.push('2');
 
   let classStr = tagArr.join('-');

@@ -9,8 +9,10 @@ import Link from 'next/link';
 import { AuthProvider, AuthContext } from '@/context/AuthContext';
 import { useRouter } from 'next/router';
 import useAuthRedirect from '@/hooks/useAuthRedirect';
+import Modal from '@/components/common/modal/Modal';
 
 export default function PeopleInfoData() {
+  const router = useRouter();
   useAuthRedirect();
   const { user: authUser, loading: authLoading } = useContext(AuthContext);
   const [user, setUser] = useState({
@@ -18,6 +20,17 @@ export default function PeopleInfoData() {
     password: '',
     email: '',
   })
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+  const [confirmEmail, setConfirmEmail] = useState('');
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+  const handleEmailChange = (e) => {
+    setConfirmEmail(e.target.value);
+  };
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -49,6 +62,53 @@ export default function PeopleInfoData() {
       });
   };
 
+  const handleDeleteUser = () => {
+    if (confirmEmail !== user.email) {
+      alert('電子郵件地址不匹配，無法刪除帳號');
+      return;
+    }
+
+    const url = `http://localhost:3005/api/member/deleteUser/${authUser.uuid}`;
+    const token = localStorage.getItem('token');
+
+    fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    })
+      .then(async response => {
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(errorText || '刪除失敗');
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data.status === 'success') {
+          alert('用戶已刪除');
+          localStorage.removeItem('token');
+          localStorage.removeItem(`userData_${authUser.uuid}`);
+          router.push('/member/login');
+        } else {
+          alert('刪除失敗: ' + data.message);
+        }
+      })
+      .catch(error => {
+        console.error('刪除用戶錯誤:', error);
+        alert('刪除用戶時發生錯誤: ' + error.message);
+      })
+      .finally(() => {
+        closeModal();
+        setConfirmEmail(''); // 重置確認郵件
+      });
+  };
+
+  const handleCancelDelete = () => {
+    closeModal();
+    setConfirmEmail('');
+  };
+
   useEffect(() => {
     if (authLoading) return;
 
@@ -59,6 +119,17 @@ export default function PeopleInfoData() {
       setLoading(false);
     }
   }, [authUser, authLoading]);
+
+  const formatDate = (dateString) => {
+    if (!dateString) return '未知';
+
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  };
 
   return (
     <>
@@ -77,33 +148,50 @@ export default function PeopleInfoData() {
                   <div className={scss.area3}>姓名<p>{user.name || '-'}</p></div>
                   <div className={scss.area4}>性別
                     <div className={scss.genderRadio}>
-                      <p>{user.gender || '-'}</p>
+                      <p>{user.gender === 1 ? '先生' : '女士'}</p>
                     </div>
                   </div>
                   <div className={scss.area5}>生日
                     <div><label html="birthday"></label>
-                      {user.dob || '-'}
+                      {formatDate(user.dob)}
                     </div>
                   </div>
                   <div className={scss.area6}>行動電話 <p>{user.tel || '-'}</p></div>
                   <div className={scss.area7}>聯絡地址
                     <div className={scss.address}>
-                    {user.adr_city || '-'} {user.address || '-'}
+                      {user.address || '-'}
                     </div>
 
                   </div>
                   <div className={`${scss.botarea} my-5 mx-5`}>
                     <Link href="/member/peopleInfo"><button className={scss.btn1}>編輯資料</button></Link>
+                    <button type="button" className={scss.btn2} onClick={openModal}>刪除用戶</button>
                   </div>
                 </div>
               </div>
               <div className="col-5 my-5  d-none d-lg-block">
-                <SideText></SideText>
+                <SideText activeIndex={0} />
               </div>
             </div>
           </form>
         )}
       </main>
+
+      {isModalOpen && (
+        <Modal mode={1} onClose={closeModal}>
+          <h4>刪除確認</h4>
+          <p>你確定要刪除帳號？這個操作無法撤銷。</p>
+          <p>請輸入您的電子郵件地址以確認刪除：</p>
+          <input
+            type="email"
+            value={confirmEmail}
+            onChange={handleEmailChange}
+            placeholder="輸入您的電子郵件"
+          />
+          <button onClick={handleDeleteUser} disabled={confirmEmail !== user.email}>確認刪除</button>
+          <button onClick={handleCancelDelete}>取消</button>
+        </Modal>
+      )}
     </>
   );
 }

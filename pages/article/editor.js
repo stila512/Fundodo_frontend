@@ -36,8 +36,7 @@ function MyCustomUploadAdapterPlugin(editor) {
     };
 }
 
-export default function Editor({ content, setContent,editorHei }) {
-    // const [content, setContent] = useState('');
+export default function Editor({ content, setContent,editorHei, onReady }) {
     const [editorLoaded, setEditorLoaded] = useState(false);
     const editorRef = useRef();
     const { CKEditor, ClassicEditor } = editorRef.current || {};
@@ -59,6 +58,11 @@ export default function Editor({ content, setContent,editorHei }) {
                         onChange={(event, editor) => {
                             const data = editor.getData();
                             setContent(data);
+                        }}
+                        onReady={(editor) => {
+                            if (onReady) {
+                                onReady();
+                            }
                         }}
                         config={{
                             extraPlugins: [MyCustomUploadAdapterPlugin],

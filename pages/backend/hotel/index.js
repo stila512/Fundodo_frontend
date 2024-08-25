@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Image from 'next/image';
+import Link from 'next/link';
 import BackendLayout from '@/components/layout/backend'
 import styles from './index.module.scss';
-import { CiRead } from "react-icons/ci";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { IoIosSearch } from "react-icons/io";
 import { FaCircleDot } from "react-icons/fa6";
+import { MdRemoveRedEye } from "react-icons/md";
+
+// todo 旅館id排序 切換上下架狀態 
 
 export default function List() {
 
@@ -17,10 +20,13 @@ export default function List() {
 
   const [statusCounts, setStatusCounts] = useState({ all: 0, active: 0, inactive: 0 });
   const [selectedStatus, setSelectedStatus] = useState('all');
+  const [isLoading, setIsLoading] = useState(false);
 
+  const baseURL = 'http://localhost:3005/api/hotel';
+
+  //獲取全部
   const getHotels = async () => {
     try {
-      const baseURL = 'http://localhost:3005/api/hotel';
       const res = await fetch(baseURL);
       const data = await res.json();
       // console.log(data);
@@ -61,7 +67,7 @@ export default function List() {
     setFilteredHotels(filtered)
   }
 
-  //上下架狀態
+  //紀錄上下架狀態跟數量
   const handleStatusSelect = (status) => {
     setSelectedStatus(status);
     if (status === 'all') {
@@ -74,6 +80,74 @@ export default function List() {
     }
   }
 
+  //刪除
+  const handleDelete = async (id) => {
+    if (!confirm('確定要刪除這個旅館嗎？')) {
+      return;
+    }
+
+    setIsLoading(true); // 添加載入狀態
+
+    try {
+      const response = await fetch(`http://localhost:3005/api/hotel/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        alert('旅館已成功刪除');
+        await getHotels(); // 重新獲取數據
+      } else {
+        const errorData = await response.json();
+        alert(`刪除失敗: ${errorData.message || response.statusText}`);
+      }
+    } catch (error) {
+      console.error('刪除過程中發生錯誤:', error);
+      alert('刪除過程中發生錯誤，請稍後再試');
+    } finally {
+      setIsLoading(false); // 結束載入狀態
+    }
+  };
+
+  // 無讀取到圖片
+  const handleImageError = (event) => {
+    event.target.src = 'http://localhost:3005/api/hotel/images/404.jpg';
+  };
+
+  //切換上下架狀態
+  // const handleStatusToggle = async (hotel) => {
+  //   setIsLoading(true);
+  //   const newValidStatus = hotel.valid === 1 ? 0 : 1;
+
+  //   try {
+  //     const response = await fetch(`http://localhost:3005/api/hotel/${hotel.id}/status`, {
+  //       method: 'PUT',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({ valid: newValidStatus }),
+  //     });
+
+  //     const data = await response.json();
+
+  //     if (response.ok) {
+  //       const updatedHotels = hotels.map(h => 
+  //         h.id === hotel.id ? {...h, valid: newValidStatus} : h
+  //       );
+  //       setHotels(updatedHotels);
+  //       setFilteredHotels(updatedHotels);
+  //       updateStatusCounts(updatedHotels);
+  //       alert('旅館狀態已更新');
+  //     } else {
+  //       alert(`更新失敗: ${data.message}`);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error:', error);
+  //     alert('無法更新狀態：' + error.message);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
 
   return (
     <>
@@ -85,7 +159,9 @@ export default function List() {
         <div className={styles.hotelPage}>
           <h1>寵物旅館列表</h1>
           <div className={styles.topBar}>
-            <button className={styles.addBtn}>新增旅館</button>
+            <Link href={`/backend/hotel/add`}>
+              <button className={styles.addBtn}>新增旅館</button>
+            </Link>
             <div className={styles.searchBar}>
               <input type="text"
                 className={styles.searchInput}
@@ -101,16 +177,16 @@ export default function List() {
           </div>
           <div className={styles.statusBar}>
             <ul>
-              <li onClick={() => handleStatusSelect('all')} 
-              className={selectedStatus === 'all' ? styles.active : ''}>
+              <li onClick={() => handleStatusSelect('all')}
+                className={selectedStatus === 'all' ? styles.active : ''}>
                 全部({statusCounts.all})
               </li>
-              <li onClick={() => handleStatusSelect('active')} 
-              className={selectedStatus === 'active' ? styles.active : ''}>
-              上架中({statusCounts.active})</li>
-              <li onClick={() => handleStatusSelect('inactive')} 
-              className={selectedStatus === 'inactive' ? styles.active : ''}>
-              未刊登({statusCounts.inactive})</li>
+              <li onClick={() => handleStatusSelect('active')}
+                className={selectedStatus === 'active' ? styles.active : ''}>
+                上架中({statusCounts.active})</li>
+              <li onClick={() => handleStatusSelect('inactive')}
+                className={selectedStatus === 'inactive' ? styles.active : ''}>
+                已下架({statusCounts.inactive})</li>
             </ul>
           </div>
           <table className={styles.Table}>
@@ -131,24 +207,42 @@ export default function List() {
                 <tr key={hotel.id || index}>
                   <td>{hotel.id}</td>
                   <td> <Image
-                    src={`/hotelPic/pic/${hotel.main_img_path}`}
+                    src={`http://localhost:3005/api/hotel/images/${hotel.main_img_path}`}
                     width={100} height={80}
                     alt="旅館圖片"
+                    onError={handleImageError}
                   /></td>
-                  <td>{hotel.name}</td>
-                  <td>{hotel.address}</td>
+                  <td class={styles.name}>{hotel.name}</td>
+                  <td class={styles.address}>{hotel.address}</td>
                   <td>NT${hotel.price_s}~NT${hotel.price_l}</td>
                   <td>
-                  {/* <button className={styles.statusBtn}>
-                  <FaCircleDot className={styles.statusDot} /> */}
-                  {hotel.valid === 1 ? '上架中' : '未刊登'}
-                  {/* </button> */}
+                    <button
+                      className={hotel.valid === 1 ? styles.statusBtnOnline : styles.statusBtnOffline}
+                    // onClick={() => handleStatusToggle(hotel)}
+                    // disabled={isLoading}
+                    >
+                      <FaCircleDot className={hotel.valid === 1 ? styles.statusDotOnline : styles.statusDotOffline} />
+                      {hotel.valid === 1 ? '上架中' : '已下架'}
+                    </button>
                   </td>
-                  <td>{hotel.created_at}</td>
                   <td>
-                    <button className={styles.actionBtn}> <CiRead className={styles.icon} /> </button>
-                    <button className={styles.actionBtn}> <FaEdit className={styles.icon} /> </button>
-                    <button className={styles.actionBtn}> <RiDeleteBin5Line className={styles.icon} /> </button>
+                    {new Date(hotel.created_at).toLocaleDateString()} {new Date(hotel.created_at).toLocaleTimeString()}
+                  </td>
+                  <td>
+                  <Link href={`/hotel/detail/${hotel.id}`}>
+                  <button className={styles.actionBtn}> <MdRemoveRedEye className={styles.icon} /> </button>
+                  </Link>
+                    <Link href={`/backend/hotel/${hotel.id}`}>
+                      <button className={styles.actionBtn}> <FaEdit className={styles.icon} /> </button>
+                    </Link>
+                    {/* 刪除鍵 */}
+                    <button
+                      className={styles.actionBtn}
+                      onClick={() => handleDelete(hotel.id)}
+                      disabled={isLoading}
+                    >
+                      <RiDeleteBin5Line className={styles.icon} />
+                    </button>
                   </td>
                 </tr>
               ))}

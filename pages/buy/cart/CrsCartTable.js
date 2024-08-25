@@ -90,7 +90,7 @@ export default function CrsCartTable({
           ))
           }
           {noData && <tr><td colSpan={7}>
-            <FddBtn color='secondary' size='sm' href='/course'>來去逛逛寵物課程</FddBtn>
+            <FddBtn color='tint1' size='sm' href='/course'>來去逛逛寵物課程</FddBtn>
           </td></tr>}
         </tbody>
       </table>

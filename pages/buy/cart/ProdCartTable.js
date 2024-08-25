@@ -1,3 +1,5 @@
+//== Parameters
+import { apiBaseUrl } from '@/configs';
 // function
 import { useEffect, useState } from 'react';
 import deleteCartOf from './doSoftDelete';
@@ -9,6 +11,7 @@ import { NumberPanel } from '@/components/buttons/NumberPanel';
 import s from './cart-page.module.scss';
 import { TbTrashX } from "react-icons/tb";
 import { RxCross2 } from "react-icons/rx";
+import axios from 'axios';
 
 //todo 將 isOutOfStock 與 stock_when_few 納入機制
 
@@ -29,7 +32,7 @@ export default function ProdCartTable({
 
 
   useEffect(() => {
-    if(data) setQtyArr(data.map(d => d.quantity));
+    if (data) setQtyArr(data.map(d => d.quantity));
   }, [data]);
 
   //===== 計算 PD 購物車小計
@@ -41,6 +44,29 @@ export default function ProdCartTable({
     setSubtotArr(subtotList);
     setAmount(arr => arr.map((v, i) => (i === CART_INDEX) ? total : v));
   }, [qtyArr]);
+
+  const handleQty = async (i_item, cartID, delta) => {
+    // 更新前端的監控數據
+    setQtyArr(qtyArr.map((q, j) => j === i_item ? q + delta : q));
+
+    // 更新後台的資料庫
+    //! 此時 qtyArr 的資料尚未被 set 更新
+    const data = {
+      quantity: qtyArr[i_item] + delta
+    };
+    await axios.patch(`${apiBaseUrl}/cart/${cartID}`, data).catch((err) => {
+      if (err.response) {
+        //status != 2XX
+        console.error(err.response.data.message);
+      } else if (err.request) {
+        // 伺服器沒有回應
+        console.log("伺服器沒有回應，請檢查伺服器狀態");
+      } else {
+        console.log("未知的錯誤情形");
+        console.log(err);
+      }
+    });
+  };
 
   const handleZero = () => {
     console.log('ㄟ，不能歸零');
@@ -67,7 +93,7 @@ export default function ProdCartTable({
         </caption>
         <thead>
           <tr>
-            <th><TbTrashX /></th>
+            <th className='d-none d-lg-table-cell'><TbTrashX /></th>
             <th></th>
             <th>商品資訊</th>
             <th>規格</th>
@@ -79,7 +105,7 @@ export default function ProdCartTable({
         <tbody className='tx-body'>
           {noData || data.map((item, i_item) => itemStateArr[i_item] && (
             <tr key={item.key}>
-              <td>
+              <td className='d-none d-lg-table-cell'>
                 <FddBtn
                   color='tint4'
                   size='sm' icon
@@ -111,8 +137,7 @@ export default function ProdCartTable({
               <td>
                 <NumberPanel
                   quantity={qtyArr[i_item]}
-                  setFunc={setQtyArr}
-                  index={i_item}
+                  callback={(q) => handleQty(i_item, item.key, q)}
                   min={1}
                   onOverMin={() => handleZero()}
                   doesDisableMinus={qtyArr[i_item] <= 0}
@@ -122,7 +147,7 @@ export default function ProdCartTable({
             </tr>
           ))}
           {noData && <tr><td colSpan={7}>
-          <FddBtn color='secondary' size='sm' href='/course'>來去逛逛寵物商城</FddBtn>
+            <FddBtn color='tint1' size='sm' href='/course'>來去逛逛寵物商城</FddBtn>
           </td></tr>}
         </tbody>
       </table>

@@ -8,6 +8,8 @@ export default function HotelBlock({ searchQuery, sortOption }) {
   const [hotels, setHotels] = useState([]);
   const [filteredHotels, setFilteredHotels] = useState([]);
 
+  const baseURL = 'http://localhost:3005/api/hotel';
+
   // 分頁
   const [currentPage, setCurrentPage] = useState(1);
   const hotelsPerPage = 9;
@@ -18,7 +20,6 @@ export default function HotelBlock({ searchQuery, sortOption }) {
 
   const getHotels = async () => {
     try {
-      const baseURL = 'http://localhost:3005/api/hotel';
       const res = await fetch(baseURL);
       const data = await res.json();
       // console.log(data);
@@ -67,6 +68,13 @@ export default function HotelBlock({ searchQuery, sortOption }) {
     }
   }, [hotels, searchQuery, sortOption]);
 
+    // 無讀取到圖片
+    const handleImageError = (event) => {
+      event.target.src = 'http://localhost:3005/api/hotel/images/404.jpg';
+    };
+  
+
+
   return (
     <div className={['container', styles.container].join(' ')}>
       <h3 className={styles.h3}>推薦旅館</h3>
@@ -77,11 +85,18 @@ export default function HotelBlock({ searchQuery, sortOption }) {
               <div key={v.id} className={styles.card}>
                 <div className={styles.image}>
                   <Link href={`/hotel/detail/${v.id}`}>
-                    <Image
+                    {/* <Image
                       src={`/hotelPic/pic/${v.main_img_path}`}
                       layout="fill"
                       objectFit="cover"
                       alt="旅館圖片"
+                    /> */}
+                    <Image
+                      src={`http://localhost:3005/api/hotel/images/${v.main_img_path}`}
+                      layout="fill"
+                      objectFit="cover"
+                      alt="旅館圖片"
+                      onError={handleImageError}
                     />
                   </Link>
                 </div>

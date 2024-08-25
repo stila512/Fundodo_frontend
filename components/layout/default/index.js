@@ -1,3 +1,5 @@
+import { useState, useEffect, useContext } from 'react';
+import { AuthProvider, AuthContext } from '@/context/AuthContext';
 import NavHeader from './navHeader';
 import Footer from './footer';
 
@@ -6,6 +8,7 @@ import Footer from './footer';
  * @description 請以此元件包住頁面內容
  */
 export default function DefaultLayout({ children }) {
+  const { logout } = useContext(AuthContext);
   return (
     <>
       <NavHeader />
