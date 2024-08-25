@@ -171,7 +171,7 @@ export default function ChangePassword() {
             <div className="col-1 col-md-2 col-lg-3"></div>
           </form>
         </div>
-        <div className="col-1 col-lg-3 my-5  d-none d-lg-block my-5 mx-5">
+        <div className="col-1 col-lg-3 d-none d-lg-block my-5 mx-5">
           <SideText activeIndex={3} />
         </div>
       </main>
