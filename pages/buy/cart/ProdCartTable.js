@@ -104,7 +104,7 @@ export default function ProdCartTable({
         </thead>
         <tbody className='tx-body'>
           {noData || data.map((item, i_item) => itemStateArr[i_item] && (
-            <tr key={item.key}>
+            <tr key={item.cart_id}>
               <td className='d-none d-lg-table-cell'>
                 <FddBtn
                   color='tint4'

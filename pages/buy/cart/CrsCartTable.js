@@ -58,7 +58,7 @@ export default function CrsCartTable({
         </thead>
         <tbody className='tx-body'>
           {noData || data.map((item, i_item) => (
-            <tr key={item.key}>
+            <tr key={item.cart_id}>
               <td>
                 <FddBtn color='tint4' size='sm' icon callback={() => handleDelete(i_item, item.key)}>
                   <RxCross2 />

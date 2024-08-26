@@ -11,7 +11,7 @@ import Shiba from '@/public/memberPic/Shiba.png';
 import Link from 'next/link';
 import useAuthRedirect from '@/hooks/useAuthRedirect';
 import { RiDeleteBin2Fill } from "react-icons/ri";
-import Modal from '@/components/common/modal/Modal';
+import Modal from '@/components/common/modal';
 
 
 
