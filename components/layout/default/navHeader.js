@@ -12,7 +12,7 @@ export default function NavHeader() {
   return (
     <header className={scss.layout}>
       <div className='container'>
-        <button className={['', scss.hbgBtn].join(' ')}>
+        <button className={['d-lg-none', scss.hbgBtn].join(' ')}>
           <GiHamburgerMenu />
         </button>
         <Logo width={210} href="/"></Logo>
