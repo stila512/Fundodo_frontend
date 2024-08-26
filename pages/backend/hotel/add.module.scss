@@ -78,6 +78,7 @@
     }
 
     .addImg {
+      position: relative;
       width: 200px;
       height: 200px;
       background-color: $secondary;
@@ -86,11 +87,35 @@
       align-items: center;
       justify-content: center;
       margin-bottom: 20px;
+    
+      .uploadSuccess {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background: $info;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+      }
     }
     .addImgIcon {
       width: 40px;
       height: 40px;
       color: $primary;
+    }
+
+    .imgPre{
+      position: relative;
+      width: 105%;
+      height: 105%;
+      top: 10px;
+      background-color: $secondary;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+
     }
 
     .buttonGroup {
