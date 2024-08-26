@@ -18,7 +18,7 @@ export default function TitleAction() {
   const [sort, setSort] = useState([])
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/sort')
+    fetch('http://localhost:3005/api/article/sort')
       .then(response => response.json())
       .then(data => {
         if (data.status === 'success') {

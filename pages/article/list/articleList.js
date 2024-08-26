@@ -13,7 +13,7 @@ export default function ArticleList() {
   
   useEffect(() => {
     const fetchArticles = async () => {
-      let url = 'http://localhost:3001/api/articles?'
+      let url = 'http://localhost:3005/api/article/articles?'
       const params = new URLSearchParams()
 
       if (sort) {
