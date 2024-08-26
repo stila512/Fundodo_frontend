@@ -27,7 +27,7 @@ export default function CartPage() {
   const [cpList, setCpList] = useState([]);
 
   const [cartPkg, setCartPkg] = useState({
-    unusedArr: [],
+    usableArr: [],
     usedArr: [],
     overdueArr: []
   })
@@ -126,7 +126,7 @@ export default function CartPage() {
       .then(res => {
         // 略過將之前被刪除的購物車項目
         //===== 可以避免購物車在回復刪除階段時，將重複品項救回
-        setCpList(res.data.result.unusedArr);
+        setCpList(res.data.result.usableArr);
       })
       .catch(err => {
         if (axios.isCancel(err)) {
@@ -135,11 +135,7 @@ export default function CartPage() {
         }
 
         console.log("未得到如預期的回應，已啟用備援資料");
-        setCpPkg({
-          unusedArr: [],
-          usedArr: [],
-          overdueArr: []
-        });
+        setCpList([]);
         if (err.response) {
           //status != 2XX
           console.error(err.response.data.message);
@@ -205,15 +201,17 @@ export default function CartPage() {
           </div>
           <article className={['row', s.orderInfo].join(' ')}>
             <div className="col-12 col-lg-8">
-              <div className="bg-tint3 p-3 h-100">
-                <h3>可使用優惠券</h3>
-                <div className="hstack flex-wrap gap-3 jc-between">
+              <div className="bg-tint2 p-3 h-100">
+                <div className="hstack jc-between mb-3">
+                  <h3>所有可使用的優惠券</h3>
+                  <FddBtn color='tint3' size='sm' href='/member/coupon'>查看我的優惠券</FddBtn>
+                </div>
+                <div className="hstack flex-wrap gap-1 jc-between">
                   {cpList.map(coupon => (
-                    <div key={coupon.code} className='bg-tint2'>
-                      <p>名稱: {coupon.name}</p>
-                      <p>{coupon.code}</p>
-                      <p>到期: {coupon.expired_at}</p>
-                      <p>描述: {coupon.desc}</p>
+                    <div key={coupon.code} className='bg-tint4 p-3 pb-4 tx-center' style={{maxWidth: '45%', position: 'relative', borderRadius: '1rem'}}>
+                      <p>{coupon.name}</p>
+                      <p className='tx-primary' style={{position: 'absolute', bottom: 0, right: '0.5rem'}}>{coupon.code}</p>
+                      <p>{coupon.desc}</p>
                     </div>
                   ))}
                 </div>

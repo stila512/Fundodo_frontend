@@ -14,7 +14,7 @@ import s from './coupon.module.scss';
 export default function CouponPage() {
   let uID = 0;
   const [cpPkg, setCpPkg] = useState({
-    unusedArr: [],
+    usableArr: [],
     usedArr: [],
     overdueArr: []
   })
@@ -43,12 +43,12 @@ export default function CouponPage() {
         // 略過將之前被刪除的購物車項目
         //===== 可以避免購物車在回復刪除階段時，將重複品項救回
         const dataPkg = res.data.result;
-        const unusedArr = dataPkg.unusedArr;
+        const usableArr = dataPkg.usableArr;
         const usedArr = dataPkg.usedArr;
         const overdueArr = dataPkg.overdueArr;
         setCpPkg(
           {
-            unusedArr,
+            usableArr,
             usedArr,
             overdueArr
           }
@@ -62,7 +62,7 @@ export default function CouponPage() {
 
         console.log("未得到如預期的回應，已啟用備援資料");
         setCpPkg({
-          unusedArr: [],
+          usableArr: [],
           usedArr: [],
           overdueArr: []
         });
@@ -91,7 +91,7 @@ export default function CouponPage() {
   useEffect(() => {
     switch (activeIndex) {
       case 0:
-        setData2show(cpPkg.unusedArr);
+        setData2show(cpPkg.usableArr);
         break;
       case 1:
         setData2show(cpPkg.usedArr);
@@ -100,7 +100,7 @@ export default function CouponPage() {
         setData2show(cpPkg.overdueArr);
         break;
       default:
-        setData2show(cpPkg.unusedArr);
+        setData2show(cpPkg.usableArr);
         break;  // 預設顯示可使用的優惠券
     }
   }, [activeIndex])
@@ -123,19 +123,19 @@ export default function CouponPage() {
                       className={['', activeIndex === 0 ? s.active : ''].join(' ')}
                       onClick={() => setActiveIndex(0)}
                     >
-                      可使用的優惠券
+                      可使用的優惠券 ({cpPkg.usableArr.length})
                     </button>
                     <button
                       className={['', activeIndex === 1 ? s.active : ''].join(' ')}
                       onClick={() => setActiveIndex(1)}
                     >
-                      已使用的優惠券
+                      已使用的優惠券 ({cpPkg.usedArr.length})
                     </button>
                     <button
                       className={['', activeIndex === 2 ? s.active : ''].join(' ')}
                       onClick={() => setActiveIndex(2)}
                     >
-                      已失效的優惠券
+                      已失效的優惠券 ({cpPkg.overdueArr.length})
                     </button>
                   </div>
                   <section>
