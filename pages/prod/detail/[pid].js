@@ -169,7 +169,7 @@ export default function Pid() {
     };
 
     try {
-      const response = await fetch('http://localhost:3005/api/prod/cart', {
+      const response = await fetch('http://localhost:3005/api/cart', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

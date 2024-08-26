@@ -24,11 +24,13 @@ export default function CartPage() {
   /** @type {[number, React.Dispatch<number>]} */
   const [uID, setUID] = useState(0);
 
+  const [cpList, setCpList] = useState([]);
+
   const [cartPkg, setCartPkg] = useState({
-    PD: [],
-    CR: [],
-    HT: []
-  });
+    unusedArr: [],
+    usedArr: [],
+    overdueArr: []
+  })
 
   // 三台購物車各自的刪除狀態紀錄
   /** @type {[ boolean[][], React.Dispatch<boolean[][]> ]} */
@@ -111,6 +113,52 @@ export default function CartPage() {
       source.cancel("API 請求已被臨時取消");
     }
   }, [uID])
+
+  //===== 以會員 ID 索取優惠券資料
+  useEffect(() => {
+    if (uID === 0) return;
+
+    const CancalToken = axios.CancelToken;//中止情況用的信號彈
+    const source = CancalToken.source();
+
+    //以下寫法參考 Axios 官方文件
+    axios.get(`${apiBaseUrl}/coupon/${uID}`, { cancelToken: source.token })
+      .then(res => {
+        // 略過將之前被刪除的購物車項目
+        //===== 可以避免購物車在回復刪除階段時，將重複品項救回
+        setCpList(res.data.result.unusedArr);
+      })
+      .catch(err => {
+        if (axios.isCancel(err)) {
+          console.log('此請求已成功取消');
+          return;
+        }
+
+        console.log("未得到如預期的回應，已啟用備援資料");
+        setCpPkg({
+          unusedArr: [],
+          usedArr: [],
+          overdueArr: []
+        });
+        if (err.response) {
+          //status != 2XX
+          console.error(err.response.data.message);
+        } else if (err.request) {
+          // 伺服器沒有回應
+          console.log("伺服器沒有回應，請檢查伺服器狀態");
+        } else {
+          console.log("未知的錯誤情形");
+          console.log(err);
+        }
+      });
+
+    return () => {
+      //取消 API request
+      // 主要在為了在 API 還沒跑完的時間點，使用者就離開頁面的情況
+      // 避免 API 無法正常結束
+      source.cancel("API 請求已被臨時取消");
+    }
+  }, [uID])
   //===== 計算總購物車總金額
   useEffect(() => {
     setTotalArr([
@@ -158,7 +206,17 @@ export default function CartPage() {
           <article className={['row', s.orderInfo].join(' ')}>
             <div className="col-12 col-lg-8">
               <div className="bg-tint3 p-3 h-100">
-                <h3>這裡要擺優惠券</h3>
+                <h3>可使用優惠券</h3>
+                <div className="hstack flex-wrap gap-3 jc-between">
+                  {cpList.map(coupon => (
+                    <div key={coupon.code} className='bg-tint2'>
+                      <p>名稱: {coupon.name}</p>
+                      <p>{coupon.code}</p>
+                      <p>到期: {coupon.expired_at}</p>
+                      <p>描述: {coupon.desc}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
             <div className="col-12 col-lg-4">
@@ -197,7 +255,7 @@ export default function CartPage() {
         </section>
       </>}
       {isEmpty && <section className="container pt-3">
-      <h4 className='my-5 tx-lg tx-shade3 tx-center'>現在購物車空無一物</h4>
+        <h4 className='my-5 tx-lg tx-shade3 tx-center'>現在購物車空無一物</h4>
         <div className='hstack jc-around'>
           <FddBtn color='tint1' size='sm' href='/course'>來去逛逛寵物商城</FddBtn>
           <FddBtn color='tint1' size='sm' href='/course'>來去逛逛寵物旅館</FddBtn>

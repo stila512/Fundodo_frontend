@@ -30,7 +30,7 @@ export default function CouponPage() {
     uID = userId;
   }, [])
 
-  //===== 以會員 ID 索取購物車資料
+  //===== 以會員 ID 索取優惠券資料
   useEffect(() => {
     if (uID === 0) return;
 
