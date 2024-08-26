@@ -16,11 +16,10 @@ export default function () {
 
   try {
     const decodedToken = jwtDecode(token);
-    // console.log('解譯完畢：', decodedToken);
     return decodedToken;
 
   } catch (error) {
     console.info('token 解譯失敗 ಥ_ಥ');
-    console.error(error);
+    // console.error(error);
   }
 }
