@@ -8,7 +8,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 export default function ProductGrid({ products, className, page, totalPages, onPageChange }) {
 
   const debounceTimerRef = useRef(null);
-  
+
   // 定義一個函數來獲取價格數組中的最大值和最小值
   const getMaxMinPrice = (priceArr) => {
     const prices = priceArr.map(price => parseFloat(price)).filter(price => price > 0);
@@ -97,7 +97,17 @@ export default function ProductGrid({ products, className, page, totalPages, onP
           <div key={i} className={['col-xxl-3 col-xl-4 col-6', scss.cardGrid].join(' ')}>
             <div className={scss.card}>
               <div className='d-flex jc-end'>
-                <FavoriteIcon style={{ color: '#B9A399' }} className={scss.cardFavIcon} />
+                <FavoriteIcon
+                  style={{color: '#B9A399'}}
+                  className={scss.cardFavIcon}
+                  productId={v.id}
+                  productData={{
+                    id: v.id,
+                    name: v.name,
+                    price: getPriceDisplay(v.priceArr),
+                    image: v.picNameArr[0]
+                  }}
+                />
               </div>
               <div className={scss.prodImgBox}>
                 <div className={[scss.prodImg, 'img-wrap-w100', 'img-wrap-h100'].join(' ')}>
@@ -129,7 +139,7 @@ export default function ProductGrid({ products, className, page, totalPages, onP
             onClick={() => handlePageChange(page - 1)}
             className={`${scss.myButton} ${page === 1 ? scss.disabled : ''}`}
           >
-            <input type="button" className='d-none'/>
+            <input type="button" className='d-none' />
             <IoIosArrowBack size={24} />
           </label>
           {getPaginationItems().map((item, index) => (
@@ -141,7 +151,7 @@ export default function ProductGrid({ products, className, page, totalPages, onP
                 onClick={() => handlePageChange(item)}
                 className={[page === item ? scss.activePage : '', scss.myButton].join(' ')}
               >
-              <input type="button" className='d-none' />
+                <input type="button" className='d-none' />
                 {item}
               </label>
             )
@@ -150,7 +160,7 @@ export default function ProductGrid({ products, className, page, totalPages, onP
             onClick={() => handlePageChange(page + 1)}
             className={`${scss.myButton} ${page === totalPages ? scss.disabled : ''}`}
           >
-          <input type="button" className='d-none' />
+            <input type="button" className='d-none' />
             <IoIosArrowForward size={24} />
           </label>
         </div>
