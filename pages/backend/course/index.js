@@ -21,7 +21,7 @@ export default function CourseList() {
 
   const fetchCourses = async () => {
     try {
-      const res = await fetch(`http://localhost:3005/api/course?page=${currentPage}&search=${searchQuery}`);
+      const res = await fetch(`http://localhost:3005/api/course?page=${currentPage}&perPage=${coursesPerPage}&search=${searchQuery}`);
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
