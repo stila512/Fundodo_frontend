@@ -19,7 +19,7 @@ export default function EditArticle() {
   useEffect(() => {
     if (aid) {
       setIsLoading(true);
-      fetch(`http://localhost:3001/api/articleContent/${aid}`)
+      fetch(`http://localhost:3005/api/article/articleContent/${aid}`)
         .then(response => response.json())
         .then(data => {
           if (data.status === 'success') {
@@ -34,7 +34,7 @@ export default function EditArticle() {
   }, [aid])
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/sort')
+    fetch('http://localhost:3005/api/article/sort')
       .then(response => response.json())
       .then(data => {
         if (data.status === 'success') {
@@ -65,7 +65,7 @@ export default function EditArticle() {
         return match ? parseInt(match[1]) : null;
       }).filter(id => id !== null);
       
-      const response = await axios.put(`http://localhost:3001/api/editArticle/${aid}`, { 
+      const response = await axios.put(`http://localhost:3005/api/article/editArticle/${aid}`, { 
         title, 
         content, 
         sort: selectedSort, 
@@ -87,7 +87,7 @@ export default function EditArticle() {
     if (window.confirm('確定要刪除這篇文章嗎？')) {
       setIsLoading(true);
       try {
-        const response = await axios.delete(`http://localhost:3001/api/deleteArticle/${aid}`);
+        const response = await axios.delete(`http://localhost:3005/api/article/deleteArticle/${aid}`);
         console.log('Article deleted:', response.data);
         alert('文章已成功刪除')
         router.push('/article')

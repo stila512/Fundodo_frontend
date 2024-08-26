@@ -1,10 +1,109 @@
-import React, { useState } from 'react'
+//== Parameters ================================================================
+import { apiBaseUrl } from '@/configs';
+//== Functions =================================================================
+import { useEffect, useState } from 'react'
+import axios from 'axios';
+import tokenDecoder from '@/context/token-decoder';
+import useAuthRedirect from '@/hooks/useAuthRedirect';
+//== Components ================================================================
 import DefaultLayout from '@/components/layout/default'
 import SideText from '@/components/member/SideText';
+//== Styles =================================================================
 import s from './coupon.module.scss';
 
 export default function CouponPage() {
+  let uID = 0;
+  const [cpPkg, setCpPkg] = useState({
+    unusedArr: [],
+    usedArr: [],
+    overdueArr: []
+  })
   const [activeIndex, setActiveIndex] = useState(0);
+  const [data2show, setData2show] = useState([]);
+
+
+  //===== 驗證登入狀態
+  useAuthRedirect();
+  //===== 解讀登入的會員 ID
+  useEffect(() => {
+    const { userId } = tokenDecoder();
+    uID = userId;
+  }, [])
+
+  //===== 以會員 ID 索取購物車資料
+  useEffect(() => {
+    if (uID === 0) return;
+
+    const CancalToken = axios.CancelToken;//中止情況用的信號彈
+    const source = CancalToken.source();
+
+    //以下寫法參考 Axios 官方文件
+    axios.get(`${apiBaseUrl}/coupon/${uID}`, { cancelToken: source.token })
+      .then(res => {
+        // 略過將之前被刪除的購物車項目
+        //===== 可以避免購物車在回復刪除階段時，將重複品項救回
+        const dataPkg = res.data.result;
+        const unusedArr = dataPkg.unusedArr;
+        const usedArr = dataPkg.usedArr;
+        const overdueArr = dataPkg.overdueArr;
+        setCpPkg(
+          {
+            unusedArr,
+            usedArr,
+            overdueArr
+          }
+        );
+      })
+      .catch(err => {
+        if (axios.isCancel(err)) {
+          console.log('此請求已成功取消');
+          return;
+        }
+
+        console.log("未得到如預期的回應，已啟用備援資料");
+        setCpPkg({
+          unusedArr: [],
+          usedArr: [],
+          overdueArr: []
+        });
+        if (err.response) {
+          //status != 2XX
+          console.error(err.response.data.message);
+        } else if (err.request) {
+          // 伺服器沒有回應
+          console.log("伺服器沒有回應，請檢查伺服器狀態");
+        } else {
+          console.log("未知的錯誤情形");
+          console.log(err);
+        }
+      });
+
+    return () => {
+      //取消 API request
+      // 主要在為了在 API 還沒跑完的時間點，使用者就離開頁面的情況
+      // 避免 API 無法正常結束
+      source.cancel("API 請求已被臨時取消");
+    }
+  }, [uID])
+
+
+  //===== 切換顯示資料
+  useEffect(() => {
+    switch (activeIndex) {
+      case 0:
+        setData2show(cpPkg.unusedArr);
+        break;
+      case 1:
+        setData2show(cpPkg.usedArr);
+        break;
+      case 2:
+        setData2show(cpPkg.overdueArr);
+        break;
+      default:
+        setData2show(cpPkg.unusedArr);
+        break;  // 預設顯示可使用的優惠券
+    }
+  }, [activeIndex])
 
   return (
     <div className='bg-tint5'>
@@ -41,9 +140,23 @@ export default function CouponPage() {
                   </div>
                   <section>
                     <div className={s.countPanel}>
-                      <h3 className='tx-shade3' style={{ fontSize: '1.25rem' }}>0 張優惠券</h3>
+                      <h3 className='tx-shade3' style={{ fontSize: '1.25rem' }}>{data2show.length} 張優惠券</h3>
                     </div>
-                    <div className={[s.section, activeIndex === 0 ? '' : 'd-none'].join(' ')}>
+                    <div className={[s.section].join(' ')}>
+                      <div className="row">
+                        {data2show.map((data) => (
+                          <div className='col-12' style={{ border: '1px solid #888' }}>
+                            <p>code: {data.code}</p>
+                            <p>expired_at: {data.expired_at}</p>
+                            <p>name: {data.name}</p>
+                            <p>desc: {data.desc}</p>
+                            <p>desc_sp: {data.desc_sp}</p>
+                            <p>discount: {data.discount}</p>
+                            <p>min_spent: {data.min_spent}</p>
+                            <p>max_discount: {data.max_discount}</p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </section>
                 </main>

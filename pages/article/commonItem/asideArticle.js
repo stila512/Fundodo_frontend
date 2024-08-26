@@ -5,15 +5,15 @@ import axios from 'axios';
 
 export default function AsideArticle({ article }) {
   const [imagePath, setImagePath] = useState('/defaltImg.png');
-  const baseUrl = 'http://localhost:3001'
+  const baseUrl = 'http://localhost:3005'
   useEffect(() => {
     if (article && article.id) {
       // 發送請求到後端 API 來獲取圖片路徑
-      axios.get(`http://localhost:3001/api/images/${article.id}`)
+      axios.get(`http://localhost:3005/api/article/images/${article.id}`)
         .then(response => {
           if (response.data && response.data.imagePath) {
             setImagePath(`${baseUrl}${response.data.imagePath}`);
-            // `http://localhost:3001/${response.data.imagePath}`
+            // `http://localhost:3005/${response.data.imagePath}`
           }
         })
         .catch(error => {

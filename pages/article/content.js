@@ -18,7 +18,7 @@ export default function Content() {
     const { aid } = router.query
     useEffect(() => {
         if (aid) {
-            fetch(`http://localhost:3001/api/replys/${aid}`)
+            fetch(`http://localhost:3005/api/article/replys/${aid}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {

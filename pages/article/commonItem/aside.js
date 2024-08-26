@@ -8,7 +8,7 @@ export default function ArtiAside() {
 
   useEffect(() => {
     const fetchArticles = async () => {
-      const url = 'http://localhost:3001/api/articles'
+      const url = 'http://localhost:3005/api/article/articles'
 
       try {
         const response = await fetch(url)

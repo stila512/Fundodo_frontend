@@ -20,7 +20,7 @@ export default function ReplyArea() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`http://localhost:3001/api/createReply/${articleId}`, { 
+      const response = await axios.post(`http://localhost:3005/api/article/createReply/${articleId}`, { 
         content, 
         userid: userId ,
         articleId: articleId
