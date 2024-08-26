@@ -11,7 +11,7 @@
   border-radius: 12px;
   border: 1px solid s.$secondary;
 }
-.cardFavIcon{
+.cardFavIcon {
   width: fit-content;
   height: fit-content;
   margin-right: 15px;
@@ -33,7 +33,7 @@
   margin-top: 0.5rem;
   flex: 1;
 }
-.textarea2{
+.textarea2 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -48,30 +48,34 @@
   background: s.$primary;
   border-radius: 40px;
   background: var(--Primary, #b9a399);
-  color: s.$white!important;
+  color: s.$white !important;
   margin: 1rem auto;
   position: relative;
   bottom: 0;
   &:hover {
-    color: s.$secondary!important;
+    color: s.$secondary !important;
   }
 }
 .activePage {
   font-weight: bold;
-  color: s.$primary;
+  color: s.$black!important;
 }
 
 .myButton {
-  margin: 0 5px;
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
   background-color: #fff;
+  color: s.$primary;
   cursor: pointer;
 
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
-
-  &:hover:not(:disabled) {
-    background-color: #fff;
-  }
+}
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
 }
