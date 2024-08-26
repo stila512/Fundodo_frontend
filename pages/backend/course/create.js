@@ -159,21 +159,39 @@ export default function CourseAdd() {
     course.tags.forEach(tag => formData.append('tags[]', tag));
     
     // 添加封面圖片
-    if (course.img_path instanceof File) {
+    if (course.img_path) {
       formData.append('img_path', course.img_path);
     }
+    const chaptersData = course.chapters.map(chapter => ({
+      name: chapter.name,
+      lessons: chapter.lessons.map(lesson => ({
+        name: lesson.name,
+        duration: lesson.duration,
+        video_path: lesson.video_path ? lesson.video_path.name : null
+      }))
+    }));
+    formData.append('chapters', JSON.stringify(chaptersData));
     
     // 添加章節和課程信息
     course.chapters.forEach((chapter, chapterIndex) => {
-      formData.append(`chapters[${chapterIndex}][name]`, chapter.name);
       chapter.lessons.forEach((lesson, lessonIndex) => {
-        formData.append(`chapters[${chapterIndex}][lessons][${lessonIndex}][name]`, lesson.name);
-        formData.append(`chapters[${chapterIndex}][lessons][${lessonIndex}][duration]`, lesson.duration);
         if (lesson.video_path instanceof File) {
-          formData.append(`video_${chapterIndex}_${lessonIndex}`, lesson.video_path, lesson.video_path.name);
+          console.log(`Adding video for chapter ${chapterIndex}, lesson ${lessonIndex}:`, lesson.video_path);
+          formData.append('video_path', lesson.video_path, lesson.video_path.name);
+        } else {
+          console.warn(`No video file for chapter ${chapterIndex}, lesson ${lessonIndex}`);
         }
       });
     });
+
+    console.log('FormData entries:');
+    for (let [key, value] of formData.entries()) {
+      if (value instanceof File) {
+        console.log(key, value.name, value.size);
+      } else {
+        console.log(key, value);
+      }
+    }
 
     setIsSubmitting(true);
     try {
@@ -183,14 +201,24 @@ export default function CourseAdd() {
         body: formData,
       });
 
+      console.log('Response status:', response.status);
+      const responseText = await response.text();
+      console.log('Response text:', responseText);
+
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || '課程創建失敗');
+        let errorMessage;
+        try {
+          const errorData = JSON.parse(responseText);
+          errorMessage = errorData.message || '課程創建失敗';
+        } catch (e) {
+          errorMessage = '課程創建失敗，無法解析錯誤信息';
+        }
+        throw new Error(errorMessage);
       }
 
-      const result = await response.json();
+      const result = JSON.parse(responseText);
       console.log('課程創建成功:', result);
-      router.push('/backend/course');
+      router.push('/backend/course'); 
     } catch (error) {
       console.error('課程創建失敗:', error);
       setErrors(prev => ({ ...prev, submit: error.message || '創建課程失敗，請稍後再試' }));
@@ -198,6 +226,7 @@ export default function CourseAdd() {
       setIsSubmitting(false);
     }
   }
+
 
   return (
     <>

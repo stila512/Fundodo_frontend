@@ -7,6 +7,28 @@ import { RiImageAddFill } from "react-icons/ri";
 
 
 export default function Add() {
+  
+// 一鍵填寫
+  const testData = {
+    name: '北歐風寵物旅館',
+    description: '我們的寵物旅館提供豪華的住宿環境和專業的照顧服務，讓您的寵物享受賓至如歸的體驗。',
+    address: '台北市中山區寵物路123號',
+    price_s: '800',
+    price_m: '1000',
+    price_l: '1200',
+    service_food: true,
+    service_bath: true,
+    service_live_stream: false,
+    service_playground: true,
+    location_id: '1',
+  };
+
+  const handleQuickFill = () => {
+    setFormData(testData);
+    setImagePreview(testData.main_img_path);
+  };
+
+  // -------
 
   const [cities, setCities] = useState([]);
   const [image, setImage] = useState(null);
@@ -50,7 +72,7 @@ export default function Add() {
 
   //先讓圖片被送出
   const handleImageUpload = async (imageToUpload) => {
-    if (!imageToUpload) return null;
+    if (!imageToUpload) return null; //如果沒有圖片回傳null
   
     const formDataToSend = new FormData();
     formDataToSend.append('image', imageToUpload);
@@ -69,7 +91,7 @@ export default function Add() {
       alert('圖片上傳失敗，請稍後再試');
     }
   
-    return null;  
+    return null;  //上傳失敗回傳null
   };
   
   const handleImageChange = async (e) => {
@@ -80,21 +102,20 @@ export default function Add() {
       setImagePreview(URL.createObjectURL(selectedImage));
       setIsUploading(true);
   
-      // 先傳圖片
+      // 先傳圖片路徑到資料庫
       const uploadedImagePath = await handleImageUpload(selectedImage);
-  
+
       if (uploadedImagePath) {
         setFormData(prevState => ({
           ...prevState,
           main_img_path: uploadedImagePath
         }));
       }
-  
       setIsUploading(false);  
     }
   };
   
-//傳送表單
+//按送出傳送表單
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -127,8 +148,11 @@ export default function Add() {
         </Head>
         <div className={styles.container}>
           <h1>新增寵物旅館</h1>
-
+          <button type="button" onClick={handleQuickFill} className={styles.quickFill}>
+    一鍵填寫
+  </button>
           <form onSubmit={handleSubmit}>
+          
             <div className={styles.imgGroup}>
               <p className={styles.title}>旅館圖片</p>
               <div className={styles.addImg}>

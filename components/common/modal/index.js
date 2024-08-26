@@ -3,7 +3,7 @@ import { RxCross2 } from "react-icons/rx";
 import s from './modal.module.scss';
 import FddBtn from "@/components/buttons/fddBtn";
 import { Children } from "react";
-import { RemoveScrollBar } from 'react-remove-scroll-bar';
+// import { RemoveScrollBar } from 'react-remove-scroll-bar';
 // 待研究是否採用 react-remove-scroll-bar
 // 此套件可以讓捲軸消失（by overflow hidden），但是沒辦法協助填補捲軸的空位
 /**

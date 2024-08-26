@@ -2,7 +2,10 @@ import React from 'react'
 import scss from './table.module.scss'
 
 export default function Table({ product }) {
-
+  const sortArr = [...new Set(product.sortArr)];
+  const specArr = [...new Set(product.specArr)]
+  const showSort = sortArr.join('、');
+  const showSpec = specArr.join('、')
   return (
     <>
       <table className={scss.mb} style={{ borderCollapse: 'collapse', width: '100%' }}>
@@ -26,21 +29,14 @@ export default function Table({ product }) {
           </tr>
           <tr>
             <td className={['text-nowrap', scss.tableTd1].join(' ')}>商品類別</td>
-            <td className={scss.tableTd2}>{
-              [new Set(product.sortArr)].length === 1
-                ? [new Set(product.sortArr)]
-                : [new Set(product.sortArr)].length > 1
-                  ? [new Set(product.sortArr)].join(', ')
-                  : ""}</td>
+            <td className={scss.tableTd2}>
+            {showSort}
+            </td>
           </tr>
           <tr>
             <td className={['text-nowrap', scss.tableTd1].join(' ')}>商品規格</td>
             <td className={scss.tableTd2}>{
-              [...new Set(product.specArr)].length === 1
-                ? [...new Set(product.specArr)]
-                : [...new Set(product.specArr)].length > 1
-                  ? [...new Set(product.specArr)].join('/ ')
-                  : ""
+              showSpec
             }</td>
           </tr>
           <tr>

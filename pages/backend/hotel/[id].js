@@ -4,6 +4,7 @@ import Head from 'next/head'
 import Image from 'next/image';
 import BackendLayout from '@/components/layout/backend'
 import styles from './edit.module.scss';
+import { RiImageAddFill } from "react-icons/ri";
 
 export default function edit() {
   const router = useRouter();
@@ -130,15 +131,17 @@ export default function edit() {
               {[0, 1, 2].map((img, index) => (
                 <div key={index} className={styles.addImg}>
                   {imageUrls[index] ? (
-                    <Image
-                      src={`http://localhost:3005/api/hotel/images/${imageUrls[index]}`}
-                      width={180}
-                      height={0}
-                      sizes="200px"
-                      style={{ width: '100%', height: 'auto' }}
-                      alt={`旅館圖片 ${index + 1}`}
-                      
-                    />
+                    <>
+                      <Image
+                        src={`http://localhost:3005/api/hotel/images/${imageUrls[index]}`}
+                        width={180}
+                        height={0}
+                        sizes="200px"
+                        style={{ width: '100%', height: 'auto' }}
+                        alt={`旅館圖片 ${index + 1}`}
+                      />
+                      <div className={styles.overlay}><RiImageAddFill className={styles.addImgIcon} /></div>
+                    </>
                   ) : (
                     <div>No image</div>
                   )}

@@ -85,12 +85,6 @@ export default function HotelBlock({ searchQuery, sortOption }) {
               <div key={v.id} className={styles.card}>
                 <div className={styles.image}>
                   <Link href={`/hotel/detail/${v.id}`}>
-                    {/* <Image
-                      src={`/hotelPic/pic/${v.main_img_path}`}
-                      layout="fill"
-                      objectFit="cover"
-                      alt="旅館圖片"
-                    /> */}
                     <Image
                       src={`http://localhost:3005/api/hotel/images/${v.main_img_path}`}
                       layout="fill"
