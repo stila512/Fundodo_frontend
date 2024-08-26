@@ -26,7 +26,7 @@ export default function NavFuncBtns({ showCart = true }) {
   //===== 解讀登入的會員 ID
   useEffect(() => {
     const { userId } = tokenDecoder();
-    setUID(userId);
+    setUID(userId ? userId : 0);
   }, [])
   //===== 以會員 ID 索取購物車資料
   useEffect(() => {
@@ -94,7 +94,7 @@ export default function NavFuncBtns({ showCart = true }) {
         <li className={scss.cartBtn} style={{position: 'relative'}}>
           <a href="/buy/cart">
             <IoCart />
-            <div className={scss.number}>{cartCount}</div>
+            <div className={[scss.number, uID === 0 ? 'd-none' : 'd-flex'].join(' ')}>{cartCount}</div>
           </a>
         </li>
 
