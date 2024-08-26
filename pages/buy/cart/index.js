@@ -21,10 +21,16 @@ import Image from 'next/image';
 import FddBtn from '@/components/buttons/fddBtn';
 
 export default function CartPage() {
+  //=============== useState 區
+  //=============== user ID ====================================================
   /**
    * user ID
    *  @type {[number, React.Dispatch<number>]} */
   const [uID, setUID] = useState(0);
+
+  //=============== coupon =====================================================
+  // 遠目之 todo: 若折數型的優惠券有兩張以上，此機制皆會以原價為基數；而非作連續相乘
+  // 若要解決此困境，有個想法是：將 cpList 依折數型、折抵型分為兩個陣列
 
   /**
    * 優惠券 info
@@ -49,11 +55,11 @@ export default function CartPage() {
    *  @type {[number, React.Dispatch<number>]} */
   const [dlvFee, setDlvFee] = useState(0);
 
-  const [cartPkg, setCartPkg] = useState({
-    usableArr: [],
-    usedArr: [],
-    overdueArr: []
-  })
+  //=============== cart items =================================================
+  /**
+   * 購物車資料
+   *  @type {[object, React.Dispatch<object>]} */
+  const [cartPkg, setCartPkg] = useState({ PD: [], HT: [], CR: [] })
 
   // 三台購物車各自的刪除狀態紀錄
   /** @type {[ boolean[][], React.Dispatch<boolean[][]> ]} */
@@ -67,6 +73,9 @@ export default function CartPage() {
   // totalArr[1] | 實付總金額
   const [totalArr, setTotalArr] = useState([0, 0]);
 
+  //=============== useState 區 END
+  //============================================================//
+  //=============== useEffect 區
 
   //===== 驗證登入狀態
   useAuthRedirect();
@@ -177,31 +186,56 @@ export default function CartPage() {
 
   //===== 以優惠券資料建立初始狀態
   useEffect(() => {
+    if (cpList.length === 0 || !(cartPkg.CR || cartPkg.HT || cartPkg.CR)) return;
+
     // 預設皆不啟動
-    setCpState(Array(cpList.length).fill(0));
-  }, [cpList])
+    const initState = Array(cpList.length).fill(0);
+    let verified = initState;
+    ['CR', 'HT', 'CR'].forEach(sort => {
+      if (cartPkg[sort].length === 0) {
+        verified = verified.map((s, i_cp) => {
+          if (cpList[i_cp].scope_from === sort || cpList[i_cp].scope_to === sort)
+            return -1;
+          else
+            return s;
+        });
+      }
+    });
+    setCpState(verified);
+    // setCpState(initState);
+  }, [cpList, cartPkg])
 
   //===== 以優惠券狀態更新折扣金額
+  const handleDiscount = (coupon, amt_base) => {
+    const { max_discount, discount } = coupon;
+    const price_cut = Number(discount);
+
+    let cut = 0;
+    if (price_cut > 1) {
+      cut = price_cut;
+    } else {
+      cut = Math.floor(amt_base * (1 - price_cut));
+    }
+    return max_discount ? Math.min(cut, max_discount) : cut;
+  }
   useEffect(() => {
     const dcArr = cpList.map(coupon => {
-      const dc = Number(coupon.discount);
-
       let delta = 0
       switch (coupon.scope_to) {
         case null:
-          delta = (dc > 1) ? dc : Math.floor(totalArr[0] * (1 - dc));
+          delta = handleDiscount(coupon, totalArr[0]);
           break;
         case 'PD':
           if (amtArr[0] === 0) break;
-          delta = (dc > 1) ? dc : Math.floor(amtArr[0] * (1 - dc));
+          delta = handleDiscount(coupon, amtArr[0]);
           break;
         case 'HT':
           if (amtArr[1] === 0) break;
-          delta = (dc > 1) ? dc : Math.floor(amtArr[1] * (1 - dc));
+          delta = handleDiscount(coupon, amtArr[1]);
           break;
         case 'CR':
           if (amtArr[2] === 0) break;
-          delta = (dc > 1) ? dc : Math.floor(amtArr[2] * (1 - dc));
+          delta = handleDiscount(coupon, amtArr[2]);
           break;
         default:
           break;
@@ -213,16 +247,16 @@ export default function CartPage() {
 
   //===== 結算優惠券折扣總金額
   useEffect(() => {
-    (async function () {
-      const totDiscount = await Promise.all(
-        couponDc.reduce((sum_dc, negative, i_cp) => {
-          console.log(sum_dc + (cpState[i_cp] === 1) ? negative : 0);
-          return sum_dc + (cpState[i_cp] === 1) ? negative : 0;
-        }, 0)
-      );
-      console.log(totDiscount);
-      setDiscount(discount - totDiscount);
-    })()
+    if (cpState.some(v => v)) {
+      const tot = couponDc.reduce((acc, cur, j) => {
+        if (cpState[j] === 1) return acc + cur;
+        else return acc
+      }, 0);
+      setDiscount(0 - tot);
+    } else {
+      setDiscount(0);
+    }
+
   }, [cpState, couponDc]);
 
   //===== 計算總購物車總金額
@@ -232,6 +266,9 @@ export default function CartPage() {
       amtArr.reduce((sum, subtotal) => sum + subtotal, dlvFee + discount),
     ]);
   }, [amtArr, dlvFee, discount]);
+
+  //=============== useEffect 區 END
+  //============================================================//
 
   const colorIndicator = (j) => {
     switch (cpState[j]) {
@@ -247,7 +284,6 @@ export default function CartPage() {
   }
 
   const handleCpBtn = j => {
-    const prev = cpState[j];
     switch (cpState[j]) {
       case 0:
         setCpState(cpState.map((v, i) => i === j ? 1 : v))
@@ -263,6 +299,7 @@ export default function CartPage() {
         return;
     }
   }
+
 
   /** 購物車是否全空 */
   const isEmpty = !(cartPkg.CR || cartPkg.HT || cartPkg.CR)
@@ -305,7 +342,10 @@ export default function CartPage() {
             <div className="col-12 col-lg-8">
               <div className="bg-secondary p-3 h-100">
                 <div className="hstack jc-between mb-3">
-                  <h3>所有可使用的優惠券</h3>
+                  <h3>
+                    {cpList.length > 0
+                      ? "所有可使用的優惠券"
+                      : "沒有可使用的優惠券"}</h3>
                   <FddBtn color='tint3' size='sm' href='/member/coupon'>查看我的優惠券</FddBtn>
                 </div>
                 <div className="hstack flex-wrap gap-1 jc-between">
