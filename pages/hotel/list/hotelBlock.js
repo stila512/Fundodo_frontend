@@ -68,6 +68,12 @@ export default function HotelBlock({ searchQuery, sortOption }) {
     }
   }, [hotels, searchQuery, sortOption]);
 
+    // 無讀取到圖片
+    const handleImageError = (event) => {
+      event.target.src = 'http://localhost:3005/api/hotel/images/404.jpg';
+    };
+  
+
 
   return (
     <div className={['container', styles.container].join(' ')}>
@@ -90,6 +96,7 @@ export default function HotelBlock({ searchQuery, sortOption }) {
                       layout="fill"
                       objectFit="cover"
                       alt="旅館圖片"
+                      onError={handleImageError}
                     />
                   </Link>
                 </div>

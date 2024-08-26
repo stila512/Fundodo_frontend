@@ -9,6 +9,9 @@
   width: 1440px;
   height: 100vh;
   display: flex;
+  .point{
+    cursor: pointer;
+  }
 }
 
 .RegisterContainer .lfpic {
@@ -154,6 +157,9 @@
     .passwordarea{
       display: flex;
       justify-content: space-between;
+      .point{
+        cursor: pointer;
+      }
     }
   }
   .area3 {

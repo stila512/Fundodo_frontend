@@ -7,6 +7,7 @@ import lfpic from '@/public/login.svg';
 import pswd_icon from '@/public/memberPic/password-icon.svg';
 import { useContext } from 'react';
 import { AuthContext } from '@/context/AuthContext';
+import Link from 'next/link';
 
 export default function LoginPage() {
   // 顯示密碼使用
@@ -41,7 +42,7 @@ export default function LoginPage() {
           login(data.token);
           alert('登入成功');
           console.log('Login function called, about to redirect');
-          router.push('/member/peopleInfoData')
+          router.push('/member')
             .then(() => console.log('Navigation successful'))
             .catch((err) => console.error('Navigation failed:', err));
         } else {
@@ -72,11 +73,16 @@ export default function LoginPage() {
               <label>電子郵件地址</label>
               <input type="email" name="email" required />
               <div>
-                <div className={scss.passwordarea}><div><label>密碼</label></div> <div className={scss.passwordicon}><Image className="imgWrap" src={pswd_icon} alt="Image"
-                  onClick={() => setShowPassword(!showPassword)}
-                />隱藏</div></div>
+                <div className={scss.passwordarea}>
+                  <div><label>密碼</label></div>
+                  <div className={scss.passwordicon} onClick={() => setShowPassword(!showPassword)}>
+                    <div className={scss.point}>
+                      <Image className="imgWrap" src={pswd_icon} alt="Image"
+                      />隱藏</div>
+                  </div></div>
                 <input type={showPassword ? 'text' : 'password'} name="password" required />
                 <p>使用8個或以上的字元, 包含字母數字和符號</p>
+                <Link href="/member/register">註冊會員</Link>
               </div>
             </div>
             <div className={scss.area3}>

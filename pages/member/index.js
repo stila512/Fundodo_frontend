@@ -10,7 +10,7 @@ export default function MemberPage() {
   return (
     <>
       <main className={scss.container}>
-        <div className={scss.text}>
+        <div className={`${scss.text} col-12`}>
           <h3>
             會員註冊成功 <br />
           </h3>
@@ -25,9 +25,9 @@ export default function MemberPage() {
             <br />
           </p>
         </div>
-        <div className={scss.btnBox}>
+        <div className={`${scss.btnBox} col-12`}>
           <button className={scss.bSecondary2}>立即購物</button>
-          <Link href="/member/peopleInfo"><button className={scss.bSecondary}>完善會員資料</button></Link>
+          <Link href="/member/peopleInfoData"><button className={scss.bSecondary}>完善會員資料</button></Link>
         </div>
       </main>
     </>

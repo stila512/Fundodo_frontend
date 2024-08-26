@@ -1,6 +1,7 @@
 @use '@/styles' as s;
 
 .recommend{
+  margin-top: 100px;
   @media (max-width:1200px) {
     display: none;
   }
@@ -42,4 +43,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+.color{
+  color: s.$shade3;
 }

@@ -1,13 +1,23 @@
 @use '@/styles' as s;
 
-
 /* .shade3 */
 .shade3 {
   color: s.$shade3;
   margin-top: 123px;
   font-family: 'Zen Maru Gothic';
 }
-
+.backBtn {
+  background: s.$primary;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+  border-radius: 15px;
+  color: s.$white!important;
+  &:hover{
+    color: s.$secondary!important;
+  }
+}
 /* .detailGroup */
 .detailGroup {
   display: flex;

@@ -49,7 +49,7 @@ export default function Recommend({ currentProductId, currentProductCategory }) 
   }
 
   return (
-    <div className={['mt-3', scss.recommend].join(' ')}>
+    <div className={[scss.recommend].join(' ')}>
       <h3 className={scss.h3}>您可能也會喜歡</h3>
       <div className={scss.carouselContainer}>
         <div 
@@ -70,7 +70,7 @@ export default function Recommend({ currentProductId, currentProductCategory }) 
                 </div>
                 <div className={scss.aside}>
                   <div className='tx-default'>{product.name}</div>
-                  <div>NT${product.price.toLocaleString()}</div>
+                  <h3 className={scss.color}>NT${product.price.toLocaleString()}</h3>
                   <FddBtn className='text-nowrap' href={`/prod/detail/${product.id}`} as="a" size="sm">我要購買</FddBtn>
                 </div>
               </div>

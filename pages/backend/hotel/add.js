@@ -8,23 +8,10 @@ import { RiImageAddFill } from "react-icons/ri";
 
 export default function Add() {
 
-  //獲取選單的縣市
   const [cities, setCities] = useState([]);
-  useEffect(() => {
-    const fetchCities = async () => {
-      const response = await fetch('http://localhost:3005/api/hotel/cities');
-      const data = await response.json();
-      if (data.status === 'success') {
-        setCities(data.data); 
-      }
-    };
-  
-    fetchCities();
-  }, []);
-
-
-
-  // 新增傳入資料庫
+  const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -36,8 +23,21 @@ export default function Add() {
     service_bath: false,
     service_live_stream: false,
     service_playground: false,
-    location_id: ''
+    location_id: '',
+    main_img_path: ''
   });
+
+  useEffect(() => {
+    const fetchCities = async () => {
+      const response = await fetch('http://localhost:3005/api/hotel/cities');
+      const data = await response.json();
+      if (data.status === 'success') {
+        setCities(data.data);
+      }
+    };
+
+    fetchCities();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -47,8 +47,57 @@ export default function Add() {
     }));
   };
 
+
+  //先讓圖片被送出
+  const handleImageUpload = async (imageToUpload) => {
+    if (!imageToUpload) return null;
+  
+    const formDataToSend = new FormData();
+    formDataToSend.append('image', imageToUpload);
+  
+    try {
+      const imageUploadResponse = await fetch('http://localhost:3005/api/hotel/upload', {
+        method: 'POST',
+        body: formDataToSend
+      });
+      const imageData = await imageUploadResponse.json();
+      if (imageData.status === 'success') {
+        return imageData.path;  
+      }
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      alert('圖片上傳失敗，請稍後再試');
+    }
+  
+    return null;  
+  };
+  
+  const handleImageChange = async (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const selectedImage = e.target.files[0];
+  
+     //預覽跟上傳狀態
+      setImagePreview(URL.createObjectURL(selectedImage));
+      setIsUploading(true);
+  
+      // 先傳圖片
+      const uploadedImagePath = await handleImageUpload(selectedImage);
+  
+      if (uploadedImagePath) {
+        setFormData(prevState => ({
+          ...prevState,
+          main_img_path: uploadedImagePath
+        }));
+      }
+  
+      setIsUploading(false);  
+    }
+  };
+  
+//傳送表單
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const response = await fetch('http://localhost:3005/api/hotel', {
         method: 'POST',
@@ -69,7 +118,6 @@ export default function Add() {
     }
   };
 
-
   return (
     <>
       <BackendLayout>
@@ -84,9 +132,27 @@ export default function Add() {
             <div className={styles.imgGroup}>
               <p className={styles.title}>旅館圖片</p>
               <div className={styles.addImg}>
-      <RiImageAddFill className={styles.addImgIcon} />
-        
+                {imagePreview ? (
+                  <img src={imagePreview} className={styles.imgPre}  />
+                ) : (
+                  <RiImageAddFill className={styles.addImgIcon} />
+                )}
+                <input
+                  type="file"
+                  onChange={handleImageChange}
+                  accept="image/*"
+                  id="image-upload"
+                  style={{ display: 'none' }}
+                />
+                <label
+                  htmlFor="image-upload"
+                  style={{ cursor: 'pointer', display: 'block', width: '100%', height: '100%', position: 'absolute', top: 0, left: 0 }}
+                >
+                  {formData.main_img_path && <span className={styles.uploadSuccess}>上傳成功</span>}
+                </label>
+                {isUploading && <div className={styles.loadingIndicator}>上傳中...</div>}
               </div>
+
             </div>
             <div className={styles.formGroup}>
               <p className={styles.title}>旅館名稱</p>

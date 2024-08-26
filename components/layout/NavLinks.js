@@ -9,7 +9,7 @@ export default function NavLinks() {
         <Link href="/home">首頁</Link>
       </li>
       <li className={scss.listBtn}>
-        <Link href="/prod">商品列表</Link>
+        <Link href="/prod">寵物商城</Link>
         <IoIosArrowDown />
         <ul className={scss.prodList}>
           <li>
