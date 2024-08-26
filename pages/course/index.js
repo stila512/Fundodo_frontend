@@ -22,15 +22,22 @@ export default function Course() {
     // 獲取課程數據
     fetch("http://localhost:3005/api/course")
       .then(res => res.json())
-      .then(result => setCourses(result.data))
+      .then(result => {
+        const processedCourses = result.data.map(course => ({
+          ...course,
+          img_path: course.img_path ? `/images/${course.img_path}` : null
+        }));
+        setCourses(processedCourses);
+      })
       .catch(err => console.log(err));
 
     // 獲取分類數據
-    fetch("http://localhost:3005/api/course/category")
+    fetch("http://localhost:3005/api/course/tags")
       .then(res => res.json())
       .then(result => setCategories([{ id: 0, name: '全部分類' }, ...result.data]))
       .catch(err => console.log(err));
   }, [currentPage]);
+
 
   const filteredAndSortedCourses = courses
     .filter(course => selectedCategory === '全部分類' || course.tags && course.tags.includes(selectedCategory))

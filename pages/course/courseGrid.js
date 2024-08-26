@@ -17,7 +17,7 @@ export default function CourseGrid({ courses }) {
                                 <Link href={`/course/detail/${v.id}`} >
                                     <div className={scss.crsPic}>
                                         <Image
-                                            src={`/coursePic/${v.img_path}`}
+                                            src={`http://localhost:3005${v.img_path}`}
                                             alt={v.title}
                                             layout="fill"
                                             objectFit="cover"

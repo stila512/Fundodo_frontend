@@ -33,9 +33,14 @@ export default function CourseDetail() {
     const apiURL = `http://localhost:3005/api/course/${id}`
     const res = await fetch(apiURL)
     const data = await res.json()
+    const courseData = {
+      ...data.data,
+      imgPath: data.imgPath,
+
+  };
 
     // console.log(data)
-    setCourse(data.data)
+    setCourse(courseData)
 }
   // console.log(router.query)
 
@@ -56,7 +61,7 @@ export default function CourseDetail() {
           <div className="col-12">
             <DetailBanner 
               title={course.title}
-              img_path={course.img_path} 
+              img_path={course.imgPath} 
               viewed_count={course.viewed_count} 
               tags={course.tags}
             />
@@ -71,6 +76,7 @@ export default function CourseDetail() {
             <CrsContent 
               chapters={course.chapters}
               lessons={course.lessons}
+              img_path={course.img_path} 
             />
             <FAQ />
             <Tags  tags={course.tags}/>
