@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import BackendLayout from '@/components/layout/backend'
+import Modal from '@/components/common/modal';
 import scss from './create.module.scss';
 
 export default function CourseAdd() {
   const router = useRouter();
-
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState({ title: '', message: '' });
   const [course, setCourse] = useState({
     title: '',
     summary: '',
@@ -146,9 +148,8 @@ export default function CourseAdd() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
+
     const formData = new FormData();
-    
-    // 添加基本課程信息
     formData.append('title', course.title);
     formData.append('summary', course.summary);
     formData.append('description', course.description);
@@ -195,32 +196,30 @@ export default function CourseAdd() {
 
     setIsSubmitting(true);
     try {
-      console.log('Sending request to server...');
       const response = await fetch('http://localhost:3005/api/course', {
         method: 'POST',
         body: formData,
       });
 
-      console.log('Response status:', response.status);
-      const responseText = await response.text();
-      console.log('Response text:', responseText);
-
       if (!response.ok) {
-        let errorMessage;
-        try {
-          const errorData = JSON.parse(responseText);
-          errorMessage = errorData.message || '課程創建失敗';
-        } catch (e) {
-          errorMessage = '課程創建失敗，無法解析錯誤信息';
-        }
-        throw new Error(errorMessage);
+        throw new Error('課程創建失敗');
       }
 
-      const result = JSON.parse(responseText);
-      console.log('課程創建成功:', result);
-      router.push('/backend/course'); 
+      const result = await response.json();
+      setModalContent({
+        title: '成功',
+        message: '課程新增成功'
+      });
+      setShowModal(true);
+      // 延遲導航，給用戶時間看到成功信息
+      setTimeout(() => router.push('/backend/course'), 2000);
     } catch (error) {
-      console.error('課程創建失敗:', error);
+      console.error('課程新增失敗:', error);
+      setModalContent({
+        title: '錯誤',
+        message: '課程新增失敗，請稍後再試。'
+      });
+      setShowModal(true);
       setErrors(prev => ({ ...prev, submit: error.message || '創建課程失敗，請稍後再試' }));
     } finally {
       setIsSubmitting(false);

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import scss from './addCart.module.scss';
-import { RiCoupon3Line, FaPlayCircle } from "react-icons/ri";
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useContext } from 'react';
 import { AuthContext } from '@/context/AuthContext';
+import Modal from '@/components/common/modal';
+import scss from './addCart.module.scss';
+import { RiCoupon3Line, FaPlayCircle } from "react-icons/ri";
+import Link from 'next/link';
+
 
 
 export default function AddCart({ original_price, sale_price, id }) {
@@ -12,6 +14,8 @@ export default function AddCart({ original_price, sale_price, id }) {
   const [hasPurchased, setHasPurchased] = useState(false);
   const [purchaseDate, setPurchaseDate] = useState(null);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState({ title: '', message: '' });
   const router = useRouter();
 
   useEffect(() => {
@@ -24,7 +28,7 @@ export default function AddCart({ original_price, sale_price, id }) {
             }
           });
           const data = await res.json();
-          if (data.hasPurchased) {
+          if (data.status === 'success' && data.hasPurchased) {
             setHasPurchased(true);
             setPurchaseDate(data.startDate);
           }
@@ -42,22 +46,24 @@ export default function AddCart({ original_price, sale_price, id }) {
       router.push('/member/login');
       return;
     }
-    // 在此實現購買邏輯
-    console.log('正在購買課程...');
   };
 
   const handleAddToCart = async () => {
     if (!user) {
-      router.push('/member/login');
+      setModalContent({
+        title: '請先登入',
+        message: '請先登入後再加入購物車'
+      });
+      setShowModal(true);
+      // router.push('/member/login');
       return;
     }
 
     setIsAddingToCart(true);
 
     try {
-
       const cartItem = {
-        buy_sort: 'CR', 
+        buy_sort: 'CR',
         buy_id: id,
         quantity: 1,
       };
@@ -72,26 +78,32 @@ export default function AddCart({ original_price, sale_price, id }) {
 
       const data = await response.json();
       if (data.status === 'success') {
-        alert('成功加入購物車！');
+        setModalContent({
+          title: '成功',
+          message: '加入購物車成功'
+        });
       } else {
-        alert(data.message || '加入購物車失敗，請稍後再試。');
+        throw new Error(data.message || '加入購物車失敗');
       }
     } catch (error) {
-      console.error('加入購物車時出錯:', error);
-      alert('加入購物車時發生錯誤，請稍後再試。');
+      console.error('加入購物車時發生錯誤:', error);
+      setModalContent({
+        title: '錯誤',
+        message: '加入購物車時發生錯誤，請稍後再試。'
+      });
     } finally {
       setIsAddingToCart(false);
+      setShowModal(true);
     }
   };
 
-
-
   return (
+    <>
     <div className={scss.cartBox}>
       {hasPurchased ? (
         <>
           <div className={scss.purchaseInfo}>
-            <p>您已於 {new Date(purchaseDate).toLocaleDateString('zh-TW')} 購買此課程</p>
+            <p>您已於 {new Date(purchaseDate).toLocaleDateString()} 購買此課程</p>
           </div>
           <Link href={`/course/play/${id}`} className={scss.watchCourseBtn}>
             <FaPlayCircle />
@@ -119,5 +131,14 @@ export default function AddCart({ original_price, sale_price, id }) {
         </>
       )}
     </div>
+    <Modal
+        mode={1}
+        active={showModal}
+        onClose={() => setShowModal(false)}
+      >
+        <h4>{modalContent.title}</h4>
+        <p>{modalContent.message}</p>
+      </Modal>
+    </>
   )
 }
