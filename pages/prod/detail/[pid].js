@@ -141,48 +141,81 @@ export default function Pid() {
     }
   };
 
+  // 加入購物車
   const handleAddToCart = async () => {
     if (loading) {
-      // 如果 AuthContext 還在加載中，等待
       return;
     }
-
-    if (!selectedSort || !selectedSpec || !quantity) {
-      alert('請選擇商品選項和數量');
+  
+    if (!user) {
+      alert('請先登入');
       return;
     }
-
-    const selectedIndex = product.sortArr.findIndex((sort, index) =>
-      sort === selectedSort && product.specArr[index] === selectedSpec
-    );
-
+    
+    const userId = user.id || user.user_id || user.userId;
+    if (!userId) {
+      console.error('無法獲取用戶ID');
+      alert('發生錯誤，請重新登入後再試');
+      return;
+    }
+  
+    let selectedIndex = -1;
+    
+    // 檢查商品配置並選擇正確的索引
+    if (product.sortArr.length > 0 && product.specArr.length > 0) {
+      if (!selectedSort || !selectedSpec) {
+        alert('請選擇商品類別和規格');
+        return;
+      }
+      selectedIndex = product.sortArr.findIndex((sort, index) =>
+        sort === selectedSort && product.specArr[index] === selectedSpec
+      );
+    } else if (product.sortArr.length > 0) {
+      if (!selectedSort) {
+        alert('請選擇商品類別');
+        return;
+      }
+      selectedIndex = product.sortArr.indexOf(selectedSort);
+    } else if (product.specArr.length > 0) {
+      if (!selectedSpec) {
+        alert('請選擇商品規格');
+        return;
+      }
+      selectedIndex = product.specArr.indexOf(selectedSpec);
+    } else {
+      // 如果商品既沒有 sort 也沒有 spec
+      selectedIndex = 0;
+    }
+  
     if (selectedIndex === -1) {
       alert('無法找到選定的商品選項');
       return;
     }
-
-    const productData = {
-      user_id: 13,  // 假設用戶ID為13，實際應用中應該從用戶會話或狀態中獲取
-      buy_sort: "PD",
-      buy_id: product.pidArr[selectedIndex],
-      quantity: quantity
-    };
-
+  
+    if (quantity < 1) {
+      alert('請選擇商品數量');
+      return;
+    }
+  
+    const productData = new FormData();
+    productData.append('user_id', userId);
+    productData.append('buy_sort', 'PD');
+    productData.append('buy_id', product.pidArr[selectedIndex]);
+    productData.append('quantity', quantity);
+  
     try {
-      const response = await fetch('http://localhost:3005/api/prod/cart', {
+      const response = await fetch('http://localhost:3005/api/cart', {
         method: 'POST',
+        body: productData,
         headers: {
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        body: JSON.stringify(productData)
+        }
       });
-
+  
       const result = await response.json();
-
+  
       if (result.status === "success") {
         alert('已成功加入購物車');
-        // 可以在這裡添加更新購物車顯示的邏輯
       } else {
         alert('加入購物車失敗: ' + result.message);
       }
