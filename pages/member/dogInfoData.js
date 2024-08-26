@@ -102,7 +102,7 @@ export default function DogInfoData() {
   const fetchgetDog = (uuid) => {
     const url = `http://localhost:3005/api/member/dog/${uuid}`;
     const token = localStorage.getItem('token');
-
+  
     fetch(url, {
       credentials: 'include',
       headers: {
@@ -111,15 +111,23 @@ export default function DogInfoData() {
       }
     })
       .then(response => {
-        if (response.ok) {
-          // 如果響應正常（2xx），將其解析為 JSON
-          return response.json();
-        } else {
-          // 處理非 2xx 狀態碼的響應
+        if (response.status === 404) {
+          const addDogResult = addDog();
+          
+          if (addDogResult && typeof addDogResult.then === 'function') {
+            return addDogResult.then(() => {
+              window.location.reload();
+            });
+          } else {
+            // 如果 addDog 不返回 Promise，直接重整頁面
+            window.location.reload();
+          }
+        } else if (!response.ok) {
           return response.text().then(text => {
             throw new Error(`Error ${response.status}: ${text}`);
           });
         }
+        return response.json();
       })
       .then(data => {
         if (data.status === 'success') {
@@ -179,15 +187,15 @@ export default function DogInfoData() {
 
   const handleDeleteDog = () => {
     const dogId = dogData[selectedDogIndex]?.id;
-  
+
     if (!dogId) {
       alert('無效的狗狗 ID');
       return;
     }
-  
+
     const url = `http://localhost:3005/api/member/deleteDog/${dogId}`;
     const token = localStorage.getItem('token');
-  
+
     fetch(url, {
       method: 'DELETE',
       headers: {
@@ -209,19 +217,19 @@ export default function DogInfoData() {
       .then(data => {
         if (data.status === 'success') {
           alert('狗狗已刪除');
-          
+
           // 更新 localStorage
           const updatedDogData = dogData.filter((dog, index) => index !== selectedDogIndex);
           localStorage.setItem(`dogData_${authUser.uuid}`, JSON.stringify(updatedDogData));
-          
+
           // 更新狀態
           setDogData(updatedDogData);
-          
+
           // 如果刪除的是最後一隻狗，將 selectedDogIndex 設為 0
           if (selectedDogIndex >= updatedDogData.length) {
             setSelectedDogIndex(Math.max(0, updatedDogData.length - 1));
           }
-          
+
           closeModal();
         } else {
           alert('刪除失敗: ' + data.message);
@@ -287,13 +295,15 @@ export default function DogInfoData() {
     <div className={`${scss.mainArea} col-12 col-lg-6`}>
       <div className={`${scss.leftPic} col-6`}>
         <div className={['img-wrap-h100', scss.imgDogavatar].join(' ')}>
-          <Image
-            className="img"
-            src={dog.dog_avatar_file ? `http://localhost:3005/upload_dog/${dog.dog_avatar_file}` : Shiba}
-            alt="Dog Avatar"
-            width={0}
-            height={0}
-          />
+          <div className={['img-wrap-h100', scss.avatarWrapper].join(' ')}>
+            <Image
+              className="img"
+              src={dog.dog_avatar_file ? `http://localhost:3005/upload_dog/${dog.dog_avatar_file}` : Shiba}
+              alt="Dog Avatar"
+              width={0}
+              height={0}
+            />
+          </div>
         </div>
         <div className={`${scss.Dogname}`}>
           {dog.name || '小廢柴'}
@@ -398,7 +408,7 @@ export default function DogInfoData() {
               </div>
             </div>
           </div>
-          <div className="col-1 col-xxl-2 d-none d-xxl-block mx-5 my-5">
+          <div className="col-1 col-xxl-2 d-none d-xxl-block my-5">
             <SideText activeIndex={1} />
           </div>
         </main>

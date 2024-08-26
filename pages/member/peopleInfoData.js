@@ -9,7 +9,10 @@ import Link from 'next/link';
 import { AuthProvider, AuthContext } from '@/context/AuthContext';
 import { useRouter } from 'next/router';
 import useAuthRedirect from '@/hooks/useAuthRedirect';
-import Modal from '@/components/common/modal';
+
+import Modal from '@/components/common/modal/Modal';
+import { GoCheck } from "react-icons/go";
+
 
 export default function PeopleInfoData() {
   const router = useRouter();
@@ -109,6 +112,43 @@ export default function PeopleInfoData() {
     setConfirmEmail('');
   };
 
+  const sendVerificationEmail = () => {
+    const url = 'http://localhost:3005/api/member/email/send';
+    const token = localStorage.getItem('token');
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({ email: user.email })
+    })
+      .then(response => {
+        if (!response.ok) {
+          return response.text(); // 讀取非 JSON 回應
+        }
+        return response.json(); // 讀取 JSON 回應
+      })
+      .then(data => {
+        if (typeof data === 'string') {
+          // 處理非 JSON 回應
+          console.error('伺服器回應非 JSON 格式:', data);
+          alert('伺服器回應非 JSON 格式: ' + data);
+        } else {
+          if (data.status === 'success') {
+            alert('驗證郵件已發送，請檢查您的信箱');
+          } else {
+            alert('發送失敗: ' + data.message);
+          }
+        }
+      })
+      .catch(error => {
+        console.error('發送驗證郵件錯誤:', error);
+        alert('發送驗證郵件時發生錯誤: ' + error.message);
+      });
+  };
+
   useEffect(() => {
     if (authLoading) return;
 
@@ -144,7 +184,12 @@ export default function PeopleInfoData() {
               <div className="col-1 col-lg-4"></div>
               <div className={`${scss.midarea} col-12 col-lg-5`}>
                 <div className={`${scss.midtext}`}>
-                  <div className={`${scss.area2} `}>Email <p>{user.email || 'example@gmail.com'} <span>沒收到驗證信?</span></p></div>
+                  <div className={`${scss.area2} `}>Email <p>{user.email || 'example@gmail.com'}
+                    <span>{user.email_verified === 1 ? (
+                      <span className="text-success" style={{ fontSize: '24px', color: '#00ff00', marginLeft: '20px' }}><GoCheck /></span>
+                    ) : (
+                      <p onClick={sendVerificationEmail} >沒收到驗證信?</p>
+                    )} </span></p></div>
                   <div className={scss.area3}>姓名<p>{user.name || '-'}</p></div>
                   <div className={scss.area4}>性別
                     <div className={scss.genderRadio}>

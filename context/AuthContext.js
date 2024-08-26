@@ -50,7 +50,19 @@ const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
+    // 移除 token
     localStorage.removeItem('token');
+    
+    // 取得狗狗資料的鍵名列表
+    const keys = Object.keys(localStorage);
+    keys.forEach((key) => {
+      if (key.startsWith('dogData_')) {
+        // 移除與狗狗資料相關的項目
+        localStorage.removeItem(key);
+      }
+    });
+    
+    // 清除用戶資料
     setUser(null);
   };
 
