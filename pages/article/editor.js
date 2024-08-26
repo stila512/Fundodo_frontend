@@ -13,14 +13,17 @@ const MyUploadAdapter = class {
                 new Promise((resolve, reject) => {
                     const formData = new FormData();
                     formData.append("articleImage", file);
-                    fetch("http://localhost:3001/api/upload2", {
+                    fetch("http://localhost:3005/api/article/upload2", {
                         method: "POST",
                         body: formData,
                     })
                         .then((response) => response.json())
                         .then((result) => {
+                            const imageUrl = result.url.startsWith('http')
+                                ? result.url
+                                : `http://localhost:3005${result.url}`;
                             resolve({
-                                default: `http://localhost:3001${result.url}`,
+                                default: imageUrl,
                                 imageId: result.imageId
                             });
                         })
