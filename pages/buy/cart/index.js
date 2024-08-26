@@ -24,7 +24,28 @@ export default function CartPage() {
   /** @type {[number, React.Dispatch<number>]} */
   const [uID, setUID] = useState(0);
 
+  /**
+   * 優惠券 info
+   *  @type {[object, React.Dispatch<object>]} */
   const [cpList, setCpList] = useState([]);
+  /**
+   * 優惠券折扣金額
+   *   @type {[number, React.Dispatch<number>]} */
+  const [couponDc, setCouponDc] = useState([]);
+  /**
+   * 優惠券啟用狀態
+   *   @type {[object, React.Dispatch<object>]} */
+  const [cpState, setCpState] = useState([]);
+
+  /**
+   * 總折扣金額
+   * @type {[number, React.Dispatch<number>]} */
+  const [discount, setDiscount] = useState(0);
+
+  /**
+   * 總運費
+   *  @type {[number, React.Dispatch<number>]} */
+  const [dlvFee, setDlvFee] = useState(0);
 
   const [cartPkg, setCartPkg] = useState({
     usableArr: [],
@@ -44,8 +65,6 @@ export default function CartPage() {
   // totalArr[1] | 實付總金額
   const [totalArr, setTotalArr] = useState([0, 0]);
 
-  const delivery_fee = 60;
-  const discount = -10;
 
   //===== 驗證登入狀態
   useAuthRedirect();
@@ -54,7 +73,7 @@ export default function CartPage() {
     const { userId } = tokenDecoder();
     setUID(userId);
   }, [])
-  //===== 以會員 ID 索取購物車資料
+  //===== 以會員 ID 索取購物車資料，建構購物車初始資料
   useEffect(() => {
     if (uID === 0) return;
 
@@ -78,6 +97,9 @@ export default function CartPage() {
             CR: CR_pkg,
           }
         );
+
+        // 有商品就預設運費 60 元
+        if (PD_pkg.length > 0) setDlvFee(60);
 
         // 表列每個購物車項目是否被（軟）刪除的狀態
         setItemStateArr([
@@ -155,14 +177,98 @@ export default function CartPage() {
       source.cancel("API 請求已被臨時取消");
     }
   }, [uID])
+
+
+  //===== 以優惠券資料建立初始狀態
+  useEffect(() => {
+    // 預設皆不啟動
+    setCpState(Array(cpList.length).fill(0));
+  }, [cpList])
+
+  //===== 以優惠券狀態更新折扣金額
+  useEffect(() => {
+    const dcArr = cpList.map(coupon => {
+      const dc = Number(coupon.discount);
+
+      let delta = 0
+      switch (coupon.scope_to) {
+        case null:
+          delta = (dc > 1) ? dc : Math.floor(totalArr[0] * (1 - dc));
+          break;
+        case 'PD':
+          if (amtArr[0] === 0) break;
+          delta = (dc > 1) ? dc : Math.floor(amtArr[0] * (1 - dc));
+          break;
+        case 'HT':
+          if (amtArr[1] === 0) break;
+          delta = (dc > 1) ? dc : Math.floor(amtArr[1] * (1 - dc));
+          break;
+        case 'CR':
+          if (amtArr[2] === 0) break;
+          delta = (dc > 1) ? dc : Math.floor(amtArr[2] * (1 - dc));
+          break;
+        default:
+          break;
+      }
+      return delta;
+    });
+    setCouponDc(dcArr);
+  }, [amtArr]);
+
+  //===== 結算優惠券折扣總金額
+  useEffect(() => {
+    (async function(){
+      const totDiscount = await Promise.all(
+        couponDc.reduce((sum_dc, negative, i_cp) => {
+          console.log(sum_dc + (cpState[i_cp] === 1) ? negative : 0);
+          return sum_dc + (cpState[i_cp] === 1) ? negative : 0;
+        }, 0)
+      );
+      console.log(totDiscount);
+      setDiscount(discount - totDiscount);
+    })()
+  }, [cpState, couponDc]);
+
   //===== 計算總購物車總金額
   useEffect(() => {
     setTotalArr([
       amtArr.reduce((sum, subtotal) => sum + subtotal, 0),
-      amtArr.reduce((sum, subtotal) => sum + subtotal, delivery_fee + discount),
+      amtArr.reduce((sum, subtotal) => sum + subtotal, dlvFee + discount),
     ]);
-  }, [amtArr]);
+  }, [amtArr, dlvFee, discount]);
 
+  const colorIndicator = (j) => {
+    switch (cpState[j]) {
+      case 0:
+        return 'shade2';
+      case 1:
+        return 'warning';
+      case -1:
+        return 'muted';
+      default:
+        return 'error';
+    }
+  }
+
+  const handleCpBtn = j => {
+    const prev = cpState[j];
+    switch (cpState[j]) {
+      case 0:
+        setCpState(cpState.map((v, i) => i === j ? 1 : v))
+        return;
+      case 1:
+        setCpState(cpState.map((v, i) => i === j ? 0 : v))
+        return;
+      case -1:
+        setCpState(cpState.map(v => v))
+        return;
+      default:
+        setCpState(cpState.map(v => v))
+        return;
+    }
+  }
+
+  /** 購物車是否全空 */
   const isEmpty = !(cartPkg.CR || cartPkg.HT || cartPkg.CR)
     || !itemStateArr.reduce(
       (indicator, currentArr) => indicator || currentArr.some(v => v),
@@ -201,18 +307,23 @@ export default function CartPage() {
           </div>
           <article className={['row', s.orderInfo].join(' ')}>
             <div className="col-12 col-lg-8">
-              <div className="bg-tint2 p-3 h-100">
+              <div className="bg-secondary p-3 h-100">
                 <div className="hstack jc-between mb-3">
                   <h3>所有可使用的優惠券</h3>
                   <FddBtn color='tint3' size='sm' href='/member/coupon'>查看我的優惠券</FddBtn>
                 </div>
                 <div className="hstack flex-wrap gap-1 jc-between">
-                  {cpList.map(coupon => (
-                    <div key={coupon.code} className='bg-tint4 p-3 pb-4 tx-center' style={{maxWidth: '45%', position: 'relative', borderRadius: '1rem'}}>
-                      <p>{coupon.name}</p>
-                      <p className='tx-primary' style={{position: 'absolute', bottom: 0, right: '0.5rem'}}>{coupon.code}</p>
+                  {cpList.map((coupon, i_cp) => (
+                    <FddBtn
+                      key={coupon.code}
+                      size='sm'
+                      color={colorIndicator(i_cp)}
+                      callback={() => handleCpBtn(i_cp)}
+                    >
+                      <p className='tx-left'>{coupon.name}</p>
+                      <p className='tx-primary' style={{ position: 'absolute', top: '0.5rem', right: '1rem' }}>{coupon.code}</p>
                       <p>{coupon.desc}</p>
-                    </div>
+                    </FddBtn>
                   ))}
                 </div>
               </div>
@@ -231,7 +342,7 @@ export default function CartPage() {
                   </tr>
                   <tr>
                     <th>運費</th>
-                    <td>NT ${delivery_fee}</td>
+                    <td>NT ${dlvFee}</td>
                   </tr>
                   <tr>
                     <th>優惠折扣</th>
