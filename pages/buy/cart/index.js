@@ -21,7 +21,9 @@ import Image from 'next/image';
 import FddBtn from '@/components/buttons/fddBtn';
 
 export default function CartPage() {
-  /** @type {[number, React.Dispatch<number>]} */
+  /**
+   * user ID
+   *  @type {[number, React.Dispatch<number>]} */
   const [uID, setUID] = useState(0);
 
   /**
@@ -90,13 +92,7 @@ export default function CartPage() {
         const HT_pkg = dataPkg.HT ? dataPkg.HT.filter(item => !item.deleted_at) : [];
         const CR_pkg = dataPkg.CR ? dataPkg.CR.filter(item => !item.deleted_at) : [];
 
-        setCartPkg(
-          {
-            PD: PD_pkg,
-            HT: HT_pkg,
-            CR: CR_pkg,
-          }
-        );
+        setCartPkg({ PD: PD_pkg, HT: HT_pkg, CR: CR_pkg, });
 
         // 有商品就預設運費 60 元
         if (PD_pkg.length > 0) setDlvFee(60);
@@ -138,7 +134,8 @@ export default function CartPage() {
 
   //===== 以會員 ID 索取優惠券資料
   useEffect(() => {
-    if (uID === 0) return;
+    //0 | 預設值；null | token 解譯失敗
+    if (!uID) return;
 
     const CancalToken = axios.CancelToken;//中止情況用的信號彈
     const source = CancalToken.source();
@@ -178,7 +175,6 @@ export default function CartPage() {
     }
   }, [uID])
 
-
   //===== 以優惠券資料建立初始狀態
   useEffect(() => {
     // 預設皆不啟動
@@ -217,7 +213,7 @@ export default function CartPage() {
 
   //===== 結算優惠券折扣總金額
   useEffect(() => {
-    (async function(){
+    (async function () {
       const totDiscount = await Promise.all(
         couponDc.reduce((sum_dc, negative, i_cp) => {
           console.log(sum_dc + (cpState[i_cp] === 1) ? negative : 0);
