@@ -11,22 +11,46 @@ import ReplyBlock from './contentItems/replyBlock';
 import UserCard from './contentItems/userCard'
 import AsideRwd from './commonItem/asideRwd';
 import UserAction from './commonItem/userAction';
+import { useContext } from 'react';
+import { AuthContext } from '@/context/AuthContext';
+import jwt_decode from 'jwt-decode';
 
 export default function Content() {
-    const [replies, setReplies] = useState([]);
+    const [replies, setReplies] = useState([])
+    const [decodedUser, setDecodedUser] = useState(null)
     const router = useRouter()
     const { aid } = router.query
+    const{user,loading}=useContext(AuthContext)
+
+    useEffect(() => {
+        if (!user && !loading) {
+            // 如果 AuthContext 中沒有用戶信息，嘗試使用 token-decoder
+            const decoded = tokenDecoder();
+            if (decoded && decoded.userId) {
+                setDecodedUser({
+                    userId: decoded.userId,
+                    nickname: decoded.nickname || decoded.email, // 假設 nickname 可能不存在，使用 email 作為備選
+                });
+                console.log('User info set from token-decoder:', decoded);
+            } else {
+                console.log('No valid user info found');
+            }
+        }
+    }, [user, loading]);
+
     useEffect(() => {
         if (aid) {
             fetch(`http://localhost:3005/api/article/replys/${aid}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {
-                        setReplies(data.articles);
+                        setReplies(data.replies);
                     }
                 }).catch(error => console.log(error.message))
         }
     }, [aid])
+
+    const currentUser = user || decodedUser;
     return (
         <>
             <Head>
@@ -49,7 +73,7 @@ export default function Content() {
 
                         <div className={scss.contentArea}>
                             <ArticleContent />
-                            <ReplyArea />
+                            <ReplyArea user={currentUser}/>
                             {replies.map(reply => (
                                 <ReplyBlock key={reply.id} reply={reply} />
                             ))}

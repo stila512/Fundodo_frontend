@@ -30,8 +30,8 @@ export default function ReplyBlock({ reply }) {
               height={40}
             />
             <div className={[scss.nicknameArea].join()}>
-              <p className={[scss.nickName].join()}>123123123</p>
-              <p className={[scss.creatTime].join()}>2024-07-22</p>
+              <p className={[scss.nickName].join()}>{reply.author_nickname}</p>
+              <p className={[scss.creatTime].join()}>{formatDate(reply.create_at)}</p>
             </div>
           </div>
           <div>點</div>
