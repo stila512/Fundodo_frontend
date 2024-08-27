@@ -5,6 +5,9 @@ import Editor from './editor';
 import Head from 'next/head';
 import DefaultLayout from '@/components/layout/default';
 import { Router, useRouter } from 'next/router';
+import { useContext } from 'react';
+import { AuthContext } from '@/context/AuthContext';
+import tokenDecoder from '@/context/token-decoder';
 
 
 export default function CreateArticle() {
@@ -13,6 +16,24 @@ export default function CreateArticle() {
   const [sortOptions, setSortOptions] = useState([])
   const [selectedSort, setSelectedSort] = useState('0')
   const router = useRouter()
+  const{user,loading}=useContext(AuthContext)
+  const [currentUser, setCurrentUser] = useState(null)
+
+  useEffect(() => {
+    if (!user && !loading) {
+      const decoded = tokenDecoder();
+      if (decoded && decoded.userId) {
+        setCurrentUser({
+          userId: decoded.userId,
+          nickname: decoded.nickname
+        });
+      } else {
+        router.push('/login'); // 如果用戶未登入，重定向到登入頁面
+      }
+    } else if (user) {
+      setCurrentUser(user);
+    }
+  }, [user, loading, router]);
 
   useEffect(() => {
     fetch('http://localhost:3005/api/article/sort')
@@ -42,7 +63,7 @@ export default function CreateArticle() {
         const match = src.match(/articleImage-(\d+)-\d+.png/);
         return match ? parseInt(match[1]) : null;
       }).filter(id => id !== null);
-      const response = await axios.post('http://localhost:3005/api/article/createArticle', { title, content, sort: selectedSort, imageIds });
+      const response = await axios.post('http://localhost:3005/api/article/createArticle', { title, content, sort: selectedSort, imageIds,userId: currentUser.userId });
       console.log('Article created:', response.data)
       alert('文章發表成功')
       router.push(`/article`)
