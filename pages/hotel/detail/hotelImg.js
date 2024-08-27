@@ -61,7 +61,7 @@ export default function HotelImg({ hotelCode }) {
           <div className={styles.hotelImg}>
             <div className={styles.mainImgContainer}>
               <Image
-                src={`http://localhost:3005/api/hotel/images/${hotel.images[currentImageIndex]}`}
+                src={`http://localhost:3005/api/hotel/images/${hotel.main_img_path}`}
                 width={0}
                 height={0}
                 className={styles.mainImg}

@@ -62,7 +62,10 @@ export default function edit() {
     console.log(data);
 
     if (data.status === "success" && data.data) {
-      setHotel(data.data);
+      setHotel(prevState => ({
+        ...data.data,
+        valid: Number(data.data.valid) // 確保 valid 是數字
+      }));
     }
   }
 
@@ -81,16 +84,18 @@ export default function edit() {
     }
   };
 
-
   //修改資料
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setHotel(prevState => ({
       ...prevState,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === 'checkbox' ? checked :
+        type === 'radio' ? Number(value) :
+          value
     }));
   };
 
+  //送出表單
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -140,7 +145,7 @@ export default function edit() {
                         style={{ width: '100%', height: 'auto' }}
                         alt={`旅館圖片 ${index + 1}`}
                       />
-                      <div className={styles.overlay}><RiImageAddFill className={styles.addImgIcon} /></div>
+                      <div className={styles.overlay}><RiImageAddFill className={styles.addImgIcon} /></div> {/* 覆蓋層 */}
                     </>
                   ) : (
                     <div>No image</div>
@@ -230,6 +235,33 @@ export default function edit() {
                 value={hotel.description}
                 onChange={handleInputChange}
               ></textarea>
+            </div>
+            <div className={styles.formGroup}>
+              <p className={styles.title}>狀態</p>
+              <div className={styles.radioGroup}>
+                <div className={styles.radioItem}>
+                  <input
+                    type="radio"
+                    id="statusOnline"
+                    name="valid"
+                    value="1"
+                    checked={hotel.valid === 1}
+                    onChange={handleInputChange}
+                  />
+                  <label htmlFor="statusOnline">上架</label>
+                </div>
+                <div className={styles.radioItem}>
+                  <input
+                    type="radio"
+                    id="statusOffline"
+                    name="valid"
+                    value="0"
+                    checked={hotel.valid === 0}
+                    onChange={handleInputChange}
+                  />
+                  <label htmlFor="statusOffline">下架</label>
+                </div>
+              </div>
             </div>
 
             <div className={styles.btnGroup}>

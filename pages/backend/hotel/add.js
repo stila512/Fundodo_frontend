@@ -12,7 +12,7 @@ export default function Add() {
   const testData = {
     name: '北歐風寵物旅館',
     description: '我們的寵物旅館提供豪華的住宿環境和專業的照顧服務，讓您的寵物享受賓至如歸的體驗。',
-    address: '台北市中山區寵物路123號',
+    address: '桃園市桃園區文中路123號',
     price_s: '800',
     price_m: '1000',
     price_l: '1200',
@@ -20,7 +20,7 @@ export default function Add() {
     service_bath: true,
     service_live_stream: false,
     service_playground: true,
-    location_id: '1',
+    location_id: '4',
   };
 
   const handleQuickFill = () => {
