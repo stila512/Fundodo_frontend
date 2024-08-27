@@ -154,13 +154,12 @@ export default function FillingPage({
   })
   
   const fetchgetOrder = (user_id) => {
-    const url = `http://localhost:3005/api/member/order/${user_id}`;
-    fetch(url)
-      .then(response => {
+    const API_URL = `${apiBaseUrl}/member/order/${user_id}`;
+    fetch(API_URL)
+      .then(async response => {
         if (!response.ok) {
-          return response.json().then(errorData => {
-            throw new Error(`錯誤 ${response.status}: ${errorData.message}`);
-          });
+          const errorData = await response.json();
+          throw new Error(`錯誤 ${response.status}: ${errorData.message}`);
         }
         return response.json();
       })
@@ -169,19 +168,21 @@ export default function FillingPage({
           if (data.result) {
             setOrder(data.result); // 確保 data.result 不為 null 或 undefined
           } else {
-            setError('沒有找到訂單資料。');
+            console.error('沒有找到訂單資料。');
+            //todo: handle view
           }
         } else {
-          setError(data.message);
+          console.error(data.message);
         }
       })
       .catch(error => {
-        setError(error.message);
-      })
-      .finally(() => {
-        setLoading(false);
+        console.error(error.message);
       });
   };
+
+  useEffect(() => {
+    fetchgetOrder(89); // todo 需要把 user ID 提昇到 cart 大元件
+  }, []);
 
   //todo 需要與 user 區域串接，儲存訂單資料組
 
