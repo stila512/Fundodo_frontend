@@ -5,7 +5,6 @@ import dataEmergency from '@/data/cart-emergency.json';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import tokenDecoder from '@/context/token-decoder';
-import useAuthRedirect from '@/hooks/useAuthRedirect';
 //== Components ================================================================
 import ProdCartTable from './ProdCartTable';
 import HotelCartTable from './HotelCartTable';
@@ -89,8 +88,7 @@ export default function CartPage({
   //============================================================//
   //=============== useEffect 區
 
-  //===== 驗證登入狀態
-  useAuthRedirect();
+
   //===== 解讀登入的會員 ID
   useEffect(() => {
     const { userId } = tokenDecoder();
@@ -333,8 +331,10 @@ export default function CartPage({
       orderInfo: {
         user_id: 0,
         amount: 0,
-        ship_thru: null,
-        pay_thru: null,
+        pay_thru: "",
+        ship_thru: "",
+        ship_zipcode: "",
+        ship_address: "",
       },
       boughtItems: [
         {

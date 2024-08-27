@@ -1,28 +1,28 @@
-//== Parameters ================================================================
+//== Parameters =============================================================
 import { apiBaseUrl } from '@/configs';
-import dataEmergency from '@/data/cart-emergency.json';
-//== Functions =================================================================
+//== Functions ==============================================================
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import tokenDecoder from '@/context/token-decoder';
 import useAuthRedirect from '@/hooks/useAuthRedirect';
-//== Components ================================================================
+//== Components =============================================================
 import Head from 'next/head';
-import Link from 'next/link';
 import BuyLayout from '@/components/layout/buy';
 import BuyProgress from '@/components/buy/buyProgress';
 //== Styles =================================================================
-import Image from 'next/image';
 import FddBtn from '@/components/buttons/fddBtn';
 import CartPage from './cart/CartPage';
-import FillingPage from './confirm/ConfirmPage';
+import FillingPage from './fill-form/FillingPage';
 import ConfirmPage from './confirm/ConfirmPage';
 
 export default function BuyPage() {
+  //===== 驗證登入狀態
+  useAuthRedirect();
+
+
   /**
    * 購買流程
    *  @type {[number, React.Dispatch<number>]} */
-  const [buyPhase, setBuyPhase] = useState(1);
+  const [buyPhase, setBuyPhase] = useState(2);
 
   /**
    * 跨 phase 儲存使用者購買資訊
@@ -31,6 +31,8 @@ export default function BuyPage() {
     buyItems: [],
     coupons: [],
   });
+
+
 
   const titleText = buyPhase ? ['', '購物車', '填寫付款資料', '確認付款'][buyPhase] : '購物車';
 
@@ -41,9 +43,12 @@ export default function BuyPage() {
       </Head>
       <BuyProgress stage={buyPhase} />
 
-      {buyPhase === 1 && <CartPage setBuyPhase={setBuyPhase} setBuyInfoPkg={setBuyInfoPkg} />}
-      {buyPhase === 2 && <FillingPage setBuyPhase={setBuyPhase} />}
-      {buyPhase === 3 && <ConfirmPage setBuyPhase={setBuyPhase} />}
+      {buyPhase === 1 &&
+        <CartPage setBuyPhase={setBuyPhase} setBuyInfoPkg={setBuyInfoPkg} />}
+      {buyPhase === 2 &&
+        <FillingPage setBuyPhase={setBuyPhase} setBuyInfoPkg={setBuyInfoPkg} />}
+      {buyPhase === 3 &&
+        <ConfirmPage setBuyPhase={setBuyPhase} />}
     </>
   )
 }
