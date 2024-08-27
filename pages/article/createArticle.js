@@ -28,7 +28,7 @@ export default function CreateArticle() {
           nickname: decoded.nickname
         });
       } else {
-        router.push('/login'); // 如果用戶未登入，重定向到登入頁面
+        router.push('/member/login'); // 如果用戶未登入，重定向到登入頁面
       }
     } else if (user) {
       setCurrentUser(user);
