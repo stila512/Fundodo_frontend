@@ -221,9 +221,14 @@ export default function PeopleInfoData() {
           </form>
         )}
       </main>
-
       {isModalOpen && (
-        <Modal mode={1} onClose={closeModal}>
+        <Modal
+          mode={1}  // 选择模式 1 或 2，具体根据需求
+          active={isModalOpen}  // 控制 Modal 的显示
+          onClose={closeModal}  // 关闭 Modal 的函数
+          confirmText="发送 OTP"  // 确认按钮的文字
+          cancelText="取消"  // 取消按钮的文字
+        >
           <h4>刪除確認</h4>
           <p>你確定要刪除帳號？這個操作無法撤銷。</p>
           <p>請輸入您的電子郵件地址以確認刪除：</p>
