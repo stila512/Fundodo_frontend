@@ -62,7 +62,12 @@ export default function CartPage() {
   /** @type {[ boolean[][], React.Dispatch<boolean[][]> ]} */
   const [itemStateArr, setItemStateArr] = useState([[], [], []]);
 
-  // 三台購物車各自的總金額
+  /**
+   * 三台購物車各自的總金額
+   * 0 - PD | product
+   * 1 - HT | hotel
+   * 2 - CR | course
+   *  @type {[number, React.Dispatch<number>]} */
   const [amtArr, setAmtArr] = useState([0, 0, 0]);
 
   // 三台購物車合算的總金額
@@ -188,7 +193,7 @@ export default function CartPage() {
     // 預設皆不啟動
     const initState = Array(cpList.length).fill(0);
     let verified = initState;
-    ['CR', 'HT', 'CR'].forEach(sort => {
+    ['PD', 'HT', 'CR'].forEach(sort => {
       if (cartPkg[sort].length === 0) {
         verified = verified.map((s, i_cp) => {
           if (cpList[i_cp].scope_from === sort || cpList[i_cp].scope_to === sort)
@@ -199,11 +204,32 @@ export default function CartPage() {
       }
     });
     setCpState(verified);
-    // setCpState(initState);
   }, [cpList, cartPkg])
 
-  //===== 以優惠券狀態更新折扣金額
+  //===== 以購物車內容更新折扣金額
+
+  /**
+   * 處理包括買旅館折商品的方案
+   * @param {object} coupon 優惠券資料包
+   * @param {number} amt_base 計算基準
+   * @returns {number} 折扣的金額
+   */
   const handleDiscount = (coupon, amt_base) => {
+    switch (coupon.scope_from) {
+      case 'PD':
+        if (amtArr[0] === 0) return 0;
+        break;
+      case 'HT':
+        if (amtArr[1] === 0) return 0;
+        break;
+      case 'CR':
+        if (amtArr[2] === 0) return 0;
+        break;
+      default:
+        // TODO:擱置，目前暫無施工計畫
+        break;
+    }
+
     const { max_discount, discount } = coupon;
     const price_cut = Number(discount);
 
@@ -215,6 +241,7 @@ export default function CartPage() {
     }
     return max_discount ? Math.min(cut, max_discount) : cut;
   }
+
   useEffect(() => {
     const dcArr = cpList.map(coupon => {
       let delta = 0
@@ -242,7 +269,7 @@ export default function CartPage() {
     setCouponDc(dcArr);
   }, [amtArr]);
 
-  //===== 結算優惠券折扣總金額
+  //===== 以優惠券狀態結算折扣總金額
   useEffect(() => {
     if (cpState.some(v => v)) {
       const tot = couponDc.reduce((acc, cur, j) => {
