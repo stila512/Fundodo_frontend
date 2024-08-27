@@ -92,7 +92,7 @@ export default function NavFuncBtns({ showCart = true }) {
       {/* 購物車 */}
       {showCart ? (
         <li className={scss.cartBtn} style={{position: 'relative'}}>
-          <a href="/buy/cart">
+          <a href="/buy">
             <IoCart />
             <div className={[scss.number, uID === 0 ? 'd-none' : 'd-flex'].join(' ')}>{cartCount}</div>
           </a>
