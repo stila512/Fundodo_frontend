@@ -1,12 +1,11 @@
-import Head from 'next/head';
-import React, { useState } from 'react'
+import { useState } from 'react'
 import BuyLayout from '@/components/layout/buy';
 import BuyProgress from '@/components/buy/buyProgress';
 import s from './confirm.module.scss'
 import FddBtn from '@/components/buttons/fddBtn';
 import axios from 'axios';
 
-export default function ConfirmPage() {
+export default function FillingPage() {
   const [isBeginning, setIsBeginning] = useState(true);
   const [isCVS, setIsCVS] = useState(false);
 
@@ -19,9 +18,6 @@ export default function ConfirmPage() {
     <>
       {/* <FddBtn color='primary' outline={isCVS} size='lg' callback={()=>setIsCVS(false)}>宅配到府</FddBtn>
       <FddBtn color='primary' outline={!isCVS} size='lg' callback={()=>setIsCVS(true)}>超商取貨</FddBtn> */}
-      <Head>
-        <title>確認付款 | Fundodo</title>
-      </Head>
       <BuyProgress stage={2} />
       <main className='container'>
         <div className={['row jc-center py-5', s.topPanel, isBeginning ? s.beginningMode : ''].join(' ')}>
@@ -95,4 +91,3 @@ export default function ConfirmPage() {
     </>
   )
 }
-ConfirmPage.layout = BuyLayout;
