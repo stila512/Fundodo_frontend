@@ -148,9 +148,7 @@ export default function Add() {
         </Head>
         <div className={styles.container}>
           <h1>新增寵物旅館</h1>
-          <button type="button" onClick={handleQuickFill} className={styles.quickFill}>
-    一鍵填寫
-  </button>
+          <button type="button" onClick={handleQuickFill} className={styles.quickFill}>click</button>
           <form onSubmit={handleSubmit}>
           
             <div className={styles.imgGroup}>

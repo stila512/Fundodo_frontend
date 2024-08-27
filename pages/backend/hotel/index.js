@@ -29,10 +29,18 @@ export default function List() {
     try {
       const res = await fetch(baseURL);
       const data = await res.json();
-      // console.log(data);
+      console.log(data);
       if (data.status === 'success' && Array.isArray(data.data)) {
         setHotels(data.data);
         setFilteredHotels(data.data);
+      // if (data.status === 'success' && Array.isArray(data.data)) {
+      //   const hotelsWithImages = await Promise.all(data.data.map(async (hotel) => {
+      //     const detailRes = await fetch(`http://localhost:3005/api/hotel/detail/${hotel.id}`);
+      //     const detailData = await detailRes.json();
+      //     return { ...hotel, images: detailData.data.images.split(',') };
+      //   }));
+      //   setHotels(hotelsWithImages);
+      //   setFilteredHotels(hotelsWithImages);
 
         // 計算狀態數量
         const counts = hotels.reduce((acc, hotel) => {
@@ -212,6 +220,15 @@ export default function List() {
                     alt="旅館圖片"
                     onError={handleImageError}
                   /></td>
+                  {/* <td>
+                    <Image
+                      src={`http://localhost:3005/api/hotel/images/${hotel.images && hotel.images.length > 0 ? hotel.images[0] : '404.jpg'}`}
+                      width={100}
+                      height={80}
+                      alt="旅館圖片"
+                      onError={handleImageError}
+                    />
+                  </td> */}
                   <td class={styles.name}>{hotel.name}</td>
                   <td class={styles.address}>{hotel.address}</td>
                   <td>NT${hotel.price_s}~NT${hotel.price_l}</td>
@@ -229,9 +246,9 @@ export default function List() {
                     {new Date(hotel.created_at).toLocaleDateString()} {new Date(hotel.created_at).toLocaleTimeString()}
                   </td>
                   <td>
-                  <Link href={`/hotel/detail/${hotel.id}`}>
-                  <button className={styles.actionBtn}> <MdRemoveRedEye className={styles.icon} /> </button>
-                  </Link>
+                    <Link href={`/hotel/detail/${hotel.id}`}>
+                      <button className={styles.actionBtn}> <MdRemoveRedEye className={styles.icon} /> </button>
+                    </Link>
                     <Link href={`/backend/hotel/${hotel.id}`}>
                       <button className={styles.actionBtn}> <FaEdit className={styles.icon} /> </button>
                     </Link>
