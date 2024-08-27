@@ -24,13 +24,31 @@ export default function BuyPage() {
    *  @type {[number, React.Dispatch<number>]} */
   const [buyPhase, setBuyPhase] = useState(2);
 
+
+  const initBuyInfoPkg = {
+    coupons: [],
+    orderInfo: {
+      user_id: 0,
+      amount: 0,
+      pay_thru: "",
+      ship_thru: "",
+      ship_zipcode: "",
+      ship_address: "",
+    },
+    boughtItems: [
+      {
+        purchase_sort: null,
+        purchase_id: 0,
+        purchase_price: 0,
+        cart_id: 0,
+        room_type: ''/* for Hotel only */
+      }
+    ],
+  };
   /**
    * 跨 phase 儲存使用者購買資訊
    *  @type {[object[], React.Dispatch<object[]>]} */
-  const [buyInfoPkg, setBuyInfoPkg] = useState({
-    buyItems: [],
-    coupons: [],
-  });
+  const [buyInfoPkg, setBuyInfoPkg] = useState(initBuyInfoPkg);
 
 
 
