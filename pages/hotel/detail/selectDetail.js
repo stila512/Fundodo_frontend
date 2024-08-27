@@ -148,7 +148,7 @@ export default function SelectDetail({ hotelCode }) {
   };
 
   try {
-    const response = await fetch('http://localhost:3005/cart', {
+    const response = await fetch('http://localhost:3005/api/cart', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -171,27 +171,6 @@ export default function SelectDetail({ hotelCode }) {
   }
 };
 
-
-  //座標格式
-
-  // useEffect(() => {
-  //   if (hotel) {
-  //     console.log('Latitude:', hotel.latitude);
-  //     console.log('Longitude:', hotel.longitude);
-  //   }
-  // }, [hotel]);
-
-  //座標帶入地圖
-  // const generateMapUrl = (latitude, longitude) => {
-  //   const lat = parseFloat(latitude);
-  //   const lng = parseFloat(longitude);
-
-  //   if (isNaN(lat) || isNaN(lng)) {
-  //     console.error('無法辨識的座標格式');
-  //     return '';
-  //   }
-  //   return `https://www.google.com/maps/embed/v1/place?key=AIzaSyA4mbO2oQzhqWA7b8QDCOsOFp67LP9kjdY&q=${lat.toFixed(6)},${lng.toFixed(6)}`;
-  // };
 
 
   return (
@@ -280,17 +259,6 @@ export default function SelectDetail({ hotelCode }) {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               ></iframe>
-              {/* 測試的 */}
-              {/* <iframe
-                width="450"
-                height="250"
-                frameBorder="0"
-                style={{ border: 0 }}
-                referrerPolicy="no-referrer-when-downgrade"
-                src={hotel ? generateMapUrl(hotel.latitude, hotel.longitude) : ''}
-                allowFullScreen=""
-                loading="lazy"
-              ></iframe> */}
 
             </div>
           </div>

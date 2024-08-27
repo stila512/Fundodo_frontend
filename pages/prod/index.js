@@ -7,14 +7,18 @@ import Breadcrumb from './list/breadcrumb';
 import Select from './list/select';
 import MobileFilter from './list/mobileFilter';
 import ProductPage from './list/productPage';
+import Search from './list/search';
 
 export default function ProductList() {
-  // 新增排序狀態
   const [sortBy, setSortBy] = useState('default');
+  const [searchTerm, setSearchTerm] = useState('');
 
-  // 處理排序變更的函數
   const handleSortChange = useCallback((newSortBy) => {
     setSortBy(newSortBy);
+  }, []);
+
+  const handleSearch = useCallback((term) => {
+    setSearchTerm(term);
   }, []);
 
   return (
@@ -28,20 +32,13 @@ export default function ProductList() {
       <main className='container'>
         <Section />
         <MobileFilter />
-        <div
-          className={[
-            'd-flex',
-            scss.justifyContentBetween,
-            scss.margin,
-          ].join(' ')}
-        >
+        <div className={['hstack', scss.margin].join(' ')}>
           <Breadcrumb />
-          {/* 將 handleSortChange 傳遞給 Select 組件 */}
+          <Search onSearch={handleSearch} />
           <Select onChange={handleSortChange} />
         </div>
         <div className={scss.my}>
-          {/* 將 sortBy 傳遞給 ProductPage 組件 */}
-          <ProductPage sortBy={sortBy} />
+          <ProductPage sortBy={sortBy} searchTerm={searchTerm} />
         </div>
       </main>
     </>

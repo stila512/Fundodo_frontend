@@ -31,7 +31,7 @@ export default function ArticleBlock({ article }) {
               height={40}
             />
             <div className={[scss.nicknameArea].join()}>
-              <p className={[scss.nickName].join()}>{'@'+article.userid}</p>
+              <p className={[scss.nickName].join()}>{article.author_nickname}</p>
               <p className={[scss.creatTime].join()}>{formatDate(article.create_at)}</p>
             </div>
           </div>

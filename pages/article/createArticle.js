@@ -15,7 +15,7 @@ export default function CreateArticle() {
   const router = useRouter()
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/sort')
+    fetch('http://localhost:3005/api/article/sort')
       .then(response => response.json())
       .then(data => {
         if (data.status === 'success') {
@@ -42,7 +42,7 @@ export default function CreateArticle() {
         const match = src.match(/articleImage-(\d+)-\d+.png/);
         return match ? parseInt(match[1]) : null;
       }).filter(id => id !== null);
-      const response = await axios.post('http://localhost:3001/api/createArticle', { title, content, sort: selectedSort, imageIds });
+      const response = await axios.post('http://localhost:3005/api/article/createArticle', { title, content, sort: selectedSort, imageIds });
       console.log('Article created:', response.data)
       alert('文章發表成功')
       router.push(`/article`)

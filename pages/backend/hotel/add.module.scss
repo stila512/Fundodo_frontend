@@ -24,16 +24,10 @@
     background-color: #f9f9f9;
     padding: 30px;
     border-radius: 8px;
+    min-width: 788px;
 
     .imgGroup {
-      margin-bottom: 20px;
-
-      p {
-        font-weight: 400;
-        margin-bottom: 10px;
-        color: $heading;
-        font-size: 16px;
-      }
+      margin-bottom: 30px;
 
       img {
         margin-right: 10px;
@@ -84,19 +78,44 @@
     }
 
     .addImg {
-      width: 100px;
-      height: 100px;
+      position: relative;
+      width: 200px;
+      height: 200px;
       background-color: $secondary;
       border-radius: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 20px;
+    
+      .uploadSuccess {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background: $info;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+      }
     }
     .addImgIcon {
-      width: 30px;
-      height: 30px;
-      color: $shade3;
+      width: 40px;
+      height: 40px;
+      color: $primary;
+    }
+
+    .imgPre{
+      position: relative;
+      width: 105%;
+      height: 105%;
+      top: 10px;
+      background-color: $secondary;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+
     }
 
     .buttonGroup {
@@ -178,3 +197,15 @@
   border: none;
 }
 
+.quickFill {
+  background-color: #d8d8d8;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: flex-end;
+}

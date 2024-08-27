@@ -1,7 +1,6 @@
 import Logo from '@/components/common/logo';
 import s from '../footer.module.scss';
 import { FaChevronRight } from 'react-icons/fa';
-// import Image from 'next/image';
 
 const UlIcon = () => (
   <span className={s.ulIcon}>
@@ -38,7 +37,7 @@ export default function Footer() {
                     <a href="#"><UlIcon />關於我們</a>
                   </li>
                   <li>
-                    <a href="#">
+                    <a href="/member/peopleInfoData">
                       <UlIcon></UlIcon>
                       會員專區
                     </a>
@@ -94,10 +93,7 @@ export default function Footer() {
               All Rights Reserved
             </p>
           </div>
-
         </div>
-
-
       </div>
     </footer>
   );

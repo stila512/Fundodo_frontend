@@ -22,7 +22,7 @@ export default function ArticleContent() {
   const { aid } = router.query
   useEffect(() => {
     if (aid) {
-      fetch(`http://localhost:3001/api/articleContent/${aid}`)
+      fetch(`http://localhost:3005/api/article/articleContent/${aid}`)
         .then(response => response.json())
         .then(data => {
           if (data.status === 'success') {
@@ -44,7 +44,7 @@ export default function ArticleContent() {
               height={40}
             />
             <div className={[scss.nicknameArea].join()}>
-              <p className={[scss.nickName].join()}>123123123</p>
+              <p className={[scss.nickName].join()}>{content.author_nickname || '未知用戶'}</p>
               <p className={[scss.creatTime].join()}>{formatDate(content.create_at)}</p>
             </div>
           </div>

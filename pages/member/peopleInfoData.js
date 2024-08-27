@@ -9,8 +9,10 @@ import Link from 'next/link';
 import { AuthProvider, AuthContext } from '@/context/AuthContext';
 import { useRouter } from 'next/router';
 import useAuthRedirect from '@/hooks/useAuthRedirect';
-import Modal from '@/components/common/modal/Modal';
+
+import Modal from '@/components/common/modal';
 import { GoCheck } from "react-icons/go";
+
 
 export default function PeopleInfoData() {
   const router = useRouter();

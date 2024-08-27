@@ -9,6 +9,7 @@ import BreadCrumb from './breadcrumb';
 
 
 
+
 export default function HotelPage() {
   //--props
   const [searchQuery, setSearchQuery] = useState('');

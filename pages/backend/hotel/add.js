@@ -7,24 +7,33 @@ import { RiImageAddFill } from "react-icons/ri";
 
 
 export default function Add() {
-
-  //獲取選單的縣市
-  const [cities, setCities] = useState([]);
-  useEffect(() => {
-    const fetchCities = async () => {
-      const response = await fetch('http://localhost:3005/api/hotel/cities');
-      const data = await response.json();
-      if (data.status === 'success') {
-        setCities(data.data); 
-      }
-    };
   
-    fetchCities();
-  }, []);
+// 一鍵填寫
+  const testData = {
+    name: '北歐風寵物旅館',
+    description: '我們的寵物旅館提供豪華的住宿環境和專業的照顧服務，讓您的寵物享受賓至如歸的體驗。',
+    address: '台北市中山區寵物路123號',
+    price_s: '800',
+    price_m: '1000',
+    price_l: '1200',
+    service_food: true,
+    service_bath: true,
+    service_live_stream: false,
+    service_playground: true,
+    location_id: '1',
+  };
 
+  const handleQuickFill = () => {
+    setFormData(testData);
+    setImagePreview(testData.main_img_path);
+  };
 
+  // -------
 
-  // 新增傳入資料庫
+  const [cities, setCities] = useState([]);
+  const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -36,8 +45,21 @@ export default function Add() {
     service_bath: false,
     service_live_stream: false,
     service_playground: false,
-    location_id: ''
+    location_id: '',
+    main_img_path: ''
   });
+
+  useEffect(() => {
+    const fetchCities = async () => {
+      const response = await fetch('http://localhost:3005/api/hotel/cities');
+      const data = await response.json();
+      if (data.status === 'success') {
+        setCities(data.data);
+      }
+    };
+
+    fetchCities();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -47,8 +69,56 @@ export default function Add() {
     }));
   };
 
+
+  //先讓圖片被送出
+  const handleImageUpload = async (imageToUpload) => {
+    if (!imageToUpload) return null; //如果沒有圖片回傳null
+  
+    const formDataToSend = new FormData();
+    formDataToSend.append('image', imageToUpload);
+  
+    try {
+      const imageUploadResponse = await fetch('http://localhost:3005/api/hotel/upload', {
+        method: 'POST',
+        body: formDataToSend
+      });
+      const imageData = await imageUploadResponse.json();
+      if (imageData.status === 'success') {
+        return imageData.path;  
+      }
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      alert('圖片上傳失敗，請稍後再試');
+    }
+  
+    return null;  //上傳失敗回傳null
+  };
+  
+  const handleImageChange = async (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const selectedImage = e.target.files[0];
+  
+     //預覽跟上傳狀態
+      setImagePreview(URL.createObjectURL(selectedImage));
+      setIsUploading(true);
+  
+      // 先傳圖片路徑到資料庫
+      const uploadedImagePath = await handleImageUpload(selectedImage);
+
+      if (uploadedImagePath) {
+        setFormData(prevState => ({
+          ...prevState,
+          main_img_path: uploadedImagePath
+        }));
+      }
+      setIsUploading(false);  
+    }
+  };
+  
+//按送出傳送表單
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const response = await fetch('http://localhost:3005/api/hotel', {
         method: 'POST',
@@ -69,7 +139,6 @@ export default function Add() {
     }
   };
 
-
   return (
     <>
       <BackendLayout>
@@ -79,14 +148,35 @@ export default function Add() {
         </Head>
         <div className={styles.container}>
           <h1>新增寵物旅館</h1>
-
+          <button type="button" onClick={handleQuickFill} className={styles.quickFill}>
+    一鍵填寫
+  </button>
           <form onSubmit={handleSubmit}>
+          
             <div className={styles.imgGroup}>
               <p className={styles.title}>旅館圖片</p>
               <div className={styles.addImg}>
-      <RiImageAddFill className={styles.addImgIcon} />
-        
+                {imagePreview ? (
+                  <img src={imagePreview} className={styles.imgPre}  />
+                ) : (
+                  <RiImageAddFill className={styles.addImgIcon} />
+                )}
+                <input
+                  type="file"
+                  onChange={handleImageChange}
+                  accept="image/*"
+                  id="image-upload"
+                  style={{ display: 'none' }}
+                />
+                <label
+                  htmlFor="image-upload"
+                  style={{ cursor: 'pointer', display: 'block', width: '100%', height: '100%', position: 'absolute', top: 0, left: 0 }}
+                >
+                  {formData.main_img_path && <span className={styles.uploadSuccess}>上傳成功</span>}
+                </label>
+                {isUploading && <div className={styles.loadingIndicator}>上傳中...</div>}
               </div>
+
             </div>
             <div className={styles.formGroup}>
               <p className={styles.title}>旅館名稱</p>
