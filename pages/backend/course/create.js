@@ -28,11 +28,11 @@ export default function CourseAdd() {
   useEffect(() => {
     const fetchTags = async () => {
       try {
-        const response = await fetch('http://localhost:3005/api/course/tags');
-        if (!response.ok) {
+        const res = await fetch('http://localhost:3005/api/course/tags');
+        if (!res.ok) {
           throw new Error('Failed to fetch tags');
         }
-        const data = await response.json();
+        const data = await res.json();
         if (data.status === "success" && Array.isArray(data.data)) {
           setTags(data.data);
         } else {
@@ -193,27 +193,26 @@ export default function CourseAdd() {
 
     setIsSubmitting(true);
     try {
-      const response = await fetch('http://localhost:3005/api/course', {
+      const res = await fetch('http://localhost:3005/api/course', {
         method: 'POST',
         body: formData,
       });
 
-      if (!response.ok) {
+      if (!res.ok) {
         throw new Error('課程創建失敗');
       }
 
-      const result = await response.json();
+      const result = await res.json();
       setModalContent({
         title: '成功',
         message: '課程新增成功'
       });
       setShowModal(true);
-      // 延遲導航，給用戶時間看到成功信息
-      setTimeout(() => router.push('/backend/course'), 2000);
+      setTimeout(() => router.push('/backend/course'), 1000);
     } catch (error) {
       console.error('課程新增失敗:', error);
       setModalContent({
-        title: '錯誤',
+        title: '失敗',
         message: '課程新增失敗，請稍後再試。'
       });
       setShowModal(true);

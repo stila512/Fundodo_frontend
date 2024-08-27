@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router';
 import Head from 'next/head'
 import BackendLayout from '@/components/layout/backend'
+import Modal from '@/components/common/modal';
 import scss from './index.module.scss';
 import { CiRead } from "react-icons/ci";
 import { FaEdit } from "react-icons/fa";
@@ -14,6 +15,9 @@ export default function CourseList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const coursesPerPage = 10;
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState({ title: '', message: '' });
+  const [courseToDelete, setCourseToDelete] = useState(null);
 
   useEffect(() => {
     fetchCourses();
@@ -48,23 +52,49 @@ export default function CourseList() {
   const handleEdit = (courseId) => {
     router.push(`/backend/course/edit/${courseId}`)
   }
+  const handleDeleteClick = (courseId) => {
+    setCourseToDelete(courseId);
+    setModalContent({
+      title: '確認刪除',
+      message: '您確定要刪除此課程嗎？'
+    });
+    setShowModal(true);
+  };
 
-  const handleDelete = (courseId) => async () => {
-    if (window.confirm("確定要刪除此課程嗎?")) {
-      try {
-        const res = await fetch(`http://localhost:3005/api/course/delete/${courseId}`, {
-          method: 'PATCH'
-        });
-        if (res.ok) {
-          fetchCourses();
-        } else {
-          alert("刪除課程失敗");
-        }
-      } catch (err) {
-        console.error("刪除課程失敗:", err);
+  const handleDeleteConfirm = async () => {
+    if (!courseToDelete) return;
+
+    try {
+      const res = await fetch(`http://localhost:3005/api/course/delete/${courseToDelete}`, {
+        method: 'PATCH',
+      });
+      if (!res.ok) {
+        throw new Error("Failed to delete course");
       }
+      setShowModal(false);
+      setModalContent({
+        title: '刪除成功',
+        message: '課程已成功刪除'
+      });
+      setShowModal(true);
+      fetchCourses(); // 重新獲取課程列表
+      setTimeout(() => {
+        setShowModal(false);
+        setCourseToDelete(null);
+      }, 1500);
+    } catch (err) {
+      setModalContent({
+        title: '刪除失敗',
+        message: '課程刪除失敗，請稍後再試'
+      });
+      setShowModal(true);
     }
-  }
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
+    setCourseToDelete(null);
+  };
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -105,12 +135,12 @@ export default function CourseList() {
           <div className={scss.topBar}>
             <button className={scss.addBtn} onClick={handleCreate}>新增課程</button>
             <div className={scss.searchBar}>
-              <input 
-                type="text" 
-                className={scss.searchInput} 
-                placeholder="搜尋課程名稱..." 
+              <input
+                type="text"
+                className={scss.searchInput}
+                placeholder="搜尋課程名稱..."
                 value={searchQuery}
-                onChange={handleSearchChange} 
+                onChange={handleSearchChange}
               />
               <button className={scss.searchBtn}><CiRead /></button>
             </div>
@@ -138,7 +168,7 @@ export default function CourseList() {
                     <td className={scss.actionBtns}>
                       <button className={scss.actionBtn} onClick={() => handleRead(course.id)}><CiRead /></button>
                       <button className={scss.actionBtn} onClick={() => handleEdit(course.id)}><FaEdit /></button>
-                      <button className={scss.actionBtn} onClick={handleDelete(course.id)}><RiDeleteBin5Line /></button>
+                      <button className={scss.actionBtn} onClick={() => handleDeleteClick(course.id)}><RiDeleteBin5Line /></button>
                     </td>
                   </tr>
                 ))
@@ -153,6 +183,18 @@ export default function CourseList() {
             {renderPagination()}
           </div>
         </div>
+        <Modal
+          mode={2}
+          active={showModal}
+          onClose={handleModalClose}
+          onConfirm={handleDeleteConfirm}
+          onCancel={handleModalClose}
+          confirmText="確定刪除"
+          cancelText="取消"
+        >
+          <h4>{modalContent.title}</h4>
+          <p>{modalContent.message}</p>
+        </Modal>
       </BackendLayout>
     </>
   );

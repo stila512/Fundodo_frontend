@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import BackendLayout from '@/components/layout/backend';
+import Modal from '@/components/common/modal';
 import scss from './edit.module.scss';
 
 export default function CourseEdit() {
@@ -20,6 +21,8 @@ export default function CourseEdit() {
   });
   const [tags, setTags] = useState([]);
   const [previewImage, setPreviewImage] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState({ title: '', message: '' });
 
   useEffect(() => {
     if (id) {
@@ -143,10 +146,18 @@ export default function CourseEdit() {
       }
 
       const data = await res.json();
-      alert('課程更新成功！');
-      router.push('/backend/course');
+      setModalContent({
+        title: '成功',
+        message: '課程更新成功'
+      });
+      setShowModal(true);
+      setTimeout(() => router.push('/backend/course'), 1000);
     } catch (error) {
-      console.error('更新課程失敗:', error);
+      setModalContent({
+        title: '失敗',
+        message: '課程更新失敗，請稍後再試。'
+      });
+      setShowModal(true);
     }
   };
 
@@ -313,6 +324,15 @@ export default function CourseEdit() {
             </div>
           </form>
         </div>
+        <Modal
+          mode={1}
+          active={showModal}
+          onClose={() => setShowModal(false)}
+        >
+          <h4>{modalContent.title}</h4>
+          <p>{modalContent.message}</p>
+        </Modal>
+
       </BackendLayout>
     </>
   );
