@@ -26,6 +26,44 @@ export default function FillingPage({
     setBuyPhase(3);
   }
 
+  const [order, setOrder] = useState({
+    name: '',
+    email: '',
+    tel: '',
+    order_address: '',
+    note: '',
+  })
+  
+  const fetchgetOrder = (user_id) => {
+    const url = `http://localhost:3005/api/member/order/${user_id}`;
+    fetch(url)
+      .then(response => {
+        if (!response.ok) {
+          return response.json().then(errorData => {
+            throw new Error(`錯誤 ${response.status}: ${errorData.message}`);
+          });
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data.status === 'success') {
+          if (data.result) {
+            setOrder(data.result); // 確保 data.result 不為 null 或 undefined
+          } else {
+            setError('沒有找到訂單資料。');
+          }
+        } else {
+          setError(data.message);
+        }
+      })
+      .catch(error => {
+        setError(error.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
   //todo 需要與 user 區域串接，儲存訂單資料組
 
   return (
