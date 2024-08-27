@@ -47,7 +47,7 @@ export default function SideText({activeIndex = 0}) {
         <div className={scss.reactIcon} style={{fontSize: '20px'}}>
           <FaHeart />
         </div>
-        <span>我的收藏</span>
+        <Link href='/prod/list/favoriteProd'><span>我的收藏</span></Link>
       </div>
       <div className={[scss.menuItem, activeIndex === 5 ? scss.active : ''].join(' ')}>
         <Image className={scss.icon} src={mdi_coupon} alt="優惠卷" />

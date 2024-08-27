@@ -13,7 +13,7 @@ import AsideRwd from './commonItem/asideRwd';
 import UserAction from './commonItem/userAction';
 import { useContext } from 'react';
 import { AuthContext } from '@/context/AuthContext';
-import jwt_decode from 'jwt-decode';
+import tokenDecoder from '@/context/token-decoder';
 
 export default function Content() {
     const [replies, setReplies] = useState([])
@@ -29,7 +29,7 @@ export default function Content() {
             if (decoded && decoded.userId) {
                 setDecodedUser({
                     userId: decoded.userId,
-                    nickname: decoded.nickname || decoded.email, // 假設 nickname 可能不存在，使用 email 作為備選
+                    nickname: decoded.nickname
                 });
                 console.log('User info set from token-decoder:', decoded);
             } else {
@@ -78,9 +78,9 @@ export default function Content() {
                                 <ReplyBlock key={reply.id} reply={reply} />
                             ))}
 
-                            <AsideRwd />
+                            <AsideRwd/>
                         </div>
-                        <UserCard />
+                        <UserCard aid={aid}/>
                     </div>
                 </main>
             </div>
