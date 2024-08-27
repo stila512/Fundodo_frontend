@@ -15,6 +15,8 @@ import emptyCart from '@/public/cart/dog-in-cart.jpg';
 import Image from 'next/image';
 import FddBtn from '@/components/buttons/fddBtn';
 
+//todo 從訂購階段返回的情況應對機制尚未處理
+
 /** 商品三種類
  * ['PD', 'HT', 'CR']
  */
@@ -297,6 +299,10 @@ export default function CartPage({
   //=============== useEffect 區 END
   //============================================================//
 
+  /** 優惠券按鈕的顏色切換樞
+   * 判斷 cpState 以決定該按鈕的狀態與顏色
+   * 狀態有三：啟動、未啟動、無法使用
+   */
   const colorIndicator = (j) => {
     switch (cpState[j]) {
       case 0:
@@ -325,27 +331,7 @@ export default function CartPage({
     }
   }
 
-  const handleNextPhase = () => {
-    const target = {
-      coupons: [],
-      orderInfo: {
-        user_id: 0,
-        amount: 0,
-        pay_thru: "",
-        ship_thru: "",
-        ship_zipcode: "",
-        ship_address: "",
-      },
-      boughtItems: [
-        {
-          purchase_sort: null,
-          purchase_id: 0,
-          purchase_price: 0,
-          cart_id: 0,
-          room_type: ''/* for Hotel only */
-        }
-      ],
-    };
+  const goNextPhase = () => {
     setBuyInfoPkg(prev => {
       const copy = JSON.parse(JSON.stringify(prev));
       //*===== 打包優惠券資訊: coupon_user IDs
@@ -379,7 +365,6 @@ export default function CartPage({
 
       return copy;
     })
-
     setBuyPhase(2);
   }
 
@@ -461,7 +446,7 @@ export default function CartPage({
                   </tr>
                   <tr>
                     <td colSpan={2}>
-                      <FddBtn color='shade2' pill={false} className={s.payBtn} callback={handleNextPhase}>前往結帳</FddBtn>
+                      <FddBtn color='shade2' pill={false} className={s.payBtn} callback={goNextPhase}>前往結帳</FddBtn>
                     </td>
                   </tr>
                 </tbody>
