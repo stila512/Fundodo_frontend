@@ -125,7 +125,23 @@ export default function FillingPage({
   }
 
   const goNextPhase = () => {
-    setBuyInfoPkg();
+    const smaple = {
+      addressee: '',/* 收件人 */
+      email: '',/* 收件人信箱 */
+      phone_num: '',/* 收件人電話 */
+      ads_city: '',/* 收件縣市 */
+      ads_code: '',/* 收件郵遞區號 */
+      address: '',/* 收件地址 */
+    };
+    setBuyInfoPkg(prev => ({
+      ...prev,
+      orderInfo: {
+        ...prev.orderInfo,
+        ship_thru: isCVS ? "CVS" : "DLV",
+        ship_zipcode: orderData.ads_code,
+        ship_address: ""
+      }
+    }));
     setBuyPhase(3);
   }
 
@@ -228,7 +244,7 @@ export default function FillingPage({
                   <FddBtn color='white' pill={false} callback={() => goPrevPhase()}>
                     <FaAngleLeft />回到購物車
                   </FddBtn>
-                  <FddBtn color='primary' pill={false} size="lg" callback={() => { }}>確認送出</FddBtn>
+                  <FddBtn color='primary' pill={false} size="lg" callback={() => goNextPhase()}>確認送出</FddBtn>
                 </div>
               </div>
             </>)
