@@ -33,6 +33,7 @@ const colorList = {
  * @param {bool} icon 圓形款式 (optional)
  * @param {bool} outline 外框款式 (optional)
  * @param {string} href 連結路徑 (optional)
+ * @param {string} className 客製化樣式名稱 (optional)
  * @param {function} callback 按鈕 onClick 事件 (optional)
  * @description 按鈕內容文字如同一般 button 元件，擺在 HTML tag 內即可
  */
@@ -45,6 +46,7 @@ export default function FddBtn({
   outline = false,
   callback = undefined,
   href = '',
+  className = ''
 }) {
   if (!Object.prototype.hasOwnProperty.call(colorList, color)) {
     throw new Error(
@@ -79,13 +81,13 @@ export default function FddBtn({
 
   if (callback !== undefined) {
     return (
-      <button className={classStr} onClick={() => callback()}>
+      <button className={[classStr, className].join(' ')} onClick={() => callback()}>
         {children}
       </button>
     );
   } else if (href !== '') {
     return (
-      <Link className={classStr} href={href}>
+      <Link className={[classStr, className].join(' ')} href={href}>
         {children}
       </Link>
     );

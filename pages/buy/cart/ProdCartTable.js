@@ -131,7 +131,7 @@ export default function ProdCartTable({
               </td>
               <td>
                 <div className="mx-auto pe-1 tx-right w-fit">
-                  ${item.price_sp ? item.price_sp : item.price}
+                  ${item.price}
                 </div>
               </td>
               <td>

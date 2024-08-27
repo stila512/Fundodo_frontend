@@ -1,13 +1,12 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useRouter } from 'next/router';
-import DefaultLayout from '@/components/layout/default';
 import scss from './login.module.scss';
 import Image from 'next/image';
 import lfpic from '@/public/login.svg';
 import pswd_icon from '@/public/memberPic/password-icon.svg';
-import { useContext } from 'react';
 import { AuthContext } from '@/context/AuthContext';
 import Link from 'next/link';
+import Modal from '@/components/common/modal';
 
 export default function LoginPage() {
   // 顯示密碼使用
@@ -16,6 +15,23 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { login } = useContext(AuthContext);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [confirmEmail, setConfirmEmail] = useState('');
+
+  const openModal = () => {
+    console.log('開啟 Modal');
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    console.log('關閉 Modal');
+    setIsModalOpen(false);
+    setError(null);
+  };
+
+  const handleEmailChange = (e) => {
+    setConfirmEmail(e.target.value);
+  };
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -36,18 +52,18 @@ export default function LoginPage() {
         return response.json();
       })
       .then(data => {
-        console.log('Response Data:', data);
+        console.log('回應數據:', data);
         if (data.status === 'success' && data.token) {
-          console.log('Login successful, about to call login() and router.push()');
+          console.log('登入成功，準備呼叫 login() 和 router.push()');
           login(data.token);
           alert('登入成功');
-          console.log('Login function called, about to redirect');
+          console.log('登入函數已呼叫，準備重定向');
           router.push('/member')
-            .then(() => console.log('Navigation successful'))
-            .catch((err) => console.error('Navigation failed:', err));
+            .then(() => console.log('導航成功'))
+            .catch((err) => console.error('導航失敗:', err));
         } else {
-          setError(data.message || '登入失败');
-          alert(`登入失败:\n${data.message || '登入失败'}`);
+          setError(data.message || '登入失敗');
+          alert(`登入失敗:\n${data.message || '登入失敗'}`);
         }
       })
       .catch(error => {
@@ -55,6 +71,28 @@ export default function LoginPage() {
       })
       .finally(() => {
         setLoading(false);
+      });
+  };
+
+  const sendOTP = () => {
+    fetch('http://localhost:3005/api/member/email/send-otp', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email: confirmEmail }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 'success') {
+          alert('臨時密碼 已發送至您的電子信箱，請檢查您的電子信箱。');
+          closeModal();
+        } else {
+          setError(data.message || '發送 臨時密碼 失敗');
+        }
+      })
+      .catch(error => {
+        setError(error.message || '發送 臨時密碼 失敗');
       });
   };
 
@@ -86,7 +124,7 @@ export default function LoginPage() {
               </div>
             </div>
             <div className={scss.area3}>
-              <p>忘記密碼?</p>
+              <p onClick={openModal}> 忘記密碼?</p>
             </div>
             <div className={scss.area4}>
               <button className={scss.createBtn} type="submit"
@@ -96,6 +134,28 @@ export default function LoginPage() {
           <button className={scss.xBtn}>x</button>
         </div>
       </div>
+      {isModalOpen && (
+        <Modal
+          mode={1}
+          active={isModalOpen}
+          onClose={closeModal}
+          confirmText="發送 臨時密碼"
+          cancelText="取消"
+        >
+          <h4>忘記密碼</h4>
+          <p>請輸入你的電子信箱，我們將發送臨時密碼。</p>
+          <input
+            type="email"
+            value={confirmEmail}
+            onChange={handleEmailChange}
+            placeholder="輸入您的電子郵件"
+          />
+          <button onClick={sendOTP} disabled={!confirmEmail}>
+            發送
+          </button>
+          <button onClick={closeModal}>取消</button>
+        </Modal>
+      )}
     </main>
   );
 }
