@@ -10,27 +10,6 @@ export default function NavLinks() {
       </li>
       <li className={scss.listBtn}>
         <Link href="/prod">寵物商城</Link>
-        <IoIosArrowDown />
-        <ul className={scss.prodList}>
-          <li>
-            <Link href="/prod">狗勾飼料</Link>
-          </li>
-          <li>
-            <Link href="/prod">狗勾罐頭</Link>
-          </li>
-          <li>
-            <Link href="/prod">狗勾零食</Link>
-          </li>
-          <li>
-            <Link href="/prod">保健食品</Link>
-          </li>
-          <li>
-            <Link href="/prod">狗勾玩具</Link>
-          </li>
-          <li>
-            <Link href="/prod">外出用品</Link>
-          </li>
-        </ul>
       </li>
       <li className={scss.listBtn}>
         <Link href="/course">線上課程</Link>
