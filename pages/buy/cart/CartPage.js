@@ -15,6 +15,8 @@ import emptyCart from '@/public/cart/dog-in-cart.jpg';
 import Image from 'next/image';
 import FddBtn from '@/components/buttons/fddBtn';
 
+//todo 從訂購階段返回的情況應對機制尚未處理
+
 /** 商品三種類
  * ['PD', 'HT', 'CR']
  */
