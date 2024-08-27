@@ -11,9 +11,6 @@ import Head from 'next/head';
 import Link from 'next/link';
 import BuyLayout from '@/components/layout/buy';
 import BuyProgress from '@/components/buy/buyProgress';
-import ProdCartTable from './ProdCartTable';
-import HotelCartTable from './HotelCartTable';
-import CrsCartTable from './CrsCartTable';
 //== Styles =================================================================
 import Image from 'next/image';
 import FddBtn from '@/components/buttons/fddBtn';
@@ -35,14 +32,16 @@ export default function BuyPage() {
     coupons: [],
   });
 
+  const titleText = buyPhase ? ['', '購物車', '填寫付款資料', '確認付款'][buyPhase] : '購物車';
+
   return (
     <>
       <Head>
-        <title>{['購物車', '填寫付款資料', '確認付款'][buyPhase]} | Fundodo</title>
+        <title>{titleText} | Fundodo</title>
       </Head>
       <BuyProgress stage={buyPhase} />
 
-      {buyPhase === 1 && <CartPage setBuyPhase={setBuyPhase} />}
+      {buyPhase === 1 && <CartPage setBuyPhase={setBuyPhase} setBuyInfoPkg={setBuyInfoPkg} />}
       {buyPhase === 2 && <FillingPage setBuyPhase={setBuyPhase} />}
       {buyPhase === 3 && <ConfirmPage setBuyPhase={setBuyPhase} />}
     </>

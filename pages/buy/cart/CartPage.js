@@ -7,7 +7,6 @@ import axios from 'axios';
 import tokenDecoder from '@/context/token-decoder';
 import useAuthRedirect from '@/hooks/useAuthRedirect';
 //== Components ================================================================
-import Link from 'next/link';
 import ProdCartTable from './ProdCartTable';
 import HotelCartTable from './HotelCartTable';
 import CrsCartTable from './CrsCartTable';
@@ -17,7 +16,15 @@ import emptyCart from '@/public/cart/dog-in-cart.jpg';
 import Image from 'next/image';
 import FddBtn from '@/components/buttons/fddBtn';
 
-export default function CartPage() {
+/** 商品三種類
+ * ['PD', 'HT', 'CR']
+ */
+const SORT_LIST = ['PD', 'HT', 'CR'];
+
+export default function CartPage({
+  setBuyPhase = () => { },
+  setBuyInfoPkg = () => { }
+}) {
   //=============== useState 區
   //=============== user ID ====================================================
   /**
@@ -58,7 +65,10 @@ export default function CartPage() {
    *  @type {[object, React.Dispatch<object>]} */
   const [cartPkg, setCartPkg] = useState({ PD: [], HT: [], CR: [] })
 
-  // 三台購物車各自的刪除狀態紀錄
+  /** 三台購物車各自的刪除狀態紀錄
+   * true | 正常狀態 ; false | 自購物車刪除
+   *  此陣列在購物車資料讀取完畢後初始化
+   * */
   /** @type {[ boolean[][], React.Dispatch<boolean[][]> ]} */
   const [itemStateArr, setItemStateArr] = useState([[], [], []]);
 
@@ -193,7 +203,7 @@ export default function CartPage() {
     // 預設皆不啟動
     const initState = Array(cpList.length).fill(0);
     let verified = initState;
-    ['PD', 'HT', 'CR'].forEach(sort => {
+    SORT_LIST.forEach(sort => {
       if (cartPkg[sort].length === 0) {
         verified = verified.map((s, i_cp) => {
           if (cpList[i_cp].scope_from === sort || cpList[i_cp].scope_to === sort)
@@ -215,19 +225,13 @@ export default function CartPage() {
    * @returns {number} 折扣的金額
    */
   const handleDiscount = (coupon, amt_base) => {
-    switch (coupon.scope_from) {
-      case 'PD':
-        if (amtArr[0] === 0) return 0;
-        break;
-      case 'HT':
-        if (amtArr[1] === 0) return 0;
-        break;
-      case 'CR':
-        if (amtArr[2] === 0) return 0;
-        break;
-      default:
-        // TODO:擱置，目前暫無施工計畫
-        break;
+    const i_sort = SORT_LIST.indexOf(coupon.scope_from);
+
+    if (i_sort !== -1) {
+      // 如果前置條件的商品沒有購買，則優惠不會生效
+      if (amtArr[i_sort] === 0) return 0;
+    } else {
+      // TODO:擱置，商品如飼料的細項目前暫無施工計畫
     }
 
     const { max_discount, discount } = coupon;
@@ -262,6 +266,7 @@ export default function CartPage() {
           delta = handleDiscount(coupon, amtArr[2]);
           break;
         default:
+          // TODO:擱置，商品如飼料的細項目前暫無施工計畫
           break;
       }
       return delta;
@@ -316,17 +321,71 @@ export default function CartPage() {
         setCpState(cpState.map((v, i) => i === j ? 0 : v))
         return;
       case -1:
-        setCpState(cpState.map(v => v))
-        return;
       default:
         setCpState(cpState.map(v => v))
         return;
     }
   }
 
+  const handleNextPhase = () => {
+    const target = {
+      coupons: [],
+      orderInfo: {
+        user_id: 0,
+        amount: 0,
+        ship_thru: null,
+        pay_thru: null,
+      },
+      boughtItems: [
+        {
+          purchase_sort: null,
+          purchase_id: 0,
+          purchase_price: 0,
+          cart_id: 0,
+          room_type: ''/* for Hotel only */
+        }
+      ],
+    };
+    setBuyInfoPkg(prev => {
+      const copy = JSON.parse(JSON.stringify(prev));
+      //*===== 打包優惠券資訊: coupon_user IDs
+      copy.coupons = cpState
+        .map((isActive, i_cp) => isActive ? cpList[i_cp].id : null)
+        .filter(v => v);
+
+      //*===== 打包購買品項資訊: 訂單所需及 cart IDs
+      copy.buyItems = itemStateArr.flatMap(
+        (arr, i_sort) => arr.map((isActive, i_cart) => {
+          if (!isActive) return null;
+
+          const sKey = SORT_LIST[i_sort];
+          const cartItem = cartPkg[sKey][i_cart];
+          return {
+            purchase_sort: sKey,
+            purchase_id: cartItem.buy_id,
+            purchase_price: i_sort === 1 ? null : cartItem.price,
+            cart_id: cartItem.id,
+            room_type: i_sort === 1 ? cartItem.room_type : ''
+          };
+        })
+      ).filter(v => v);
+
+      //*===== 打包訂單所需資訊: 總金額及 user ID
+      copy.orderInfo = {
+        ...copy.orderInfo,
+        user_id: uID,
+        amount: totalArr[1],
+      }
+
+      return copy;
+    })
+
+    setBuyPhase(2);
+  }
+
 
   /** 購物車是否全空 */
-  const isEmpty = !(cartPkg.CR || cartPkg.HT || cartPkg.CR)
+  const isEmpty = !(SORT_LIST.some(s => cartPkg[s]))
     || !itemStateArr.reduce(
       (indicator, currentArr) => indicator || currentArr.some(v => v),
       false);
@@ -336,24 +395,15 @@ export default function CartPage() {
 
       {isEmpty || <>
         <section className="container mt-5">
-          <ProdCartTable
-            data={cartPkg.PD}
-            itemStateArr={itemStateArr[0]}
-            setItemStateArr={setItemStateArr}
-            setAmount={setAmtArr}
-          />
-          <HotelCartTable
-            data={cartPkg.HT}
-            itemStateArr={itemStateArr[1]}
-            setItemStateArr={setItemStateArr}
-            setAmount={setAmtArr}
-          />
-          <CrsCartTable
-            data={cartPkg.CR}
-            itemStateArr={itemStateArr[2]}
-            setItemStateArr={setItemStateArr}
-            setAmount={setAmtArr}
-          />
+          {[ProdCartTable, HotelCartTable, CrsCartTable].map((Component, i) => (
+            <Component
+              key={i}
+              data={cartPkg[SORT_LIST[i]]}
+              itemStateArr={itemStateArr[i]}
+              setItemStateArr={setItemStateArr}
+              setAmount={setAmtArr}
+            />
+          ))}
           <div className='d-flex jc-end'>
             <FddBtn color='primary' pill={false} href='/prod'>
               繼續購物
@@ -411,7 +461,7 @@ export default function CartPage() {
                   </tr>
                   <tr>
                     <td colSpan={2}>
-                      <Link className={s.payBtn} href='/buy/confirm'>前往結帳</Link>
+                      <FddBtn color='shade2' pill={false} className={s.payBtn} callback={handleNextPhase}>前往結帳</FddBtn>
                     </td>
                   </tr>
                 </tbody>
@@ -420,17 +470,18 @@ export default function CartPage() {
           </article>
         </section>
       </>}
-      {isEmpty && <section className="container pt-3">
-        <h4 className='my-5 tx-lg tx-shade3 tx-center'>現在購物車空無一物</h4>
-        <div className='hstack jc-around'>
-          <FddBtn color='tint1' size='sm' href='/course'>來去逛逛寵物商城</FddBtn>
-          <FddBtn color='tint1' size='sm' href='/course'>來去逛逛寵物旅館</FddBtn>
-          <FddBtn color='tint1' size='sm' href='/course'>來去逛逛寵物課程</FddBtn>
-        </div>
-        <div className='img-wrap-w100 mx-auto' style={{ width: '40vw' }}>
-          <Image src={emptyCart} alt="empty cart" width={0} height={0} />
-        </div>
-      </section>}
+      {isEmpty &&
+        <section className="container pt-3">
+          <h4 className='my-5 tx-lg tx-shade3 tx-center'>現在購物車空無一物</h4>
+          <div className='hstack jc-around'>
+            <FddBtn color='tint1' size='sm' href='/course'>來去逛逛寵物商城</FddBtn>
+            <FddBtn color='tint1' size='sm' href='/course'>來去逛逛寵物旅館</FddBtn>
+            <FddBtn color='tint1' size='sm' href='/course'>來去逛逛寵物課程</FddBtn>
+          </div>
+          <div className='img-wrap-w100 mx-auto' style={{ width: '40vw' }}>
+            <Image src={emptyCart} alt="empty cart" width={0} height={0} />
+          </div>
+        </section>}
     </>
   );
 };
