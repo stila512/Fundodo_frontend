@@ -9,21 +9,36 @@ export default function FavoriteIcon({ className = {}, size = 24, style = {}, pr
     const router = useRouter();
 
     useEffect(() => {
-        // 檢查該商品是否已經在收藏列表中
         if (user) {
             checkIfFavorite();
         }
     }, [user, productId]);
 
     const checkIfFavorite = async () => {
-        // 向後端 API 發送請求，檢查該商品是否已被收藏
         try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                console.error('No token found');
+                return;
+            }
+            
+
             const response = await fetch(`http://localhost:3005/api/prod/check/${productId}`, {
                 method: 'GET',
                 headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    'Authorization': `Bearer ${token}`
                 }
             });
+
+            if (response.status === 401) {
+                // 可能需要在這裡處理登出邏輯
+                return;
+            }
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
             const data = await response.json();
             setIsFavorite(data.isFavorite);
         } catch (error) {
@@ -31,36 +46,51 @@ export default function FavoriteIcon({ className = {}, size = 24, style = {}, pr
         }
     };
 
-    const toggleFavorite = async () => {
-        if (loading) return;
+		const toggleFavorite = async () => {
+			if (loading) return;
 
-        if (!user) {
-            alert('請先登入以收藏商品');
-            router.push('/login');
-            return;
-        }
+			if (!user) {
+					alert('請先登入以收藏商品');
+					router.push('/member/login');
+					return;
+			}
 
-        try {
-            const response = await fetch('http://localhost:3005/api/prod', {
-                method: isFavorite ? 'DELETE' : 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify({ productId, productData })
-            });
+			try {
+					const token = localStorage.getItem('token');
+					if (!token) {
+							console.error('No token found');
+							alert('請重新登入');
+							router.push('/member/login');
+							return;
+					}
 
-            if (response.ok) {
-                setIsFavorite(!isFavorite);
-                alert(isFavorite ? '已從收藏移除' : '已加入收藏');
-            } else {
-                throw new Error('操作失敗');
-            }
-        } catch (error) {
-            console.error('收藏操作失敗:', error);
-            alert('操作失敗，請稍後再試');
-        }
-    };
+					const response = await fetch(`http://localhost:3005/api/prod`, {
+							method: isFavorite ? 'DELETE' : 'POST',
+							headers: {
+									'Content-Type': 'application/json',
+									'Authorization': `Bearer ${token}`
+							},
+							body: JSON.stringify({ productId, productData })
+					});
+
+					if (response.status === 401) {
+							alert('登入已過期，請重新登入');
+							router.push('/member/login');
+							return;
+					}
+
+					if (!response.ok) {
+							throw new Error(`HTTP error! status: ${response.status}`);
+					}
+
+					const result = await response.json();
+					setIsFavorite(!isFavorite);
+					alert(result.message);
+			} catch (error) {
+					console.error('收藏操作失敗:', error);
+					alert('操作失敗，請稍後再試');
+			}
+	};
 
     return (
         <div
@@ -68,7 +98,7 @@ export default function FavoriteIcon({ className = {}, size = 24, style = {}, pr
             onClick={toggleFavorite}
             style={{ fontSize: size, ...style, cursor: 'pointer' }}
         >
-            {isFavorite ? <FaHeart color="red" /> : <FaRegHeart />}
+            {isFavorite ? <FaHeart color="#B9A399" /> : <FaRegHeart />}
         </div>
     );
 }

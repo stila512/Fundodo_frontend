@@ -5,7 +5,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { IoCart } from 'react-icons/io5';
 import scss from './navHeader.module.scss';
 import { IoIosLogOut } from "react-icons/io";
-
+import { FaHeart } from 'react-icons/fa'; 
 export default function NavFuncBtns({ showCart = true }) {
   const { logout } = useContext(AuthContext);
   const handleLogout = () => {
@@ -24,6 +24,12 @@ export default function NavFuncBtns({ showCart = true }) {
       <li>
         <a href="/member/login">
           <IoMdPerson />
+        </a>
+      </li>
+      {/* 我的最愛 */}
+      <li>
+        <a href="/prod/list/favoriteProd">
+        <FaHeart size={24} />
         </a>
       </li>
       {/* 購物車 */}
