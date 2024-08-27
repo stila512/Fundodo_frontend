@@ -42,7 +42,6 @@ export default function CourseDetail() {
             setCourse(courseData);
         } catch (err) {
             console.error("Failed fetching course details", err);
-            // 可以在這裡設置一個錯誤狀態
         }
     }
 
@@ -107,7 +106,7 @@ export default function CourseDetail() {
 
                         <div className={scss.section}>
                             <h3>課程資訊</h3>
-                            <p><strong>創建日期: </strong>{formatDate(course.created_at)}</p>
+                            <p><strong>創建日期: </strong>{formatDateTime(course.created_at)}</p>
                             {course.updated_at && (
                                 <p>最後更新：{formatDateTime(course.updated_at)}</p>
                             )}
@@ -128,7 +127,7 @@ export default function CourseDetail() {
                                             <li key={lesson.id}>
                                                 <span>{chapterIndex + 1}.{lessonIndex + 1} {lesson.name}</span>
                                                 <span>時長: {lesson.duration}分鐘</span>
-                                                <span className={scss.filename}><FaFile /> {lesson.video_path}</span>
+                                                <span className={scss.filename}><FaFile /> {lesson.video_path.split('/').pop()}</span>
                                             </li>
                                         ))}
                                     </ul>

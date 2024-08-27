@@ -156,7 +156,7 @@ export default function CourseAdd() {
     formData.append('original_price', course.original_price);
     formData.append('sale_price', course.sale_price);
     
-    // 添加標籤
+    // 添加分類
     course.tags.forEach(tag => formData.append('tags[]', tag));
     
     // 添加封面圖片
@@ -177,11 +177,8 @@ export default function CourseAdd() {
     course.chapters.forEach((chapter, chapterIndex) => {
       chapter.lessons.forEach((lesson, lessonIndex) => {
         if (lesson.video_path instanceof File) {
-          console.log(`Adding video for chapter ${chapterIndex}, lesson ${lessonIndex}:`, lesson.video_path);
-          formData.append('video_path', lesson.video_path, lesson.video_path.name);
-        } else {
-          console.warn(`No video file for chapter ${chapterIndex}, lesson ${lessonIndex}`);
-        }
+          formData.append('video_path', lesson.video_path, `video_${chapterIndex}_${lessonIndex}_${lesson.video_path.name}`);
+        } 
       });
     });
 
@@ -398,6 +395,14 @@ export default function CourseAdd() {
             </div>
           </form>
         </div>
+        <Modal
+          mode={1}
+          active={showModal}
+          onClose={() => setShowModal(false)}
+        >
+          <h4>{modalContent.title}</h4>
+          <p>{modalContent.message}</p>
+        </Modal>
       </BackendLayout>
     </>
   );

@@ -127,7 +127,7 @@ export default function CourseEdit() {
     course.chapters.forEach((chapter, chapterIndex) => {
       chapter.lessons.forEach((lesson, lessonIndex) => {
         if (lesson.video_path instanceof File) {
-          formData.append(`video_${chapterIndex}_${lessonIndex}`, lesson.video_path, lesson.video_path.name);
+          formData.append('video_path', lesson.video_path, `video_${chapterIndex}_${lessonIndex}_${lesson.video_path.name}`);
         }
       });
     });
@@ -266,7 +266,7 @@ export default function CourseEdit() {
                             onChange={(e) => handleLessonChange(chapterIndex, lessonIndex, 'video_path', e.target.files[0])}
                           />
                           {lesson.video_path && (
-                            <p>當前影片: {lesson.video_path.name || lesson.video_path}</p>
+                            <p>當前影片: {typeof lesson.video_path === 'string' ? lesson.video_path.split('/').pop() : lesson.video_path.name}</p>
                           )}
                         </div>
                       ))}
