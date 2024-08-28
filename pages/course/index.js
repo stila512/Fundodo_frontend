@@ -43,30 +43,6 @@ export default function Course() {
     }
   }, [currentPage, coursesPerPage, selectedCategory, sortBy]);
 
-  // useEffect(() => {
-  //   const filteredCourses = courses.filter(course => 
-  //     selectedCategory === '全部分類' || course.tags.includes(selectedCategory)
-  //   );
-
-  //   const sortedCourses = [...filteredCourses].sort((a, b) => {
-  //     switch (sortBy) {
-  //       case 'newest':
-  //         return new Date(b.created_at) - new Date(a.created_at);
-  //       case 'mostViewed':
-  //         return b.viewed_count - a.viewed_count;
-  //       case 'priceLowToHigh':
-  //         return a.sale_price - b.sale_price;
-  //       case 'priceHighToLow':
-  //         return b.sale_price - a.sale_price;
-  //       default:
-  //         return 0;
-  //     }
-  //   });
-
-  //   setDisplayedCourses(sortedCourses.slice(0, coursesPerPage));
-  //   setTotalPages(Math.ceil(sortedCourses.length / coursesPerPage));
-  // }, [courses, selectedCategory, sortBy, coursesPerPage]);
-
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
     // 頁面變化時，會觸發 useEffect 重新獲取數據
