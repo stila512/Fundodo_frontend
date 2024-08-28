@@ -65,6 +65,19 @@ export default function List() {
     getHotels()
   }, [])
 
+    //紀錄上下架狀態跟數量
+    const handleStatusSelect = (status) => {
+      setSelectedStatus(status);
+      if (status === 'all') {
+        setFilteredHotels(hotels);
+      } else {
+        const filtered = hotels.filter(hotel =>
+          status === 'active' ? hotel.valid === 1 : hotel.valid === 0
+        );
+        setFilteredHotels(filtered);
+      }
+    }
+
   //搜尋
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value)
@@ -78,18 +91,7 @@ export default function List() {
     setFilteredHotels(filtered)
   }
 
-  //紀錄上下架狀態跟數量
-  const handleStatusSelect = (status) => {
-    setSelectedStatus(status);
-    if (status === 'all') {
-      setFilteredHotels(hotels);
-    } else {
-      const filtered = hotels.filter(hotel =>
-        status === 'active' ? hotel.valid === 1 : hotel.valid === 0
-      );
-      setFilteredHotels(filtered);
-    }
-  }
+
 
   //刪除
   const handleDelete = async (id) => {

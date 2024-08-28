@@ -8,6 +8,7 @@ import HotelImg from './hotelImg';
 import SelectBar from './selectBar'
 import Content from './content'
 import useAuthRedirect from '@/hooks/useAuthRedirect';
+import Modal from '@/components/common/modal';
 
 
 export default function HotelPage() {

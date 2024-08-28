@@ -3,6 +3,7 @@ import Head from 'next/head'
 import BackendLayout from '@/components/layout/backend'
 import styles from './add.module.scss';
 import Image from 'next/image';
+import Modal from '@/components/common/modal';
 import { RiImageAddFill } from "react-icons/ri";
 
 
