@@ -6,6 +6,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoAddCircle } from 'react-icons/io5';
 import review from "@/public/homePic/review.png";
+import HtBg from '@/public/homePic/ht_bg.svg'
 
 
 
@@ -13,7 +14,7 @@ import review from "@/public/homePic/review.png";
 export default function HotelSec() {
   return (
     <>
-      <div className={scss.hotel}>
+      <div className={scss.hotel} style={{'--bg-image': `url(${HtBg.src})`}}>
         <div className="container">
           <div className={scss.hotelSec}>
             <div className={scss.hotelContent}>
