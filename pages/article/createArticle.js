@@ -15,8 +15,11 @@ export default function CreateArticle() {
   const [content, setContent] = useState('')
   const [sortOptions, setSortOptions] = useState([])
   const [selectedSort, setSelectedSort] = useState('0')
+  const [tag1, setTag1] = useState('')
+  const [tag2, setTag2] = useState('')
+  const [tag3, setTag3] = useState('')
   const router = useRouter()
-  const{user,loading}=useContext(AuthContext)
+  const { user, loading } = useContext(AuthContext)
   const [currentUser, setCurrentUser] = useState(null)
 
   useEffect(() => {
@@ -52,6 +55,9 @@ export default function CreateArticle() {
       alert('請選擇文章分類');
       return;
     }
+    
+    const tags = [tag1, tag2, tag3].filter(tag => tag.trim() !== '');
+
     try {
       // 從 content 中提取所有的 imageId
       const parser = new DOMParser();
@@ -63,7 +69,7 @@ export default function CreateArticle() {
         const match = src.match(/articleImage-(\d+)-\d+.png/);
         return match ? parseInt(match[1]) : null;
       }).filter(id => id !== null);
-      const response = await axios.post('http://localhost:3005/api/article/createArticle', { title, content, sort: selectedSort, imageIds,userId: currentUser.userId });
+      const response = await axios.post('http://localhost:3005/api/article/createArticle', { title, content, sort: selectedSort, imageIds, userId: currentUser.userId,tags });
       console.log('Article created:', response.data)
       alert('文章發表成功')
       router.push(`/article`)
@@ -101,6 +107,29 @@ export default function CreateArticle() {
               ))}
             </select>
             <Editor content={content} setContent={setContent} editorHei="400px" />
+            <div className={scss.tagInputs}>
+              <input
+                type="text"
+                value={tag1}
+                onChange={(e) => setTag1(e.target.value)}
+                placeholder="標籤 1 (選填)"
+                className={scss.tagInput}
+              />
+              <input
+                type="text"
+                value={tag2}
+                onChange={(e) => setTag2(e.target.value)}
+                placeholder="標籤 2 (選填)"
+                className={scss.tagInput}
+              />
+              <input
+                type="text"
+                value={tag3}
+                onChange={(e) => setTag3(e.target.value)}
+                placeholder="標籤 3 (選填)"
+                className={scss.tagInput}
+              />
+            </div>
             <div>
               <button className={scss.postBtn} type="submit">發布文章</button>
             </div>

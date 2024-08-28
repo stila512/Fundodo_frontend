@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Image from 'next/image';
+import Link from 'next/link';
 import scss from '@/pages/article/contentItems/articleContent.module.scss';
 import { BsThreeDotsVertical } from "react-icons/bs";
 
-export default function ArticleContent() {
+export default function ArticleContent({ user, onContentLoad }) {
   const formatDate = (dateString) => {
     const date = new Date(dateString)
     return date.toLocaleString('zh-TW', {
@@ -20,17 +21,31 @@ export default function ArticleContent() {
   const [content, setContent] = useState({})
   const router = useRouter()
   const { aid } = router.query
+
   useEffect(() => {
     if (aid) {
       fetch(`http://localhost:3005/api/article/articleContent/${aid}`)
         .then(response => response.json())
         .then(data => {
           if (data.status === 'success') {
-            setContent(data.content[0])
+            const articleContent = {
+              ...data.content[0],
+              tags: data.content[0].tags ?
+                (Array.isArray(data.content[0].tags) ? data.content[0].tags : data.content[0].tags.split(','))
+                : []
+            }
+            setContent(articleContent);
+            onContentLoad(data.content[0])
           }
         }).catch(error => console.log(error.message))
     }
-  }, [aid])
+  }, [aid, onContentLoad])
+
+  const canEdit = () => {
+    if (!user || !content) return false;
+    return user.userId === content.userid || (user.userLevel && user.userLevel > 2);
+  }
+
   return (
     <>
       <div className={[scss.articleContent].join()}>
@@ -48,7 +63,11 @@ export default function ArticleContent() {
               <p className={[scss.creatTime].join()}>{formatDate(content.create_at)}</p>
             </div>
           </div>
-          <a href={`/article/editArticle?aid=${aid}`}><BsThreeDotsVertical /></a>
+          {canEdit() && (
+            <a href={`/article/editArticle?aid=${aid}`}>
+              <BsThreeDotsVertical />
+            </a>
+          )}
         </div>
         <div className={[scss.articleTitle].join()}>{content.title}</div>
         <div className={[scss.mainContent].join()}>
@@ -56,9 +75,13 @@ export default function ArticleContent() {
         </div>
         <div className={[scss.artiInfo].join()}>
           <div className={[scss.artiTags].join()}>
-            <div className={[scss.tag].join()}><p>狗狗</p></div>
-            <div className={[scss.tag].join()}><p>寵物</p></div>
-            <div className={[scss.tag].join()}><p>內有惡犬</p></div>
+            {content.tags && content.tags.map((tag, index) => (
+              <Link key={index} href={`/article?tag=${encodeURIComponent(tag)}`}>
+                <div className={[scss.tag].join()}>
+                  <p>{tag}</p>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </div>

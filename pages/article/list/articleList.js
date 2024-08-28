@@ -9,7 +9,7 @@ export default function ArticleList() {
   const [page, setPage] = useState(1)
   const perPage = 6
   const router=useRouter()
-  const { sort,search } = router.query
+  const { sort,search,tag } = router.query
   
   useEffect(() => {
     const fetchArticles = async () => {
@@ -21,6 +21,9 @@ export default function ArticleList() {
       }
       if (search) {
         params.append('search', search)
+      }
+      if (tag) {
+        params.append('tag', tag)
       }
 
       url += params.toString()
@@ -37,14 +40,21 @@ export default function ArticleList() {
     };
 
     fetchArticles();
-  }, [sort, search])
+  }, [sort, search,tag])
   
 
   const thisPage = page * perPage
   const fitstArticle = thisPage - perPage
   const currentArticle = articles.slice(fitstArticle, thisPage)
 
-  const changePage = (pageNum) => setPage(pageNum)
+  const changePage = (pageNum) => {
+    setPage(pageNum);
+    // 滾動到頁面頂部
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // 這會使滾動更平滑
+    });
+  }
   return (
     <>
       {' '}
