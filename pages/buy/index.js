@@ -2,27 +2,38 @@
 import { apiBaseUrl } from '@/configs';
 //== Functions ==============================================================
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import useAuthRedirect from '@/hooks/useAuthRedirect';
-//== Components =============================================================
-import Head from 'next/head';
+import tokenDecoder from '@/context/token-decoder';
 import BuyLayout from '@/components/layout/buy';
 import BuyProgress from '@/components/buy/buyProgress';
 //== Styles =================================================================
-import FddBtn from '@/components/buttons/fddBtn';
 import CartPage from './cart/CartPage';
 import FillingPage from './fill-form/FillingPage';
 import ConfirmPage from './confirm/ConfirmPage';
 
 export default function BuyPage() {
+  //====================== 會員偵測 ====================================
   //===== 驗證登入狀態
   useAuthRedirect();
 
+  //===== user ID
+  /**
+     * user ID
+     *  @type {[number, React.Dispatch<number>]} */
+  const [uID, setUID] = useState(0);
+  //===== 解讀登入的會員 ID
+  useEffect(() => {
+    const { userId } = tokenDecoder();
+
+    if (userId && userId > 0) setUID(userId);
+    else console.log("是不是登出惹？userId: ", userId);
+  }, []);
+  //====================== 會員偵測 END ====================================
 
   /**
    * 購買流程
    *  @type {[number, React.Dispatch<number>]} */
-  const [buyPhase, setBuyPhase] = useState(2);
+  const [buyPhase, setBuyPhase] = useState(1);
 
 
   const initBuyInfoPkg = {
@@ -30,6 +41,9 @@ export default function BuyPage() {
     orderInfo: {
       user_id: 0,
       amount: 0,
+      addressee: "",
+      email: "",
+      phone_num: "",
       pay_thru: "",
       ship_thru: "",
       ship_zipcode: "",
@@ -52,21 +66,28 @@ export default function BuyPage() {
 
 
 
-  const titleText = buyPhase ? ['', '購物車', '填寫付款資料', '確認付款'][buyPhase] : '購物車';
 
   return (
     <>
-      <Head>
-        <title>{titleText} | Fundodo</title>
-      </Head>
       <BuyProgress stage={buyPhase} />
 
       {buyPhase === 1 &&
-        <CartPage setBuyPhase={setBuyPhase} setBuyInfoPkg={setBuyInfoPkg} />}
+        <CartPage
+          userID={uID}
+          setBuyPhase={setBuyPhase}
+          setBuyInfoPkg={setBuyInfoPkg}
+        />}
       {buyPhase === 2 &&
-        <FillingPage setBuyPhase={setBuyPhase} setBuyInfoPkg={setBuyInfoPkg} />}
+        <FillingPage
+          userID={uID}
+          setBuyPhase={setBuyPhase}
+          setBuyInfoPkg={setBuyInfoPkg}
+        />}
       {buyPhase === 3 &&
-        <ConfirmPage setBuyPhase={setBuyPhase} />}
+        <ConfirmPage
+          setBuyInfoPkg={setBuyInfoPkg}
+          buyInfoPkg={buyInfoPkg}
+        />}
     </>
   )
 }
