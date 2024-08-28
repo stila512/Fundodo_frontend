@@ -1,0 +1,48 @@
+.svgComposition {
+  position: relative;
+  width: 100%;
+  height: 300px; // 根據需要調整高度
+}
+
+.svgWrapper {
+  position: absolute;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  
+}
+
+@keyframes moveLeftRight {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(20px); }
+}
+@keyframes moveUpDown {
+  100%, 0% { transform: translateY(40px); }
+  50% { transform: translate(0px); }
+}
+
+.dog {
+  top: -10%;
+  animation-name: moveUpDown;
+  z-index: 5;
+}
+
+.main {
+  z-index: 4;
+}
+
+.cloud1 {
+  animation-name: moveLeftRight;
+  animation-delay: 1s;
+  z-index: 3;
+}
+
+.cloud2 {
+  animation-name: moveLeftRight;
+  animation-delay: 1.5s;
+  z-index: 2;
+}
+
+.bg {
+ z-index: 1;
+}

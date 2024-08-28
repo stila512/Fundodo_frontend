@@ -2,11 +2,16 @@
 
 .hotel{
     background-color: $secondary;
+    background-image: var(--bg-image);
+    // background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  
 }
 
 
 .hotelSec {
-    height: 728px;
+  height: 768px;
   padding-top: 75px;
 }
 
@@ -14,6 +19,7 @@
 .hotelContent {
     display: flex;
     justify-content: space-between;   
+    
     //   .arrows {
     //     background-color: #B9A399;
     //     width: 64px;

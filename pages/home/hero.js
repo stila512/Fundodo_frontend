@@ -5,6 +5,10 @@ import FddBtn from '@/components/buttons/fddBtn';
 import dog1 from '@/public/homePic/dog1.png';
 import dog2 from '@/public/homePic/dog2.png';
 import dog3 from '@/public/homePic/dog3.png';
+import dogs from '@/public/homePic/dogs.png';
+import HeroBg from '@/public/homePic/hero_bg.svg'
+
+
 
 export default function Hero() {
   return (
@@ -12,8 +16,14 @@ export default function Hero() {
       <div className="container">
         <main>
           <section className={[scss.hero, "d-flex", "jc-between", "ai-center"].join(' ')}>
+            <Image
+              src={HeroBg}
+              alt="Background"
+              layout="fill"
+              quality={100}
+            />
             <div className={scss.hero_text}>
-              <h1>您的寵物，我們的關愛</h1>
+              <h1>專屬毛小孩的幸福</h1>
               <p>
                 提供頂級狗糧、各式用品、專業寵物照顧線上課程和優質住宿服務，
                 <br />
@@ -29,9 +39,7 @@ export default function Hero() {
               </div>
             </div>
             <div className={scss.hero_image}>
-              <Image className="img-wrap" src={dog1} alt="Hero Image" />
-              <Image className="img-wrap" src={dog2} alt="Hero Image" />
-              <Image className="img-wrap" src={dog3} alt="Hero Image" />
+              <Image src={dogs} layout="responsive" />
             </div>
           </section>
         </main>
