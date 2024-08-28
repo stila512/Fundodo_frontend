@@ -1,0 +1,15 @@
+@import '@/styles';
+
+.row > div {
+  margin-bottom: rem(58px);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+
+  &,
+  th {
+    border: 1px solid $shade2;
+  }
+}
