@@ -21,7 +21,7 @@ export default function Course() {
 
   useEffect(() => {
     // 獲取課程數據
-    fetch('http://localhost:3005/api/course')
+    fetch(`http://localhost:3005/api/course?page=${currentPage}&perPage=${coursesPerPage}&category=${selectedCategory}&sort=${sortBy}`)
       .then(res => res.json())
       .then(result => {
         const processedCourses = result.data.map(course => ({
@@ -29,50 +29,54 @@ export default function Course() {
           img_path: course.img_path ? `/images/${course.img_path}` : null
         }));
         setCourses(processedCourses);
+        setDisplayedCourses(processedCourses); // 直接設置顯示的課程
+        setTotalPages(result.totalPages); // 使用 API 返回的總頁數
       })
       .catch(err => console.log(err));
+  
+    // 獲取分類數據（如果還沒有獲取）
+    if (categories.length === 0) {
+      fetch("http://localhost:3005/api/course/tags")
+        .then(res => res.json())
+        .then(result => setCategories([{ id: 0, name: '全部分類' }, ...result.data]))
+        .catch(err => console.log(err));
+    }
+  }, [currentPage, coursesPerPage, selectedCategory, sortBy]);
 
-    // 獲取分類數據
-    fetch("http://localhost:3005/api/course/tags")
-      .then(res => res.json())
-      .then(result => setCategories([{ id: 0, name: '全部分類' }, ...result.data]))
-      .catch(err => console.log(err));
-  }, []);
+  // useEffect(() => {
+  //   const filteredCourses = courses.filter(course => 
+  //     selectedCategory === '全部分類' || course.tags.includes(selectedCategory)
+  //   );
 
-  useEffect(() => {
-    const filteredCourses = courses.filter(course => 
-      selectedCategory === '全部分類' || course.tags.includes(selectedCategory)
-    );
+  //   const sortedCourses = [...filteredCourses].sort((a, b) => {
+  //     switch (sortBy) {
+  //       case 'newest':
+  //         return new Date(b.created_at) - new Date(a.created_at);
+  //       case 'mostViewed':
+  //         return b.viewed_count - a.viewed_count;
+  //       case 'priceLowToHigh':
+  //         return a.sale_price - b.sale_price;
+  //       case 'priceHighToLow':
+  //         return b.sale_price - a.sale_price;
+  //       default:
+  //         return 0;
+  //     }
+  //   });
 
-    const sortedCourses = [...filteredCourses].sort((a, b) => {
-      switch (sortBy) {
-        case 'newest':
-          return new Date(b.created_at) - new Date(a.created_at);
-        case 'mostViewed':
-          return b.viewed_count - a.viewed_count;
-        case 'priceLowToHigh':
-          return a.sale_price - b.sale_price;
-        case 'priceHighToLow':
-          return b.sale_price - a.sale_price;
-        default:
-          return 0;
-      }
-    });
-
-    setTotalPages(Math.ceil(sortedCourses.length / coursesPerPage));
-    const startIndex = (currentPage - 1) * coursesPerPage;
-    setDisplayedCourses(sortedCourses.slice(startIndex, startIndex + coursesPerPage));
-  }, [courses, selectedCategory, sortBy, currentPage]);
+  //   setDisplayedCourses(sortedCourses.slice(0, coursesPerPage));
+  //   setTotalPages(Math.ceil(sortedCourses.length / coursesPerPage));
+  // }, [courses, selectedCategory, sortBy, coursesPerPage]);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
+    // 頁面變化時，會觸發 useEffect 重新獲取數據
   };
 
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
     setCurrentPage(1); // 重置到第一頁
   };
-
+  
   const handleSortChange = (newSortBy) => {
     setSortBy(newSortBy);
     setCurrentPage(1); // 重置到第一頁
@@ -84,19 +88,22 @@ export default function Course() {
     for (let i = 1; i <= totalPages; i++) {
       pageNumbers.push(i);
     }
+  
+    return (
+      <div className={scss.pagination}>
+        {pageNumbers.map(number => (
+          <button
+            key={number}
+            onClick={() => handlePageChange(number)}
+            className={number === currentPage ? scss.activePage : ''}
+          >
+            {number}
+          </button>
+        ))}
+      </div>
+    );
+  };
 
-  
-      return pageNumbers.map(number => (
-        <button
-          key={number}
-          onClick={() => handlePageChange(number)}
-          className={number === currentPage ? scss.activePage : ''}
-        >
-          {number}
-        </button>
-      ));
-    };
-  
 
   return (
     <>
@@ -118,7 +125,7 @@ export default function Course() {
         <CourseGrid courses={displayedCourses} />
 
         <div className={scss.pagination}>
-            {renderPagination()}
+        {renderPagination()}
           </div>
       </div>
 

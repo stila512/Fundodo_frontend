@@ -14,7 +14,7 @@ export default function CourseDetail() {
     const [course, setCourse] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [modalContent, setModalContent] = useState({ title: '', message: '' });
-  
+
 
     const formatDate = (dateString) => {
         const date = parseISO(dateString);
@@ -155,7 +155,12 @@ export default function CourseDetail() {
                                             <li key={lesson.id}>
                                                 <span>{chapterIndex + 1}.{lessonIndex + 1} {lesson.name}</span>
                                                 <span>時長: {lesson.duration}分鐘</span>
-                                                <span className={scss.filename}><FaFile /> {lesson.video_path.split('/').pop()}</span>
+                                                <span className={scss.filename}>
+                                                    <FaFile />
+                                                    {lesson.video_path
+                                                        ? lesson.video_path.split('/').pop()
+                                                        : '無影片文件'}
+                                                </span>
                                             </li>
                                         ))}
                                     </ul>

@@ -12,7 +12,7 @@ const VideoPlayer = ({ video_path }) => {
     return (
         <div className={scss.videoWrapper}>
             <video key={video_path} controls className={scss.videoPlayer}>
-                <source src={`http://localhost:3005${video_path}`} type='video/mp4' />
+            <source src={`http://localhost:3005${video_path}`} type='video/mp4' />
                 Your browser does not support the video tag.
             </video>
         </div>

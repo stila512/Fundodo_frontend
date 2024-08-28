@@ -67,7 +67,7 @@ export default function AddCart({ original_price, sale_price, id }) {
         buy_id: id,
         quantity: 1,
       };
-      const response = await fetch('http://localhost:3005/api/cart', {
+      const response = await fetch('http://localhost:3005/api/course/cart', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
