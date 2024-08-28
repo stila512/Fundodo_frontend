@@ -4,11 +4,11 @@ import dataEmergency from '@/data/cart-emergency.json';
 //== Functions =================================================================
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import tokenDecoder from '@/context/token-decoder';
 //== Components ================================================================
-import ProdCartTable from './ProdCartTable';
-import HotelCartTable from './HotelCartTable';
-import CrsCartTable from './CrsCartTable';
+import Head from 'next/head';
+import ProdCartTable from './TableProd';
+import HotelCartTable from './TableHotel';
+import CrsCartTable from './TableCrs';
 //== Styles =================================================================
 import s from "./cart-page.module.scss";
 import emptyCart from '@/public/cart/dog-in-cart.jpg';
@@ -23,16 +23,11 @@ import FddBtn from '@/components/buttons/fddBtn';
 const SORT_LIST = ['PD', 'HT', 'CR'];
 
 export default function CartPage({
+  userID = 0,
   setBuyPhase = () => { },
   setBuyInfoPkg = () => { }
 }) {
   //=============== useState 區
-  //=============== user ID ====================================================
-  /**
-   * user ID
-   *  @type {[number, React.Dispatch<number>]} */
-  const [uID, setUID] = useState(0);
-
   //=============== coupon =====================================================
   // 遠目之 todo: 若折數型的優惠券有兩張以上，此機制皆會以原價為基數；而非作連續相乘
   // 若要解決此困境，有個想法是：將 cpList 依折數型、折抵型分為兩個陣列
@@ -91,20 +86,16 @@ export default function CartPage({
   //=============== useEffect 區
 
 
-  //===== 解讀登入的會員 ID
-  useEffect(() => {
-    const { userId } = tokenDecoder();
-    setUID(userId);
-  }, [])
+
   //===== 以會員 ID 索取購物車資料，建構購物車初始資料
   useEffect(() => {
-    if (uID === 0) return;
+    if (!userID || userID === 0) return;
 
     const CancalToken = axios.CancelToken;//中止情況用的信號彈
     const source = CancalToken.source();
 
     //以下寫法參考 Axios 官方文件
-    axios.get(`${apiBaseUrl}/cart/${uID}`, { cancelToken: source.token })
+    axios.get(`${apiBaseUrl}/cart/${userID}`, { cancelToken: source.token })
       .then(res => {
         // 略過將之前被刪除的購物車項目
         //===== 可以避免購物車在回復刪除階段時，將重複品項救回
@@ -151,18 +142,18 @@ export default function CartPage({
       // 避免 API 無法正常結束
       source.cancel("API 請求已被臨時取消");
     }
-  }, [uID])
+  }, [userID])
 
   //===== 以會員 ID 索取優惠券資料
   useEffect(() => {
     //0 | 預設值；null | token 解譯失敗
-    if (!uID) return;
+    if (!userID) return;
 
     const CancalToken = axios.CancelToken;//中止情況用的信號彈
     const source = CancalToken.source();
 
     //以下寫法參考 Axios 官方文件
-    axios.get(`${apiBaseUrl}/coupon/${uID}`, { cancelToken: source.token })
+    axios.get(`${apiBaseUrl}/coupon/${userID}`, { cancelToken: source.token })
       .then(res => {
         // 略過將之前被刪除的購物車項目
         //===== 可以避免購物車在回復刪除階段時，將重複品項救回
@@ -194,7 +185,7 @@ export default function CartPage({
       // 避免 API 無法正常結束
       source.cancel("API 請求已被臨時取消");
     }
-  }, [uID])
+  }, [userID])
 
   //===== 以優惠券資料建立初始狀態
   useEffect(() => {
@@ -359,7 +350,7 @@ export default function CartPage({
       //*===== 打包訂單所需資訊: 總金額及 user ID
       copy.orderInfo = {
         ...copy.orderInfo,
-        user_id: uID,
+        user_id: userID,
         amount: totalArr[1],
       }
 
@@ -377,7 +368,9 @@ export default function CartPage({
 
   return (
     <>
-
+      <Head>
+        <title>購物車 | Fundodo</title>
+      </Head>
       {isEmpty || <>
         <section className="container mt-5">
           {[ProdCartTable, HotelCartTable, CrsCartTable].map((Component, i) => (
@@ -459,8 +452,8 @@ export default function CartPage({
         <section className="container pt-3">
           <h4 className='my-5 tx-lg tx-shade3 tx-center'>現在購物車空無一物</h4>
           <div className='hstack jc-around'>
-            <FddBtn color='tint1' size='sm' href='/course'>來去逛逛寵物商城</FddBtn>
-            <FddBtn color='tint1' size='sm' href='/course'>來去逛逛寵物旅館</FddBtn>
+            <FddBtn color='tint1' size='sm' href='/prod'>來去逛逛寵物商城</FddBtn>
+            <FddBtn color='tint1' size='sm' href='/hotel'>來去逛逛寵物旅館</FddBtn>
             <FddBtn color='tint1' size='sm' href='/course'>來去逛逛寵物課程</FddBtn>
           </div>
           <div className='img-wrap-w100 mx-auto' style={{ width: '40vw' }}>

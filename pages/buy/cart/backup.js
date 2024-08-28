@@ -11,9 +11,9 @@ import Head from 'next/head';
 import Link from 'next/link';
 import BuyLayout from '@/components/layout/buy';
 import BuyProgress from '@/components/buy/buyProgress';
-import ProdCartTable from './ProdCartTable';
-import HotelCartTable from './HotelCartTable';
-import CrsCartTable from './CrsCartTable';
+import ProdCartTable from './TableProd';
+import HotelCartTable from './TableHotel';
+import CrsCartTable from './TableCrs';
 //== Styles =================================================================
 import s from "./cart-page.module.scss";
 import emptyCart from '@/public/cart/dog-in-cart.jpg';

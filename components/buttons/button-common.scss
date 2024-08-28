@@ -1,6 +1,5 @@
 @use '@/styles' as s;
 
-
 //*====== 通用樣式
 //此檔整理按鈕共用的模組設定
 //特定按鈕的各別樣式則於另外一檔
@@ -84,9 +83,36 @@
     flex-shrink: 0;
   }
 }
+//*====== 正方形按鈕
+@mixin square-icon-btn-prototype() {
+  @include btn-prototype();
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  //default
+  @include s.square-of(2rem);
+  font-size: 2rem; //1.5rem
+
+  &.btn-mini {
+    @include s.square-of(s.rem(24px));
+    font-size: 1rem; //原無此設定
+  }
+  &.btn-sm {
+    @include s.square-of(s.rem(30px));
+    font-size: s.rem(30px); //1rem
+  }
+  &.btn-lg {
+    @include s.square-of(s.rem(88px));
+    font-size: 2.5rem; //1.75rem
+  }
+
+  & > svg {
+    flex-shrink: 0;
+  }
+}
 
 //====================== 模組定義區
-//以下為簡易預設，詳細設定於
+//以下為簡易預設，詳細設定於 idv 檔案中
 @each $elem in (a, button) {
   @each $color, $value in s.$theme-colors {
     //尺寸
@@ -97,6 +123,10 @@
     #{$elem}.btn-#{$color}-icon,
     #{$elem}.btn-#{$color}-icon-2 {
       @include icon-btn-prototype();
+    }
+    #{$elem}.btn-#{$color}-brick-icon,
+    #{$elem}.btn-#{$color}-brick-icon-2 {
+      @include square-icon-btn-prototype();
     }
     #{$elem}.btn-#{$color}-brick,
     #{$elem}.btn-#{$color}-brick-2 {
