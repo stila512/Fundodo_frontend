@@ -11,6 +11,7 @@ import { IoMdPerson } from 'react-icons/io';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { IoCart } from 'react-icons/io5';
 import { IoIosLogOut } from "react-icons/io";
+import FddBtn from '../buttons/fddBtn';
 
 export default function NavFuncBtns({ showCart = true }) {
   const { logout } = useContext(AuthContext);
@@ -79,33 +80,31 @@ export default function NavFuncBtns({ showCart = true }) {
     <ul className={scss.ulFunc}>
       {/* 站內搜尋 */}
       <li>
-        <button>
+        <FddBtn color='white' pill={false} icon callback={() => { }}>
           <AiOutlineSearch />
-        </button>
+        </FddBtn>
       </li>
       {/* 會員 */}
       <li>
-        <a href="/member/login">
+        <FddBtn color='white' pill={false} icon href="/member">
           <IoMdPerson />
-        </a>
+        </FddBtn>
       </li>
       {/* 購物車 */}
       {showCart ? (
-        <li className={scss.cartBtn} style={{position: 'relative'}}>
-          <a href="/buy">
+        <li className={scss.cartBtn} style={{paddingRight: uID === 0 ? '' : '.5rem'}}>
+          <FddBtn color='white' pill={false} icon href="/buy">
             <IoCart />
             <div className={[scss.number, uID === 0 ? 'd-none' : 'd-flex'].join(' ')}>{cartCount}</div>
-          </a>
+          </FddBtn>
         </li>
-
-      ) : (
-        <></>
+      ) : (<></>
       )}
       {/* 會員 */}
       <li>
-        <button onClick={handleLogout}>
+        <FddBtn color='white' pill={false} icon callback={() => handleLogout()}>
           <IoIosLogOut />
-        </button>
+        </FddBtn>
       </li>
     </ul>
   );
