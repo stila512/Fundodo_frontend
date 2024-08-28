@@ -70,10 +70,8 @@ export default function FddBtn({
   }
 
   const tagArr = ['btn', colorList[color]];
-  if (pill) {
-    if (icon) tagArr.push('icon');
-  } else tagArr.push('brick');
-
+  if (pill == false) tagArr.push('brick');
+  if (icon) tagArr.push('icon');
   if (outline) tagArr.push('2');
 
   let classStr = tagArr.join('-');

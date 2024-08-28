@@ -5,6 +5,10 @@
   height: $radius;
   border-radius: 50%;
 }
+@mixin square-of($l) {
+  width: $l;
+  height: $l;
+}
 
 //* 使用說明
 // 預設以 16px = 1rem 換算
