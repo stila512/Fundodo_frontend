@@ -44,6 +44,7 @@ export default function FddBtn({
   pill = true,
   icon = false,
   outline = false,
+  disabled = false,
   callback = undefined,
   href = '',
   className = ''
@@ -79,15 +80,26 @@ export default function FddBtn({
 
   if (callback !== undefined) {
     return (
-      <button className={[classStr, className].join(' ')} onClick={() => callback()}>
+      <button
+        className={[classStr, className].join(' ')}
+        onClick={() => callback()}
+        disabled={disabled}
+      >
         {children}
       </button>
     );
   } else if (href !== '') {
     return (
-      <Link className={[classStr, className].join(' ')} href={href}>
-        {children}
-      </Link>
+      disabled
+        ? (<button
+          className={[classStr, className].join(' ')}
+          onClick={() => { }}
+        >
+          {children}
+        </button >)
+        : (<Link className={[classStr, className].join(' ')} href={href}>
+          {children}
+        </Link>)
     );
   } else {
     throw new Error('FddBtn 元件的參數 callback 與 href 必須擇一輸入');
