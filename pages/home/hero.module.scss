@@ -33,15 +33,7 @@
 }
 
 .hero_image {
-  align-items: flex-end;
-
-  img:nth-child(1) {
-    position: relative;
-    left: 20px;
-  }
-
-  img:nth-child(3) {
-    position: relative;
-    right: 30px;
-  }
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
 }

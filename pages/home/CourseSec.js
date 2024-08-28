@@ -4,11 +4,13 @@ import scss from './courseSec.module.scss';
 import FddBtn from '@/components/buttons/fddBtn';
 // import course from '@/public/homePic/bgc.png';
 import { FaArrowRight } from "react-icons/fa";
+import CourseSvg from './CourseSvg'; 
 
 
 export default function CourseSec() {
   return (
     <>
+      <section className={scss.bgWrapper}>
       <div className="container">
         <div className={scss.courseSec}>
           <div className={scss.courseText}>
@@ -18,9 +20,10 @@ export default function CourseSec() {
               立即體驗 <FaArrowRight />
             </FddBtn>
           </div>
-          
+          <CourseSvg /> 
         </div>
       </div>
+      </section>
     </>
   )
 }

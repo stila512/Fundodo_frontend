@@ -1,5 +1,18 @@
 @import '@/styles';
 
+.bgWrapper {
+  width: 100%;
+  overflow: hidden; 
+}
+.bg {
+  top: 100px;
+  width: 100vw; 
+  margin-left: calc(-50vw + 50%);  
+  background-image: var(--bg-image);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .card_text {
   display: flex;
   justify-content: space-between;
