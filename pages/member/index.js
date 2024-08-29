@@ -26,7 +26,7 @@ export default function MemberPage() {
           </p>
         </div>
         <div className={`${scss.btnBox} col-12`}>
-          <button className={scss.bSecondary2}>立即購物</button>
+          <Link href={'/prod'}><button className={scss.bSecondary2}>立即購物</button></Link>
           <Link href="/member/peopleInfoData"><button className={scss.bSecondary}>完善會員資料</button></Link>
         </div>
       </main>
