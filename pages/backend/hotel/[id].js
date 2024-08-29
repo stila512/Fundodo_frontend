@@ -1,15 +1,22 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head'
 import Image from 'next/image';
 import BackendLayout from '@/components/layout/backend'
 import styles from './edit.module.scss';
+import Modal from '@/components/common/modal';
 import { RiImageAddFill } from "react-icons/ri";
 
+
 export default function edit() {
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState({ title: '', message: '' });
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
   const router = useRouter();
   const { id } = router.query;
-  const [imageUrls, setImageUrls] = useState([]);
+  const [images, setImages] = useState([]);
+  const fileInputRefs = [useRef(), useRef(), useRef()];
 
   const baseURL = 'http://localhost:3005/api/hotel';
 
@@ -44,27 +51,24 @@ export default function edit() {
 
   //圖片字串
   useEffect(() => {
-    if (hotel.images && typeof hotel.images === 'string') {
-      setImageUrls(hotel.images.split(','));
-    } else if (Array.isArray(hotel.images)) {
-      setImageUrls(hotel.images);
+    if (hotel.main_img_path) {
+      const imageArray = hotel.main_img_path.split(',').filter(img => img.trim() !== '');
+      setImages(imageArray);
     } else {
-      setImageUrls([]);
+      setImages([]);
     }
-  }, [hotel.images]);
+  }, [hotel.main_img_path]);
 
   //原先的旅館資料
   const getHotel = async (id) => {
-    const baseURL = `http://localhost:3005/api/hotel/detail/${id}`;
-    const res = await fetch(baseURL);
+    const res = await fetch(`${baseURL}/detail/${id}`);
     const data = await res.json();
-
-    console.log(data);
 
     if (data.status === "success" && data.data) {
       setHotel(prevState => ({
         ...data.data,
-        valid: Number(data.data.valid) // 確保 valid 是數字
+        valid: Number(data.data.valid),
+        main_img_path: data.data.main_img_path || ''
       }));
     }
   }
@@ -83,6 +87,10 @@ export default function edit() {
       alert('發生錯誤，請稍後再試');
     }
   };
+  const handleImageClick = (index) => {
+    fileInputRefs[index].current.click();
+  }
+
 
   //修改資料
   const handleInputChange = (e) => {
@@ -95,28 +103,111 @@ export default function edit() {
     }));
   };
 
+  const handleImagesChange = (newImages) => {
+    setHotel(prevState => ({
+      ...prevState,
+      main_img_path: newImages
+    }));
+  };
+
   //送出表單
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:3005/api/hotel/${id}`, {
+      const hotelData = {
+        ...hotel,
+        main_img_path: images.join(',')
+      };
+
+      const response = await fetch(`${baseURL}/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(hotel),
+        body: JSON.stringify(hotelData),
       });
       const data = await response.json();
       if (data.status === 'success') {
-        alert('旅館更新成功！');
-        router.push('/backend/hotel/list');
+        // alert('旅館更新成功！');
+        setModalContent({
+          title: '成功',
+          message: '旅館更新成功！'
+        });
+        setShowSuccessModal(true);
       } else {
-        alert('更新失敗：' + data.message);
+        // alert('更新失敗：' + data.message);
+        setModalContent({
+          title: '錯誤',
+          message: '旅館更新失敗，請稍後再試或聯繫網管人員。'
+        });
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('發生錯誤，請稍後再試');
+      // alert('發生錯誤，請稍後再試');
+      setModalContent({
+        title: '錯誤',
+        message: '旅館更新失敗，請稍後再試或聯繫網管人員。'
+      });
+      setShowModal(true);
     }
+  };
+
+  //  編輯圖片
+  const ImageUploadManager = ({ initialImages, onImagesChange, hotelId }) => {
+    const [images, setImages] = useState(initialImages || []);
+    const fileInputRefs = [useRef(), useRef(), useRef()];
+
+    useEffect(() => {
+      onImagesChange(images);
+    }, [images, onImagesChange]);
+
+    const handleImageClick = (index) => {
+      fileInputRefs[index].current.click();
+    }
+  }
+
+  const handleFileChange = async (event, index) => {
+    const file = event.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append('images', file);
+      try {
+        const response = await fetch(`http://localhost:3005/api/hotel/${hotel.id}/update-images`, {
+          method: 'PUT',
+          body: formData,
+        });
+        if (response.ok) {
+          const result = await response.json();
+          if (result.status === 'success' && result.data) {
+            const newImages = [...images];
+            newImages[index] = result.data[0];
+            setImages(newImages);
+            setHotel(prevHotel => ({
+              ...prevHotel,
+              main_img_path: newImages.join(',')
+            }));
+          } else {
+            throw new Error(result.message || '圖片上傳失敗');
+          }
+        } else {
+          const errorData = await response.json();
+          throw new Error(errorData.message || '圖片上傳失敗');
+        }
+      } catch (error) {
+        console.error('圖片上傳出錯:', error);
+        // alert(`圖片上傳失敗: ${error.message}`);
+        setModalContent({
+          title: '錯誤',
+          message: `圖片上傳失敗: ${error.message}`
+        });
+        setShowModal(true);
+      }
+    }
+  };
+
+  const handleSuccessConfirm = () => {
+    setShowSuccessModal(false);
+    router.push('/backend/hotel');
   };
 
 
@@ -133,23 +224,32 @@ export default function edit() {
           <form onSubmit={handleSubmit}>
             <div className={styles.imgGroup}>
               <p className={styles.title}>旅館圖片</p>
-              {[0, 1, 2].map((img, index) => (
-                <div key={index} className={styles.addImg}>
-                  {imageUrls[index] ? (
+              {[0, 1, 2].map((_, index) => (
+                <div key={index} className={styles.addImg} onClick={() => handleImageClick(index)}>
+                  {images[index] ? (
                     <>
                       <Image
-                        src={`http://localhost:3005/api/hotel/images/${imageUrls[index]}`}
+                        src={`${baseURL}/images/${images[index]}`}
                         width={180}
                         height={0}
                         sizes="200px"
                         style={{ width: '100%', height: 'auto' }}
                         alt={`旅館圖片 ${index + 1}`}
                       />
-                      <div className={styles.overlay}><RiImageAddFill className={styles.addImgIcon} /></div> {/* 覆蓋層 */}
+                      <div className={styles.overlay}><RiImageAddFill className={styles.addImgIcon} /></div>
                     </>
                   ) : (
-                    <div>No image</div>
+                    <div>
+                      <RiImageAddFill className={styles.addImgIcon} />
+                    </div>
                   )}
+                  <input
+                    type="file"
+                    ref={fileInputRefs[index]}
+                    style={{ display: 'none' }}
+                    onChange={(e) => handleFileChange(e, index)}
+                    accept="image/*"
+                  />
                 </div>
               ))}
             </div>
@@ -271,6 +371,16 @@ export default function edit() {
           </form>
         </div>
       </BackendLayout>
+      <Modal
+        mode={2}
+        active={showSuccessModal}
+        onClose={handleSuccessConfirm}
+        confirmText='回列表'
+        cancelText='取消'
+      >
+        <h1>{modalContent.title}</h1>
+        <p>{modalContent.message}</p>
+      </Modal>
     </>
   )
 }

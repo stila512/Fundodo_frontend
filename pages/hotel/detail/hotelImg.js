@@ -43,8 +43,8 @@ export default function HotelImg({ hotelCode }) {
   };
 
   const handleNextImage = () => {
-    setCurrentImageIndex((prevIndex) => 
-    (prevIndex + 1) % hotel.images.length
+    setCurrentImageIndex((prevIndex) =>
+      (prevIndex + 1) % hotel.images.length
     );
   };
 
@@ -52,6 +52,14 @@ export default function HotelImg({ hotelCode }) {
   const handleImageError = (event) => {
     event.target.src = 'http://localhost:3005/api/hotel/images/404.jpg';
   };
+
+    //讀取第一個檔名
+    const getImagePath = (index) => {
+      if (!hotel || !hotel.images || hotel.images.length === 0) {
+        return 'http://localhost:3005/api/hotel/images/404.jpg';
+      }
+      return `http://localhost:3005/api/hotel/images/${hotel.images[index]}`;
+    };
 
 
   return (
@@ -61,15 +69,15 @@ export default function HotelImg({ hotelCode }) {
           <div className={styles.hotelImg}>
             <div className={styles.mainImgContainer}>
               <Image
-                src={`http://localhost:3005/api/hotel/images/${hotel.main_img_path}`}
+                src={`http://localhost:3005/api/hotel/images/${hotel.images[currentImageIndex] || hotel.main_img_path}`}
                 width={0}
                 height={0}
                 className={styles.mainImg}
                 alt="Main Image"
                 onError={handleImageError}
               />
-              <button 
-                className={`${styles.arrowBtn} ${styles.rightArrow}`} 
+              <button
+                className={`${styles.arrowBtn} ${styles.rightArrow}`}
                 onClick={handleNextImage}
               >
                 <IoIosArrowForward />
@@ -79,8 +87,8 @@ export default function HotelImg({ hotelCode }) {
             <div className={styles.subImg}>
               {hotel.images.slice(0, 3).map((img, index) => (
                 <div key={index} className={styles.subImgContainer}>
-                  <Image
-                    src={`http://localhost:3005/api/hotel/images/${img}`}
+                <Image
+                    src={getImagePath(index)}
                     width={150}
                     height={110}
                     className={styles.img}
@@ -88,7 +96,7 @@ export default function HotelImg({ hotelCode }) {
                     onError={handleImageError}
                   />
                 </div>
-                ))}
+              ))}
             </div>
           </div>
         </>

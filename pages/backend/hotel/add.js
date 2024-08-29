@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import BackendLayout from '@/components/layout/backend'
 import styles from './add.module.scss';
 import Image from 'next/image';
+import Modal from '@/components/common/modal';
 import { RiImageAddFill } from "react-icons/ri";
 
 
 export default function Add() {
-  
-// 一鍵填寫
+
+  // 一鍵填寫
   const testData = {
     name: '北歐風寵物旅館',
     description: '我們的寵物旅館提供豪華的住宿環境和專業的照顧服務，讓您的寵物享受賓至如歸的體驗。',
@@ -29,6 +31,10 @@ export default function Add() {
   };
 
   // -------
+  const router = useRouter()
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState({ title: '', message: '' });
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const [cities, setCities] = useState([]);
   const [image, setImage] = useState(null);
@@ -73,10 +79,10 @@ export default function Add() {
   //先讓圖片被送出
   const handleImageUpload = async (imageToUpload) => {
     if (!imageToUpload) return null; //如果沒有圖片回傳null
-  
+
     const formDataToSend = new FormData();
     formDataToSend.append('image', imageToUpload);
-  
+
     try {
       const imageUploadResponse = await fetch('http://localhost:3005/api/hotel/upload', {
         method: 'POST',
@@ -84,24 +90,29 @@ export default function Add() {
       });
       const imageData = await imageUploadResponse.json();
       if (imageData.status === 'success') {
-        return imageData.path;  
+        return imageData.path;
       }
     } catch (error) {
       console.error('Error uploading image:', error);
-      alert('圖片上傳失敗，請稍後再試');
+      // alert('圖片上傳失敗，請稍後再試');
+      setModalContent({
+        title: '上傳錯誤',
+        message: '圖片上傳失敗，請稍後再試或聯繫網管人員。'
+      });
+      setShowModal(true);
     }
-  
+
     return null;  //上傳失敗回傳null
   };
-  
+
   const handleImageChange = async (e) => {
     if (e.target.files && e.target.files[0]) {
       const selectedImage = e.target.files[0];
-  
-     //預覽跟上傳狀態
+
+      //預覽跟上傳狀態
       setImagePreview(URL.createObjectURL(selectedImage));
       setIsUploading(true);
-  
+
       // 先傳圖片路徑到資料庫
       const uploadedImagePath = await handleImageUpload(selectedImage);
 
@@ -111,11 +122,11 @@ export default function Add() {
           main_img_path: uploadedImagePath
         }));
       }
-      setIsUploading(false);  
+      setIsUploading(false);
     }
   };
-  
-//按送出傳送表單
+
+  //按送出傳送表單
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -129,15 +140,33 @@ export default function Add() {
       });
       const data = await response.json();
       if (data.status === 'success') {
-        alert('旅館新增成功！');
+        setModalContent({
+          title: '成功',
+          message: '旅館新增成功！'
+        });
+        setShowSuccessModal(true);
       } else {
-        alert('新增失敗：' + data.message);
+        setModalContent({
+          title: '失敗',
+          message: '新增失敗：' + data.message
+        });
+        setShowModal(true);
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('發生錯誤，請稍後再試');
+      setModalContent({
+        title: '新增錯誤',
+        message: '新增旅館發生錯誤，請稍後再試或聯繫網管人員。'
+      });
+      setShowModal(true);
     }
   };
+
+  const handleSuccessConfirm = () => {
+    setShowSuccessModal(false);
+    router.push('/backend/hotel');
+  };
+
 
   return (
     <>
@@ -150,12 +179,12 @@ export default function Add() {
           <h1>新增寵物旅館</h1>
           <button type="button" onClick={handleQuickFill} className={styles.quickFill}>click</button>
           <form onSubmit={handleSubmit}>
-          
+
             <div className={styles.imgGroup}>
               <p className={styles.title}>旅館圖片</p>
               <div className={styles.addImg}>
                 {imagePreview ? (
-                  <img src={imagePreview} className={styles.imgPre}  />
+                  <img src={imagePreview} className={styles.imgPre} />
                 ) : (
                   <RiImageAddFill className={styles.addImgIcon} />
                 )}
@@ -233,6 +262,25 @@ export default function Add() {
         </div>
 
       </BackendLayout>
+
+      <Modal
+        mode={1}
+        active={showModal}
+        onClose={() => setShowModal(false)}
+      >
+        <h4>{modalContent.title}</h4>
+        <p>{modalContent.message}</p>
+      </Modal>
+      <Modal
+        mode={2}
+        active={showSuccessModal}
+        onClose={handleSuccessConfirm}
+        confirmText='回列表'
+        cancelText='取消'
+      >
+        <h1>{modalContent.title}</h1>
+        <p>{modalContent.message}</p>
+      </Modal>
     </>
   )
 }
