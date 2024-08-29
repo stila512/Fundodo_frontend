@@ -1,8 +1,21 @@
 @import '@/styles';
 
+.bgWrapper {
+  width: 100%;
+  overflow: hidden; 
+}
+
+.bg {
+  width: 100vw; 
+  margin-left: calc(-50vw + 50%);  
+  background-image: var(--bg-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 .prodSec {
+  padding: 250px 0;
   height: 618px;
-  margin-top: 100px;
 }
 
 .prodImgs {
@@ -19,6 +32,9 @@
   justify-content: flex-end;
   flex: 1;
   gap: 20px;
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 
   h3 {
     @include ff-maru(24px, 36px);
@@ -28,4 +44,14 @@
     line-height: 46px;
     margin-bottom: 34px;
   }
+
+  &.animate {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  &:not(.animate) {
+    opacity: 0;
+    transform: translateX(150px);
+  }
 }
+

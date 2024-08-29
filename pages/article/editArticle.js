@@ -13,6 +13,9 @@ export default function EditArticle() {
   const [selectedSort, setSelectedSort] = useState('0')
   const [isEditorReady, setIsEditorReady] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [tag1, setTag1] = useState('')
+  const [tag2, setTag2] = useState('')
+  const [tag3, setTag3] = useState('')
   const router = useRouter()
   const { aid } = router.query
 
@@ -25,7 +28,14 @@ export default function EditArticle() {
           if (data.status === 'success') {
             setTitle(data.content[0].title)
             setContent(data.content[0].content)
-            setSelectedSort(data.content[0].sort_id.toString())
+            setSelectedSort(data.content[0].sort)
+
+            if (data.content[0].tags && Array.isArray(data.content[0].tags)) {
+              setTag1(data.content[0].tags[0] || '');
+              setTag2(data.content[0].tags[1] || '');
+              setTag3(data.content[0].tags[2] || '');
+              console.log('Fetched tags:', articleData.tags); // 用於調試
+            }
           }
         })
         .catch(error => console.error('Error fetching article:', error))
@@ -46,7 +56,7 @@ export default function EditArticle() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     if (selectedSort === '0') {
       alert('請選擇文章分類');
       return;
@@ -58,20 +68,23 @@ export default function EditArticle() {
       const parser = new DOMParser();
       const doc = parser.parseFromString(content, 'text/html');
       const imageElements = doc.getElementsByTagName('img');
-  
+
       const imageIds = Array.from(imageElements).map(img => {
         const src = img.getAttribute('src');
         const match = src.match(/articleImage-(\d+)-\d+\.[a-zA-Z0-9]+/);
         return match ? parseInt(match[1]) : null;
       }).filter(id => id !== null);
-      
-      const response = await axios.put(`http://localhost:3005/api/article/editArticle/${aid}`, { 
-        title, 
-        content, 
-        sort: selectedSort, 
-        imageIds 
+
+      const tags = [tag1, tag2, tag3].filter(tag => tag.trim() !== '');
+
+      const response = await axios.put(`http://localhost:3005/api/article/editArticle/${aid}`, {
+        title,
+        content,
+        sort: selectedSort,
+        imageIds,
+        tags
       });
-      
+
       console.log('Article updated:', response.data)
       alert('文章更新成功')
       router.push(`/article/content?aid=${aid}`)
@@ -132,28 +145,51 @@ export default function EditArticle() {
                 <option key={sortitem.id} value={sortitem.id}>{sortitem.sort}</option>
               ))}
             </select>
-            <Editor 
-              content={content} 
-              setContent={setContent} 
+            <Editor
+              content={content}
+              setContent={setContent}
               editorHei="400px"
               onReady={() => setIsEditorReady(true)}
             />
+            <div className={scss.tagInputs}>
+              <input
+                type="text"
+                value={tag1}
+                onChange={(e) => setTag1(e.target.value)}
+                placeholder="標籤 1 (選填)"
+                className={scss.tagInput}
+              />
+              <input
+                type="text"
+                value={tag2}
+                onChange={(e) => setTag2(e.target.value)}
+                placeholder="標籤 2 (選填)"
+                className={scss.tagInput}
+              />
+              <input
+                type="text"
+                value={tag3}
+                onChange={(e) => setTag3(e.target.value)}
+                placeholder="標籤 3 (選填)"
+                className={scss.tagInput}
+              />
+            </div>
             <div>
-              <button 
-                className={scss.postBtn} 
-                type="submit" 
+              <button
+                className={scss.postBtn}
+                type="submit"
                 disabled={!isEditorReady || isLoading}
               >
                 {isLoading ? '更新中...' : '更新文章'}
               </button>
-              <button 
-              className={`${scss.postBtn} ${scss.deleteBtn}`} 
-              type="button" 
-              onClick={handleDelete}
-              disabled={isLoading}
-            >
-              {isLoading ? '處理中...' : '刪除文章'}
-            </button>
+              <button
+                className={`${scss.postBtn} ${scss.deleteBtn}`}
+                type="button"
+                onClick={handleDelete}
+                disabled={isLoading}
+              >
+                {isLoading ? '處理中...' : '刪除文章'}
+              </button>
             </div>
           </form>
         </div>

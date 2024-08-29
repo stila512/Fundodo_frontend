@@ -3,12 +3,15 @@ import FddBtn from '@/components/buttons/fddBtn';
 import scss from './articleSec.module.scss';
 import Image from 'next/image';
 import artdog1 from '@/public/homePic/artdog2.png';
+import AtBg from '@/public/homePic/at_bg.svg'
 import Link from 'next/link';
 
 
 export default function ArticleSec() {
   return (
     <>
+    <section className={scss.bgWrapper}>
+      <div className={scss.bg} style={{'--bg-image': `url(${AtBg.src})`}}>
       <div className='container'>
         <div className={scss.card_text}>
           <h2>最新文章</h2>
@@ -48,6 +51,8 @@ export default function ArticleSec() {
 
 
       </div>
+      </div>
+      </section>
     </>
   )
 }

@@ -1,12 +1,18 @@
 @import "@/styles";
 
+
+.bgWrapper {
+    width: 100%;
+    overflow: hidden; 
+  }
+
 .courseSec {
     display:flex;
     align-items: center;
     justify-content: space-between;
-    height: 656px;
-    margin-bottom: 60px;
-    background-image: url(../../public/homePic/bgc.png);
+    height: 600px;
+    margin-bottom: 110px;
+    // background-image: url(../../public/homePic/bgc.png);
     background-repeat: no-repeat;
     background-position: calc(100% + 20px) center;
 
@@ -34,6 +40,3 @@
     }
 
 }
-
-.courseImg {}
-

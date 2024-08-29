@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
 import scss from '@/pages/article/contentItems/replyBlock.module.scss';
 import Image from 'next/image';
+import { BsThreeDotsVertical } from "react-icons/bs";
 
-export default function ReplyBlock({ reply }) {
+export default function ReplyBlock({user, reply }) {
   const formatDate = (dateString) => {
     const date = new Date(dateString)
     return date.toLocaleString('zh-TW', {
@@ -16,7 +15,10 @@ export default function ReplyBlock({ reply }) {
       hour12: false
     })
   }
-
+  const canEdit = () => {
+    if (!user) return false;
+    return user.userId === reply.userid || (user.userLevel && user.userLevel > 2);
+  }
   return (
     <>
       <div className={scss.replyBlock}>
@@ -34,7 +36,13 @@ export default function ReplyBlock({ reply }) {
               <p className={[scss.creatTime].join()}>{formatDate(reply.create_at)}</p>
             </div>
           </div>
-          <div>點</div>
+          <div>          
+          {canEdit() && (
+            <a href={`/article`}>
+              <BsThreeDotsVertical />
+            </a>
+          )}
+          </div>
         </div>
         <div className={scss.mainContent}>
           <div dangerouslySetInnerHTML={{ __html: reply.content }} />

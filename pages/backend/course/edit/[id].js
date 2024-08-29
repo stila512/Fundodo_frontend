@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import BackendLayout from '@/components/layout/backend';
+import Modal from '@/components/common/modal';
 import scss from './edit.module.scss';
 
 export default function CourseEdit() {
@@ -20,6 +21,9 @@ export default function CourseEdit() {
   });
   const [tags, setTags] = useState([]);
   const [previewImage, setPreviewImage] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState({ title: '', message: '' });
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     if (id) {
@@ -55,6 +59,7 @@ export default function CourseEdit() {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setCourse(prev => ({ ...prev, [name]: value }));
+    setErrors(prev => ({ ...prev, [name]: '' }));
   };
 
   const handleTagChange = (e) => {
@@ -99,8 +104,69 @@ export default function CourseEdit() {
     setCourse(prev => ({ ...prev, chapters: updatedChapters }));
   };
 
+  const validateForm = (course) => {
+    const errors = [];
+
+    if (!course.title?.trim()) errors.push('請輸入課程名稱');
+    if (!course.summary?.trim()) errors.push('請輸入課程簡介');
+    if (!course.description?.trim()) errors.push('請輸入課程描述');
+    if (course.tag_ids.length === 0) errors.push('請選擇至少一個課程分類');
+
+    course.chapters.forEach((chapter, chapterIndex) => {
+      if (!chapter.name?.trim()) {
+        errors.push("請輸入章節名稱");
+      }
+      if (chapter.lessons.length === 0) {
+        errors.push("請至少添加一個課程單元");
+      } else {
+        chapter.lessons.forEach((lesson, lessonIndex) => {
+          if (!lesson.name?.trim()) {
+            errors.push("請輸入單元名稱");
+          }
+          if (!lesson.duration?.trim()) {
+            errors.push("請輸入單元時間");
+          } else if (isNaN(parseFloat(lesson.duration))) {
+            errors.push("單元時長必須是數字");
+          }
+        });
+      }
+    });
+    if (!course.original_price) {
+      errors.push('請輸入原價');
+    } else if (isNaN(parseFloat(course.original_price))) {
+      errors.push('原價必須是數字');
+    }
+
+    if (!course.sale_price) {
+      errors.push('請輸入優惠價');
+    } else if (isNaN(parseFloat(course.sale_price))) {
+      errors.push('優惠價必須是數字');
+    } else if (parseFloat(course.sale_price) > parseFloat(course.original_price)) {
+      errors.push('優惠價不能高於原價');
+    }
+
+    return errors;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const validationErrors = validateForm(course);
+
+    if (validationErrors.length > 0) {
+      setModalContent({
+        title: '新增失敗',
+        message: (
+          <ul>
+            {validationErrors.map((error, index) => (
+              <li key={index}>{error}</li>
+            ))}
+          </ul>
+        )
+      });
+      setShowModal(true);
+      return;
+    }
 
     const formData = new FormData();
     formData.append('title', course.title);
@@ -123,14 +189,15 @@ export default function CourseEdit() {
     }));
     formData.append('chapters', JSON.stringify(chaptersData));
 
-      // 處理影片文件
+    // 處理影片文件
     course.chapters.forEach((chapter, chapterIndex) => {
       chapter.lessons.forEach((lesson, lessonIndex) => {
         if (lesson.video_path instanceof File) {
-          formData.append(`video_${chapterIndex}_${lessonIndex}`, lesson.video_path, lesson.video_path.name);
+          formData.append('video_path', lesson.video_path);
         }
       });
     });
+
 
     try {
       const res = await fetch(`http://localhost:3005/api/course/${id}`, {
@@ -143,10 +210,18 @@ export default function CourseEdit() {
       }
 
       const data = await res.json();
-      alert('課程更新成功！');
-      router.push('/backend/course');
+      setModalContent({
+        title: '成功',
+        message: '課程更新成功'
+      });
+      setShowModal(true);
+      setTimeout(() => router.push('/backend/course'), 1000);
     } catch (error) {
-      console.error('更新課程失敗:', error);
+      setModalContent({
+        title: '失敗',
+        message: '課程更新失敗，請稍後再試。'
+      });
+      setShowModal(true);
     }
   };
 
@@ -169,8 +244,8 @@ export default function CourseEdit() {
                     name="title"
                     value={course.title}
                     onChange={handleInputChange}
-                    required
                   />
+                  {errors.title && <div className={scss.error}>{errors.title}</div>}
                 </div>
 
                 <div className={scss.formGroup}>
@@ -180,7 +255,6 @@ export default function CourseEdit() {
                     name="summary"
                     value={course.summary}
                     onChange={handleInputChange}
-                    required
                   ></textarea>
                 </div>
 
@@ -191,7 +265,6 @@ export default function CourseEdit() {
                     name="description"
                     value={course.description}
                     onChange={handleInputChange}
-                    required
                   ></textarea>
                 </div>
 
@@ -266,8 +339,9 @@ export default function CourseEdit() {
                             onChange={(e) => handleLessonChange(chapterIndex, lessonIndex, 'video_path', e.target.files[0])}
                           />
                           {lesson.video_path && (
-                            <p>當前影片: {lesson.video_path.name || lesson.video_path}</p>
+                            <p>當前影片: {typeof lesson.video_path === 'string' ? lesson.video_path.split('/').pop() : lesson.video_path.name}</p>
                           )}
+
                         </div>
                       ))}
                       <button type="button" className={scss.addButton} onClick={() => handleChapterChange(chapterIndex, 'lessons', [...chapter.lessons, { name: '', duration: '', video_path: '' }])}>新增單元</button>
@@ -282,24 +356,24 @@ export default function CourseEdit() {
                 <div className={scss.formGroup}>
                   <label htmlFor="original_price">原價</label>
                   <input
-                    type="number"
+                    type="text"
                     id="original_price"
                     name="original_price"
+                    className={scss.priceInput}
                     value={course.original_price}
                     onChange={handleInputChange}
-                    required
                   />
                 </div>
 
                 <div className={scss.formGroup}>
                   <label htmlFor="sale_price">優惠價</label>
                   <input
-                    type="number"
-                    id="sale_price"
+                    type="text"
+                    id="salePrice"
                     name="sale_price"
+                    className={scss.priceInput}
                     value={course.sale_price}
                     onChange={handleInputChange}
-                    required
                   />
                 </div>
 
@@ -313,6 +387,15 @@ export default function CourseEdit() {
             </div>
           </form>
         </div>
+        <Modal
+          mode={1}
+          active={showModal}
+          onClose={() => setShowModal(false)}
+        >
+          <h4>{modalContent.title}</h4>
+          <p>{modalContent.message}</p>
+        </Modal>
+
       </BackendLayout>
     </>
   );

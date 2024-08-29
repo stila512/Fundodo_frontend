@@ -2,6 +2,13 @@ import React from 'react';
 import scss from '@/pages/article/list/pageControl.module.scss';
 
 export default function PageControl() {
+  const toTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+
   return (
     <>
       {' '}
@@ -10,7 +17,7 @@ export default function PageControl() {
           <a className={[scss.ctrlText].join()} href='/article/createArticle'>發表新文章</a>
         </div>
         <div className={[scss.ctrler].join()}>
-          <span className={[scss.ctrlText].join()}>回到頂端</span>
+          <a className={[scss.ctrlText].join()} onClick={()=>toTop()}>回到頂端</a>
         </div>
         <div className={[scss.ctrler].join()}>
           <span className={[scss.ctrlText].join()}>到第一頁</span>

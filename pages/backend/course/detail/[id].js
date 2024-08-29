@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import BackendLayout from '@/components/layout/backend';
+import Modal from '@/components/common/modal';
+
 import { FaEdit, FaTrashAlt, FaFile } from 'react-icons/fa';
 import scss from './detail.module.scss';
 import { format, parseISO } from 'date-fns';
@@ -10,6 +12,9 @@ export default function CourseDetail() {
     const router = useRouter();
     const { id } = router.query;
     const [course, setCourse] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+    const [modalContent, setModalContent] = useState({ title: '', message: '' });
+
 
     const formatDate = (dateString) => {
         const date = parseISO(dateString);
@@ -42,7 +47,6 @@ export default function CourseDetail() {
             setCourse(courseData);
         } catch (err) {
             console.error("Failed fetching course details", err);
-            // 可以在這裡設置一個錯誤狀態
         }
     }
 
@@ -50,22 +54,45 @@ export default function CourseDetail() {
         router.push(`/backend/course/edit/${id}`);
     }
 
-    const handleDelete = async () => {
-        if (window.confirm('確定要刪除此課程嗎?')) {
-            try {
-                const res = await fetch(`http://localhost:3005/api/course/delete/${id}`, {
-                    method: 'PATCH',
-                });
-                if (!res.ok) {
-                    throw new Error("Failed to delete course");
-                }
-                alert("課程刪除成功!")
-                router.push('/backend/course');
-            } catch (err) {
-                alert("課程刪除失敗", err);
+    const handleDeleteClick = () => {
+        setModalContent({
+            title: '確認刪除',
+            message: '您確定要刪除此課程嗎？'
+        });
+        setShowModal(true);
+    };
+
+    const handleDeleteConfirm = async () => {
+        try {
+            const res = await fetch(`http://localhost:3005/api/course/delete/${id}`, {
+                method: 'PATCH',
+            });
+            if (!res.ok) {
+                throw new Error("Failed to delete course");
             }
+            setShowModal(false);
+            setModalContent({
+                title: '刪除成功',
+                message: '課程已成功刪除'
+            });
+            setShowModal(true);
+            // 延遲導航，給用戶時間看到成功消息
+            setTimeout(() => {
+                router.push('/backend/course');
+            }, 1500);
+        } catch (err) {
+            // 顯示錯誤 Modal
+            setModalContent({
+                title: '刪除失敗',
+                message: '課程刪除失敗，請稍後再試'
+            });
+            setShowModal(true);
         }
-    }
+    };
+
+    const handleModalClose = () => {
+        setShowModal(false);
+    };
 
     if (!course) return null;
 
@@ -79,7 +106,7 @@ export default function CourseDetail() {
                     <h1 className={scss.title}>課程詳情</h1>
                     <div className={scss.actions}>
                         <button className={scss.editButton} onClick={handleEdit}><FaEdit /> 編輯課程</button>
-                        <button className={scss.deleteButton} onClick={handleDelete}><FaTrashAlt /> 刪除課程</button>
+                        <button className={scss.deleteButton} onClick={handleDeleteClick}><FaTrashAlt /> 刪除課程</button>
                     </div>
                     <div className={scss.content}>
                         <div className={scss.mainInfo}>
@@ -107,7 +134,7 @@ export default function CourseDetail() {
 
                         <div className={scss.section}>
                             <h3>課程資訊</h3>
-                            <p><strong>創建日期: </strong>{formatDate(course.created_at)}</p>
+                            <p><strong>創建日期: </strong>{formatDateTime(course.created_at)}</p>
                             {course.updated_at && (
                                 <p>最後更新：{formatDateTime(course.updated_at)}</p>
                             )}
@@ -128,7 +155,12 @@ export default function CourseDetail() {
                                             <li key={lesson.id}>
                                                 <span>{chapterIndex + 1}.{lessonIndex + 1} {lesson.name}</span>
                                                 <span>時長: {lesson.duration}分鐘</span>
-                                                <span className={scss.filename}><FaFile /> {lesson.video_path}</span>
+                                                <span className={scss.filename}>
+                                                    <FaFile />
+                                                    {lesson.video_path
+                                                        ? lesson.video_path.split('/').pop()
+                                                        : '無影片文件'}
+                                                </span>
                                             </li>
                                         ))}
                                     </ul>
@@ -137,6 +169,18 @@ export default function CourseDetail() {
                         </div>
                     </div>
                 </div>
+                <Modal
+                    mode={2}
+                    active={showModal}
+                    onClose={() => setShowModal(false)}
+                    onConfirm={handleDeleteConfirm}
+                    onCancel={handleModalClose}
+                    confirmText="確定刪除"
+                    cancelText="取消"
+                >
+                    <h4>{modalContent.title}</h4>
+                    <p>{modalContent.message}</p>
+                </Modal>
             </BackendLayout>
         </>
     );

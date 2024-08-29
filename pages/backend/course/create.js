@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import BackendLayout from '@/components/layout/backend'
+import Modal from '@/components/common/modal';
 import scss from './create.module.scss';
 
 export default function CourseAdd() {
   const router = useRouter();
-
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState({ title: '', message: '' });
   const [course, setCourse] = useState({
     title: '',
     summary: '',
@@ -19,18 +21,19 @@ export default function CourseAdd() {
   });
 
   const [tags, setTags] = useState([]);
-  const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState({});
+
 
   useEffect(() => {
     const fetchTags = async () => {
       try {
-        const response = await fetch('http://localhost:3005/api/course/tags');
-        if (!response.ok) {
+        const res = await fetch('http://localhost:3005/api/course/tags');
+        if (!res.ok) {
           throw new Error('Failed to fetch tags');
         }
-        const data = await response.json();
+        const data = await res.json();
         if (data.status === "success" && Array.isArray(data.data)) {
           setTags(data.data);
         } else {
@@ -41,9 +44,10 @@ export default function CourseAdd() {
         setErrors(prev => ({ ...prev, fetchTags: '無法獲取課程分類，請稍後再試' }));
       }
     };
-  
+
     fetchTags();
   }, []);
+
 
   const addChapter = () => {
     setCourse(prev => ({
@@ -99,7 +103,6 @@ export default function CourseAdd() {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setCourse(prev => ({ ...prev, [name]: value }));
-    setErrors(prev => ({ ...prev, [name]: '' }));
   };
 
   const handleTagChange = (tagId) => {
@@ -109,123 +112,136 @@ export default function CourseAdd() {
         ? prev.tags.filter(id => id !== tagId)
         : [...prev.tags, tagId]
     }));
-    setErrors(prev => ({ ...prev, tags: '' }));
   };
 
-  const validateForm = () => {
-    const newErrors = {};
-    if (!course.title.trim()) newErrors.title = '請輸入課程名稱';
-    if (!course.summary.trim()) newErrors.summary = '請輸入課程簡介';
-    if (!course.description.trim()) newErrors.description = '請輸入課程描述';
-    if (course.tags.length === 0) newErrors.tags = '請選擇至少一個分類';
-    if (!course.img_path) newErrors.img_path = '請上傳課程封面圖片';
-    if (!course.original_price) newErrors.original_price = '請輸入原價';
-    if (!course.sale_price) newErrors.sale_price = '請輸入優惠價';
+  const validateForm = (course) => {
+    const errors = [];
+
+    if (!course.title?.trim()) errors.push('請輸入課程名稱');
+    if (!course.summary?.trim()) errors.push('請輸入課程簡介');
+    if (!course.description?.trim()) errors.push('請輸入課程描述');
+    if (course.tags.length === 0) errors.push('請選擇至少一個課程分類');
+    if (!course.img_path) errors.push('請上傳課程封面圖片');
 
     course.chapters.forEach((chapter, chapterIndex) => {
-      if (!chapter.name.trim()) {
-        newErrors[`chapter_${chapterIndex}`] = '請輸入章節名稱';
+      if (!chapter.name?.trim()) {
+        errors.push("請輸入章節名稱");
       }
-      chapter.lessons.forEach((lesson, lessonIndex) => {
-        if (!lesson.name.trim()) {
-          newErrors[`lesson_${chapterIndex}_${lessonIndex}`] = '請輸入單元名稱';
-        }
-        if (!lesson.duration.trim()) {
-          newErrors[`lesson_duration_${chapterIndex}_${lessonIndex}`] = '請輸入單元時長';
-        }
-        if (!lesson.video_path) {
-          newErrors[`lesson_video_${chapterIndex}_${lessonIndex}`] = '請上傳單元視頻';
-        }
-      });
+      if (chapter.lessons.length === 0) {
+        errors.push("請至少添加一個課程單元");
+      } else {
+        chapter.lessons.forEach((lesson, lessonIndex) => {
+          if (!lesson.name?.trim()) {
+            errors.push("請輸入單元名稱");
+          }
+          if (!lesson.duration?.trim()) {
+            errors.push("請輸入單元時間");
+          } else if (isNaN(parseFloat(lesson.duration))) {
+            errors.push("單元時間必須是數字");
+          }
+          if (!lesson.video_path) {
+            errors.push("請上傳課程單元影片");
+          }
+        });
+      }
     });
+    
+    if (!course.original_price) {
+      errors.push('請輸入原價');
+    } else if (isNaN(parseFloat(course.original_price))) {
+      errors.push('原價必須是數字');
+    }
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    if (!course.sale_price) {
+      errors.push('請輸入優惠價');
+    } else if (isNaN(parseFloat(course.sale_price))) {
+      errors.push('優惠價必須是數字');
+    } else if (parseFloat(course.sale_price) > parseFloat(course.original_price)) {
+      errors.push('優惠價不能高於原價');
+    }
+
+    return errors;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateForm()) return;
-    const formData = new FormData();
-    
-    // 添加基本課程信息
-    formData.append('title', course.title);
-    formData.append('summary', course.summary);
-    formData.append('description', course.description);
-    formData.append('original_price', course.original_price);
-    formData.append('sale_price', course.sale_price);
-    
-    // 添加標籤
-    course.tags.forEach(tag => formData.append('tags[]', tag));
-    
-    // 添加封面圖片
-    if (course.img_path) {
-      formData.append('img_path', course.img_path);
-    }
-    const chaptersData = course.chapters.map(chapter => ({
-      name: chapter.name,
-      lessons: chapter.lessons.map(lesson => ({
-        name: lesson.name,
-        duration: lesson.duration,
-        video_path: lesson.video_path ? lesson.video_path.name : null
-      }))
-    }));
-    formData.append('chapters', JSON.stringify(chaptersData));
-    
-    // 添加章節和課程信息
-    course.chapters.forEach((chapter, chapterIndex) => {
-      chapter.lessons.forEach((lesson, lessonIndex) => {
-        if (lesson.video_path instanceof File) {
-          console.log(`Adding video for chapter ${chapterIndex}, lesson ${lessonIndex}:`, lesson.video_path);
-          formData.append('video_path', lesson.video_path, lesson.video_path.name);
-        } else {
-          console.warn(`No video file for chapter ${chapterIndex}, lesson ${lessonIndex}`);
-        }
-      });
-    });
+    const validationErrors = validateForm(course);
 
-    console.log('FormData entries:');
-    for (let [key, value] of formData.entries()) {
-      if (value instanceof File) {
-        console.log(key, value.name, value.size);
-      } else {
-        console.log(key, value);
-      }
+    if (validationErrors.length > 0) {
+      setModalContent({
+        title: '新增失敗',
+        message: (
+          <ul>
+            {validationErrors.map((error, index) => (
+              <li key={index}>{error}</li>
+            ))}
+          </ul>
+        )
+      });
+      setShowModal(true);
+      return;
     }
 
     setIsSubmitting(true);
     try {
-      console.log('Sending request to server...');
-      const response = await fetch('http://localhost:3005/api/course', {
+      const formData = new FormData();
+      formData.append('title', course.title);
+      formData.append('summary', course.summary);
+      formData.append('description', course.description);
+      formData.append('original_price', course.original_price);
+      formData.append('sale_price', course.sale_price);
+
+      course.tags.forEach(tag => formData.append('tags[]', tag));
+
+      if (course.img_path) {
+        formData.append('img_path', course.img_path);
+      }
+
+      const chaptersData = course.chapters.map(chapter => ({
+        name: chapter.name,
+        lessons: chapter.lessons.map(lesson => ({
+          name: lesson.name,
+          duration: lesson.duration,
+          video_path: lesson.video_path ? lesson.video_path.name : null
+        }))
+      }));
+      formData.append('chapters', JSON.stringify(chaptersData));
+
+      course.chapters.forEach((chapter, chapterIndex) => {
+        chapter.lessons.forEach((lesson, lessonIndex) => {
+          if (lesson.video_path instanceof File) {
+            formData.append('video_path', lesson.video_path);
+          }
+        });
+      });
+
+      const res = await fetch('http://localhost:3005/api/course', {
         method: 'POST',
         body: formData,
       });
 
-      console.log('Response status:', response.status);
-      const responseText = await response.text();
-      console.log('Response text:', responseText);
-
-      if (!response.ok) {
-        let errorMessage;
-        try {
-          const errorData = JSON.parse(responseText);
-          errorMessage = errorData.message || '課程創建失敗';
-        } catch (e) {
-          errorMessage = '課程創建失敗，無法解析錯誤信息';
-        }
-        throw new Error(errorMessage);
+      if (!res.ok) {
+        throw new Error('課程新增失敗');
       }
 
-      const result = JSON.parse(responseText);
-      console.log('課程創建成功:', result);
-      router.push('/backend/course'); 
+      const result = await res.json();
+      setModalContent({
+        title: '成功',
+        message: '課程新增成功'
+      });
+      setShowModal(true);
+      setTimeout(() => router.push('/backend/course'), 1000);
     } catch (error) {
-      console.error('課程創建失敗:', error);
-      setErrors(prev => ({ ...prev, submit: error.message || '創建課程失敗，請稍後再試' }));
+      console.error('課程新增失敗:', error);
+      setModalContent({
+        title: '失敗',
+        message: '課程新增失敗，請稍後再試。'
+      });
+      setShowModal(true);
     } finally {
       setIsSubmitting(false);
     }
-  }
+  };
 
 
   return (
@@ -248,7 +264,6 @@ export default function CourseAdd() {
                     name="title"
                     value={course.title}
                     onChange={handleInputChange}
-                    required
                   />
                   {errors.title && <div className={scss.error}>{errors.title}</div>}
                 </div>
@@ -260,7 +275,6 @@ export default function CourseAdd() {
                     name="summary"
                     value={course.summary}
                     onChange={handleInputChange}
-                    required
                   ></textarea>
                   {errors.summary && <div className={scss.error}>{errors.summary}</div>}
                 </div>
@@ -272,16 +286,15 @@ export default function CourseAdd() {
                     name="description"
                     value={course.description}
                     onChange={handleInputChange}
-                    required
                   ></textarea>
                   {errors.description && <div className={scss.error}>{errors.description}</div>}
                 </div>
 
                 <div className={scss.formGroup}>
                   <label>課程分類</label>
-                  <div className={scss.tagGroup}>
+                  <div className={scss.categoryGroup}>
                     {tags.map(tag => (
-                      <label key={tag.id} className={scss.tagLabel}>
+                      <label key={tag.id} className={scss.categoryLabel}>
                         <input
                           type="checkbox"
                           checked={course.tags.includes(tag.id.toString())}
@@ -366,12 +379,12 @@ export default function CourseAdd() {
                 <div className={scss.formGroup}>
                   <label htmlFor="originalPrice">原價</label>
                   <input
-                    type="number"
+                    type="text"
                     id="originalPrice"
                     name="original_price"
+                    className={scss.priceInput}
                     value={course.original_price}
                     onChange={handleInputChange}
-                    required
                   />
                   {errors.original_price && <div className={scss.error}>{errors.original_price}</div>}
                 </div>
@@ -379,12 +392,12 @@ export default function CourseAdd() {
                 <div className={scss.formGroup}>
                   <label htmlFor="salePrice">優惠價</label>
                   <input
-                    type="number"
+                    type="text"
                     id="salePrice"
                     name="sale_price"
+                    className={scss.priceInput}
                     value={course.sale_price}
                     onChange={handleInputChange}
-                    required
                   />
                   {errors.sale_price && <div className={scss.error}>{errors.sale_price}</div>}
                 </div>
@@ -399,6 +412,17 @@ export default function CourseAdd() {
             </div>
           </form>
         </div>
+        <Modal
+          mode={1}
+          active={showModal}
+          onClose={() => setShowModal(false)}
+        >
+          <h4>{modalContent.title}</h4>
+          {typeof modalContent.message === 'string'
+            ? <p>{modalContent.message}</p>
+            : modalContent.message
+          }
+        </Modal>
       </BackendLayout>
     </>
   );

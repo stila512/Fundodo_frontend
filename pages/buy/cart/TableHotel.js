@@ -96,7 +96,7 @@ export default function HotelCartTable({
           ))
           }
           {noData && <tr><td colSpan={6}>
-            <FddBtn color='tint1' size='sm' href='/course'>來去逛逛寵物旅館</FddBtn>
+            <FddBtn color='tint1' size='sm' href='/hotel'>來去逛逛寵物旅館</FddBtn>
           </td></tr>}
         </tbody>
       </table>

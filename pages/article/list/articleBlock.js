@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import scss from '@/pages/article/list/articleBlock.module.scss';
 import { FaRegEye } from "react-icons/fa";
 import { FiMessageSquare } from "react-icons/fi";
@@ -38,7 +39,7 @@ export default function ArticleBlock({ article }) {
         </div>
         <div className={[scss.shortContent].join()}>
           <a className={[scss.mainTitle].join()} href={`/article/content?aid=${article.id}`}>
-            {article.title}
+            {"【"+article.sort+"】"+article.title}
           </a>
           <div className={[scss.extract].join()}>
           <div dangerouslySetInnerHTML={{ __html: article.content.substring(0, 20)+'...' }} />
@@ -47,13 +48,15 @@ export default function ArticleBlock({ article }) {
         </div>
         <div className={[scss.artiInfo].join()}>
           <div className={[scss.artiTags].join()}>
-            <div className={[scss.tag].join()}>狗狗</div>
-            <div className={[scss.tag].join()}>寵物</div>
-            <div className={[scss.tag].join()}>內有惡犬</div>
+          {article.tags && article.tags.map((tag, index) => (
+              <Link key={index} href={`/article?tag=${encodeURIComponent(tag)}`}>
+                <div className={[scss.tag].join()}>{tag}</div>
+              </Link>
+            ))}
           </div>
           <div className={[scss.info].join()}>
             <div className={[scss.infoText].join()}><FaRegEye />120</div>
-            <div className={[scss.infoText].join()}><FiMessageSquare />15</div>
+            <div className={[scss.infoText].join()}><FiMessageSquare />{article.reply_count || 0}</div>
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@ import Editor from '../editor';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
-export default function ReplyArea({ user }) {
+export default function ReplyArea({ user, onReplyAdded }) {
   const [content, setContent] = useState('');
   const [articleId, setArticleId] = useState(null);
   const router = useRouter();
@@ -34,7 +34,10 @@ export default function ReplyArea({ user }) {
       });
       console.log('Reply created:', response.data);
       alert('回覆發表成功');
-      setContent('');
+      setContent('')
+      if (onReplyAdded) {
+        onReplyAdded(response.data.reply);
+      }
       router.push(`/article/content?aid=${articleId}`);
     } catch (error) {
       console.error('Error creating reply:', error);
@@ -46,7 +49,7 @@ export default function ReplyArea({ user }) {
     <>
       <form className={scss.replyArea} onSubmit={handleSubmit}>
         <div className={scss.replyTitle}>
-          <h3>新增評論</h3>
+          <h3>新增回覆</h3>
         </div>
         <div className={scss.reply}>
           <Editor content={content} setContent={setContent} editorHei='100px'/>

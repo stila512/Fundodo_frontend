@@ -100,7 +100,7 @@
   padding-top: 0.5rem;
   display: flex;
   flex-direction: row;
-  gap: 0.25rem;
+  gap: 0.5rem;
 
   button,
   a {
@@ -116,8 +116,9 @@
   .cartBtn {
     position: relative;
 
+    // 購物車項目數量
     .number {
-      $l : 22px;
+      $l : s.rem(20px);
       position: absolute;
       // @extend .fx-center;
       //! display 由 js 控制
@@ -126,7 +127,7 @@
       width: $l;
       height: $l;
       top: -10px;
-      right: -5px;
+      right: -8px;
       background-color: s.$shade1;
       color: s.$white;
       font-weight: 600;

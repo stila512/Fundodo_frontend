@@ -147,7 +147,7 @@ export default function ProdCartTable({
             </tr>
           ))}
           {noData && <tr><td colSpan={7}>
-            <FddBtn color='tint1' size='sm' href='/course'>來去逛逛寵物商城</FddBtn>
+            <FddBtn color='tint1' size='sm' href='/prod'>來去逛逛寵物商城</FddBtn>
           </td></tr>}
         </tbody>
       </table>

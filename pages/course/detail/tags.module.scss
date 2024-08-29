@@ -7,6 +7,11 @@
   margin-bottom: 70px;
 }
 
+.tag.selected{
+  border: 1px solid $shade3;
+  background: $secondary;
+}
+
 .btn {
   display: flex;
   padding: 13px 28px;

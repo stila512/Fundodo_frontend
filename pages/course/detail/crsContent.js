@@ -3,12 +3,12 @@ import scss from './crsContent.module.scss';
 import Link from 'next/link';
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 
-export default function CrsContent({ chapters, lessons }) {
+export default function CrsContent({ chapters, lessons,img_path }) {
   return (
     <>
 
       <div className={scss.title}>
-        <h3>課程內容</h3>
+        <h3 >課程內容</h3>
       </div>
       {chapters.map((chapter) => {
         return (
