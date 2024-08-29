@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 import { useRouter } from 'next/router';
+import { GoogleLogin } from '@react-oauth/google';
 import scss from './login.module.scss';
 import Image from 'next/image';
 import lfpic from '@/public/login.svg';
@@ -7,6 +8,7 @@ import pswd_icon from '@/public/memberPic/password-icon.svg';
 import { AuthContext } from '@/context/AuthContext';
 import Link from 'next/link';
 import Modal from '@/components/common/modal';
+import { FcGoogle } from "react-icons/fc";
 
 export default function LoginPage() {
   // 顯示密碼使用
@@ -96,6 +98,39 @@ export default function LoginPage() {
       });
   };
 
+
+  const handleGoogleSuccess = (response) => {
+    const { credential } = response;
+
+    fetch('http://localhost:3005/api/member/google_login/google', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token: credential }),
+    })
+      .then(response => {
+        console.log('API Response:', response);  // 這裡日誌輸出
+        return response.json();
+      })
+      .then(data => {
+        console.log('API Data:', data);  // 這裡日誌輸出
+        if (data.status === 'success' && data.data && data.data.accessToken) {
+          localStorage.setItem('accessToken', data.data.accessToken);
+          login(data.data.accessToken);
+          router.push('/member');
+        } else {
+          alert(data.message || '登入失敗');
+          setError(data.message || '登入失敗');
+        }
+      })
+      .catch(error => {
+        console.error('Fetch Error:', error);  // 這裡日誌輸出
+        alert(error.message || '登入失敗');
+        setError(error.message || '登入失敗');
+      });
+  };
+
   return (
     <main className={scss.Loginmain}>
       <div className={scss.LoginContainer}>
@@ -121,6 +156,12 @@ export default function LoginPage() {
                 <input type={showPassword ? 'text' : 'password'} name="password" required />
                 <p>使用8個或以上的字元, 包含字母數字和符號</p>
                 <Link href="/member/register">註冊會員</Link>
+                <div className={`mt-5 col-6 ${scss.Googleicon}`}>
+                  <GoogleLogin
+                    onSuccess={handleGoogleSuccess}
+                    onError={(error) => setError(error.message)}
+                  />
+                </div>
               </div>
             </div>
             <div className={scss.area3}>
