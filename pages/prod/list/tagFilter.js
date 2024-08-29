@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ChevronDown, ChevronUp, Search } from 'lucide-react';
+import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowUp } from "react-icons/io";
 import scss from './tagFilter.module.scss'
 const TagFilter = ({ tags, selectedTag, onTagChange }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -35,11 +36,11 @@ const TagFilter = ({ tags, selectedTag, onTagChange }) => {
         >
           {isExpanded ? (
             <>
-              收起 <ChevronUp className="w-4 h-4 ml-1" />
+              收起 <IoIosArrowUp />
             </>
           ) : (
             <>
-              更多標籤 <ChevronDown className="w-4 h-4 ml-1" />
+              更多標籤 <IoIosArrowDown />
             </>
           )}
         </button>

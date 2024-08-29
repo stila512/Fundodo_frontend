@@ -457,7 +457,7 @@ export default function CartPage({
           <h4 className='my-5 tx-lg tx-shade3 tx-center'>現在購物車空無一物</h4>
           <div className='hstack jc-around'>
             <FddBtn color='tint1' size='sm' href='/prod'>來去逛逛寵物商城</FddBtn>
-            <FddBtn color='tint1' size='sm' href='/hotel'>來去逛逛寵物旅館</FddBtn>
+            <FddBtn color='tint1' size='sm' href='/hotel/list'>來去逛逛寵物旅館</FddBtn>
             <FddBtn color='tint1' size='sm' href='/course'>來去逛逛寵物課程</FddBtn>
           </div>
           <div className='img-wrap-w100 mx-auto' style={{ width: '40vw' }}>
