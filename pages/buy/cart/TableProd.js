@@ -109,7 +109,7 @@ export default function ProdCartTable({
                 <FddBtn
                   color='tint4'
                   size='sm' icon
-                  callback={() => handleDelete(i_item, item.key)}
+                  callback={() => handleDelete(i_item, item.cart_id)}
                 >
                   <RxCross2 />
                 </FddBtn>
@@ -137,7 +137,7 @@ export default function ProdCartTable({
               <td>
                 <NumberPanel
                   quantity={qtyArr[i_item]}
-                  callback={(q) => handleQty(i_item, item.key, q)}
+                  callback={(q) => handleQty(i_item, item.cart_id, q)}
                   min={1}
                   onOverMin={() => handleZero()}
                   doesDisableMinus={qtyArr[i_item] <= 0}
