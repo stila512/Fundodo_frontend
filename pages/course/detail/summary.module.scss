@@ -1,6 +1,7 @@
 @import '@/styles';
 
 .content {
+  position: relative;
   img {
     margin-bottom: 60px;
     width: 100%;
@@ -54,6 +55,61 @@
   }
 }
 
+.crsImg{
+  width: 90%;
+  height: auto;
+  margin-bottom: 20px;
+ 
+  img{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+}
+
+.imagesContainer {
+  position: relative;
+  transition: max-height 0.3s ease-out;
+  overflow: hidden;
+}
+
+.hideOverflow {
+  max-height: 1064px; 
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 150px; 
+    // background: linear-gradient(180deg, rgba(255, 255, 255, 0.00) 87.9%, #FFF 100%);
+    background: linear-gradient(to bottom, rgba(255,255,255,0)87.9%, #FFF 100%);
+    pointer-events: none; // 確保漸變不會影響點擊事件
+  }
+}
+
+.showAll {
+  max-height: none; 
+}
+
+.gradient {
+  position: absolute;
+  bottom: 0; 
+  left: 0;
+  right: 0;
+  height: 150px; /* 調整漸變效果的高度 */
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1));
+  pointer-events: none;
+}
+
+.buttonContainer {
+  position: relative;
+  z-index: 99; /* 確保按鈕在漸變效果之上 */
+  text-align: center;
+  margin-top: 20px; /* 調整按鈕與內容的間距 */
+}
+
 .btn {
   width: 328px;
   padding: 8px 160px;
@@ -69,6 +125,7 @@
   line-height: 30px;
   margin-bottom: 50px;
   font-size: 14px;
+  z-index: 1; // 確保按鈕在漸變層上面
   &:hover {
     background-color: $tint4;
   }
@@ -78,17 +135,4 @@
     padding: 8px 169px;
     font-size: 18px;
   }
-}
-
-.crsImg{
-  width: 90%;
-  height: auto;
- 
-  img{
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-
-
 }

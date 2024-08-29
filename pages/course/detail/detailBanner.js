@@ -11,7 +11,15 @@ export default function DetailBanner({ title, img_path, tags, viewed_count }) {
     <>
       <div className={[scss.banner, "d-flex gap-md-5"].join(" ") }>
         <div className="col-12 col-md-6">
-          <Image src={`/coursePic/${img_path}`} className={scss.crsPic} width={400} height={300} alt='課程圖片' />
+        {img_path && (
+            <Image 
+              src={`http://localhost:3005/upload/crs_images/${img_path}`} 
+              className={scss.crsPic} 
+              width={400} 
+              height={300} 
+              alt='課程圖片' 
+            />
+          )}
         </div>
         <div className={[scss.info, "col-12", "col-md-5"].join(' ')}>
           <h2>{title}</h2>

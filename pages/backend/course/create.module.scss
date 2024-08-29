@@ -42,7 +42,11 @@
     border-radius: 4px;
     font-size: 16px;
   }
-  input[type='number'] {
+
+  textarea {
+    height: 90px;
+  }
+  input[type='text'].priceInput {
     width: 200px;
     height: 32px;
     padding: 8px;
@@ -51,17 +55,13 @@
     font-size: 16px;
     margin-right: 10px;
   }
-
-  textarea {
-    height: 90px;
-  }
 }
 
 .categoryGroup {
   display: inline-flex;
   flex-wrap: wrap;
   width: 650px;
-  gap: 6px;
+  gap: 4px;
 }
 
 .categoryLabel {
@@ -179,10 +179,9 @@
 }
 
 .error {
-  color: red;
+  color: $error;
   font-size: 14px;
-  margin-top: -5px;
-  margin-bottom: 10px;
+  margin-top: 5px;
 }
 
 .buttonGroup {

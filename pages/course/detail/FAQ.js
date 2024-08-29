@@ -14,9 +14,10 @@ export default function FAQ() {
 
     return (
         <>
-            <div className={scss.title}>
-                <h3>常見問題</h3>
-            </div>
+        <div className={scss.title}>
+        <h3 >常見問題</h3>
+        </div>
+            
             <div className={scss.faqItem}>
                 <div className={scss.faq_q} onClick={() => { toggleAccordion(0) }}>
                     <p><FaRegQuestionCircle /> 課程開始前我需要先準備什麼嗎？</p>
@@ -44,7 +45,7 @@ export default function FAQ() {
                 </div>
                 {accordion === 2 && (
                     <div className={scss.faq_a}>
-                        <p>是的，課程中包含大量的實際訓練示範。每個主題都配有詳細的視頻演示，展示如何在日常生活中應用這些技巧。此外，我們還提供了練習指南和檢查清單，幫助您逐步實踐所學。如果您在應用過程中遇到任何問題，可以在課程的討論區提問，我們的專業團隊會及時為您解答。</p>
+                        <p>是的，課程中包含大量的實際訓練示範。每個主題都配有詳細的影片演示，展示如何在日常生活中應用這些技巧。此外，我們還提供了練習指南和檢查清單，幫助您逐步實踐所學。如果您在應用過程中遇到任何問題，可以在課程的討論區提問，我們的專業團隊會及時為您解答。</p>
                     </div>
                 )}
 

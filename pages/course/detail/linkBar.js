@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import React, {useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import scss from './linkBar.module.scss';
 
 export default function LinkBar() {
@@ -8,10 +8,9 @@ export default function LinkBar() {
         <>
             <div className='container'>
                 <div className={scss.links}>
-                    <Link href="/">課程總覽</Link>
-                    <Link href="/">課程內容</Link>
-                    <Link href="/">常見問題</Link>
-                    <Link href="/">問與答</Link>
+                    <Link href="#summary">課程總覽</Link>
+                    <Link href="#content">課程內容</Link>
+                    <Link href="#faq">常見問題</Link>
                 </div>
             </div>
 

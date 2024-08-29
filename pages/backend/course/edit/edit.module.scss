@@ -35,7 +35,6 @@
   }
 
   input[type='text'],
-  input[type='number'],
   textarea {
     width: 100%;
     padding: 8px;
@@ -49,10 +48,16 @@
     }
   }
 
-  input[type='number'] {
+  input[type='text'].priceInput {
     width: 200px;
-    
+    height: 32px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-right: 10px;
   }
+
 
   textarea[name="description"]{
     min-height: 130px;
