@@ -270,8 +270,10 @@ export default function FillingPage({
     setBuyInfoPkg(prev => {
       //todo: 防呆
       const cityName = cityList.filter(c => c.id === cityID)[0].name;
-      const distName = distList.filter(c => c.zipcode === orderData.addr_code)[0].name;
+      let distName = distList.filter(c => c.zipcode === orderData.addr_code)[0].name;
       const { addressee, email, phone_num, ps } = orderData;
+
+      if (distName.charAt(0) === '（') distName = '';
 
       return {
         ...prev,
@@ -292,10 +294,6 @@ export default function FillingPage({
     setBuyPhase(3);
   }
 
-
-
-
-
   //todo 需要與 user 區域串接，儲存訂單資料組
 
   return (
@@ -305,6 +303,18 @@ export default function FillingPage({
       </Head>
       <main className='container'>
         <div className={['row jc-center py-5', s.topPanel, isBeginning ? s.beginningMode : ''].join(' ')}>
+          {isBeginning &&
+            <div className="col-12 col-lg-8 me-auto mb-5">
+              <div className="hstack">
+                <FddBtn
+                  color='white'
+                  pill={false}
+                  className={s.tempBtn}
+                  callback={() => goPrevPhase()}>
+                  <FaAngleLeft />回到購物車
+                </FddBtn>
+              </div>
+            </div>}
           <h3 className="col-12">請選擇配送方式：</h3>
           <div className="col-5 d-flex flex-row jc-end">
             <FddBtn color='primary' outline={isCVS} size='sm' className={s.modeBtn} callback={() => handleBeginingBtn(false)}>
@@ -438,8 +448,9 @@ export default function FillingPage({
                     <div>
                       <textarea
                         name='ps'
+                        value={autoOrderData ? autoOrderData.ps : undefined}
                         onChange={e => handleInput(e)}
-                      >{autoOrderData ? autoOrderData.ps : undefined}</textarea>
+                      />
                     </div>
                   </form>
                 </div>

@@ -331,7 +331,7 @@ export default function CartPage({
         .filter(v => v);
 
       //*===== 打包購買品項資訊: 訂單所需及 cart IDs
-      copy.buyItems = itemStateArr.flatMap(
+      copy.boughtItems = itemStateArr.flatMap(
         (arr, i_sort) => arr.map((isActive, i_cart) => {
           if (!isActive) return null;
 
