@@ -235,7 +235,7 @@ export default function Pid() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className='container'>
-        <h1 className={[scss.shade3, 'd-none', 'd-lg-block'].join(' ')}>{product.name}</h1>
+        <h1 className={[scss.shade3, 'd-none', 'd-lg-block'].join(' ')}>狗狗的{product.cate_1}用品</h1>
         <div className='mt-3 d-flex'>
           <Breadcrumb />
           <Link className={['text-nowrap', scss.backBtn].join(' ')} href='http://localhost:3000/prod'>回到上一頁</Link>
