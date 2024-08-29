@@ -53,6 +53,14 @@ export default function HotelImg({ hotelCode }) {
     event.target.src = 'http://localhost:3005/api/hotel/images/404.jpg';
   };
 
+    //讀取第一個檔名
+    const getImagePath = (index) => {
+      if (!hotel || !hotel.images || hotel.images.length === 0) {
+        return 'http://localhost:3005/api/hotel/images/404.jpg';
+      }
+      return `http://localhost:3005/api/hotel/images/${hotel.images[index]}`;
+    };
+
 
   return (
     <>
@@ -79,8 +87,8 @@ export default function HotelImg({ hotelCode }) {
             <div className={styles.subImg}>
               {hotel.images.slice(0, 3).map((img, index) => (
                 <div key={index} className={styles.subImgContainer}>
-                  <Image
-                    src={`http://localhost:3005/api/hotel/images/${img}`}
+                <Image
+                    src={getImagePath(index)}
                     width={150}
                     height={110}
                     className={styles.img}

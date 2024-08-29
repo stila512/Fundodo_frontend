@@ -72,7 +72,13 @@ export default function HotelBlock({ searchQuery, sortOption }) {
     const handleImageError = (event) => {
       event.target.src = 'http://localhost:3005/api/hotel/images/404.jpg';
     };
-  
+
+  //讀取第一個檔名
+const getImagePath = (main_img_path) => {
+  if (!main_img_path) return 'http://localhost:3005/api/hotel/images/404.jpg';
+  const filenames = main_img_path.split(',');
+  return `http://localhost:3005/api/hotel/images/${filenames[0].trim()}`;
+};
 
 
   return (
@@ -86,7 +92,7 @@ export default function HotelBlock({ searchQuery, sortOption }) {
                 <div className={styles.image}>
                   <Link href={`/hotel/detail/${v.id}`}>
                     <Image
-                      src={`http://localhost:3005/api/hotel/images/${v.main_img_path}`}
+                      src={getImagePath(v.main_img_path)}
                       layout="fill"
                       objectFit="cover"
                       alt="旅館圖片"
