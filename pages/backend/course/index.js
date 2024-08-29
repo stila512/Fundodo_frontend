@@ -162,7 +162,13 @@ export default function CourseList() {
                   <tr key={course.id}>
                     <td>{course.id}</td>
                     <td>{course.title}</td>
-                    <td>{Array.isArray(course.tags) ? course.tags.join(', ') : course.tags}</td>
+                    <td className={scss.tags}>{course.tags && course.tags.length > 0 ? (
+                                        course.tags.map((tag, index) => (
+                                            <div key={index} className={scss.tag}><p>{tag}</p></div>
+                                        ))
+                                    ) : (
+                                        <p>No tags available</p>
+                                    )}</td>
                     <td>NT${course.sale_price}</td>
                     <td>{new Date(course.created_at).toLocaleDateString()}</td>
                     <td className={scss.actionBtns}>

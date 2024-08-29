@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import DefaultLayout from '@/components/layout/default';
@@ -29,7 +29,7 @@ export default function CourseDetail() {
     images: []
   });
 
-  const getCourse = async (id) => { 
+  const getCourse = async (id) => {
     const apiURL = `http://localhost:3005/api/course/${id}`
     const res = await fetch(apiURL)
     const data = await res.json()
@@ -37,20 +37,20 @@ export default function CourseDetail() {
       ...data.data,
       imgPath: data.imgPath,
 
-  };
+    };
 
     // console.log(data)
     setCourse(courseData)
-}
+  }
   // console.log(router.query)
 
   useEffect(() => {
-    if(router.isReady && router.query.id){
+    if (router.isReady && router.query.id) {
       getCourse(router.query.id)
     }
-    
+
   }, [router.isReady])
-  
+
   return (
     <>
       <Head>
@@ -59,32 +59,45 @@ export default function CourseDetail() {
       <div className='container'>
         <div className={["row", scss.wrapper].join(" ")}>
           <div className="col-12">
-            <DetailBanner 
+            <DetailBanner
               title={course.title}
-              img_path={course.imgPath} 
-              viewed_count={course.viewed_count} 
+              img_path={course.img_path}
+              viewed_count={course.viewed_count}
               tags={course.tags}
             />
+             <aside className={["d-block d-md-none col-12 col-md-4", scss.cart].join(" ")}>
+              <AddCart
+                original_price={course.original_price}
+                sale_price={course.sale_price}
+              />
+            </aside>
             <LinkBar />
           </div>
           <main className="col-12 col-md-8 ">
-            <Summary 
-            summary= {course.summary}
-            description={course.description}
-            images={course.images}
-            />
-            <CrsContent 
-              chapters={course.chapters}
-              lessons={course.lessons}
-              img_path={course.img_path} 
-            />
-            <FAQ />
-            <Tags  tags={course.tags}/>
+            <div id='summary'>
+              <Summary
+                summary={course.summary}
+                description={course.description}
+                images={course.images}
+              />
+            </div>
+
+            <div id='content'>
+              <CrsContent
+                chapters={course.chapters}
+                lessons={course.lessons}
+                img_path={course.img_path}
+              />
+            </div>
+            <div id='faq'>
+              <FAQ />
+            </div>
+            <Tags tags={course.tags} linkMode={true}/>
           </main>
-          <aside className={["col-12 col-md-4 ", scss.cart].join(" ")}>
-            <AddCart 
-            original_price={course.original_price}
-            sale_price={course.sale_price}
+          <aside className={["d-none d-lg-block  col-12 col-md-4 ", scss.cart].join(" ")}>
+            <AddCart
+              original_price={course.original_price}
+              sale_price={course.sale_price}
             />
           </aside>
         </div>

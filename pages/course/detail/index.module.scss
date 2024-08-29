@@ -10,10 +10,12 @@
 
 .cart {
     @media (max-width: 767px) {
-      order: 0; 
+      order: 1;
+      margin: 20px 0;
     }
   
     @media (min-width: 768px) {
       order: 2; 
     }
   }
+

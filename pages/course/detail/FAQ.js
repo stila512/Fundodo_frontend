@@ -14,9 +14,10 @@ export default function FAQ() {
 
     return (
         <>
-            <div className={scss.title}>
-                <h3>常見問題</h3>
-            </div>
+        <div className={scss.title}>
+        <h3 >常見問題</h3>
+        </div>
+            
             <div className={scss.faqItem}>
                 <div className={scss.faq_q} onClick={() => { toggleAccordion(0) }}>
                     <p><FaRegQuestionCircle /> 課程開始前我需要先準備什麼嗎？</p>

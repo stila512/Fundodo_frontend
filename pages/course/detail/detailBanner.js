@@ -13,7 +13,7 @@ export default function DetailBanner({ title, img_path, tags, viewed_count }) {
         <div className="col-12 col-md-6">
         {img_path && (
             <Image 
-              src={`http://localhost:3005${img_path}`} 
+              src={`http://localhost:3005/upload/crs_images/${img_path}`} 
               className={scss.crsPic} 
               width={400} 
               height={300} 

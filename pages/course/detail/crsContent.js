@@ -8,7 +8,7 @@ export default function CrsContent({ chapters, lessons,img_path }) {
     <>
 
       <div className={scss.title}>
-        <h3>課程內容</h3>
+        <h3 >課程內容</h3>
       </div>
       {chapters.map((chapter) => {
         return (
