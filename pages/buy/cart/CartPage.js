@@ -341,7 +341,7 @@ export default function CartPage({
             purchase_sort: sKey,
             purchase_id: cartItem.buy_id,
             purchase_price: i_sort === 1 ? null : cartItem.price,
-            cart_id: cartItem.id,
+            cart_id: cartItem.cart_id,
             room_type: i_sort === 1 ? cartItem.room_type : ''
           };
         })
@@ -439,7 +439,11 @@ export default function CartPage({
                   </tr>
                   <tr>
                     <td colSpan={2}>
-                      <FddBtn color='shade2' pill={false} className={s.payBtn} callback={goNextPhase}>前往結帳</FddBtn>
+                      <FddBtn
+                        color='shade2'
+                        pill={false}
+                        className={s.payBtn}
+                        callback={goNextPhase}>前往結帳</FddBtn>
                     </td>
                   </tr>
                 </tbody>
