@@ -1,20 +1,52 @@
-import React from 'react';
-import scss from './tagFilter.module.scss';
+import React, { useState } from 'react';
+import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowUp } from "react-icons/io";
+import scss from './tagFilter.module.scss'
+const TagFilter = ({ tags, selectedTag, onTagChange }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  
+  const initialVisibleTags = 10;
+  
+  const filteredTags = tags.filter(tag => 
+    tag.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-function TagFilter({ tags, selectedTag, onTagChange }) {
+  const visibleTags = isExpanded ? filteredTags : filteredTags.slice(0, initialVisibleTags);
+
   return (
-    <div className={scss.tagFilterContainer}>
-      {tags.map((tag) => (
+    <div className=''>
+      <div className={scss.tagFilterContainer}>
+        {visibleTags.map((tag) => (
+          <button
+            key={tag}
+            onClick={() => onTagChange(tag)}
+            className={[scss.tagButton, selectedTag === tag ? scss.active : ''].join(' ')}
+            
+          >
+            #{tag}
+          </button>
+        ))}
+      </div>
+      
+      {filteredTags.length > initialVisibleTags && (
         <button
-          key={tag}
-          className={`${scss.tagButton} ${selectedTag === tag ? scss.active : ''}`}
-          onClick={() => onTagChange(tag)}
+          onClick={() => setIsExpanded(!isExpanded)}
+          className={scss.handleToggle}
         >
-          #{tag}
+          {isExpanded ? (
+            <>
+              收起 <IoIosArrowUp />
+            </>
+          ) : (
+            <>
+              更多標籤 <IoIosArrowDown />
+            </>
+          )}
         </button>
-      ))}
+      )}
     </div>
   );
-}
+};
 
 export default TagFilter;

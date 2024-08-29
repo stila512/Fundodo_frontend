@@ -48,7 +48,7 @@ export default function ProdSec() {
               className={`${scss.prodText} ${isVisible ? scss.animate : ''}`}
             >
               <h3>狗狗的全部需求，一站式解決</h3>
-              <FddBtn color='primary' href='#' className={scss.proBtn}>
+              <FddBtn color='primary' href='/prod' className={scss.proBtn}>
                 立即逛逛 <FaArrowRight />
               </FddBtn>
             </div>

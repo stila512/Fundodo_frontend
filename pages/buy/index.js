@@ -85,7 +85,7 @@ export default function BuyPage() {
         />}
       {buyPhase === 3 &&
         <ConfirmPage
-          setBuyInfoPkg={setBuyInfoPkg}
+          setBuyPhase={setBuyPhase}
           buyInfoPkg={buyInfoPkg}
         />}
     </>

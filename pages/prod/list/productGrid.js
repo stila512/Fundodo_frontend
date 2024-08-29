@@ -92,13 +92,45 @@ export default function ProductGrid({ products, className, page, totalPages, onP
 
   return (
     <div className={['row', 'g-3', className].join(' ')}>
+      {totalPages > 1 && (
+        <div className='d-flex'>
+          <label
+            onClick={() => handlePageChange(page - 1)}
+            className={`${scss.myButton} ${page === 1 ? scss.disabled : ''}`}
+          >
+            <input type="button" className='d-none' />
+            <IoIosArrowBack size={24} />
+          </label>
+          {getPaginationItems().map((item, index) => (
+            item === '...' ? (
+              <span key={index}>...</span>
+            ) : (
+              <label
+                key={index}
+                onClick={() => handlePageChange(item)}
+                className={[page === item ? scss.activePage : '', scss.myButton].join(' ')}
+              >
+                <input type="button" className='d-none' />
+                {item}
+              </label>
+            )
+          ))}
+          <label
+            onClick={() => handlePageChange(page + 1)}
+            className={`${scss.myButton} ${page === totalPages ? scss.disabled : ''}`}
+          >
+            <input type="button" className='d-none' />
+            <IoIosArrowForward size={24} />
+          </label>
+        </div>
+      )}
       {products.length > 0 ? (
         products.map((v, i) => (
           <div key={i} className={['col-xxl-3 col-xl-4 col-6', scss.cardGrid].join(' ')}>
             <div className={scss.card}>
               <div className='d-flex jc-end'>
                 <FavoriteIcon
-                  style={{color: '#B9A399'}}
+                  style={{ color: '#B9A399' }}
                   className={scss.cardFavIcon}
                   productId={v.id}
                   productData={{

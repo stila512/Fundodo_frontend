@@ -331,7 +331,7 @@ export default function CartPage({
         .filter(v => v);
 
       //*===== 打包購買品項資訊: 訂單所需及 cart IDs
-      copy.buyItems = itemStateArr.flatMap(
+      copy.boughtItems = itemStateArr.flatMap(
         (arr, i_sort) => arr.map((isActive, i_cart) => {
           if (!isActive) return null;
 
@@ -341,7 +341,7 @@ export default function CartPage({
             purchase_sort: sKey,
             purchase_id: cartItem.buy_id,
             purchase_price: i_sort === 1 ? null : cartItem.price,
-            cart_id: cartItem.id,
+            cart_id: cartItem.cart_id,
             room_type: i_sort === 1 ? cartItem.room_type : ''
           };
         })
@@ -439,7 +439,11 @@ export default function CartPage({
                   </tr>
                   <tr>
                     <td colSpan={2}>
-                      <FddBtn color='shade2' pill={false} className={s.payBtn} callback={goNextPhase}>前往結帳</FddBtn>
+                      <FddBtn
+                        color='shade2'
+                        pill={false}
+                        className={s.payBtn}
+                        callback={goNextPhase}>前往結帳</FddBtn>
                     </td>
                   </tr>
                 </tbody>
@@ -453,7 +457,7 @@ export default function CartPage({
           <h4 className='my-5 tx-lg tx-shade3 tx-center'>現在購物車空無一物</h4>
           <div className='hstack jc-around'>
             <FddBtn color='tint1' size='sm' href='/prod'>來去逛逛寵物商城</FddBtn>
-            <FddBtn color='tint1' size='sm' href='/hotel'>來去逛逛寵物旅館</FddBtn>
+            <FddBtn color='tint1' size='sm' href='/hotel/list'>來去逛逛寵物旅館</FddBtn>
             <FddBtn color='tint1' size='sm' href='/course'>來去逛逛寵物課程</FddBtn>
           </div>
           <div className='img-wrap-w100 mx-auto' style={{ width: '40vw' }}>
