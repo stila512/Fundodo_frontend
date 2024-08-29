@@ -4,10 +4,15 @@ import Head from 'next/head'
 import Image from 'next/image';
 import BackendLayout from '@/components/layout/backend'
 import styles from './edit.module.scss';
+import Modal from '@/components/common/modal';
 import { RiImageAddFill } from "react-icons/ri";
 
 
 export default function edit() {
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState({ title: '', message: '' });
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
   const router = useRouter();
   const { id } = router.query;
   const [images, setImages] = useState([]);
@@ -123,14 +128,27 @@ export default function edit() {
       });
       const data = await response.json();
       if (data.status === 'success') {
-        alert('旅館更新成功！');
-        router.push('/backend/hotel');
+        // alert('旅館更新成功！');
+        setModalContent({
+          title: '成功',
+          message: '旅館更新成功！'
+        });
+        setShowSuccessModal(true);
       } else {
-        alert('更新失敗：' + data.message);
+        // alert('更新失敗：' + data.message);
+        setModalContent({
+          title: '錯誤',
+          message: '旅館更新失敗，請稍後再試或聯繫網管人員。'
+        });
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('發生錯誤，請稍後再試');
+      // alert('發生錯誤，請稍後再試');
+      setModalContent({
+        title: '錯誤',
+        message: '旅館更新失敗，請稍後再試或聯繫網管人員。'
+      });
+      setShowModal(true);
     }
   };
 
@@ -152,7 +170,7 @@ export default function edit() {
     const file = event.target.files[0];
     if (file) {
       const formData = new FormData();
-      formData.append('images', file);  
+      formData.append('images', file);
       try {
         const response = await fetch(`http://localhost:3005/api/hotel/${hotel.id}/update-images`, {
           method: 'PUT',
@@ -162,7 +180,7 @@ export default function edit() {
           const result = await response.json();
           if (result.status === 'success' && result.data) {
             const newImages = [...images];
-            newImages[index] = result.data[0];  
+            newImages[index] = result.data[0];
             setImages(newImages);
             setHotel(prevHotel => ({
               ...prevHotel,
@@ -177,11 +195,20 @@ export default function edit() {
         }
       } catch (error) {
         console.error('圖片上傳出錯:', error);
-        alert(`圖片上傳失敗: ${error.message}`);
+        // alert(`圖片上傳失敗: ${error.message}`);
+        setModalContent({
+          title: '錯誤',
+          message: `圖片上傳失敗: ${error.message}`
+        });
+        setShowModal(true);
       }
     }
   };
 
+  const handleSuccessConfirm = () => {
+    setShowSuccessModal(false);
+    router.push('/backend/hotel');
+  };
 
 
 
@@ -201,14 +228,14 @@ export default function edit() {
                 <div key={index} className={styles.addImg} onClick={() => handleImageClick(index)}>
                   {images[index] ? (
                     <>
-                    <Image
-                      src={`${baseURL}/images/${images[index]}`}
-                      width={180}
-                      height={0}
-                      sizes="200px"
-                      style={{ width: '100%', height: 'auto' }}
-                      alt={`旅館圖片 ${index + 1}`}
-                    />
+                      <Image
+                        src={`${baseURL}/images/${images[index]}`}
+                        width={180}
+                        height={0}
+                        sizes="200px"
+                        style={{ width: '100%', height: 'auto' }}
+                        alt={`旅館圖片 ${index + 1}`}
+                      />
                       <div className={styles.overlay}><RiImageAddFill className={styles.addImgIcon} /></div>
                     </>
                   ) : (
@@ -344,6 +371,16 @@ export default function edit() {
           </form>
         </div>
       </BackendLayout>
+      <Modal
+        mode={2}
+        active={showSuccessModal}
+        onClose={handleSuccessConfirm}
+        confirmText='回列表'
+        cancelText='取消'
+      >
+        <h1>{modalContent.title}</h1>
+        <p>{modalContent.message}</p>
+      </Modal>
     </>
   )
 }

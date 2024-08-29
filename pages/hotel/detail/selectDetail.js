@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styles from './selectDetail.module.scss';
 import { RiCoupon2Line } from "react-icons/ri";
+import Modal from '@/components/common/modal';
 
 
 export default function SelectDetail({ hotelCode }) {
@@ -12,6 +13,9 @@ export default function SelectDetail({ hotelCode }) {
   const [roomTypeCode, setRoomTypeCode] = useState('');
   const [roomCount, setRoomCount] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
+
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState({ title: '', message: '' });
 
   useEffect(() => {
     const getHotel = async () => {
@@ -42,7 +46,12 @@ export default function SelectDetail({ hotelCode }) {
     } else if (type === 'checkOut'){
       //確保退房不早於入住
       if(date < checkInDate) {
-        alert('退房需晚於入住日')
+        // alert('退房需晚於入住日')
+        setModalContent({
+          title: '注意',
+          message: '您所選擇的日期有誤，退房日需晚於入住日'
+        });
+        setShowModal(true);
         return;
       }
       setCheckOutDate(date);
@@ -131,7 +140,12 @@ export default function SelectDetail({ hotelCode }) {
   //放入購物車
   const handleBooking = async () => {
     if(!checkInDate || !checkOutDate || !roomType || !roomCount) {
-      alert('訂房資訊尚未選取完成');
+      // alert('訂房資訊尚未選取完成');
+      setModalContent({
+        title: '訂房失敗',
+        message: '訂房資訊尚未選取完成，請再次嘗試'
+      });
+      setShowModal(true);
       return;
     }
 
@@ -146,6 +160,8 @@ export default function SelectDetail({ hotelCode }) {
     check_in_date: checkInDate,
     check_out_date: checkOutDate,
   };
+
+
 
   try {
     const response = await fetch('http://localhost:3005/api/cart', {
@@ -162,12 +178,20 @@ export default function SelectDetail({ hotelCode }) {
 
     const result = await response.json();
 
-    console.log('成功加入購物車:', result);
-    alert('已成功加入購物車');
+    // console.log('成功加入購物車:', result);
+    setModalContent({
+      title: '成功',
+      message: '加入購物車成功，請至購物車查看選購的商品。'
+    });
+    setShowModal(true);
 
   } catch (error) {
     console.error('加入購物車失敗:', error);
-    alert('加入購物車失敗，請稍後再試')
+    setModalContent({
+      title: '錯誤',
+      message: '加入購物車時發生錯誤，請稍後再試。'
+  });
+  setShowModal(true);
   }
 };
 
@@ -305,6 +329,14 @@ export default function SelectDetail({ hotelCode }) {
           </div>
         </>
       )}
+      <Modal
+        mode={1}
+        active={showModal}
+        onClose={() => setShowModal(false)}
+      >
+        <h4>{modalContent.title}</h4>
+        <p>{modalContent.message}</p>
+      </Modal>
     </>
   );
 }
