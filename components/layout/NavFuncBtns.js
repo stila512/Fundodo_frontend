@@ -91,12 +91,12 @@ export default function NavFuncBtns({ showCart = true }) {
           <IoMdPerson />
         </FddBtn>
       </li>
-      {/* 我的最愛 */}
-      <li>
+      {/* 我的最愛: 開發階段用 */}
+      {/* <li>
         <FddBtn color='white' pill={false} icon href="/prod/list/favoriteProd">
           <FaHeart size={24} />
         </FddBtn>
-      </li>
+      </li> */}
       {/* 購物車 */}
       {showCart ? (
         <li className={scss.cartBtn} style={{ paddingRight: uID === 0 ? '' : '.5rem' }}>
@@ -108,8 +108,12 @@ export default function NavFuncBtns({ showCart = true }) {
       ) : (<></>
       )}
       {/* 會員 */}
-      <li>
-        <FddBtn color='white' pill={false} icon callback={() => handleLogout()}>
+      <li className='d-none d-lg-inline-flex'>
+        <FddBtn
+          color='white'
+          pill={false}
+          icon
+          callback={() => handleLogout()}>
           <IoIosLogOut />
         </FddBtn>
       </li>
