@@ -28,14 +28,26 @@ export default function ConfirmPage({
     DLV: '宅配到府'
   };
 
-  // const submitRef = useRef(null);
+  // const formRef = useRef(null);
 
-  //===== 解讀登入的會員 ID
   useEffect(() => {
+    //===== 解讀登入的會員 ID
     const { nickname } = tokenDecoder();
 
     if (nickname && nickname !== '會員') setUsername(nickname);
     else console.log("是不是登出惹？userId");
+
+    //===== 解讀登入的會員 ID
+    axios.post(`${apiBaseUrl}/cart/ecpay`, { amount: orderInfo.amount })
+      .then(response => {
+        const { apiURL, inputArr } = response.data.package;
+        setECPAY_PKG({
+          apiURL,
+          inputArr
+        });
+      }).catch(err => {
+        console.log('失敗惹QwQ: ' + err.message);
+      });
   }, []);
 
   /**偵測使用的優惠券，若是特定的 cp_id，則給予新的優惠券*/
@@ -163,31 +175,23 @@ export default function ConfirmPage({
       });
   };
 
-  const handleForECPAY = async () => {
-    await axios.post(`${apiBaseUrl}/cart/ecpay`, { amt: orderInfo.amount })
-      .then(response => {
-        const { apiURL, inputArr } = response.data.package;
-        setECPAY_PKG({
-          apiURL,
-          inputArr
-        });
-      }).catch(err => {
-        console.log('失敗惹QwQ: ' + err.message);
-      });
+  // const handleForECPAY = async () => {
 
-  }
 
-  const router = useRouter();
+  // }
+
+  // const router = useRouter();
 
   const checkout = async () => {
-    triggerNewCoupon();
-    const orderID = await insertOrder();
-    await insertOrderItem(orderID);
-    await emptyCart();
-    await updateCoupons();
+    // triggerNewCoupon();
+    // const orderID = await insertOrder();
+    // await insertOrderItem(orderID);
+    // await emptyCart();
+    // await updateCoupons();
 
-    router.push(`${apiBaseUrl}/cart/ecpay`)
+    // router.push(`${apiBaseUrl}/cart/ecpay`)
     // await handleForECPAY();
+    document.getElementById('ECPAY-form').submit();
   }
 
   return (
@@ -211,7 +215,6 @@ export default function ConfirmPage({
                     <p>為確保您的權益，請您再次確認以下的訂單資訊是否正確。</p>
                     <p>訂單總金額： {orderInfo.amount} 元</p>
                     <p>訂購日期： {today}</p>
-
                   </td>
                 </tr>
               </tbody>
@@ -249,17 +252,20 @@ export default function ConfirmPage({
               <FddBtn color='primary' pill={false} outline callback={() => setBuyPhase(2)}>
                 編輯資料
               </FddBtn>
-              <FddBtn color='primary' pill={false} callback={() => checkout()}>
-                前往付款
+              <FddBtn color={ECPAY_PKG ? 'primary' : 'muted'} pill={false} disabled={!ECPAY_PKG} callback={() => checkout()}>
+                {ECPAY_PKG ? "前往付款" : "等我一下"}
               </FddBtn>
             </div>
           </div>
         </div>
       </div>
-      {/* <form action={ECPAY_PKG ? ECPAY_PKG.apiURL : ''} className="d-none">
+      <form
+        action={ECPAY_PKG ? ECPAY_PKG.apiURL : ''}
+        id='ECPAY-form'
+        className="d-none"
+      >
         {ECPAY_PKG ? ECPAY_PKG.inputArr.join('') : <></>}
       </form>
-      <button type="submit" value="送出參數" ref={submitRef} /> */}
     </>
   )
 }

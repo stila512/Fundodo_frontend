@@ -253,6 +253,7 @@ export default function FillingPage({
   }
 
   const autoFill = () => {
+    if (!prevOrderData) return;
     //先用以觸發「區鄉鎮」的搜尋
     setCityID(prevOrderData.addr_city);
     //觸發畫面上填入
