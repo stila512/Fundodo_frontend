@@ -165,7 +165,9 @@ export default function CourseAdd() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const validationErrors = validateForm(course);
+
     if (validationErrors.length > 0) {
       setModalContent({
         title: '新增失敗',
@@ -181,6 +183,7 @@ export default function CourseAdd() {
       formData.append('title', course.title);
       formData.append('summary', course.summary);
       formData.append('description', course.description);
+      formData.append('tags', JSON.stringify(course.tags));
       formData.append('original_price', course.original_price);
       formData.append('sale_price', course.sale_price);
       formData.append('tags', JSON.stringify(course.tags));

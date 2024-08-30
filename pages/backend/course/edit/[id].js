@@ -15,7 +15,7 @@ export default function CourseEdit() {
     img_path: '',
     original_price: '',
     sale_price: '',
-    tag_ids: [],
+    tags: [],
     chapters: [],
     images: []
   });
@@ -36,7 +36,6 @@ export default function CourseEdit() {
     try {
       const res = await fetch(`http://localhost:3005/api/course/${id}`);
       const data = await res.json();
-      console.log('獲取的課程資料:', data);
       setCourse(data.data);
       if (data.data.img_path) {
         setPreviewImage(getImageUrl(data.data.img_path));
@@ -45,6 +44,26 @@ export default function CourseEdit() {
       console.error('獲取課程資料失敗:', error);
     }
   };
+
+  // const fetchCourse = async () => {
+  //   try {
+  //     const res = await fetch(`http://localhost:3005/api/course/${id}`);
+  //     const data = await res.json();
+  
+  //     if (data.data) {
+  //       setCourse({
+  //         ...data.data,
+  //         tags: data.data.tags || [] // 確保 tags 設置正確
+  //       });
+  
+  //       if (data.data.img_path) {
+  //         setPreviewImage(getImageUrl(data.data.img_path));
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error('獲取課程資料失敗:', error);
+  //   }
+  // };
 
   const fetchTags = async () => {
     try {
@@ -66,19 +85,18 @@ export default function CourseEdit() {
     const { value, checked } = e.target;
     const tagId = parseInt(value, 10);
     if (checked) {
-      setCourse(prev => ({ ...prev, tag_ids: [...prev.tag_ids, tagId] }));
+      setCourse(prev => ({ ...prev, tags: [...prev.tags, tagId] }));
     } else {
-      setCourse(prev => ({ ...prev, tag_ids: prev.tag_ids.filter(id => id !== tagId) }));
+      setCourse(prev => ({ ...prev, tags: prev.tags.filter(id => id !== tagId) }));
     }
   };
 
   const getImageUrl = (imgPath) => {
     if (!imgPath) return '';
-    if (imgPath.startsWith('http')) {
-      return imgPath;
-    }
-    return `http://localhost:3005/upload/crs_images/${imgPath}`;
-  }
+    return imgPath.startsWith('http')
+      ? imgPath
+      : `http://localhost:3005/upload/crs_images/${imgPath}`;
+  };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -99,7 +117,7 @@ export default function CourseEdit() {
     if (field === 'video_path' && value instanceof File) {
       updatedChapters[chapterIndex].lessons[lessonIndex][field] = value;
     } else {
-      updatedChapters[chapterIndex].lessons[lessonIndex][field] = value;
+      updatedChapters[chapterIndex].lessons[lessonIndex][field] = value|| updatedChapters[chapterIndex].lessons[lessonIndex][field];
     }
     setCourse(prev => ({ ...prev, chapters: updatedChapters }));
   };
@@ -110,40 +128,26 @@ export default function CourseEdit() {
     if (!course.title?.trim()) errors.push('請輸入課程名稱');
     if (!course.summary?.trim()) errors.push('請輸入課程簡介');
     if (!course.description?.trim()) errors.push('請輸入課程描述');
-    if (course.tag_ids.length === 0) errors.push('請選擇至少一個課程分類');
+    if (course.tags.length === 0) errors.push('請選擇至少一個課程分類');
 
     course.chapters.forEach((chapter, chapterIndex) => {
-      if (!chapter.name?.trim()) {
-        errors.push("請輸入章節名稱");
-      }
-      if (chapter.lessons.length === 0) {
-        errors.push("請至少添加一個課程單元");
-      } else {
+      if (!chapter.name?.trim()) errors.push("請輸入章節名稱");
+      if (chapter.lessons.length === 0) errors.push("請至少添加一個課程單元");
+      else {
         chapter.lessons.forEach((lesson, lessonIndex) => {
-          if (!lesson.name?.trim()) {
-            errors.push("請輸入單元名稱");
-          }
-          if (!lesson.duration?.trim()) {
-            errors.push("請輸入單元時間");
-          } else if (isNaN(parseFloat(lesson.duration))) {
-            errors.push("單元時長必須是數字");
-          }
+          if (!lesson.name?.trim()) errors.push("請輸入單元名稱");
+          if (!lesson.duration?.trim()) errors.push("請輸入單元時間");
+          else if (isNaN(parseFloat(lesson.duration))) errors.push("單元時長必須是數字");
         });
       }
     });
-    if (!course.original_price) {
-      errors.push('請輸入原價');
-    } else if (isNaN(parseFloat(course.original_price))) {
-      errors.push('原價必須是數字');
-    }
 
-    if (!course.sale_price) {
-      errors.push('請輸入優惠價');
-    } else if (isNaN(parseFloat(course.sale_price))) {
-      errors.push('優惠價必須是數字');
-    } else if (parseFloat(course.sale_price) > parseFloat(course.original_price)) {
-      errors.push('優惠價不能高於原價');
-    }
+    if (!course.original_price) errors.push('請輸入原價');
+    else if (isNaN(parseFloat(course.original_price))) errors.push('原價必須是數字');
+
+    if (!course.sale_price) errors.push('請輸入優惠價');
+    else if (isNaN(parseFloat(course.sale_price))) errors.push('優惠價必須是數字');
+    else if (parseFloat(course.sale_price) > parseFloat(course.original_price)) errors.push('優惠價不能高於原價');
 
     return errors;
   };
@@ -155,7 +159,7 @@ export default function CourseEdit() {
 
     if (validationErrors.length > 0) {
       setModalContent({
-        title: '新增失敗',
+        title: '更新失敗',
         message: (
           <ul>
             {validationErrors.map((error, index) => (
@@ -172,9 +176,10 @@ export default function CourseEdit() {
     formData.append('title', course.title);
     formData.append('summary', course.summary);
     formData.append('description', course.description);
-    formData.append('tag_ids', JSON.stringify(course.tag_ids));
+    formData.append('tags', JSON.stringify(course.tags));
     formData.append('original_price', course.original_price);
     formData.append('sale_price', course.sale_price);
+
     if (course.img_path instanceof File) {
       formData.append('img_path', course.img_path);
     }
@@ -189,15 +194,13 @@ export default function CourseEdit() {
     }));
     formData.append('chapters', JSON.stringify(chaptersData));
 
-    // 處理影片文件
-    course.chapters.forEach((chapter, chapterIndex) => {
-      chapter.lessons.forEach((lesson, lessonIndex) => {
+    course.chapters.forEach((chapter) => {
+      chapter.lessons.forEach((lesson) => {
         if (lesson.video_path instanceof File) {
-          formData.append('video_path', lesson.video_path);
+          formData.append('videos', lesson.video_path);
         }
       });
     });
-
 
     try {
       const res = await fetch(`http://localhost:3005/api/course/${id}`, {
@@ -276,7 +279,7 @@ export default function CourseEdit() {
                         <input
                           type="checkbox"
                           value={tag.id}
-                          checked={course.tag_ids.includes(tag.id)}
+                          checked={course.tags.includes(tag.id)}
                           onChange={handleTagChange}
                         />
                         {tag.name}
@@ -341,7 +344,6 @@ export default function CourseEdit() {
                           {lesson.video_path && (
                             <p>當前影片: {typeof lesson.video_path === 'string' ? lesson.video_path.split('/').pop() : lesson.video_path.name}</p>
                           )}
-
                         </div>
                       ))}
                       <button type="button" className={scss.addButton} onClick={() => handleChapterChange(chapterIndex, 'lessons', [...chapter.lessons, { name: '', duration: '', video_path: '' }])}>新增單元</button>
@@ -369,7 +371,7 @@ export default function CourseEdit() {
                   <label htmlFor="sale_price">優惠價</label>
                   <input
                     type="text"
-                    id="salePrice"
+                    id="sale_price"
                     name="sale_price"
                     className={scss.priceInput}
                     value={course.sale_price}
@@ -395,7 +397,6 @@ export default function CourseEdit() {
           <h4>{modalContent.title}</h4>
           <p>{modalContent.message}</p>
         </Modal>
-
       </BackendLayout>
     </>
   );
