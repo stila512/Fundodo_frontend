@@ -3,6 +3,9 @@ import styles from './selectDetail.module.scss';
 import { RiCoupon2Line } from "react-icons/ri";
 import Modal from '@/components/common/modal';
 
+import { useContext } from 'react';
+import { AuthContext } from '@/context/AuthContext';
+
 
 export default function SelectDetail({ hotelCode }) {
   const [hotel, setHotel] = useState(null);
@@ -16,6 +19,8 @@ export default function SelectDetail({ hotelCode }) {
 
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState({ title: '', message: '' });
+
+  const { user, loading } = useContext(AuthContext);
 
   useEffect(() => {
     const getHotel = async () => {
@@ -139,60 +144,63 @@ export default function SelectDetail({ hotelCode }) {
 
   //放入購物車
   const handleBooking = async () => {
-    if(!checkInDate || !checkOutDate || !roomType || !roomCount) {
-      // alert('訂房資訊尚未選取完成');
-      setModalContent({
-        title: '訂房失敗',
-        message: '訂房資訊尚未選取完成，請再次嘗試'
-      });
-      setShowModal(true);
+    if (loading) return;
+  
+    if (!user) {
+      displayModal('請先登入', '加入購物車失敗，請先登入後再試。');
+      return;
+    }
+  
+    const userId = user.id || user.user_id || user.userId;
+    if (!userId) {
+      console.error('無法獲取用戶ID');
+      displayModal('失敗', '加入購物車失敗，請重新登入後再次嘗試。');
+      return;
+    }
+  
+    if (!checkInDate || !checkOutDate || !roomType || !roomCount) {
+      displayModal('訂房失敗', '訂房資訊尚未選取完成，請再次嘗試。');
       return;
     }
 
-  //cart api
-  const bookingData = {
-    user_id: 13, //從會員資料來
-    dog_id: null,
-    buy_sort: "HT",
-    buy_id: hotelCode,
-    amount: totalPrice,
-    room_type: roomTypeCode,
-    check_in_date: checkInDate,
-    check_out_date: checkOutDate,
-  };
+    const bookingData = {
+      user_id: userId,
+      dog_id: null,
+      buy_sort: 'HT',
+      buy_id: hotelCode,
+      amount: totalPrice,
+      room_type: roomTypeCode,
+      check_in_date: checkInDate,
+      check_out_date: checkOutDate
+    };
 
 
 
-  try {
-    const response = await fetch('http://localhost:3005/api/cart', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(bookingData)
-    });
-
-    if(!response.ok) {
-      throw new Error('加入購物車失敗');
+    try {
+      const response = await fetch('http://localhost:3005/api/cart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(bookingData)
+      });
+  
+      if (!response.ok) {
+        throw new Error('加入購物車失敗');
+      }
+  
+      const result = await response.json();
+      console.log('成功加入購物車:', result);
+      displayModal('成功', '加入購物車成功，請至購物車查看選購的商品。');
+    } catch (error) {
+      console.error('加入購物車失敗:', error);
+      displayModal('錯誤', '加入購物車時發生錯誤，請稍後再試。');
     }
+};
 
-    const result = await response.json();
-
-    // console.log('成功加入購物車:', result);
-    setModalContent({
-      title: '成功',
-      message: '加入購物車成功，請至購物車查看選購的商品。'
-    });
-    setShowModal(true);
-
-  } catch (error) {
-    console.error('加入購物車失敗:', error);
-    setModalContent({
-      title: '錯誤',
-      message: '加入購物車時發生錯誤，請稍後再試。'
-  });
+const displayModal = (title, message) => {
+  setModalContent({ title, message });
   setShowModal(true);
-  }
 };
 
 
