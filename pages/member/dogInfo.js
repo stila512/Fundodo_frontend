@@ -116,7 +116,8 @@ export default function DogInfo() {
 
           // 其他操作，如顯示成功訊息或刷新頁面
           console.log('狗狗資料更新成功');
-          window.location.reload();  // 重整頁面
+          router.push('/member/dogInfoData')
+          
 
           // 如果有新的頭像，則上傳頭像
           if (dog.avatar_file) {

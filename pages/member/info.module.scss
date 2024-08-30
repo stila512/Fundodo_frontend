@@ -3,7 +3,7 @@
 .PeopleInfoContainer {
   display: flex;
   flex-direction: row;
-  height: 80vh;
+  height: 800px;
   @media (max-width: 768px) {
     .midtext input {
       max-width: 70%;
@@ -219,7 +219,7 @@
 .ForumMemberInfo {
   display: flex;
   flex-direction: row;
-  height: 80vh;
+  height: 800px;
   @media (max-width: 768px) {
     .midtext input {
       max-width: 70%;
@@ -385,6 +385,7 @@
   }
   .botarea {
     display: flex;
+    width: fill;
     justify-content: center;
     align-items: center;
     gap: 30px;
@@ -437,7 +438,7 @@
 .ChangePasswordContainer {
   display: flex;
   flex-direction: row;
-  height: 80vh;
+  height: 800px;
   background: var(--tint5, #f1edeb);
   .midarea{
     width: 1137px;
@@ -511,7 +512,7 @@
 .PeopleInfoDataContainer {
   display: flex;
   flex-direction: row;
-  height: 80vh;
+  height: 800px;
   .midarea {
     margin-top: 60px;
     justify-content: center;

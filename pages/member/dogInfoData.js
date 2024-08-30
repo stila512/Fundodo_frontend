@@ -355,7 +355,7 @@ export default function DogInfoData() {
         </div>
       </div>
       {isModalOpen && (
-        <Modal mode={1} onClose={closeModal} onConfirm={handleDeleteDog}>
+        <Modal mode={1} active={isModalOpen} onClose={closeModal} onConfirm={handleDeleteDog}>
           <h4>刪除確認</h4>
           <p>你確定要刪除這隻狗狗嗎？這個操作無法撤銷。</p>
           <button onClick={handleDeleteDog}>確認</button>
