@@ -11,7 +11,7 @@ import FddBtn from '@/components/buttons/fddBtn';
  * @description 高度固定為 70px，fixed at top
  */
 export default function NavHeader() {
-  const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState(true);
 
   return (
     <header className={scss.layout}>
