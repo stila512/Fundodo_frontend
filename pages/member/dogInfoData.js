@@ -23,8 +23,14 @@ export default function DogInfoData() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const openModal = () => {
+    console.log('Opening modal');
+    setIsModalOpen(true);
+  };
+  const closeModal = () => {
+    console.log('Closing modal');
+    setIsModalOpen(false);
+  };
 
   // 處理疫苗數據
   const getVaccinationDescription = (vaccinations) => {
@@ -102,7 +108,7 @@ export default function DogInfoData() {
   const fetchgetDog = (uuid) => {
     const url = `http://localhost:3005/api/member/dog/${uuid}`;
     const token = localStorage.getItem('token');
-  
+
     fetch(url, {
       credentials: 'include',
       headers: {
@@ -113,7 +119,7 @@ export default function DogInfoData() {
       .then(response => {
         if (response.status === 404) {
           const addDogResult = addDog();
-          
+
           if (addDogResult && typeof addDogResult.then === 'function') {
             return addDogResult.then(() => {
               window.location.reload();
@@ -355,7 +361,7 @@ export default function DogInfoData() {
         </div>
       </div>
       {isModalOpen && (
-        <Modal mode={1} onClose={closeModal} onConfirm={handleDeleteDog}>
+        <Modal mode={1} active={isModalOpen}  onClose={closeModal} onConfirm={handleDeleteDog} >
           <h4>刪除確認</h4>
           <p>你確定要刪除這隻狗狗嗎？這個操作無法撤銷。</p>
           <button onClick={handleDeleteDog}>確認</button>
@@ -399,7 +405,7 @@ export default function DogInfoData() {
               </div>
               <div className={`${scss.botarea}`}>
                 {dogData && dogData.length > 0 && (
-                  <div className="my-5">
+                  <div className="mt-5">
                     <Link href={`/member/dogInfo?id=${dogData[selectedDogIndex].id}`}>
                       <button className={`${scss.btn2}`}>編輯資料</button>
                     </Link>
