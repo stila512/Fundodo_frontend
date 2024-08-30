@@ -355,7 +355,11 @@ export default function CartPage({
       }
 
       return copy;
-    })
+    });
+    (() => {
+      if (typeof window === 'undefined') return;
+      window.scrollTo(0, 0);
+    })();
     setBuyPhase(2);
   }
 

@@ -1,8 +1,7 @@
 //== Parameters =============================================================
 import { apiBaseUrl } from '@/configs';
 //== Functions ==============================================================
-import { useState, useEffect, useRef } from 'react';
-import { useRouter } from 'next/router';
+import { useState, useEffect } from 'react';
 import tokenDecoder from '@/context/token-decoder';
 import axios from 'axios';
 //== Components =============================================================
@@ -27,8 +26,6 @@ export default function ConfirmPage({
     CVS: '超商取貨',
     DLV: '宅配到府'
   };
-
-  // const formRef = useRef(null);
 
   useEffect(() => {
     //===== 解讀登入的會員 ID
@@ -75,9 +72,12 @@ export default function ConfirmPage({
   }
   /** 建立訂單進資料庫: orders */
   const insertOrder = async () => {
-    const { addressee, email, phone_num, ps, ...pkg } = orderInfo;
+    const data = {
+      ...orderInfo,
+      tel: orderInfo.phone_num
+    };
 
-    return axios.post(`${apiBaseUrl}/order`, pkg)
+    axios.post(`${apiBaseUrl}/order`, data)
       .then(res => {
         console.log(res.data.message);
         return res.data.order_id;
@@ -175,22 +175,12 @@ export default function ConfirmPage({
       });
   };
 
-  // const handleForECPAY = async () => {
-
-
-  // }
-
-  // const router = useRouter();
-
   const checkout = async () => {
-    // triggerNewCoupon();
-    // const orderID = await insertOrder();
-    // await insertOrderItem(orderID);
-    // await emptyCart();
-    // await updateCoupons();
-
-    // router.push(`${apiBaseUrl}/cart/ecpay`)
-    // await handleForECPAY();
+    triggerNewCoupon();
+    const orderID = await insertOrder();
+    await insertOrderItem(orderID);
+    await emptyCart();
+    await updateCoupons();
     document.getElementById('ECPAY-form').submit();
   }
 
@@ -253,7 +243,7 @@ export default function ConfirmPage({
                 編輯資料
               </FddBtn>
               <FddBtn color={ECPAY_PKG ? 'primary' : 'muted'} pill={false} disabled={!ECPAY_PKG} callback={() => checkout()}>
-                {ECPAY_PKG ? "前往付款" : "等我一下"}
+                {ECPAY_PKG ? "前往付款" : "請稍後"}
               </FddBtn>
             </div>
           </div>
@@ -268,7 +258,6 @@ export default function ConfirmPage({
         {ECPAY_PKG &&
           ECPAY_PKG.inputArr.map((param, i) => (<input key={i} name={param[0]} value={param[1].toString()} />))
         }
-        <input type="submit" value="送出參數" />
       </form>
     </>
   )
