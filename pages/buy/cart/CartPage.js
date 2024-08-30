@@ -355,7 +355,11 @@ export default function CartPage({
       }
 
       return copy;
-    })
+    });
+    (() => {
+      if (typeof window === 'undefined') return;
+      window.scrollTo(0, 0);
+    })();
     setBuyPhase(2);
   }
 
@@ -392,13 +396,13 @@ export default function CartPage({
               <div className="bg-secondary p-3 h-100">
                 <div className="hstack jc-between mb-3">
                   <h3>
-                    {cpList.length > 0
+                    {cpList && cpList.length > 0
                       ? "所有可使用的優惠券"
                       : "沒有可使用的優惠券"}</h3>
                   <FddBtn color='tint3' size='sm' href='/member/coupon'>查看我的優惠券</FddBtn>
                 </div>
                 <div className="hstack flex-wrap gap-1 jc-between">
-                  {cpList.map((coupon, i_cp) => (
+                  {cpList && cpList.map((coupon, i_cp) => (
                     <FddBtn
                       key={coupon.code}
                       size='sm'

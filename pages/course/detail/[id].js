@@ -38,18 +38,16 @@ export default function CourseDetail() {
       imgPath: data.imgPath,
 
     };
-
-    // console.log(data)
+    console.log('Fetched course data:', courseData);
     setCourse(courseData)
   }
-  // console.log(router.query)
 
   useEffect(() => {
     if (router.isReady && router.query.id) {
       getCourse(router.query.id)
     }
 
-  }, [router.isReady])
+  }, [router.isReady, router.query.id])
 
   return (
     <>
@@ -65,8 +63,10 @@ export default function CourseDetail() {
               viewed_count={course.viewed_count}
               tags={course.tags}
             />
-             <aside className={["d-block d-md-none col-12 col-md-4", scss.cart].join(" ")}>
+            <aside className={["d-block d-md-none col-12 col-md-4", scss.cart].join(" ")}>
               <AddCart
+                key={course.id}
+                id={course.id}
                 original_price={course.original_price}
                 sale_price={course.sale_price}
               />
@@ -92,10 +92,12 @@ export default function CourseDetail() {
             <div id='faq'>
               <FAQ />
             </div>
-            <Tags tags={course.tags} linkMode={true}/>
+            <Tags tags={course.tags} linkMode={true} />
           </main>
           <aside className={["d-none d-lg-block  col-12 col-md-4 ", scss.cart].join(" ")}>
             <AddCart
+              key={course.id}
+              id={course.id}
               original_price={course.original_price}
               sale_price={course.sale_price}
             />

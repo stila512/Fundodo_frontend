@@ -86,7 +86,7 @@ function ProductPage({ sortBy, searchTerm }) {
     <div className={["row", '', scss.jcb].join(' ')}>
       <Aside className={'col-3'} onFilterChange={handleFilterChange} />
       <div className="col-9">
-        <TagFilter tags={tags} selectedTag={filters.tag} onTagChange={handleTagChange} />
+        <TagFilter tags={tags} selectedTag={filters.tag} onTagChange={handleTagChange}/>
         <ProductGrid
           products={products}
           page={page}

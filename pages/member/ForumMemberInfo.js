@@ -198,8 +198,7 @@ export default function PeopleInfo() {
             <div className={scss.area7}>自我介紹
               <textarea value={user.introduce} onChange={(e) => setUser({ ...user, introduce: e.target.value })} placeholder="如活潑、安靜、友善等..."></textarea>
             </div>
-            <div className={`${scss.botarea} my-5 mx-5`}>
-              <button className={scss.btn1}>編輯資料</button>
+            <div className={`${scss.botarea} my-5 mx-5`}> 
               <button type="submit" className={scss.btn2}>確認送出</button>
             </div>
           </form>

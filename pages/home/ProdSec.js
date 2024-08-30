@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import scss from './prodSec.module.scss';
 import FddBtn from '@/components/buttons/fddBtn';
-import feed1 from '@/public/homePic/feed1.png';
-import feed2 from '@/public/homePic/feed2.png';
-import feed3 from '@/public/homePic/feed3.png';
-import feed4 from '@/public/homePic/feed4.png';
+import feed1 from '@/public/pic-prod/PR0000000052.jpg';
+import feed2 from '@/public/pic-prod/PR0000000233.jpg';
+import feed3 from '@/public/pic-prod/PR0000002921.jpg';
+import feed4 from '@/public/pic-prod/PR0000002962.jpg';
 import PdBg from '@/public/homePic/pd_bg.png';
 import { FaArrowRight } from "react-icons/fa";
 
@@ -34,17 +34,25 @@ export default function ProdSec() {
 
   return (
     <section className={scss.bgWrapper}>
-      <div className={scss.bg} style={{'--bg-image': `url(${PdBg.src})`}}>
+      <div className={scss.bg} style={{ '--bg-image': `url(${PdBg.src})` }}>
         <div className="container">
           <div className={[scss.prodSec, "d-flex", "jc-between", "ai-center"].join(' ')}>
             <div className={scss.prodImgs}>
-              <Image src={feed1} alt="" />
-              <Image src={feed2} alt="" />
-              <Image src={feed3} alt="" />
-              <Image src={feed4} alt="" />
+              <div className={['img-wrap-w100', scss.imgBox].join(' ')}>
+                <Image src={feed1} alt="" width={0} height={0} />
+              </div>
+              <div className={['img-wrap-w100', scss.imgBox].join(' ')}>
+                <Image src={feed2} alt="" />
+              </div>
+              <div className={['img-wrap-w100', scss.imgBox].join(' ')}>
+                <Image src={feed3} alt="" />
+              </div>
+              <div className={['img-wrap-w100', scss.imgBox].join(' ')}>
+                <Image src={feed4} alt="" />
+              </div>
             </div>
-            <div 
-              ref={prodTextRef} 
+            <div
+              ref={prodTextRef}
               className={`${scss.prodText} ${isVisible ? scss.animate : ''}`}
             >
               <h3>狗狗的全部需求，一站式解決</h3>

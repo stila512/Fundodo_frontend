@@ -166,22 +166,15 @@ export default function CourseAdd() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validateForm(course);
-
     if (validationErrors.length > 0) {
       setModalContent({
         title: '新增失敗',
-        message: (
-          <ul>
-            {validationErrors.map((error, index) => (
-              <li key={index}>{error}</li>
-            ))}
-          </ul>
-        )
+        message: validationErrors.join(', ')
       });
       setShowModal(true);
       return;
     }
-
+  
     setIsSubmitting(true);
     try {
       const formData = new FormData();
@@ -190,40 +183,40 @@ export default function CourseAdd() {
       formData.append('description', course.description);
       formData.append('original_price', course.original_price);
       formData.append('sale_price', course.sale_price);
-
-      course.tags.forEach(tag => formData.append('tags[]', tag));
-
+      formData.append('tags', JSON.stringify(course.tags));
+  
       if (course.img_path) {
         formData.append('img_path', course.img_path);
       }
-
+  
       const chaptersData = course.chapters.map(chapter => ({
         name: chapter.name,
         lessons: chapter.lessons.map(lesson => ({
           name: lesson.name,
-          duration: lesson.duration,
-          video_path: lesson.video_path ? lesson.video_path.name : null
+          duration: lesson.duration
         }))
       }));
       formData.append('chapters', JSON.stringify(chaptersData));
-
+  
+      // 上傳所有視頻文件
       course.chapters.forEach((chapter, chapterIndex) => {
         chapter.lessons.forEach((lesson, lessonIndex) => {
           if (lesson.video_path instanceof File) {
-            formData.append('video_path', lesson.video_path);
+            formData.append('videos', lesson.video_path);
           }
         });
       });
-
+  
       const res = await fetch('http://localhost:3005/api/course', {
         method: 'POST',
-        body: formData,
+        body: formData
       });
-
+  
       if (!res.ok) {
-        throw new Error('課程新增失敗');
+        const errorData = await res.json();
+        throw new Error(errorData.message || '課程新增失敗');
       }
-
+  
       const result = await res.json();
       setModalContent({
         title: '成功',
@@ -235,14 +228,13 @@ export default function CourseAdd() {
       console.error('課程新增失敗:', error);
       setModalContent({
         title: '失敗',
-        message: '課程新增失敗，請稍後再試。'
+        message: error.message || '課程新增失敗，請稍後再試。'
       });
       setShowModal(true);
     } finally {
       setIsSubmitting(false);
     }
   };
-
 
   return (
     <>

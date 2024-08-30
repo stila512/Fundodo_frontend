@@ -27,24 +27,36 @@
 }
 //================================================
 .hbgBtn {
-  width: 1.5rem;
-  height: 1.5rem;
+  // width: 1.5rem;
+  // height: 1.5rem;
   background-color: transparent;
-  border: none;
-  font-size: 1.5rem;
+  // border: none;
+  // font-size: 1.5rem;
+  @include s.rwd-above('md') {
+    display: none !important;
+  }
 }
 //================================================
 .ulLink {
   position: absolute;
+  display: flex;
   top: 70px;
+  left: 0;
+  right: 0;
+  flex-direction: column;
+  background-color: s.$tint5;
+  align-items: stretch;
+  text-align: center;
 
   @include s.rwd-above('md') {
+    top: initial;
+    left: initial;
     position: relative;
     top: initial;
+    background-color: transparent;
+    flex-direction: row;
+    text-align: left;
   }
-
-  display: flex;
-  flex-direction: row;
 
   & > li {
     padding: 0.5rem;
@@ -54,6 +66,12 @@
     font-size: 1.125rem;
     border-bottom: 5px solid transparent;
     transition: border 0.4s linear;
+
+    & > a {
+      display: block;
+      width: 100%;
+    }
+
     &:hover {
       border-bottom-color: s.$primary;
 
@@ -65,23 +83,34 @@
 }
 .listBtn {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  @include s.rwd-above('md') {
+    display: block;
+  }
 
   &:hover {
-    .prodList {
+    .subList {
       display: block;
     }
   }
 }
 
-.prodList {
+.subList {
   display: none;
   padding-block: 0.5rem;
-  position: absolute;
   top: calc(100% + 4px);
   left: 0;
-  min-width: 10rem;
-  background-color: s.$secondary;
-  box-shadow: 0 3px 4px 2px rgba(s.$shade2, 0.3);
+  right: 0;
+  background-color: s.$tint4;
+
+  @include s.rwd-above('md') {
+    position: absolute;
+    min-width: 10rem;
+    right: initial;
+    background-color: s.$secondary;
+    box-shadow: 0 3px 4px 2px rgba(s.$shade2, 0.3);
+  }
 
   li a {
     display: block;
@@ -118,7 +147,7 @@
 
     // 購物車項目數量
     .number {
-      $l : s.rem(20px);
+      $l: s.rem(20px);
       position: absolute;
       // @extend .fx-center;
       //! display 由 js 控制

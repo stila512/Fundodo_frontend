@@ -15,7 +15,7 @@ const TagFilter = ({ tags, selectedTag, onTagChange }) => {
   const visibleTags = isExpanded ? filteredTags : filteredTags.slice(0, initialVisibleTags);
 
   return (
-    <div className=''>
+    <div className='mb-5'>
       <div className={scss.tagFilterContainer}>
         {visibleTags.map((tag) => (
           <button
