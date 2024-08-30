@@ -260,11 +260,15 @@ export default function ConfirmPage({
         </div>
       </div>
       <form
+        method='post'
         action={ECPAY_PKG ? ECPAY_PKG.apiURL : ''}
         id='ECPAY-form'
         className="d-none"
       >
-        {ECPAY_PKG ? ECPAY_PKG.inputArr.join('') : <></>}
+        {ECPAY_PKG &&
+          ECPAY_PKG.inputArr.map((param, i) => (<input key={i} name={param[0]} value={param[1].toString()} />))
+        }
+        <input type="submit" value="送出參數" />
       </form>
     </>
   )
