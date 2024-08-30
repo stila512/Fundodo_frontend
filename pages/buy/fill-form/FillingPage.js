@@ -16,6 +16,7 @@ export default function FillingPage({
   setBuyInfoPkg = () => { }
 }) {
   const [isBeginning, setIsBeginning] = useState(true);
+  const [payCode, setPayCode] = useState(0);//0 | ECPAY ; 1 | LINEPAY
   const [isCVS, setIsCVS] = useState(false);
   const [cityList, setCityList] = useState([]);
   const [cityID, setCityID] = useState(0);
@@ -31,7 +32,7 @@ export default function FillingPage({
  * @property {number} addr_city
  * @property {number} addr_code
  * @property {string} address
- * @property {string} ps
+ * @property {string} ship_ps
  */
   const initOrderDate = {
     addressee: '',/* 收件人 */
@@ -40,7 +41,7 @@ export default function FillingPage({
     addr_city: 0,/* 收件縣市 */
     addr_code: 0,/* 收件郵遞區號 */
     address: '',/* 收件地址 */
-    ps: '',/* 配送備註 */
+    ship_ps: '',/* 配送備註 */
   };
   const bufferOrderDate = {
     addressee: undefined,
@@ -49,7 +50,7 @@ export default function FillingPage({
     addr_city: undefined,
     addr_code: undefined,
     address: undefined,
-    ps: undefined,
+    ship_ps: undefined,
   };
   // 儲存本次購物的訂單資料
   const [orderData, setOrderData] = useState(initOrderDate);
@@ -152,7 +153,7 @@ export default function FillingPage({
           city_id,
           zipcode,
           order_address,
-          ps
+          ship_ps
         } = res.data.result;
         setPrevOrderData({
           addressee: name,
@@ -161,7 +162,7 @@ export default function FillingPage({
           addr_city: city_id,
           addr_code: zipcode,
           address: order_address,
-          ps,
+          ship_ps,
         });
       }
     }).catch(err => {
@@ -198,7 +199,7 @@ export default function FillingPage({
       addr_city,
       addr_code,
       address,
-      ps
+      ship_ps
     } = orderData;
     const data = {
       user_id: userID,
@@ -208,7 +209,7 @@ export default function FillingPage({
       city_id: addr_city,
       zipcode: addr_code,
       order_address: address,
-      ps
+      ship_ps
     }
     axios.post(`${apiBaseUrl}/member/order-form`, data)
       .catch(err => {
@@ -253,6 +254,7 @@ export default function FillingPage({
   }
 
   const autoFill = () => {
+    if (!prevOrderData) return;
     //先用以觸發「區鄉鎮」的搜尋
     setCityID(prevOrderData.addr_city);
     //觸發畫面上填入
@@ -271,7 +273,7 @@ export default function FillingPage({
       //todo: 防呆
       const cityName = cityList.filter(c => c.id === cityID)[0].name;
       let distName = distList.filter(c => c.zipcode === orderData.addr_code)[0].name;
-      const { addressee, email, phone_num, ps } = orderData;
+      const { addressee, email, phone_num, ship_ps } = orderData;
 
       if (distName.charAt(0) === '（') distName = '';
 
@@ -282,15 +284,20 @@ export default function FillingPage({
           addressee,
           email,
           phone_num,
+          pay_thru: payCode,
           ship_thru: isCVS ? "CVS" : "DLV",
           ship_zipcode: orderData.addr_code,
           ship_address: cityName + distName + orderData.address,
-          ps
+          ship_ps
         }
       }
     });
     if (wannaSave) saveFormData();
 
+    (() => {
+      if (typeof window === 'undefined') return;
+      window.scrollTo(0, 0);
+    })();
     setBuyPhase(3);
   }
 
@@ -443,12 +450,12 @@ export default function FillingPage({
 
                     {/*//*===================== 備註 ======================= */}
                     <div>
-                      <label htmlFor="ps" className='tx-default'>備註</label>
+                      <label htmlFor="ship_ps" className='tx-default'>備註</label>
                     </div>
                     <div>
                       <textarea
-                        name='ps'
-                        value={autoOrderData ? autoOrderData.ps : undefined}
+                        name='ship_ps'
+                        value={autoOrderData ? autoOrderData.ship_ps : undefined}
                         onChange={e => handleInput(e)}
                       />
                     </div>
