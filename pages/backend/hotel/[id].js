@@ -17,6 +17,7 @@ export default function edit() {
   const { id } = router.query;
   const [images, setImages] = useState([]);
   const fileInputRefs = [useRef(), useRef(), useRef()];
+  const [previewImages, setPreviewImages] = useState([]);
 
   const baseURL = 'http://localhost:3005/api/hotel';
 
@@ -169,6 +170,13 @@ export default function edit() {
   const handleFileChange = async (event, index) => {
     const file = event.target.files[0];
     if (file) {
+
+      const previewURL = URL.createObjectURL(file);
+      const newPreviewImages = [...previewImages];
+      newPreviewImages[index] = previewURL;
+      setPreviewImages(newPreviewImages);
+
+
       const formData = new FormData();
       formData.append('images', file);
       try {
@@ -222,14 +230,14 @@ export default function edit() {
         <div className={styles.container}>
           <h1>編輯資訊</h1>
           <form onSubmit={handleSubmit}>
-            <div className={styles.imgGroup}>
+          <div className={styles.imgGroup}>
               <p className={styles.title}>旅館圖片</p>
               {[0, 1, 2].map((_, index) => (
                 <div key={index} className={styles.addImg} onClick={() => handleImageClick(index)}>
-                  {images[index] ? (
+                  {previewImages[index] || images[index] ? (
                     <>
                       <Image
-                        src={`${baseURL}/images/${images[index]}`}
+                        src={previewImages[index] || `${baseURL}/images/${images[index]}`}
                         width={180}
                         height={0}
                         sizes="200px"
