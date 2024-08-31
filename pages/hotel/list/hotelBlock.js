@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Pagination from './Pagination';
+import { motion } from "framer-motion";
 
 export default function HotelBlock({ searchQuery, sortOption }) {
   const [hotels, setHotels] = useState([]);
@@ -68,27 +69,57 @@ export default function HotelBlock({ searchQuery, sortOption }) {
     }
   }, [hotels, searchQuery, sortOption]);
 
-    // 無讀取到圖片
-    const handleImageError = (event) => {
-      event.target.src = 'http://localhost:3005/api/hotel/images/404.jpg';
-    };
+  // 無讀取到圖片
+  const handleImageError = (event) => {
+    event.target.src = 'http://localhost:3005/api/hotel/images/404.jpg';
+  };
 
   //讀取第一個檔名
-const getImagePath = (main_img_path) => {
-  if (!main_img_path) return 'http://localhost:3005/api/hotel/images/404.jpg';
-  const filenames = main_img_path.split(',');
-  return `http://localhost:3005/api/hotel/images/${filenames[0].trim()}`;
-};
+  const getImagePath = (main_img_path) => {
+    if (!main_img_path) return 'http://localhost:3005/api/hotel/images/404.jpg';
+    const filenames = main_img_path.split(',');
+    return `http://localhost:3005/api/hotel/images/${filenames[0].trim()}`;
+  };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100
+      }
+    }
+  };
 
   return (
     <div className={['container', styles.container].join(' ')}>
       <h3 className={styles.h3}>推薦旅館</h3>
       {filteredHotels.length > 0 ? (
         <>
-          <div className={styles.grid}>
+          <motion.div
+            className={styles.grid}
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
             {currentHotels.map((v) => (
-              <div key={v.id} className={styles.card}>
+              <motion.div
+                key={v.id}
+                className={styles.card}
+                variants={itemVariants}
+              >
                 <div className={styles.image}>
                   <Link href={`/hotel/detail/${v.id}`}>
                     <Image
@@ -108,9 +139,9 @@ const getImagePath = (main_img_path) => {
                     <button className={styles.button}>立即預訂</button>
                   </Link>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
           <Pagination
             hotelsPerPage={hotelsPerPage}
             totalHotels={filteredHotels.length}
