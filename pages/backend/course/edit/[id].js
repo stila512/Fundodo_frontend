@@ -17,10 +17,13 @@ export default function CourseEdit() {
     sale_price: '',
     tags: [],
     chapters: [],
-    images: []
+    outline_images: []
   });
   const [tags, setTags] = useState([]);
   const [previewImage, setPreviewImage] = useState('');
+  const [outlineImagePreviews, setOutlineImagePreviews] = useState([]);
+  const [existingOutlineImages, setExistingOutlineImages] = useState([]);
+  const [newOutlineImages, setNewOutlineImages] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState({ title: '', message: '' });
   const [errors, setErrors] = useState({});
@@ -36,26 +39,45 @@ export default function CourseEdit() {
     try {
       const res = await fetch(`http://localhost:3005/api/course/${id}`);
       const data = await res.json();
-      setCourse(data.data);
+
+      // 確保 outline_images 是一個數組
+      const safeOutlineImages = Array.isArray(data.data.outline_images)
+        ? data.data.outline_images
+        : [];
+
+      setCourse({
+        ...data.data,
+        outline_images: safeOutlineImages
+      });
+
       if (data.data.img_path) {
         setPreviewImage(getImageUrl(data.data.img_path));
       }
+
+      // 設置已存在的大綱圖片
+      setExistingOutlineImages(safeOutlineImages.map(img => ({
+        url: getImageUrl(img),
+        name: img
+      })));
+      
+      console.log("Fetched outline images:", safeOutlineImages);
     } catch (error) {
       console.error('獲取課程資料失敗:', error);
     }
   };
 
+
   // const fetchCourse = async () => {
   //   try {
   //     const res = await fetch(`http://localhost:3005/api/course/${id}`);
   //     const data = await res.json();
-  
+
   //     if (data.data) {
   //       setCourse({
   //         ...data.data,
   //         tags: data.data.tags || [] // 確保 tags 設置正確
   //       });
-  
+
   //       if (data.data.img_path) {
   //         setPreviewImage(getImageUrl(data.data.img_path));
   //       }
@@ -106,6 +128,30 @@ export default function CourseEdit() {
     }
   };
 
+  const handleOutlineImagesUpload = (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length > 0) {
+      const newImages = files.map(file => ({
+        file,
+        url: URL.createObjectURL(file)
+      }));
+      setNewOutlineImages(prev => [...prev, ...newImages]);
+    }
+  };
+
+  const removeExistingOutlineImage = (index) => {
+    setExistingOutlineImages(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const removeNewOutlineImage = (index) => {
+    setNewOutlineImages(prev => {
+      const newImages = [...prev];
+      URL.revokeObjectURL(newImages[index].url);
+      newImages.splice(index, 1);
+      return newImages;
+    });
+  };
+
   const handleChapterChange = (index, field, value) => {
     const updatedChapters = [...course.chapters];
     updatedChapters[index][field] = value;
@@ -117,7 +163,7 @@ export default function CourseEdit() {
     if (field === 'video_path' && value instanceof File) {
       updatedChapters[chapterIndex].lessons[lessonIndex][field] = value;
     } else {
-      updatedChapters[chapterIndex].lessons[lessonIndex][field] = value|| updatedChapters[chapterIndex].lessons[lessonIndex][field];
+      updatedChapters[chapterIndex].lessons[lessonIndex][field] = value || updatedChapters[chapterIndex].lessons[lessonIndex][field];
     }
     setCourse(prev => ({ ...prev, chapters: updatedChapters }));
   };
@@ -129,6 +175,12 @@ export default function CourseEdit() {
     if (!course.summary?.trim()) errors.push('請輸入課程簡介');
     if (!course.description?.trim()) errors.push('請輸入課程描述');
     if (course.tags.length === 0) errors.push('請選擇至少一個課程分類');
+    const totalOutlineImages = existingOutlineImages.length + newOutlineImages.length;
+    if (totalOutlineImages === 0) {
+      errors.push('請上傳至少一張課程大綱圖片');
+    } else if (totalOutlineImages > 10) {
+      errors.push('課程大綱圖片不能超過10張');
+    }
 
     course.chapters.forEach((chapter, chapterIndex) => {
       if (!chapter.name?.trim()) errors.push("請輸入章節名稱");
@@ -184,6 +236,21 @@ export default function CourseEdit() {
       formData.append('img_path', course.img_path);
     }
 
+    // if (Array.isArray(course.outline_images)) {
+    //   course.outline_images.forEach((image, index) => {
+    //     if (image instanceof File) {
+    //       formData.append('outline_images', image);
+    //     }
+    //   });
+    // }
+
+    formData.append('existing_outline_images', JSON.stringify(existingOutlineImages.map(img => img.name)));
+
+    // 添加新上傳的圖片
+    newOutlineImages.forEach(img => {
+      formData.append('new_outline_images', img.file);
+    });
+
     const chaptersData = course.chapters.map(chapter => ({
       name: chapter.name,
       lessons: chapter.lessons.map(lesson => ({
@@ -231,7 +298,7 @@ export default function CourseEdit() {
   return (
     <>
       <Head>
-        <title>後台管理-編輯課程</title>
+        <title>編輯課程 | Fundodo 後台</title>
       </Head>
       <BackendLayout>
         <div className="container">
@@ -308,6 +375,36 @@ export default function CourseEdit() {
                     )}
                   </div>
                 </div>
+
+                <div className={scss.formGroupImg}>
+                  <div className={scss.uploadImg}>
+                    <label htmlFor="outline_images">課程大綱圖片（可多選）</label>
+                    <input
+                      type="file"
+                      id="outline_images"
+                      name="outline_images"
+                      onChange={handleOutlineImagesUpload}
+                      accept="image/*"
+                      multiple
+                    />
+                  </div>
+                  <div className={scss.imagePreviewContainer}>
+                {existingOutlineImages.map((img, index) => (
+                  <div key={`existing-${index}`} className={scss.imagePreviewItem}>
+                    <img src={img.url} alt={`既有大綱圖片 ${index + 1}`} />
+                    <button type="button" onClick={() => removeExistingOutlineImage(index)}>刪除</button>
+                  </div>
+                ))}
+                {newOutlineImages.map((img, index) => (
+                  <div key={`new-${index}`} className={scss.imagePreviewItem}>
+                    <img src={img.url} alt={`新大綱圖片 ${index + 1}`} />
+                    <button type="button" onClick={() => removeNewOutlineImage(index)}>刪除</button>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+
 
                 {course.chapters.map((chapter, chapterIndex) => (
                   <div key={chapterIndex} className={scss.chapterSection}>

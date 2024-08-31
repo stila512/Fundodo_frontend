@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import BackendLayout from '@/components/layout/backend';
 import Modal from '@/components/common/modal';
+import Image from 'next/image';
 
 import { FaEdit, FaTrashAlt, FaFile } from 'react-icons/fa';
 import scss from './detail.module.scss';
@@ -42,6 +43,7 @@ export default function CourseDetail() {
             const courseData = {
                 ...data.data,
                 imgPath: data.imgPath,
+                images: data.data.images || [] ,
                 tags: data.data.tags || []
             };
             setCourse(courseData);
@@ -99,7 +101,7 @@ export default function CourseDetail() {
     return (
         <>
             <Head>
-                <title>後台管理-課程詳情</title>
+                <title>課程詳情 | Fundodo 後台</title>
             </Head>
             <BackendLayout>
                 <div className={scss.courseDetail}>
@@ -125,28 +127,32 @@ export default function CourseDetail() {
                                 </div>
                             </div>
                         </div>
-
                         <div className={scss.section}>
-                            <h3>課程價格</h3>
-                            <p><strong>原價: </strong>$ {course.original_price}</p>
-                            <p><strong>優惠價: </strong>$ {course.sale_price}</p>
-                        </div>
-
-                        <div className={scss.section}>
-                            <h3>課程資訊</h3>
-                            <p><strong>創建日期: </strong>{formatDateTime(course.created_at)}</p>
-                            {course.updated_at && (
-                                <p>最後更新：{formatDateTime(course.updated_at)}</p>
-                            )}
-                        </div>
-
-                        <div className={scss.section}>
-                            <h3>課程描述</h3>
+                            <h3>課程大綱</h3>
                             <p>{course.description}</p>
                         </div>
 
                         <div className={scss.section}>
-                            <h3>課程大綱</h3>
+                        <h3>課程大綱圖片</h3>
+                        <div className={scss.outlineImages}>
+                            {course.images && course.images.length > 0 ? (
+                                course.images.map((image, index) => (
+                                    <div key={index} className={scss.imageContainer}>
+                                        <Image 
+                                            src={`http://localhost:3005/upload/crs_images/${image}`} 
+                                            alt={`課程大綱圖片 ${index + 1}`} 
+                                            className={scss.outlineImage}
+                                        />
+                                    </div>
+                                ))
+                            ) : (
+                                <p>沒有可用的大綱圖片</p>
+                            )}
+                        </div>
+                    </div>
+
+                        <div className={scss.section}>
+                            <h3>課程內容</h3>
                             {course.chapters.map((chapter, chapterIndex) => (
                                 <div key={chapter.id} className={scss.chapter}>
                                     <h4>章節 {chapterIndex + 1}: {chapter.name}</h4>
@@ -166,6 +172,19 @@ export default function CourseDetail() {
                                     </ul>
                                 </div>
                             ))}
+                        </div>
+                        <div className={scss.section}>
+                            <h3>課程價格</h3>
+                            <p><strong>原價: </strong>$ {course.original_price}</p>
+                            <p><strong>優惠價: </strong>$ {course.sale_price}</p>
+                        </div>
+
+                        <div className={scss.section}>
+                            <h3>創建資訊</h3>
+                            <p><strong>創建日期: </strong>{formatDateTime(course.created_at)}</p>
+                            {course.updated_at && (
+                                <p>最後更新：{formatDateTime(course.updated_at)}</p>
+                            )}
                         </div>
                     </div>
                 </div>

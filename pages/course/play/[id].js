@@ -85,7 +85,7 @@ export default function CoursePlay() {
     return (
         <>
             <Head>
-                <title>{`課程播放： ${course.title}`}</title>
+                <title>{`課程播放： ${course.title}`} | Fundodo </title>
             </Head>
 
             <div className={scss.containerFluid}>

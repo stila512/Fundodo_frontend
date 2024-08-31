@@ -94,7 +94,7 @@ export default function Course() {
   return (
     <>
       <Head>
-        <title>Course</title>
+        <title>課程列表 | Fundodo</title>
       </Head>
       <div className="container">
         <Banner />
