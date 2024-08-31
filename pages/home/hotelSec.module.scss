@@ -1,106 +1,183 @@
-@import "@/styles";
+@import '@/styles';
 
-.hotel{
-    background-color: $secondary;
-    background-image: var(--bg-image);
-    // background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  
+.hotel {
+  background-color: $secondary;
+  background-image: var(--bg-image);
+  // background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
-
 
 .hotelSec {
   height: 768px;
   padding-top: 75px;
 }
 
-
 .hotelContent {
-    display: flex;
-    justify-content: space-between;   
-    
-    //   .arrows {
-    //     background-color: #B9A399;
-    //     width: 64px;
-    //     height: 64px;
-    //     background-color: white;
-    //     margin-top: 120px;
-    //   }
-}
+  display: flex;
+  justify-content: space-between;
 
+  //   .arrows {
+  //     background-color: #B9A399;
+  //     width: 64px;
+  //     height: 64px;
+  //     background-color: white;
+  //     margin-top: 120px;
+  //   }
+}
 
 .hotelText {
-    h2 {
-        @include ff-maru(36px);
-        color: #424242;
-        font-weight: 700;
-        line-height: 66px;
-        word-wrap: break-word;
-        margin-bottom: 15px;
-    }
+  h2 {
+    @include ff-maru(36px);
+    color: #424242;
+    font-weight: 700;
+    line-height: 66px;
+    word-wrap: break-word;
+    margin-bottom: 15px;
+  }
 
-    p {
-        @include ff-noto(14px, 18px);
-        color: #757575;
-        font-weight: 400;
-        line-height: 30px;
-        width: 430px;
-        word-wrap: break-word;
-        margin-bottom: 60px;
-    }
+  p {
+    @include ff-noto(14px, 18px);
+    color: #757575;
+    font-weight: 400;
+    line-height: 30px;
+    width: 430px;
+    word-wrap: break-word;
+    margin-bottom: 60px;
+  }
 }
 
-.btns{
-    display: flex;
-    gap: 20px;
-    align-items: flex-end;
-    margin-bottom: 40px;
+.btns {
+  display: flex;
+  gap: 20px;
+  align-items: flex-end;
+  margin-bottom: 40px;
 }
 
 .hotelReview {
-    display: flex;
-    height: 389px;
-    border-radius: 24px;
-    background: #F5F5F5;
+  display: flex;
+  height: 389px;
+  border-radius: 24px;
+  background: #f5f5f5;
 }
 
 .content {
-    padding-left: 120px;
-    padding-top: 45px;
-    padding-bottom: 80px;
-    padding-right: 105px;
-    h4 {
-        @include ff-noto(14px, 28px);
-        color: var(--shade2, #6F625C);
-        font-weight: 700;
-        line-height: 38px;
-        margin-bottom: 16px;
-        text-align: start;
-    }
+  padding-left: 120px;
+  padding-top: 45px;
+  padding-bottom: 80px;
+  padding-right: 105px;
+  h4 {
+    @include ff-noto(14px, 28px);
+    color: var(--shade2, #6f625c);
+    font-weight: 700;
+    line-height: 38px;
+    margin-bottom: 16px;
+    text-align: start;
+  }
 
-    p {
-        @include ff-noto(14px, 18px);
-        color: var(--shade4, #37312E);
-        font-weight: 400;
-        line-height: 30px;
-        margin-bottom: 40px;
-    }
+  p {
+    @include ff-noto(14px, 18px);
+    color: var(--shade4, #37312e);
+    font-weight: 400;
+    line-height: 30px;
+    margin-bottom: 40px;
+  }
 }
 
 .info {
-    h6 {
-        @include ff-noto(14px, 20px);
-        color: var(--shade2, #6F625C);
-        font-weight: 700;
-        line-height: 20px;
-        margin-bottom: 12px;
-    }
+  h6 {
+    @include ff-noto(14px, 20px);
+    color: var(--shade2, #6f625c);
+    font-weight: 700;
+    line-height: 20px;
+    margin-bottom: 12px;
+  }
 
-    p {
-        @include ff-noto(14px, 20px);
-        color: var(--shade2, #6F625C);
-        font-weight: 400;
-        line-height: 20px;
-    }
+  p {
+    @include ff-noto(14px, 20px);
+    color: var(--shade2, #6f625c);
+    font-weight: 400;
+    line-height: 20px;
+  }
+}
+
+.images {
+  margin-left: 2px;
+  margin-top: 2px;
+  border-radius: 18px 0px 0px 18px;
+}
+
+.hotelReviewWrapper {
+  overflow: hidden;
+  position: relative;
+}
+
+.hotelReview {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.backBtn {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: none;
+  flex-shrink: 0;
+  fill: #fff;
+  stroke-width: 1.229px;
+  stroke: $tint4;
+  cursor: pointer;
+  &:hover {
+    background-color: #dad4d2;
+  }
+}
+
+.ArrowBack {
+  color: $primary;
+  width: 30px;
+  height: 30px;
+}
+.ArrowFow {
+  color: $tint5;
+  width: 30px;
+  height: 30px;
+}
+
+.fowBtn {
+  width: 58px;
+  height: 58px;
+  border: none;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background-color: #b9a399;
+  cursor: pointer;
+  &:hover {
+    background-color: $tint2;
+  }
+}
+
+.hotelReview.right {
+  animation: slideRight 2s forwards;
+}
+
+.hotelReview.left {
+  animation: slideLeft 2s forwards;
+}
+
+@keyframes slideRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
