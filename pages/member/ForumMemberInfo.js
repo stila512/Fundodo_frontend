@@ -5,6 +5,7 @@ import Image from 'next/image';
 import avatarPic from '@/public/memberPic/head.svg';
 import radio from '@/public/memberPic/radio.svg';
 import SideText from '@/components/member/SideText';
+import SideText_2 from '@/components/member/SideText_2';
 import { AuthProvider, AuthContext } from '@/context/AuthContext';
 import TWZipCode from '@/components/member/tw-zipcode';
 import useAuthRedirect from '@/hooks/useAuthRedirect';
@@ -153,6 +154,9 @@ export default function PeopleInfo() {
 
   return (
     <>
+      <div className="col-12 d-lg-none">
+        <SideText_2 layoutType={0} />
+      </div>
       <main className={scss.ForumMemberInfo}>
         <div className="col-1 col-lg-4"></div>
         <div className={`${scss.midarea} col-12 col-lg-5`}>
@@ -182,7 +186,7 @@ export default function PeopleInfo() {
             </div>
             <div className={scss.area3}>性別
               <div className={scss.genderRadio}>
-                <p>{user.gender === 1 ? '先生' : '女士' || '-'}</p>
+                <p>{user.gender === 1 ? '先生' : user.gender === 2 ? '女士' : '-'}</p>
               </div>
             </div>
             <div className={scss.area4}>生日
@@ -190,7 +194,7 @@ export default function PeopleInfo() {
             </div>
             <div className={scss.area5}>
               所在地
-              <div className={`${scss.area5 - 2} px-2`}>
+              <div className={`${scss.area5 - 2} px-3`}>
                 <p>{user.address || '-'}</p>
               </div>
             </div>
@@ -198,7 +202,7 @@ export default function PeopleInfo() {
             <div className={scss.area7}>自我介紹
               <textarea value={user.introduce} onChange={(e) => setUser({ ...user, introduce: e.target.value })} placeholder="如活潑、安靜、友善等..."></textarea>
             </div>
-            <div className={`${scss.botarea} my-5 mx-5`}> 
+            <div className={`${scss.botarea} my-5 mx-5`}>
               <button type="submit" className={scss.btn2}>確認送出</button>
             </div>
           </form>

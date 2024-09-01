@@ -4,14 +4,16 @@ import { AuthProvider, AuthContext } from '@/context/AuthContext';
 import scss from './info.module.scss';
 import Image from 'next/image';
 import SideText from '@/components/member/SideText';
+import SideText_2 from '@/components/member/SideText_2';
 import Link from 'next/link';
 import useAuthRedirect from '@/hooks/useAuthRedirect';
-
+import pswd_icon from '@/public/memberPic/password-icon.svg';
 export default function ChangePassword() {
   useAuthRedirect();
   const { user: authUser, loading: authLoading } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const [errors, setErrors] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   const [user, setUser] = useState({
     password: '',
@@ -131,6 +133,9 @@ export default function ChangePassword() {
 
   return (
     <>
+      <div className="col-12 d-lg-none">
+        <SideText_2 layoutType={0} />
+      </div>
       <main className={scss.ChangePasswordContainer}>
         <div className="col-1 col-lg-3"></div>
         <div className="col-10 col-lg-6">
@@ -146,20 +151,28 @@ export default function ChangePassword() {
                 <div className={`col-1 col-lg-2`}></div>
                 <div className={`${scss.toptexta2} col-8`}>
                   <div>{user.email || 'example@gmail.com'}</div>
-                  <div>
+                  <div className={`${scss.icon_password}`} >
                     <input
+                      type={showPassword ? 'text' : 'password'}
                       name="password"
                       placeholder="密碼"
                       value={user.password}
                       onChange={handleFieldChange}
+                      required
                     />
+                    <div className={`${scss.imgWrap}`}>
+                      <Image className="imgWrap" src={pswd_icon} alt="Image" onClick={() => setShowPassword(!showPassword)}
+                      />
+                    </div>
                   </div>
                   <div>
                     <input
+                      type={showPassword ? 'text' : 'password'}
                       name="repassword"
                       placeholder="確認新密碼"
                       value={user.repassword}
                       onChange={handleFieldChange}
+                      required
                     />
                   </div>
                 </div>
@@ -168,7 +181,8 @@ export default function ChangePassword() {
                 <button type="submit" className={`${scss.btn2}`}>確認送出</button>
               </div>
             </div>
-            <div className="col-1 col-md-2 col-lg-3"></div>
+            <div className="col-1 col-md-2 col-lg-3">
+            </div>
           </form>
         </div>
         <div className="col-1 col-lg-3 d-none d-lg-block my-5 mx-5">

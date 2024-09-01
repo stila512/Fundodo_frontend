@@ -537,11 +537,8 @@
 .dogInfoDataContainer {
   display: flex;
   flex-direction: row;
-  height: 100vh;
-  @media (max-width: 991.98px) {
-    height: 200vh;
-    
-  }
+
+
   .midarea {
     display: flex;
     margin-top: 60px;

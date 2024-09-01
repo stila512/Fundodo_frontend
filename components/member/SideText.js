@@ -1,17 +1,20 @@
 import Image from 'next/image';
 import mdi_coupon from '@/public/memberPic/mdi_coupon.svg';
 import mdi_dog from '@/public/memberPic/mdi_dog.svg';
-import mdi_heart from '@/public/memberPic/mdi_heart.svg';
-import mdi_list from '@/public/memberPic/mdi_list.svg';
-import mdi_lock from '@/public/memberPic/mdi_lock.svg';
-import mdi_user from '@/public/memberPic/mdi_user.svg';
 import { IoMdPerson, IoIosPaper } from 'react-icons/io';
 import { MdLock } from "react-icons/md";
 import { FaHeart } from "react-icons/fa";
 import scss from './side.module.scss';
 import Link from 'next/link';
+import { IoIosLogOut } from "react-icons/io";
+import { useContext } from 'react';
+import { AuthProvider, AuthContext } from '@/context/AuthContext';
 
-export default function SideText({activeIndex = 0}) {
+export default function SideText({ activeIndex = 0 }) {
+  const { logout } = useContext(AuthContext);
+  const handleLogout = () => {
+    logout(); // 呼叫登出函數
+  };
   return (
     <div className={scss.sideText}>
       <div className={[scss.menuItem, activeIndex === 0 ? scss.active : ''].join(' ')}>
@@ -44,7 +47,7 @@ export default function SideText({activeIndex = 0}) {
         <Link href="/member/ChangePassword"><span>修改密碼</span></Link>
       </div>
       <div className={[scss.menuItem, activeIndex === 4 ? scss.active : ''].join(' ')}>
-        <div className={scss.reactIcon} style={{fontSize: '20px'}}>
+        <div className={scss.reactIcon} style={{ fontSize: '20px' }}>
           <FaHeart />
         </div>
         <Link href='/prod/list/favoriteProd'><span>我的收藏</span></Link>
@@ -52,6 +55,11 @@ export default function SideText({activeIndex = 0}) {
       <div className={[scss.menuItem, activeIndex === 5 ? scss.active : ''].join(' ')}>
         <Image className={scss.icon} src={mdi_coupon} alt="優惠卷" />
         <Link href="/member/coupon"><span>優惠卷</span></Link>
+      </div>
+      <div className={[scss.menuItem, activeIndex === 6 ? scss.active : ''].join(' ')} >
+        <div className={scss.reactIcon}>
+          <IoIosLogOut />
+        </div><span onClick={handleLogout} style={{ cursor: 'pointer' }}>登出</span>
       </div>
     </div>
   );

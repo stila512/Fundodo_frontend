@@ -60,7 +60,7 @@ export default function LoginPage() {
           login(data.token);
           alert('登入成功');
           console.log('登入函數已呼叫，準備重定向');
-          router.push('/member')
+          router.push('/member/peopleInfoData')
             .then(() => console.log('導航成功'))
             .catch((err) => console.error('導航失敗:', err));
         } else {
@@ -172,7 +172,6 @@ export default function LoginPage() {
                 disabled={loading}>{loading ? '登入中...' : '登入'}</button>
             </div>
           </form>
-          <button className={scss.xBtn}>x</button>
         </div>
       </div>
       {isModalOpen && (

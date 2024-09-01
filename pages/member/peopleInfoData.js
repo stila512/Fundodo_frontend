@@ -5,6 +5,7 @@ import Image from 'next/image';
 import avatarPic from '@/public/memberPic/head.svg';
 import radio from '@/public/memberPic/radio.svg';
 import SideText from '@/components/member/SideText';
+import SideText_2 from '@/components/member/SideText_2';
 import Link from 'next/link';
 import { AuthProvider, AuthContext } from '@/context/AuthContext';
 import { useRouter } from 'next/router';
@@ -180,6 +181,9 @@ export default function PeopleInfoData() {
           <p>Error: {error}</p>
         ) : (
           <form>
+            <div className="col-12 d-lg-none">
+              <SideText_2 layoutType={0} />
+            </div>
             <div className={scss.PeopleInfoDataContainer}>
               <div className="col-1 col-lg-4"></div>
               <div className={`${scss.midarea} col-12 col-lg-5`}>
@@ -188,12 +192,12 @@ export default function PeopleInfoData() {
                     <span>{user.email_verified === 1 ? (
                       <span className="text-success" style={{ fontSize: '24px', color: '#00ff00', marginLeft: '20px' }}><GoCheck /></span>
                     ) : (
-                      <span style={{ marginLeft: '20px'}} onClick={sendVerificationEmail} >沒收到驗證信?</span>
+                      <span style={{ marginLeft: '20px' }} onClick={sendVerificationEmail} >沒收到驗證信?</span>
                     )} </span></p></div>
                   <div className={scss.area3}>姓名<p>{user.name || '-'}</p></div>
                   <div className={scss.area4}>性別
                     <div className={scss.genderRadio}>
-                      <p>{user.gender === 1 ? '先生' : '女士'}</p>
+                      <p>{user.gender === 1 ? '先生' : user.gender === 2 ? '女士' : '-'}</p>
                     </div>
                   </div>
                   <div className={scss.area5}>生日
