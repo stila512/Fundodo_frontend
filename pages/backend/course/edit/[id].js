@@ -15,7 +15,7 @@ export default function CourseEdit() {
     img_path: '',
     original_price: '',
     sale_price: '',
-    tags: [],
+    tag_ids: [],
     chapters: [],
     outline_images: []
   });
@@ -40,20 +40,20 @@ export default function CourseEdit() {
       const res = await fetch(`http://localhost:3005/api/course/${id}`);
       const data = await res.json();
 
-      // 確保 outline_images 是一個數組
-      const safeOutlineImages = Array.isArray(data.data.outline_images)
-        ? data.data.outline_images
-        : [];
-
-      setCourse({
-        ...data.data,
-        outline_images: safeOutlineImages
-      });
+     
+      setCourse(data.data);
 
       if (data.data.img_path) {
         setPreviewImage(getImageUrl(data.data.img_path));
       }
-
+  
+      // 確保 outline_images 或 images 是一個數組
+      const safeOutlineImages = Array.isArray(data.data.outline_images) 
+        ? data.data.outline_images 
+        : Array.isArray(data.data.images) 
+          ? data.data.images 
+          : [];
+  
       // 設置已存在的大綱圖片
       setExistingOutlineImages(safeOutlineImages.map(img => ({
         url: getImageUrl(img),
@@ -66,28 +66,7 @@ export default function CourseEdit() {
     }
   };
 
-
-  // const fetchCourse = async () => {
-  //   try {
-  //     const res = await fetch(`http://localhost:3005/api/course/${id}`);
-  //     const data = await res.json();
-
-  //     if (data.data) {
-  //       setCourse({
-  //         ...data.data,
-  //         tags: data.data.tags || [] // 確保 tags 設置正確
-  //       });
-
-  //       if (data.data.img_path) {
-  //         setPreviewImage(getImageUrl(data.data.img_path));
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.error('獲取課程資料失敗:', error);
-  //   }
-  // };
-
-  const fetchTags = async () => {
+ const fetchTags = async () => {
     try {
       const res = await fetch('http://localhost:3005/api/course/tags');
       const data = await res.json();
@@ -107,9 +86,9 @@ export default function CourseEdit() {
     const { value, checked } = e.target;
     const tagId = parseInt(value, 10);
     if (checked) {
-      setCourse(prev => ({ ...prev, tags: [...prev.tags, tagId] }));
+      setCourse(prev => ({ ...prev, tag_ids: [...prev.tag_ids, tagId] }));
     } else {
-      setCourse(prev => ({ ...prev, tags: prev.tags.filter(id => id !== tagId) }));
+      setCourse(prev => ({ ...prev, tag_ids: prev.tag_ids.filter(id => id !== tagId) }));
     }
   };
 
@@ -228,7 +207,7 @@ export default function CourseEdit() {
     formData.append('title', course.title);
     formData.append('summary', course.summary);
     formData.append('description', course.description);
-    formData.append('tags', JSON.stringify(course.tags));
+    formData.append('tag_ids', JSON.stringify(course.tag_ids));
     formData.append('original_price', course.original_price);
     formData.append('sale_price', course.sale_price);
 
@@ -248,7 +227,7 @@ export default function CourseEdit() {
 
     // 添加新上傳的圖片
     newOutlineImages.forEach(img => {
-      formData.append('new_outline_images', img.file);
+      formData.append('outline_images', img.file);
     });
 
     const chaptersData = course.chapters.map(chapter => ({
@@ -346,7 +325,7 @@ export default function CourseEdit() {
                         <input
                           type="checkbox"
                           value={tag.id}
-                          checked={course.tags.includes(tag.id)}
+                          checked={course.tag_ids.includes(tag.id)}
                           onChange={handleTagChange}
                         />
                         {tag.name}

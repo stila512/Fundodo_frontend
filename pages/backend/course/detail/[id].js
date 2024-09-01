@@ -43,7 +43,7 @@ export default function CourseDetail() {
             const courseData = {
                 ...data.data,
                 imgPath: data.imgPath,
-                images: data.data.images || [] ,
+                images: data.data.images || [],
                 tags: data.data.tags || []
             };
             setCourse(courseData);
@@ -133,23 +133,24 @@ export default function CourseDetail() {
                         </div>
 
                         <div className={scss.section}>
-                        <h3>課程大綱圖片</h3>
-                        <div className={scss.outlineImages}>
-                            {course.images && course.images.length > 0 ? (
-                                course.images.map((image, index) => (
-                                    <div key={index} className={scss.imageContainer}>
-                                        <Image 
-                                            src={`http://localhost:3005/upload/crs_images/${image}`} 
-                                            alt={`課程大綱圖片 ${index + 1}`} 
-                                            className={scss.outlineImage}
-                                        />
-                                    </div>
-                                ))
-                            ) : (
-                                <p>沒有可用的大綱圖片</p>
-                            )}
+                            <h3>課程大綱圖片</h3>
+                            <div className={scss.outlineImages}>
+                                {course.images && course.images.length > 0 ? (
+                                    course.images.map((image, index) => (
+                                        <div key={index} className={scss.imageContainer}>
+                                            <Image
+                                                src={`http://localhost:3005/upload/crs_images/${image}`}
+                                                alt={`課程大綱圖片 ${index + 1}`}
+                                                className={scss.outlineImage}
+                                                width={0} height={0}
+                                            />
+                                       </div>
+                                    ))
+                                ) : (
+                                    <p>沒有可用的大綱圖片</p>
+                                )}
+                            </div>
                         </div>
-                    </div>
 
                         <div className={scss.section}>
                             <h3>課程內容</h3>
