@@ -15,6 +15,7 @@
   h3 {
     @include rwd-above(sm) {
       font-size: 24px;
+      line-height: 36px;
     }
     font-size: 14px;
     width: 90%;
@@ -22,7 +23,7 @@
     color: $heading;
     font-style: normal;
     font-weight: 700;
-    line-height: 36px;
+    line-height: 30px;
     word-break: break-all;
     white-space: pre-wrap;
     
@@ -75,7 +76,7 @@
 }
 
 .hideOverflow {
-  max-height: 1064px; 
+  max-height: 1024px; 
   &::after {
     content: '';
     position: absolute;
@@ -83,7 +84,6 @@
     left: 0;
     right: 0;
     height: 150px; 
-    // background: linear-gradient(180deg, rgba(255, 255, 255, 0.00) 87.9%, #FFF 100%);
     background: linear-gradient(to bottom, rgba(255,255,255,0)87.9%, #FFF 100%);
     pointer-events: none; // 確保漸變不會影響點擊事件
   }

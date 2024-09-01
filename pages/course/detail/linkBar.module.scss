@@ -2,6 +2,7 @@
 
 .links {
   display: flex;
+  margin-bottom: 20px;
   @include rwd-above(sm){
     margin-bottom: 75px;
   }
