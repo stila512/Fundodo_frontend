@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import DefaultLayout from '@/components/layout/default';
 import scss from '@/pages/article/index.module.scss';
@@ -10,6 +11,22 @@ import PageControl from './list/pageControl';
 import AsideRwd from './commonItem/asideRwd';
 
 export default function Index() {
+  const router = useRouter();
+  const [currentOrderBy, setCurrentOrderBy] = useState('1');
+
+  const handleOrderByChange = (newOrderBy) => {
+    setCurrentOrderBy(newOrderBy);
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, orderBy: newOrderBy },
+    }, undefined, { shallow: true });
+  };
+
+  useEffect(() => {
+    if (router.query.orderBy) {
+      setCurrentOrderBy(router.query.orderBy);
+    }
+  }, [router.query.orderBy]);
   return (
     <>
       <Head>
@@ -20,7 +37,7 @@ export default function Index() {
       </Head>
       <div className={scss.mainbg}>
         <main className="container" style={{ paddingTop: '40px' }}>
-          <UserAction />
+          <UserAction onOrderByChange={handleOrderByChange} currentOrderBy={currentOrderBy}/>
           <TitleAction />
 
 
@@ -29,7 +46,7 @@ export default function Index() {
               <ArtiAside />
             </div>
             <div className={scss.rwdList}>
-              <ArticleList />
+              <ArticleList orderBy={currentOrderBy}/>
               <PageControl />
               <AsideRwd />
             </div>

@@ -1,15 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useRef,useCallback } from 'react';
 import { useRouter } from 'next/router'
 import ArticleBlock from './articleBlock';
 import scss from '@/pages/article/list/articleList.module.scss';
+import PageBtn from './pageBtn';
 
 
-export default function ArticleList() {
+export default function ArticleList({orderBy}) {
   const [articles, setArticles] = useState([])
   const [page, setPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
   const perPage = 6
   const router=useRouter()
   const { sort,search,tag } = router.query
+  const debounceTimerRef = useRef(null);
   
   useEffect(() => {
     const fetchArticles = async () => {
@@ -25,6 +28,9 @@ export default function ArticleList() {
       if (tag) {
         params.append('tag', tag)
       }
+      if (orderBy) {
+        params.append('orderBy', orderBy)
+      }
 
       url += params.toString()
 
@@ -33,6 +39,8 @@ export default function ArticleList() {
         const data = await response.json();
         if (data.status === 'success') {
           setArticles(data.articles);
+          setTotalPages(Math.ceil(data.articles.length / perPage));
+          setPage(1)
         }
       } catch (error) {
         console.error('Failed to fetch articles:', error);
@@ -40,47 +48,39 @@ export default function ArticleList() {
     };
 
     fetchArticles();
-  }, [sort, search,tag])
+  }, [sort, search,tag,orderBy])
   
+  useEffect(() => {
+    setPage(1);
+  }, [sort, search, tag,orderBy]);
 
-  const thisPage = page * perPage
-  const fitstArticle = thisPage - perPage
-  const currentArticle = articles.slice(fitstArticle, thisPage)
 
-  const changePage = (pageNum) => {
-    setPage(pageNum);
-    // 滾動到頁面頂部
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth' // 這會使滾動更平滑
-    });
-  }
+  const debouncedPageChange = useCallback((newPage) => {
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+    }
+    debounceTimerRef.current = setTimeout(() => {
+      console.log('Debounced page change:', newPage);
+      setPage(newPage);
+    }, 300);
+  }, []);
+
+  const currentArticles = articles.slice((page - 1) * perPage, page * perPage);
   return (
     <>
       {' '}
-      <div className={[scss.listArea].join()}>
-        <div className={[scss.articleList].join()}>
-          {currentArticle.map(article => (
-            <ArticleBlock key={article.id} article={article} />
-          ))}
-        </div>
-        <div className={scss.pageChange}>
-          <button
-            onClick={() => changePage(page - 1)}
-            disabled={page === 1}
-          >
-            上一頁
-          </button>
-          <span>{page}</span>
-          <button
-            onClick={() => changePage(page + 1)}
-            disabled={thisPage >= articles.length}
-          >
-            下一頁
-          </button>
-        </div>
+      <div className={scss.listArea}>
+      <div className={scss.articleList}>
+        {currentArticles.map(article => (
+          <ArticleBlock key={article.id} article={article} />
+        ))}
       </div>
-
+      {totalPages > 1 &&(<PageBtn 
+          page={page} 
+          totalPages={totalPages} 
+          onPageChange={debouncedPageChange}
+        />)}
+    </div>
     </>
   );
 }
