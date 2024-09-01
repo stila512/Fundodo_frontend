@@ -4,6 +4,7 @@ import DefaultLayout from '@/components/layout/default';
 import scss from './dogInfo.module.scss';
 import Image from 'next/image';
 import SideText from '@/components/member/SideText';
+import SideText_2 from '@/components/member/SideText_2';
 import mdi_dogAvatar from '@/public/memberPic/mdi_dogAvatar.svg';
 import icon_i from '@/public/memberPic/i.svg';
 import dogicon from '@/public/memberPic/dogicon.svg';
@@ -374,6 +375,9 @@ export default function DogInfoData() {
 
   return (
     <>
+      <div className="col-12 d-lg-none">
+        <SideText_2 layoutType={0} />
+      </div>
       {loading ? (
         <p>加載中...</p>
       ) : error ? (

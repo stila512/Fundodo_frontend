@@ -3,6 +3,11 @@
 .PeopleInfoContainer {
   display: flex;
   flex-direction: row;
+  input {
+    border-radius: 2px;
+    border: 1px solid var(--tint2, #cebfb8);
+    background: #fff;
+  }
   @media (max-width: 768px) {
     .midtext input {
       max-width: 70%;
@@ -92,7 +97,7 @@
     //自訂radio
     .genderRadio input[type='radio'] + label {
       position: relative;
-      display: inline-flex; 
+      display: inline-flex;
       align-items: center;
       padding-left: 30px; /* 給自訂按鈕留出空間 */
       cursor: pointer;
@@ -109,7 +114,7 @@
       top: 50%;
       width: 14px;
       height: 14px;
-      border: 2px solid #E5E6EB;
+      border: 2px solid #e5e6eb;
       border-radius: 50%;
       background: #fff;
       transform: translateY(-50%);
@@ -118,7 +123,7 @@
     /* 選中狀態的樣式 */
     .genderRadio input[type='radio']:checked + label::before {
       background: #b9a399; /* 選中時的背景顏色 */
-      border-color: #E5E6EB; /* 選中時的邊框顏色 */
+      border-color: #e5e6eb; /* 選中時的邊框顏色 */
     }
 
     /* 自訂單選按鈕的選中效果 */
@@ -162,7 +167,15 @@
       width: 449px;
       flex-direction: column;
       align-items: flex-start;
-      gap: 8px;
+      gap: 16px;
+    }
+    input {
+      width: 100%;
+      max-width: 450px;
+      display: flex;
+      padding: 5px 12px;
+      align-items: center;
+      flex: 1 0 0;
     }
   }
   .botarea {
@@ -249,13 +262,13 @@
       width: 180px;
       height: 180px;
       padding: 40px;
-      align-items: center;        /* 垂直居中 */
-      justify-content: center;    /* 水平居中 */
+      align-items: center; /* 垂直居中 */
+      justify-content: center; /* 水平居中 */
       gap: 10px;
       border-radius: 50%;
       background: #b9a399;
     }
-    
+
     .avatarWrapper {
       position: relative;
       width: 100%;
@@ -275,6 +288,9 @@
       padding: 5px 12px;
       align-items: center;
       flex: 1 0 0;
+      border-radius: 2px;
+      border: 1px solid var(--tint2, #cebfb8);
+      background: #fff;
     }
   }
   .area3 {
@@ -295,7 +311,7 @@
     //自訂radio
     .genderRadio input[type='radio'] + label {
       position: relative;
-      display: inline-flex; 
+      display: inline-flex;
       align-items: center;
       padding-left: 30px; /* 給自訂按鈕留出空間 */
       cursor: pointer;
@@ -312,7 +328,7 @@
       top: 50%;
       width: 14px;
       height: 14px;
-      border: 2px solid #E5E6EB;
+      border: 2px solid #e5e6eb;
       border-radius: 50%;
       background: #fff;
       transform: translateY(-50%);
@@ -321,7 +337,7 @@
     /* 選中狀態的樣式 */
     .genderRadio input[type='radio']:checked + label::before {
       background: #b9a399; /* 選中時的背景顏色 */
-      border-color: #E5E6EB; /* 選中時的邊框顏色 */
+      border-color: #e5e6eb; /* 選中時的邊框顏色 */
     }
 
     /* 自訂單選按鈕的選中效果 */
@@ -377,6 +393,9 @@
       padding: 4px 12px;
       flex-direction: column;
       align-items: flex-start;
+      border-radius: 2px;
+      border: 1px solid var(--tint2, #cebfb8);
+      background: #fff;
     }
   }
   .botarea {
@@ -436,7 +455,7 @@
   flex-direction: row;
   height: 800px;
   background: var(--tint5, #f1edeb);
-  .midarea{
+  .midarea {
     width: 1137px;
   }
   .maintext {
@@ -466,7 +485,7 @@
         display: flex;
         flex-direction: column;
         gap: 26px;
-        .icon_password{
+        .icon_password {
           display: flex;
           align-items: center;
         }
@@ -476,7 +495,7 @@
         }
         input {
           max-width: 300px;
-          width: 100%;
+          width: 85%;
           height: 32px;
           display: flex;
           align-items: center;
@@ -560,7 +579,6 @@
       line-height: 28px;
     }
     span {
-      
       color: var(--Header, #424242);
       font-feature-settings: 'liga' off, 'clig' off;
       font-family: 'Noto Sans';
@@ -642,7 +660,7 @@
     }
     .btn2 {
       color: #fff;
-      background: var(--Primary,#E53835);
+      background: var(--Primary, #e53835);
       border: none;
     }
     button {

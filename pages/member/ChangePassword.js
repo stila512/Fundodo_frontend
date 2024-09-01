@@ -4,6 +4,7 @@ import { AuthProvider, AuthContext } from '@/context/AuthContext';
 import scss from './info.module.scss';
 import Image from 'next/image';
 import SideText from '@/components/member/SideText';
+import SideText_2 from '@/components/member/SideText_2';
 import Link from 'next/link';
 import useAuthRedirect from '@/hooks/useAuthRedirect';
 import pswd_icon from '@/public/memberPic/password-icon.svg';
@@ -132,6 +133,9 @@ export default function ChangePassword() {
 
   return (
     <>
+      <div className="col-12 d-lg-none">
+        <SideText_2 layoutType={0} />
+      </div>
       <main className={scss.ChangePasswordContainer}>
         <div className="col-1 col-lg-3"></div>
         <div className="col-10 col-lg-6">
@@ -144,8 +148,8 @@ export default function ChangePassword() {
                   <div>新密碼</div>
                   <div>確認新密碼</div>
                 </div>
-                <div className={`col-1 col-lg-1`}></div>
-                <div className={`${scss.toptexta2} col-9`}>
+                <div className={`col-1 col-lg-2`}></div>
+                <div className={`${scss.toptexta2} col-8`}>
                   <div>{user.email || 'example@gmail.com'}</div>
                   <div className={`${scss.icon_password}`} >
                     <input

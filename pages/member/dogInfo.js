@@ -5,6 +5,7 @@ import DefaultLayout from '@/components/layout/default';
 import scss from './dogInfo.module.scss';
 import Image from 'next/image';
 import SideText from '@/components/member/SideText';
+import SideText_2 from '@/components/member/SideText_2';
 import mdi_dogAvatar from '@/public/memberPic/mdi_dogAvatar.svg';
 import icon_i from '@/public/memberPic/i.svg';
 import dogicon from '@/public/memberPic/dogicon.svg';
@@ -117,7 +118,7 @@ export default function DogInfo() {
           // 其他操作，如顯示成功訊息或刷新頁面
           console.log('狗狗資料更新成功');
           router.push('/member/dogInfoData')
-          
+
 
           // 如果有新的頭像，則上傳頭像
           if (dog.avatar_file) {
@@ -152,12 +153,14 @@ export default function DogInfo() {
 
   return (
     <>
+      <div className="col-12 d-lg-none">
+        <SideText_2 layoutType={0} />
+      </div>
       <main className={`${scss.dogInfoContainer} pt-5`}>
         <div className="col-1 col-xl-1 col-xxl-3"></div>
         <form className={`${scss.midarea} col-10 col-xl-8 col-xxl-6`} onSubmit={handleSubmit}>
           <div className={`${scss.tags} col-12`}>
             <div className={`${scss.tag1}`}>狗狗的資料</div>
-            <div className={`${scss.tag2}`}>新增狗勾</div>
           </div>
           <div className={`${scss.mainarea} col-12`}>
             <div className={`${scss.toparea}`} onClick={handleAvatarClick}>
@@ -326,7 +329,7 @@ export default function DogInfo() {
 
 
         <div className="col-1 col-xl-3 col-xxl-3 my-2 d-none d-xl-block">
-        <SideText activeIndex={1} />
+          <SideText activeIndex={1} />
         </div>
       </main>
     </>

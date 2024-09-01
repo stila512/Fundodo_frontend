@@ -5,6 +5,7 @@ import Image from 'next/image';
 import avatarPic from '@/public/memberPic/head.svg';
 import radio from '@/public/memberPic/radio.svg';
 import SideText from '@/components/member/SideText';
+import SideText_2 from '@/components/member/SideText_2';
 import { AuthProvider, AuthContext } from '@/context/AuthContext';
 import TWZipCode from '@/components/member/tw-zipcode';
 import useAuthRedirect from '@/hooks/useAuthRedirect';
@@ -107,7 +108,7 @@ export default function PeopleInfo() {
       .then(data => {
         if (data.status === 'success') {
           alert('資料更新成功');
-          
+
           // 如果有新的頭像，則上傳頭像
           if (user.avatar_file) {
             const formData2 = new FormData();
@@ -153,6 +154,9 @@ export default function PeopleInfo() {
 
   return (
     <>
+      <div className="col-12 d-lg-none">
+        <SideText_2 layoutType={0} />
+      </div>
       <main className={scss.ForumMemberInfo}>
         <div className="col-1 col-lg-4"></div>
         <div className={`${scss.midarea} col-12 col-lg-5`}>
@@ -190,7 +194,7 @@ export default function PeopleInfo() {
             </div>
             <div className={scss.area5}>
               所在地
-              <div className={`${scss.area5 - 2} px-2`}>
+              <div className={`${scss.area5 - 2} px-3`}>
                 <p>{user.address || '-'}</p>
               </div>
             </div>

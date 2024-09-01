@@ -87,7 +87,7 @@ export default function NavFuncBtns({ showCart = true }) {
       </li>
       {/* 會員 */}
       <li>
-        <FddBtn color='white' pill={false} icon href="/member">
+        <FddBtn color='white' pill={false} icon href="/member/peopleInfoData">
           <IoMdPerson />
         </FddBtn>
       </li>

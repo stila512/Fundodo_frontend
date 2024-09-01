@@ -5,6 +5,7 @@ import Image from 'next/image';
 import avatarPic from '@/public/memberPic/head.svg';
 import radio from '@/public/memberPic/radio.svg';
 import SideText from '@/components/member/SideText';
+import SideText_2 from '@/components/member/SideText_2';
 import Link from 'next/link';
 import { AuthProvider, AuthContext } from '@/context/AuthContext';
 import { useRouter } from 'next/router';
@@ -180,6 +181,9 @@ export default function PeopleInfoData() {
           <p>Error: {error}</p>
         ) : (
           <form>
+            <div className="col-12 d-lg-none">
+              <SideText_2 layoutType={0} />
+            </div>
             <div className={scss.PeopleInfoDataContainer}>
               <div className="col-1 col-lg-4"></div>
               <div className={`${scss.midarea} col-12 col-lg-5`}>

@@ -3,15 +3,15 @@ import { countries, townships, postcodes } from './data-townships'
 
 export default function TWZipCode({
   initPostcode = '',
-  onPostcodeChange = (country, township, postcode) => {},
-  onSelectionChange = (city, district) => {}
+  onPostcodeChange = (country, township, postcode) => { },
+  onSelectionChange = (city, district) => { }
 }) {
   //console.log(countries, townships, postcodes)
 
   // 記錄陣列的索引值，預設值是-1，相當於"請選擇xxx"
   const [countryIndex, setCountryIndex] = useState(-1)
   const [townshipIndex, setTownshipIndex] = useState(-1)
-  
+
   // 郵遞區號使用字串(數字字串)
   const [postcode, setPostcode] = useState('')
 
@@ -55,46 +55,48 @@ export default function TWZipCode({
 
   return (
     <>
-    <select
-      value={countryIndex}
-      onChange={(e) => {
-        const newCountryIndex = +e.target.value
-        setCountryIndex(newCountryIndex)
-        setTownshipIndex(-1)
-        setPostcode('')
-        if (newCountryIndex > -1) {
-          onSelectionChange(countries[newCountryIndex], '') // 當選擇縣市時調用
-        }
-      }}
-    >
-      <option value="-1">選擇縣市</option>
-      {countries.map((value, index) => (
-        <option key={index} value={index}>
-          {value}
-        </option>
-      ))}
-    </select>
-    <select
-      value={townshipIndex}
-      onChange={(e) => {
-        const newTownshipIndex = +e.target.value
-        setTownshipIndex(newTownshipIndex)
-        if (countryIndex > -1 && newTownshipIndex > -1) {
-          onSelectionChange(
-            countries[countryIndex],
-            townships[countryIndex][newTownshipIndex]
-          ) // 當選擇區域時調用
-        }
-      }}
-    >
-      <option value="-1">選擇區域</option>
-      {countryIndex > -1 &&
-        townships[countryIndex].map((value, index) => (
-          <option key={index} value={index}>
-            {value}
-          </option>
-        ))}
-    </select>
-  </>
+      <div className="d-flex gap-1">
+        <select
+          value={countryIndex}
+          onChange={(e) => {
+            const newCountryIndex = +e.target.value
+            setCountryIndex(newCountryIndex)
+            setTownshipIndex(-1)
+            setPostcode('')
+            if (newCountryIndex > -1) {
+              onSelectionChange(countries[newCountryIndex], '') // 當選擇縣市時調用
+            }
+          }}
+        >
+          <option value="-1">選擇縣市</option>
+          {countries.map((value, index) => (
+            <option key={index} value={index}>
+              {value}
+            </option>
+          ))}
+        </select>
+        <select
+          value={townshipIndex}
+          onChange={(e) => {
+            const newTownshipIndex = +e.target.value
+            setTownshipIndex(newTownshipIndex)
+            if (countryIndex > -1 && newTownshipIndex > -1) {
+              onSelectionChange(
+                countries[countryIndex],
+                townships[countryIndex][newTownshipIndex]
+              ) // 當選擇區域時調用
+            }
+          }}
+        >
+          <option value="-1">選擇區域</option>
+          {countryIndex > -1 &&
+            townships[countryIndex].map((value, index) => (
+              <option key={index} value={index}>
+                {value}
+              </option>
+            ))}
+        </select>
+      </div>
+    </>
   )
 }
