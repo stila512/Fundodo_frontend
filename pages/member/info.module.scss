@@ -3,7 +3,6 @@
 .PeopleInfoContainer {
   display: flex;
   flex-direction: row;
-  height: 800px;
   @media (max-width: 768px) {
     .midtext input {
       max-width: 70%;
@@ -19,7 +18,6 @@
     display: flex;
     width: 100%;
     flex-direction: column;
-    align-items: flex-start;
     gap: 22px;
     padding-bottom: 141px;
     max-width: 560px;
@@ -170,7 +168,6 @@
   .botarea {
     display: flex;
     justify-content: center;
-    align-items: center;
     gap: 30px;
     .btn1 {
       border: 1px solid var(--Neutral-Colors-Headings-Black, #5d5a88);
@@ -179,6 +176,7 @@
     .btn2 {
       color: #fff;
       background: var(--Primary, #b9a399);
+      border: none;
     }
     button {
       display: flex;
@@ -189,7 +187,6 @@
       justify-content: center;
       align-items: center;
       flex-shrink: 0;
-      position: relative;
     }
   }
   //-------- sideText
@@ -219,7 +216,6 @@
 .ForumMemberInfo {
   display: flex;
   flex-direction: row;
-  height: 800px;
   @media (max-width: 768px) {
     .midtext input {
       max-width: 70%;
@@ -470,8 +466,16 @@
         display: flex;
         flex-direction: column;
         gap: 26px;
+        .icon_password{
+          display: flex;
+          align-items: center;
+        }
+        .imgWrap {
+          margin-left: 30px;
+          cursor: pointer;
+        }
         input {
-          max-width: 449px;
+          max-width: 300px;
           width: 100%;
           height: 32px;
           display: flex;
@@ -512,7 +516,6 @@
 .PeopleInfoDataContainer {
   display: flex;
   flex-direction: row;
-  height: 800px;
   .midarea {
     margin-top: 60px;
     justify-content: center;

@@ -188,12 +188,12 @@ export default function PeopleInfoData() {
                     <span>{user.email_verified === 1 ? (
                       <span className="text-success" style={{ fontSize: '24px', color: '#00ff00', marginLeft: '20px' }}><GoCheck /></span>
                     ) : (
-                      <span style={{ marginLeft: '20px'}} onClick={sendVerificationEmail} >沒收到驗證信?</span>
+                      <span style={{ marginLeft: '20px' }} onClick={sendVerificationEmail} >沒收到驗證信?</span>
                     )} </span></p></div>
                   <div className={scss.area3}>姓名<p>{user.name || '-'}</p></div>
                   <div className={scss.area4}>性別
                     <div className={scss.genderRadio}>
-                      <p>{user.gender === 1 ? '先生' : '女士'}</p>
+                      <p>{user.gender === 1 ? '先生' : user.gender === 2 ? '女士' : '-'}</p>
                     </div>
                   </div>
                   <div className={scss.area5}>生日

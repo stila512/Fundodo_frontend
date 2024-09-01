@@ -107,7 +107,7 @@ export default function PeopleInfo() {
       .then(data => {
         if (data.status === 'success') {
           alert('資料更新成功');
-
+          
           // 如果有新的頭像，則上傳頭像
           if (user.avatar_file) {
             const formData2 = new FormData();
@@ -182,7 +182,7 @@ export default function PeopleInfo() {
             </div>
             <div className={scss.area3}>性別
               <div className={scss.genderRadio}>
-                <p>{user.gender === 1 ? '先生' : '女士' || '-'}</p>
+                <p>{user.gender === 1 ? '先生' : user.gender === 2 ? '女士' : '-'}</p>
               </div>
             </div>
             <div className={scss.area4}>生日
@@ -198,7 +198,7 @@ export default function PeopleInfo() {
             <div className={scss.area7}>自我介紹
               <textarea value={user.introduce} onChange={(e) => setUser({ ...user, introduce: e.target.value })} placeholder="如活潑、安靜、友善等..."></textarea>
             </div>
-            <div className={`${scss.botarea} my-5 mx-5`}> 
+            <div className={`${scss.botarea} my-5 mx-5`}>
               <button type="submit" className={scss.btn2}>確認送出</button>
             </div>
           </form>

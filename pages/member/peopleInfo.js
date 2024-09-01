@@ -8,6 +8,8 @@ import SideText from '@/components/member/SideText';
 import { AuthProvider, AuthContext } from '@/context/AuthContext';
 import TWZipCode from '@/components/member/tw-zipcode';
 import useAuthRedirect from '@/hooks/useAuthRedirect';
+import { useRouter } from 'next/router';
+import { GoCheck } from "react-icons/go";
 
 export default function PeopleInfo() {
   useAuthRedirect();
@@ -20,6 +22,7 @@ export default function PeopleInfo() {
     address: ''
   })
 
+  const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -73,19 +76,19 @@ export default function PeopleInfo() {
     setSelectedDistrict(district);
   };
 
-   // 提交表單處理函數
-   const handleSubmit = (event) => {
+  // 提交表單處理函數
+  const handleSubmit = (event) => {
     event.preventDefault();
-  
+
     const formData = new FormData();
     formData.append('name', user.name);
     formData.append('gender', user.gender);
     formData.append('dob', user.dob);
     formData.append('tel', user.tel);
     formData.append('address', `${selectedCity}${selectedDistrict}${user.address}`);
-  
+
     const url = `http://localhost:3005/api/member/${authUser.uuid}`;
-  
+
     fetch(url, {
       method: 'PUT',
       body: formData,
@@ -97,22 +100,66 @@ export default function PeopleInfo() {
           if (data.token) {
             localStorage.setItem('token', data.token);
           }
+
         } else {
           setError(data.message);
         }
       })
       .catch(error => {
         setError(error.message);
+      }).finally(() => {
+        // 在資料提交和頭像上傳成功後重整頁面
+        router.push('/member/peopleInfoData');
       });
   };
+  const sendVerificationEmail = () => {
+    const url = 'http://localhost:3005/api/member/email/send';
+    const token = localStorage.getItem('token');
 
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({ email: user.email })
+    })
+      .then(response => {
+        if (!response.ok) {
+          return response.text(); // 讀取非 JSON 回應
+        }
+        return response.json(); // 讀取 JSON 回應
+      })
+      .then(data => {
+        if (typeof data === 'string') {
+          // 處理非 JSON 回應
+          console.error('伺服器回應非 JSON 格式:', data);
+          alert('伺服器回應非 JSON 格式: ' + data);
+        } else {
+          if (data.status === 'success') {
+            alert('驗證郵件已發送，請檢查您的信箱');
+          } else {
+            alert('發送失敗: ' + data.message);
+          }
+        }
+      })
+      .catch(error => {
+        console.error('發送驗證郵件錯誤:', error);
+        alert('發送驗證郵件時發生錯誤: ' + error.message);
+      });
+  };  
   return (
     <>
       <main className={scss.PeopleInfoContainer}>
         <div className="col-1 col-lg-4"></div>
         <div className={`${scss.midarea} col-12 col-lg-5`}>
           <form className={`${scss.midtext}`} onSubmit={handleSubmit}>
-            <div className={`${scss.area2} `}>Email <p>{user.email || 'example@gmail.com'} <span>沒收到驗證信?</span></p></div>
+            <div className={`${scss.area2} `}>Email <p>{user.email || 'example@gmail.com'}
+              <span>{user.email_verified === 1 ? (
+                <span className="text-success" style={{ fontSize: '24px', color: '#00ff00', marginLeft: '20px' }}><GoCheck /></span>
+              ) : (
+                <span style={{ marginLeft: '20px' }} onClick={sendVerificationEmail} >沒收到驗證信?</span>
+              )} </span></p></div>
             <div className={scss.area3}>姓名 <input type="text"
               value={user.name}
               onChange={(e) => setUser({ ...user, name: e.target.value })}
@@ -142,11 +189,11 @@ export default function PeopleInfo() {
             </div>
             <div className={scss.area5}>生日
               <div><label htmlFor="birthday"></label>
-                <input 
-                type="date" id="birthday" name="dob" 
-                value={user.dob} 
-                onChange={(e) => setUser({ ...user, dob: e.target.value })}
-                min="1900-01" max="2030-12-31" required>
+                <input
+                  type="date" id="birthday" name="dob"
+                  value={user.dob}
+                  onChange={(e) => setUser({ ...user, dob: e.target.value })}
+                  min="1900-01" max="2030-12-31" required>
                 </input>
               </div>
             </div>
@@ -172,14 +219,13 @@ export default function PeopleInfo() {
               </div>
             </div>
             <div className={`${scss.botarea} my-5 mx-5`}>
-              <button className={scss.btn1}>編輯資料</button>
               <button type="submit" className={scss.btn2}>確認送出</button>
             </div>
           </form>
         </div>
 
         <div className="col-5 my-5  d-none d-lg-block">
-        <SideText activeIndex={0} />
+          <SideText activeIndex={0} />
         </div>
       </main>
     </>

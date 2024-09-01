@@ -146,8 +146,7 @@ export default function DogInfo() {
       .catch(error => {
         setError(error.message);
       }).finally(() => {
-        // 在資料提交和頭像上傳成功後重整頁面
-        window.location.reload();
+        router.push('/member/dogInfoData');
       });
   };
 
