@@ -6,6 +6,7 @@ import Modal from '@/components/common/modal';
 import scss from './addCart.module.scss';
 import { RiCoupon3Line } from "react-icons/ri";
 import { FaPlayCircle } from "react-icons/fa";
+import { PiVideoBold  } from "react-icons/pi";
 import Link from 'next/link';
 import tokenDecoder from '@/context/token-decoder';
 
@@ -121,12 +122,14 @@ export default function AddCart({ original_price, sale_price, id }) {
       <div className={scss.cartBox}>
         {hasPurchased ? (
           <>
-            <div className={scss.purchaseInfo}>
+            <div className={scss.watchContent}>
+            <PiVideoBold  className={scss.icon}/>
+            {/* <img src="/pic-course/dog.png" alt="" /> */}
               <p>您已於 {new Date(purchaseDate).toLocaleDateString()} 購買此課程</p>
             </div>
-            <Link href={`/course/play/${id}`} className={scss.watchCourseBtn}>
+            <Link href={`/course/play/${id}`} className={scss.btn}>
               <FaPlayCircle />
-              觀看課程
+              <p>觀看課程</p>
             </Link>
           </>
         ) : (
