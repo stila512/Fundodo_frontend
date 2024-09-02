@@ -1,26 +1,21 @@
 .sideText {
   background-color: #f8f9fa;
   padding: 10px;
-  overflow-x: auto; /* Allow horizontal scrolling if necessary */
-  
+  position: relative;
+
   ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
-    display: flex; /* Display list items in a row */
-    flex-direction: row; /* Align items horizontally */
-    flex-wrap: nowrap; /* Prevent wrapping */
-    width: 100%; /* Ensure ul takes full width of the container */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
   }
 
   li {
-    flex: 1 0 auto; /* Allow items to shrink if necessary */
-    min-width: 120px; /* Minimum width for each item */
-    margin-right: 20px; /* Space between menu items */
     position: relative;
-    display: flex;
-    align-items: center; /* Align items vertically */
-    white-space: nowrap; /* Prevent text from wrapping */
+    margin-bottom: 10px;
+    white-space: nowrap;
   }
 
   .menuItem {
@@ -30,24 +25,23 @@
     color: #333;
     text-decoration: none;
     transition: background-color 0.3s;
-    overflow: hidden; /* Hide overflow content */
-    text-overflow: ellipsis; /* Show ellipsis for overflow text */
-    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .icon {
-    margin-right: 10px; /* Space between icon and text */
+    margin-right: 10px;
     font-size: 20px;
   }
 
   .text {
     display: flex;
-    align-items: center; /* Center text vertically */
+    align-items: center;
   }
 
   .active {
     background-color: #e9ecef;
-    border-bottom: 3px solid #007bff; /* Horizontal indicator for active item */
+    border-left: 4px solid #007bff;
   }
 
   .subMenu {
@@ -59,22 +53,19 @@
     padding: 10px;
     border: 1px solid #ddd;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-    li {
-      margin-top: 5px;
-    }
-
-    a {
-      color: #6c757d;
-      text-decoration: none;
-
-      &:hover {
-        color: #007bff;
-      }
+    z-index: 1000;
+    white-space: nowrap;
+  }
+  @media (max-width: 499px) {
+    .subMenu {
+      position: static; /* 使子菜单跟随父项 */
+      display: block; /* 默认显示子菜单 */
+      box-shadow: none; /* 移除阴影 */
+      border: none; /* 移除边框 */
     }
   }
 
   li:hover .subMenu {
-    display: block; /* Show sub-menu on hover */
+    display: block;
   }
 }
