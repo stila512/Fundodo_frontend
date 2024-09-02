@@ -89,18 +89,22 @@ export default function Course() {
 
     return (
       <div className={scss.pagination}>
-        {pageNumbers.map(number => (
-          <button
+      <ul>
+      {pageNumbers.map(number => (
+          <li
             key={number}
-            onClick={() => handlePageChange(number)}
             className={number === currentPage ? scss.activePage : ''}
           >
-            {number}
-          </button>
+          <a href="#" onClick={() => handlePageChange(number)}>
+          {number}
+          </a>
+          </li>
         ))}
+      </ul>
       </div>
     );
   };
+
 
 
   return (
