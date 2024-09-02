@@ -1,20 +1,22 @@
 @import '@/styles';
 
-
 .videoWrapper {
   width: 100%;
   height: auto;
-  
+  margin-bottom: 20px;
 }
 
 .videoPlayer {
+  padding: 0;
   width: 100%;
-  height: 480px;
+  height: 280px;
+  @include rwd-above(sm) {
+    height: 480px;
+  }
 }
 
 .courseContent {
-  padding: 20px;
-
+  padding: 40px 20px;
   h4 {
     margin-bottom: 5px;
   }
@@ -26,21 +28,22 @@
   h3 {
     margin-bottom: 10px;
   }
-
 }
-
 
 .lesson {
   display: flex;
   align-items: center;
   padding: 10px;
   cursor: pointer;
-
-  &.active {
+  &:hover {
     background-color: $tint5;
   }
 
-  input[type="checkbox"] {
+  &.active {
+    background-color: $tint2;
+  }
+
+  input[type='checkbox'] {
     margin-right: 10px;
   }
 
@@ -49,28 +52,37 @@
   }
 }
 
-.containerFluid{
+.container {
   background-color: $primary;
-  padding-top: 34px;
-  padding-bottom: 148px;
+  padding: 34px 0;
 }
 
-.mainContent{
-background-color: $tint4;
+.mainContent {
+  background-color: $tint4;
+  flex-direction: column;
+  @include rwd-above(sm) {
+    flex-direction: row;
+  }
 }
-
 
 .videoContent {
-  flex: 1;
-  padding: 20px 16px;
-  
+  h2 {
+    color: $heading;
+    padding-left: 20px;
+  }
+  width: 100%;
+  margin-bottom: 0px;
+  @include rwd-above(sm) {
+    flex: 1;
+    padding: 20px 16px;
+    margin-bottom: 20px;
+  }
 }
-
 
 .sidebar {
-  overflow-y: auto;
+  width: 100%;
+  @include rwd-above(sm) {
+    overflow-y: auto;
+    width: 40%;
+  }
 }
-
-  
-
-  

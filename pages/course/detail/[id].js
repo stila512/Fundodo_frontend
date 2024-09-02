@@ -52,7 +52,7 @@ export default function CourseDetail() {
   return (
     <>
       <Head>
-        <title>Course Detail</title>
+        <title>{course.title}  | Fundodo</title>
       </Head>
       <div className='container'>
         <div className={["row", scss.wrapper].join(" ")}>

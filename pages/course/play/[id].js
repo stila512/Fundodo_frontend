@@ -85,10 +85,10 @@ export default function CoursePlay() {
     return (
         <>
             <Head>
-                <title>{`課程播放： ${course.title}`}</title>
+                <title>{`課程播放： ${course.title}`} | Fundodo </title>
             </Head>
 
-            <div className={scss.containerFluid}>
+            <div className={scss.container}>
                 <div className={["container d-flex", scss.mainContent].join(" ")}>
                     <div className={[scss.videoContent, "col-8"].join(" ")}>
                         {currentLesson && <VideoPlayer video_path={currentLesson.video_path} />}

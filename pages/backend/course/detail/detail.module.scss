@@ -163,3 +163,29 @@
     margin-right: 5px;
   }
 }
+
+.courseDetail {
+  // ... 現有的樣式 ...
+
+  .outlineImages {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 20px;
+
+      .imageContainer {
+          width: 200px;
+          position: relative;
+          overflow: hidden;
+          border-radius: 8px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+          .outlineImage {
+              width: 100%;
+              height: 150px;
+              object-fit: cover;
+          }
+
+      }
+  }
+}

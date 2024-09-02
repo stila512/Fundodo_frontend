@@ -3,7 +3,11 @@
 .pagination {
     display: flex;
     justify-content: center;
-    margin: 35px 0;
+    margin: 16px 0;
+    @include rwd-above(sm){
+      margin: 40px 0;
+    }
+   
   
     button {
       margin: 0 5px;

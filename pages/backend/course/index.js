@@ -125,7 +125,7 @@ export default function CourseList() {
   return (
     <>
       <Head>
-        <title>Fundodo後台 - 課程管理</title>
+        <title>課程列表 | Fundodo 後台</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
 
