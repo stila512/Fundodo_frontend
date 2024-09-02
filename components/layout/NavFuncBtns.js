@@ -6,7 +6,7 @@ import { AuthProvider, AuthContext } from '@/context/AuthContext';
 import axios from 'axios';
 import tokenDecoder from '@/context/token-decoder';
 //== Styles =================================================================
-import scss from './navHeader.module.scss';
+import scss from './navFunc.module.scss';
 import { IoMdPerson } from 'react-icons/io';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { IoCart } from 'react-icons/io5';
@@ -80,11 +80,11 @@ export default function NavFuncBtns({ showCart = true }) {
   return (
     <ul className={scss.ulFunc}>
       {/* 站內搜尋 */}
-      <li>
+      {/* <li>
         <FddBtn color='white' pill={false} icon callback={() => { }}>
           <AiOutlineSearch />
         </FddBtn>
-      </li>
+      </li> */}
       {/* 會員 */}
       <li>
         <FddBtn color='white' pill={false} icon href="/member/peopleInfoData">

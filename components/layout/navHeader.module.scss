@@ -1,6 +1,6 @@
 @use '@/styles' as s;
 
-.layout {
+.header {
   background-color: s.$white;
   box-shadow: 0 3px 8px rgba(s.$shade2, 0.15), 0 1px 2px rgba(s.$shade3, 0.1);
   position: fixed;
@@ -9,22 +9,17 @@
   height: 70px; //給其他區域的參考用數據
   z-index: 999;
 }
-.layout > div {
+//* container
+.headerMembrane {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
-.layout nav {
-  // display: none;
-
-  @include s.rwd-above('md') {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 1rem;
-  }
+.beside {
+  flex-grow: 1;
 }
+
 //================================================
 .hbgBtn {
   // width: 1.5rem;
@@ -36,133 +31,13 @@
     display: none !important;
   }
 }
-//================================================
-.ulLink {
-  position: absolute;
-  display: flex;
-  top: 70px;
-  left: 0;
-  right: 0;
-  flex-direction: column;
-  background-color: s.$tint5;
-  align-items: stretch;
-  text-align: center;
+.header nav {
+  // display: none;
 
   @include s.rwd-above('md') {
-    top: initial;
-    left: initial;
-    position: relative;
-    top: initial;
-    background-color: transparent;
-    flex-direction: row;
-    text-align: left;
-  }
-
-  & > li {
-    padding: 0.5rem;
     display: flex;
-    gap: 0.5rem;
-    color: s.$shade2;
-    font-size: 1.125rem;
-    border-bottom: 5px solid transparent;
-    transition: border 0.4s linear;
-
-    & > a {
-      display: block;
-      width: 100%;
-    }
-
-    &:hover {
-      border-bottom-color: s.$primary;
-
-      a {
-        color: s.$shade2;
-      }
-    }
-  }
-}
-.listBtn {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  @include s.rwd-above('md') {
-    display: block;
-  }
-
-  &:hover {
-    .subList {
-      display: block;
-    }
-  }
-}
-
-.subList {
-  display: none;
-  padding-block: 0.5rem;
-  top: calc(100% + 4px);
-  left: 0;
-  right: 0;
-  background-color: s.$tint4;
-
-  @include s.rwd-above('md') {
-    position: absolute;
-    min-width: 10rem;
-    right: initial;
-    background-color: s.$secondary;
-    box-shadow: 0 3px 4px 2px rgba(s.$shade2, 0.3);
-  }
-
-  li a {
-    display: block;
-    padding: 0.5rem 1rem;
-    transition: background 0.4s;
-    transition: color 0.4s;
-  }
-  li:hover a {
-    background-color: s.$tint1;
-    color: s.$shade4;
-  }
-}
-
-//================================================
-.ulFunc {
-  padding-top: 0.5rem;
-  display: flex;
-  flex-direction: row;
-  gap: 0.5rem;
-
-  button,
-  a {
-    font-size: 2rem;
-    color: s.$shade2;
-  }
-
-  button {
-    background-color: transparent;
-    border: none;
-  }
-
-  .cartBtn {
-    position: relative;
-
-    // 購物車項目數量
-    .number {
-      $l: s.rem(20px);
-      position: absolute;
-      // @extend .fx-center;
-      //! display 由 js 控制
-      justify-content: center;
-      align-items: center;
-      width: $l;
-      height: $l;
-      top: -10px;
-      right: -8px;
-      background-color: s.$shade1;
-      color: s.$white;
-      font-weight: 600;
-      font-size: 1rem;
-      // padding: 0.25rem 0.5rem;
-      border-radius: 50%;
-    }
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
   }
 }
