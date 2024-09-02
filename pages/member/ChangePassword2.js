@@ -112,6 +112,7 @@ export default function ChangePassword() {
 
       if (res.ok) {
         alert('修改成功');
+        router.push('/member/peopleInfoData');
       } else {
         // 從後端獲取錯誤信息並顯示
         const errorMessages = resData.message || '修改失敗';
