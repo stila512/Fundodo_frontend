@@ -27,29 +27,6 @@ export default function CourseAdd() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
 
-
-  // useEffect(() => {
-  //   const fetchTags = async () => {
-  //     try {
-  //       const res = await fetch('http://localhost:3005/api/course/tags');
-  //       if (!res.ok) {
-  //         throw new Error('Failed to fetch tags');
-  //       }
-  //       const data = await res.json();
-  //       if (data.status === "success" && Array.isArray(data.data)) {
-  //         setTags(data.data);
-  //       } else {
-  //         console.error('Unexpected tag data format:', data);
-  //       }
-  //     } catch (error) {
-  //       console.error('Error fetching tags:', error);
-  //       setErrors(prev => ({ ...prev, fetchTags: '無法獲取課程分類，請稍後再試' }));
-  //     }
-  //   };
-
-  //   fetchTags();
-  // }, []);
-
   useEffect(() => {
     fetchTags();
   }, []);
@@ -100,14 +77,6 @@ export default function CourseAdd() {
       return { ...prev, chapters: newChapters };
     });
   };
-
-  // const handleImageChange = (e) => {
-  //   const file = e.target.files[0];
-  //   if (file) {
-  //     setCourse(prev => ({ ...prev, img_path: file }));
-  //     setPreviewImage(URL.createObjectURL(file));
-  //   }
-  // };
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -221,89 +190,6 @@ export default function CourseAdd() {
     return errors;
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   const validationErrors = validateForm(course);
-
-  //   if (validationErrors.length > 0) {
-  //     setModalContent({
-  //       title: '新增失敗',
-  //       message: validationErrors.join(', ')
-  //     });
-  //     setShowModal(true);
-  //     return;
-  //   }
-  
-  //   setIsSubmitting(true);
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append('title', course.title);
-  //     formData.append('summary', course.summary);
-  //     formData.append('description', course.description);
-  //     formData.append('tags', JSON.stringify(course.tags));
-  //     formData.append('original_price', course.original_price);
-  //     formData.append('sale_price', course.sale_price);
-  //     formData.append('tags', JSON.stringify(course.tags));
-  
-  //     if (course.img_path) {
-  //       formData.append('img_path', course.img_path);
-  //     }
-
-  //     const chaptersData = course.chapters.map(chapter => ({
-  //       name: chapter.name,
-  //       lessons: chapter.lessons.map(lesson => ({
-  //         name: lesson.name,
-  //         duration: lesson.duration
-  //       }))
-  //     }));
-  //     formData.append('chapters', JSON.stringify(chaptersData));
-  
-
-  //     // 添加大綱圖片
-  //     course.outline_images.forEach((image, index) => {
-  //       formData.append('outline_images', image);
-  //     });
-  
-      
-  //     // 上傳所有視頻文件
-  //     course.chapters.forEach((chapter, chapterIndex) => {
-  //       chapter.lessons.forEach((lesson, lessonIndex) => {
-  //         if (lesson.video_path instanceof File) {
-  //           formData.append('videos', lesson.video_path);
-  //         }
-  //       });
-  //     });
-  
-  //     const res = await fetch('http://localhost:3005/api/course', {
-  //       method: 'POST',
-  //       body: formData
-  //     });
-  
-  //     if (!res.ok) {
-  //       const errorData = await res.json();
-  //       throw new Error(errorData.message || '課程新增失敗');
-  //     }
-  
-  //     const result = await res.json();
-  //     setModalContent({
-  //       title: '成功',
-  //       message: '課程新增成功'
-  //     });
-  //     setShowModal(true);
-  //     setTimeout(() => router.push('/backend/course'), 1000);
-  //   } catch (error) {
-  //     console.error('課程新增失敗:', error);
-  //     setModalContent({
-  //       title: '失敗',
-  //       message: error.message || '課程新增失敗，請稍後再試。'
-  //     });
-  //     setShowModal(true);
-  //   } finally {
-  //     setIsSubmitting(false);
-  //   }
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -356,7 +242,6 @@ export default function CourseAdd() {
         formData.append('outline_images', image);
       });
 
-      // 上傳所有視頻文件
       course.chapters.forEach((chapter, chapterIndex) => {
         chapter.lessons.forEach((lesson, lessonIndex) => {
           if (lesson.video_path instanceof File) {
