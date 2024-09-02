@@ -17,7 +17,7 @@ export default function VerifyPage() {
                     localStorage.setItem('token', token);
                     console.log('Token saved to localStorage');
                     // setLoading(true);
-                    router.push('/member/ChangePassword').then(() => {
+                    router.push('/member/ChangePassword2').then(() => {
                         setStatus('success');
                     }).catch(error => {
                         console.error('Redirect failed:', error);
