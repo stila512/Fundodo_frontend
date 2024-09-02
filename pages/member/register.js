@@ -99,6 +99,28 @@ export default function RegisterPage() {
 
       if (res.ok) {
         alert('註冊成功');
+
+        const user_id = resData.id; // 假設用戶 ID 從註冊響應中返回
+        try {
+          const url2 = 'http://localhost:3005/api/coupon/register'
+          const res2 = await fetch(url2, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ user_id }),
+          });
+          if (res2.ok) {
+            console.log('優惠卷發送成功');
+          } else {
+            const errorMessages = await res2.json();
+            alert(`優惠卷發送失敗:\n${errorMessages.message}`);
+          }
+        } catch (e) {
+          console.error('優惠卷發送錯誤:', e);
+          alert('優惠卷發送失敗');
+        }
+
         router.push('/member/login');
       } else {
         // 從後端獲取錯誤信息並顯示
