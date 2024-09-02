@@ -28,7 +28,7 @@ export default function EditArticle() {
           if (data.status === 'success') {
             setTitle(data.content[0].title)
             setContent(data.content[0].content)
-            setSelectedSort(data.content[0].sort)
+            // setSelectedSort(data.content[0].sort)
 
             if (data.content[0].tags && Array.isArray(data.content[0].tags)) {
               setTag1(data.content[0].tags[0] || '');
