@@ -2,11 +2,9 @@ import React from 'react';
 import Image from 'next/image';
 import scss from './hero.module.scss';
 import FddBtn from '@/components/buttons/fddBtn';
-import dog1 from '@/public/homePic/dog1.png';
-import dog2 from '@/public/homePic/dog2.png';
-import dog3 from '@/public/homePic/dog3.png';
 import dogs from '@/public/homePic/dogs.png';
 import HeroBg from '@/public/homePic/hero_bg.svg'
+import HeroMobileBg from '@/public/homePic/bg-mobile.png'
 
 
 
@@ -18,9 +16,17 @@ export default function Hero() {
           <section className={[scss.hero, "d-flex", "jc-between", "ai-center"].join(' ')}>
             <Image
               src={HeroBg}
-              alt="Background"
+              alt="Desktop Background"
               layout="fill"
               quality={100}
+              className={scss.desktopBg}
+            />
+            <Image
+              src={HeroMobileBg}
+              alt="Mobile Background"
+              layout="fill"
+              quality={100}
+              className={scss.mobileBg}
             />
             <div className={scss.hero_text}>
               <h1>專屬毛小孩的幸福</h1>

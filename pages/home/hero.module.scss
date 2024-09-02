@@ -2,11 +2,24 @@
 
 .hero {
   height: 100vh;
+  position: relative;
+}
+
+.desktopBg {
+  display: block;
+}
+
+.mobileBg {
+  display: none;
 }
 
 .hero_text {
   text-wrap: nowrap;
   align-items: center;
+
+  position: relative;
+  z-index: 1;
+
   h1 {
     @include ff-maru(24px, 56px);
     color: $heading;
@@ -36,4 +49,21 @@
   max-width: 1440px;
   width: 100%;
   margin: 0 auto;
+  z-index: 2;
 }
+
+@media (max-width: 768px) {
+  .desktopBg {
+    display: none;
+  }
+  .hero_image {
+    display: none;
+  }
+
+
+  .mobileBg {
+    display: block;
+
+  }
+}
+  
