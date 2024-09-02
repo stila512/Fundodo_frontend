@@ -15,29 +15,107 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-}
-.beside {
-  flex-grow: 1;
+  height: 100%;
 }
 
 //================================================
-.hbgBtn {
-  // width: 1.5rem;
-  // height: 1.5rem;
-  background-color: transparent;
-  // border: none;
-  // font-size: 1.5rem;
-  @include s.rwd-above('md') {
-    display: none !important;
-  }
-}
+// .hbgBtn {
+//   background-color: transparent;
+//   svg {
+//     transition: transform 1s linear, color 1s linear;
+//   }
+
+//   @include s.rwd-above('md') {
+//     display: none !important;
+//   }
+
+//   &.active {
+//     svg {
+//       color: s.$primary;
+//       transform: rotate(270deg) scaleY(1.2);
+//     }
+//   }
+// }
 .header nav {
   // display: none;
-
   @include s.rwd-above('md') {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     gap: 1rem;
+  }
+}
+
+//*======== 選單切換按鈕
+
+$unit_lang: 4px;
+
+.hbgBtn {
+  $h-nav: 70px;
+  $leng: 8 * $unit_lang;
+  // display: block;
+  background-color: transparent;
+  // @include s.rwd-above('md') {
+  //   display: none;
+  // }
+  // &,
+  // &::before,
+  // &::after {
+  //   position: absolute;
+  //   background-color: s.$shade4;
+  // }
+  // top: ($h-nav - $leng) / 3;
+  // right: 25px;
+}
+
+.bar {
+  position: relative;
+  width: 6 * $unit_lang;
+  //* (HBGer) 2 of 3 : 三條線設定
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+  }
+  // 三 = {before, &, after}
+  &,
+  &::before,
+  &::after {
+    height: $unit_lang;
+    // width: 6 * $unit_lang;
+    background-color: rgba(s.$shade4, 0.75);
+    border-radius: 1px;
+    //回復動畫的緩動
+    transition: 300ms;
+  }
+  $gap: 1.75 * $unit_lang;
+  &::before {
+    top: -$gap;
+  }
+  &::after {
+    top: $gap;
+  }
+  /* 2 of 3 : 三條線設定 END */
+}
+
+$unit_theta: -45deg;
+.hbgBtn.active .bar {
+  &,
+  &::before,
+  &::after {
+    //變成叉叉的動畫緩動
+    transition: 700ms;
+  }
+  transform: rotate(4 * $unit_theta);
+  background-color: transparent;
+  &::before {
+    transform: rotate($unit_theta);
+    top: 0; //回到正中央，以形成叉叉
+  }
+  &::after {
+    transform: rotate(-$unit_theta);
+    top: 0;
   }
 }

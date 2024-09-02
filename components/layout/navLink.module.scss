@@ -35,6 +35,15 @@
     }
   }
 }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .listBtn {
   padding: 0.5rem;
   position: relative;
@@ -46,19 +55,24 @@
   color: s.$shade2;
   font-size: 1.125rem;
   transition: border 0.4s linear;
+  animation: fadeIn 0.4s ease-in-out 1;
 
-  a {
+  & > a {
+    display: block;
+    width: 100%;
     transition: color 0.4s linear;
   }
 
-  &:hover {
-    .subList {
-      display: block;
-    }
+  .subList {
+    display: block;
   }
 
   @include s.rwd-above('md') {
     display: block;
+
+    .subList {
+      display: none;
+    }
 
     &:hover {
       border-bottom-color: s.$primary;
