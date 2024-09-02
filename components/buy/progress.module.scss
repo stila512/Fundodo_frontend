@@ -7,6 +7,11 @@
   align-items: center;
   justify-content: space-between;
   position: relative;
+
+  width: 80%;
+  @include styles.rwd-above('md') {
+    width: initial;
+  }
 }
 .progressBox::before {
   content: '';
