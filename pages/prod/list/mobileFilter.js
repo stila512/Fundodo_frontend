@@ -1,38 +1,14 @@
 import scss from './aside.module.scss';
-import { MdKeyboardArrowDown } from "react-icons/md";
 
 export default function MobileFilter() {
-	return (
-		<>
-  {/* <p className="d-inline-flex gap-1">
-    <a
-      className="btn btn-primary"
-      data-bs-toggle="collapse"
-      href="#collapseExample"
-      role="button"
-      aria-expanded="false"
-      aria-controls="collapseExample"
-    >
-      Link with href
-    </a>
-    <button
-      className="btn btn-primary"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#collapseExample"
-      aria-expanded="false"
-      aria-controls="collapseExample"
-    >
-      Button with data-bs-target
-    </button>
-  </p>
-  <div className="collapse" id="collapseExample">
-    <div className="card card-body">
-      Some placeholder content for the collapse component. This panel is hidden
-      by default but revealed when the user activates the relevant trigger.
-    </div>
-  </div> */}
-</>
+  return (
+    <>
+      <div className={[scss.mobileFilter, 'd-md-none d-flex'].join(' ')}>
+        <div>篩選</div>
+        <div>飼料分類</div>
+        <div>排序</div>
+      </div>
+    </>
 
-	)
+  )
 }

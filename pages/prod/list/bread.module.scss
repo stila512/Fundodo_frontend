@@ -1,10 +1,6 @@
 @use '@/styles' as s;
 
-.rwd {
-  @media (max-width: 768px) {
-    display: none;
-  }
-}
+
 .ul {
   align-items: center;
   list-style-type: none;

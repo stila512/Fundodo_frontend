@@ -71,7 +71,7 @@ export default function Aside({ onFilterChange, className }) {
   const showAgeFilter = ['飼料', '罐頭', '保健'].includes(selectedCategory);
 
   return (
-    <aside className={['col-3', scss.rwd, className].join(' ')}>
+    <aside className={[scss.rwd, className].join(' ')}>
       <div className={['hstack', scss.mb, 'jc-between'].join(' ')}>
         <h2 className={scss.font}>篩選</h2>
         <FaFilterCircleXmark size={30} color={"#B9A399"} onClick={clearFilters} style={{cursor:'pointer'}}/>
