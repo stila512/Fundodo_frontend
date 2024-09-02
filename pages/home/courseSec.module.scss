@@ -8,8 +8,6 @@
 .courseSec {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   padding: 40px 0;
   margin-bottom: 50px;
   background-repeat: no-repeat;
@@ -18,7 +16,6 @@
 }
 
 .courseText {
-  text-align: center;
   margin-bottom: 30px;
 
   h2 {
@@ -42,10 +39,9 @@
 
 .proBtn {
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
   width: 100%;
-  max-width: 200px;
+  max-width: 180px;
+  
 }
 
 @media (min-width: 480px) {
@@ -57,6 +53,7 @@
     margin-bottom: 110px;
     background-position: calc(100% + 20px) center;
   }
+
 
   .courseText {
     text-align: left;
@@ -72,7 +69,5 @@
     }
   }
 
-  .proBtn {
-    width: auto;
-  }
+ 
 }
