@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import DefaultLayout from '@/components/layout/default';
+import NoPermissionPage from './nopermission';
 import scss from './play.module.scss';
+import { AuthContext } from '@/context/AuthContext';
+import tokenDecoder from '@/context/token-decoder';
 
 const VideoPlayer = ({ video_path }) => {
     console.log('Video path:', video_path);
@@ -12,7 +15,7 @@ const VideoPlayer = ({ video_path }) => {
     return (
         <div className={scss.videoWrapper}>
             <video key={video_path} controls className={scss.videoPlayer}>
-            <source src={`http://localhost:3005${video_path}`} type='video/mp4' />
+                <source src={`http://localhost:3005${video_path}`} type='video/mp4' />
                 Your browser does not support the video tag.
             </video>
         </div>
@@ -49,39 +52,82 @@ export default function CoursePlay() {
     const router = useRouter();
     const [course, setCourse] = useState(null);
     const [currentLesson, setCurrentLesson] = useState(null);
+    const [hasPermission, setHasPermission] = useState(false);
+    const { user } = useContext(AuthContext);
+
+    const checkPermission = async (courseId) => {
+        try {
+            const { userId } = tokenDecoder();
+            if (!userId) {
+                throw new Error('User not logged in');
+            }
+
+            const res = await fetch(`http://localhost:3005/api/course/permission?courseId=${courseId}&userId=${userId}`, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            const data = await res.json();
+            return data.status === 'success' && data.hasPurchased;
+        } catch (error) {
+            console.error('Error checking course permission:', error);
+            return false;
+        }
+    };
+
+
 
     const getCourse = async (id) => {
         try {
             const apiURL = `http://localhost:3005/api/course/${id}`;
             const res = await fetch(apiURL);
             const result = await res.json();
-            console.log('API response:', result);
-            setCourse(result.data);
-            if (result.data.chapters.length > 0 && result.data.chapters[0].lessons.length > 0) {
-                setCurrentLesson(result.data.chapters[0].lessons[0]);
-            }
+            return result.data;
         } catch (error) {
             console.error('Failed to fetch course:', error);
-            // 可以在這裡添加錯誤處理邏輯，例如設置錯誤狀態
+            return null;
         }
     };
 
     useEffect(() => {
-        if (router.isReady && router.query.id) {
-            getCourse(router.query.id);
-        }
-    }, [router.isReady, router.query.id]);
+        let isMounted = true;
+
+        const loadCourseAndCheckPermission = async () => {
+            if (router.isReady && router.query.id) {
+                const [courseData, permissionStatus] = await Promise.all([
+                    getCourse(router.query.id),
+                    checkPermission(router.query.id)
+                ]);
+
+                if (isMounted) {
+                    setCourse(courseData);
+                    setHasPermission(permissionStatus);
+
+                    if (courseData && courseData.chapters.length > 0 && courseData.chapters[0].lessons.length > 0) {
+                        setCurrentLesson(courseData.chapters[0].lessons[0]);
+                    }
+                }
+            }
+        };
+
+        loadCourseAndCheckPermission();
+
+        return () => {
+            isMounted = false;
+        };
+    }, [router.isReady, router.query.id, user]);
 
     const handleLessonChange = (lesson) => {
-        console.log('Changing lesson to:', lesson);
         setCurrentLesson(lesson);
     };
 
-    // 如果課程數據還沒加載完成，不渲染任何內容
-    if (!course) {
-        return null;
+    if (hasPermission === null || !course) {
+        return null; 
     }
 
+    if (hasPermission === false) {
+        return <NoPermissionPage courseId={router.query.id} />; 
+    }
     return (
         <>
             <Head>

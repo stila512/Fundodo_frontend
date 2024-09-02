@@ -12,29 +12,7 @@ export default function NavLinks() {
         <Link href="/prod">寵物商城</Link>
       </li>
       <li className={scss.listBtn}>
-        <Link href="/course">
-          <span style={{ position: 'relative' }}>
-            線上課程
-            <span className='pos-a' style={{ right: '-16px' }}>
-              <IoIosArrowDown />
-            </span>
-          </span>
-        </Link>
-
-        <ul className={scss.subList}>
-          <li>
-            <Link href="/course/detail">課程列表</Link>
-          </li>
-          <li>
-            <Link href="#">課程分類</Link>
-          </li>
-          <li>
-            <Link href="#">熱門課程</Link>
-          </li>
-          <li>
-            <Link href="#">常見問題</Link>
-          </li>
-        </ul>
+        <Link href="/course"> 線上課程</Link>
       </li>
       <li className={scss.listBtn}>
         <Link href="/hotel/list">寵物旅館</Link>
