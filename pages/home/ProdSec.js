@@ -34,35 +34,28 @@ export default function ProdSec() {
 
   return (
     <section className={scss.bgWrapper}>
-      <div className={scss.bg} style={{ '--bg-image': `url(${PdBg.src})` }}>
-        <div className="container">
-          <div className={[scss.prodSec, "d-flex", "jc-between", "ai-center"].join(' ')}>
-            <div className={scss.prodImgs}>
-              <div className={['img-wrap-w100', scss.imgBox].join(' ')}>
-                <Image src={feed1} alt="" width={0} height={0} />
-              </div>
-              <div className={['img-wrap-w100', scss.imgBox].join(' ')}>
-                <Image src={feed2} alt="" />
-              </div>
-              <div className={['img-wrap-w100', scss.imgBox].join(' ')}>
-                <Image src={feed3} alt="" />
-              </div>
-              <div className={['img-wrap-w100', scss.imgBox].join(' ')}>
-                <Image src={feed4} alt="" />
-              </div>
+  <div className={scss.bg} style={{ '--bg-image': `url(${PdBg.src})` }}>
+    <div className="container">
+      <div className={scss.prodSec}>
+        <div className={scss.prodImgs}>
+          {[feed1, feed2, feed3, feed4].map((feed, index) => (
+            <div key={index} className={['img-wrap-w100', scss.imgBox].join(' ')}>
+              <Image src={feed} alt="" layout="responsive" width={276} height={251} />
             </div>
-            <div
-              ref={prodTextRef}
-              className={`${scss.prodText} ${isVisible ? scss.animate : ''}`}
-            >
-              <h3>狗狗的全部需求，一站式解決</h3>
-              <FddBtn color='primary' href='/prod' className={scss.proBtn}>
-                立即逛逛 <FaArrowRight />
-              </FddBtn>
-            </div>
-          </div>
+          ))}
+        </div>
+        <div
+          ref={prodTextRef}
+          className={`${scss.prodText} ${isVisible ? scss.animate : ''}`}
+        >
+          <h3>狗狗的全部需求，一站式解決</h3>
+          <FddBtn color='primary' href='/prod' className={scss.proBtn}>
+            立即逛逛 <FaArrowRight />
+          </FddBtn>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
   );
 }

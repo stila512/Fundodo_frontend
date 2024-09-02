@@ -17,6 +17,7 @@ export default function Hero() {
         <main>
           <section className={[scss.hero, "d-flex", "jc-between", "ai-center"].join(' ')}>
             <Image
+              className={scss.bg}
               src={HeroBg}
               alt="Background"
               layout="fill"

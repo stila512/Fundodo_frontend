@@ -30,17 +30,17 @@ const reviews = [
     id: 3,
     title: '專業細心的團隊',
     content: '我家的老狗需要特別照顧，這裡的團隊非常細心地照顧他的需求。每次接他回家，他都很開心、狀態很好。感謝你們的用心！',
-    author: '柴犬爸爸',
+    author: '柴犬人',
     date: '2024/08/20',
-    image: '/hotelPic/pic/HT0000161.jpg'
+    image: '/hotelPic/pic/vip.jpg'
   },
   {
     id: 4,
     title: '寵物的天堂',
     content: '這裡簡直就是寵物的度假天堂！妮妮每次來都玩得很開心。工作人員會耐心地陪伴和照顧，還會提供豐富的玩具和活動。強烈推薦給所有寵物主人！',
-    author: '妮妮媽媽',
+    author: '妮妮媽',
     date: '2024/09/10',
-    image: '/hotelPic/pic/HT0000173.jpg'
+    image: '/hotelPic/pic/nini.jpg'
   }
 ];
 
@@ -48,7 +48,7 @@ const reviews = [
 export default function HotelSec() {
   const [currentReview, setCurrentReview] = useState(0);
   const [direction, setDirection] = useState('right');
-  const [key, setKey] = useState(0); 
+  const [key, setKey] = useState(0);
   useEffect(() => {
     const timer = setInterval(() => {
       handleNext();
@@ -60,13 +60,13 @@ export default function HotelSec() {
   const handlePrev = () => {
     setDirection('left');
     setCurrentReview((prevReview) => (prevReview - 1 + reviews.length) % reviews.length);
-    setKey(prevKey => prevKey + 1); 
+    setKey(prevKey => prevKey + 1);
   };
 
   const handleNext = () => {
     setDirection('right');
     setCurrentReview((prevReview) => (prevReview + 1) % reviews.length);
-    setKey(prevKey => prevKey + 1); 
+    setKey(prevKey => prevKey + 1);
   };
 
 
@@ -84,7 +84,7 @@ export default function HotelSec() {
               <div className={scss.btns}>
                 <button className={scss.backBtn} onClick={handlePrev}>
                   <IconContext.Provider value={{ size: '2.5rem' }}>
-                    <IoIosArrowBack className={scss.ArrowBack}/>
+                    <IoIosArrowBack className={scss.ArrowBack} />
                   </IconContext.Provider>
                 </button>
                 <button className={scss.fowBtn} onClick={handleNext}>
@@ -101,6 +101,7 @@ export default function HotelSec() {
                     className={scss.images}
                     src={reviews[currentReview].image}
                     alt={`Review by ${reviews[currentReview].author}`}
+                    // layout="responsive"
                     width={580}
                     height={380}
                   />

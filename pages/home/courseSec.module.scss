@@ -1,42 +1,78 @@
-@import "@/styles";
-
+@import '@/styles';
 
 .bgWrapper {
-    width: 100%;
-    overflow: hidden; 
-  }
+  width: 100%;
+  overflow: hidden;
+}
 
 .courseSec {
-    display:flex;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+  margin-bottom: 50px;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: contain;
+}
+
+.courseText {
+  text-align: center;
+  margin-bottom: 30px;
+
+  h2 {
+    @include ff-maru(24px, 36px);
+    color: $heading;
+    font-weight: 700;
+    line-height: 1.4;
+    word-wrap: break-word;
+    margin-bottom: 15px;
+  }
+
+  p {
+    @include ff-noto(14px, 18px);
+    color: $body;
+    font-weight: 400;
+    line-height: 1.6;
+    word-wrap: break-word;
+    margin-bottom: 30px;
+  }
+}
+
+.proBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 200px;
+}
+
+@media (min-width: 480px) {
+  .courseSec {
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
     height: 600px;
     margin-bottom: 110px;
-    // background-image: url(../../public/homePic/bgc.png);
-    background-repeat: no-repeat;
     background-position: calc(100% + 20px) center;
+  }
 
+  .courseText {
+    text-align: left;
 
-}
-
-.courseText {
     h2 {
-        @include ff-maru(24px,36px);
-        color: $heading;
-        font-weight: 700;
-        line-height: 66px;
-        word-wrap: break-word;
-        margin-bottom: 15px;
+      line-height: 66px;
     }
 
     p {
-        @include ff-noto(14px, 18px);
-         color: $body;
-        font-weight: 400;
-        line-height: 30px;
-        width: 440px;
-        word-wrap: break-word;
-        margin-bottom: 60px;
+      width: 440px;
+      line-height: 30px;
+      margin-bottom: 60px;
     }
+  }
 
+  .proBtn {
+    width: auto;
+  }
 }
