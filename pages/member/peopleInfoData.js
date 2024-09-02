@@ -13,6 +13,7 @@ import useAuthRedirect from '@/hooks/useAuthRedirect';
 
 import Modal from '@/components/common/modal';
 import { GoCheck } from "react-icons/go";
+import FddBtn from '@/components/buttons/fddBtn';
 
 
 export default function PeopleInfoData() {
@@ -214,7 +215,8 @@ export default function PeopleInfoData() {
                   </div>
                   <div className={`${scss.botarea} my-5 mx-5`}>
                     <Link href="/member/peopleInfo"><button className={scss.btn1}>編輯資料</button></Link>
-                    <button type="button" className={scss.btn2} onClick={openModal}>刪除用戶</button>
+                    {/* <FddBtn color='error' outline pill={false} callback={() => setIsModalOpen(true)}>刪除用戶</FddBtn> */}
+                    <button type="button" className="btn-error-brick-2" onClick={openModal}>刪除用戶</button>
                   </div>
                 </div>
               </div>
@@ -225,27 +227,26 @@ export default function PeopleInfoData() {
           </form>
         )}
       </main>
-      {isModalOpen && (
-        <Modal
-          mode={1}  // 选择模式 1 或 2，具体根据需求
-          active={isModalOpen}  // 控制 Modal 的显示
-          onClose={closeModal}  // 关闭 Modal 的函数
-          confirmText="发送 OTP"  // 确认按钮的文字
-          cancelText="取消"  // 取消按钮的文字
-        >
-          <h4>刪除確認</h4>
-          <p>你確定要刪除帳號？這個操作無法撤銷。</p>
-          <p>請輸入您的電子郵件地址以確認刪除：</p>
-          <input
-            type="email"
-            value={confirmEmail}
-            onChange={handleEmailChange}
-            placeholder="輸入您的電子郵件"
-          />
-          <button onClick={handleDeleteUser} disabled={confirmEmail !== user.email}>確認刪除</button>
-          <button onClick={handleCancelDelete}>取消</button>
-        </Modal>
-      )}
+
+      <Modal
+        mode={1}
+        active={isModalOpen}
+        onClose={closeModal}
+        confirmText="發送 OTP"
+        cancelText="取消"
+      >
+        <h4>刪除確認</h4>
+        <p>你確定要刪除帳號？這個操作無法撤銷。</p>
+        <p>請輸入您的電子郵件地址以確認刪除：</p>
+        <input
+          type="email"
+          value={confirmEmail}
+          onChange={handleEmailChange}
+          placeholder="輸入您的電子郵件"
+        />
+        <button onClick={handleDeleteUser} disabled={confirmEmail !== user.email}>確認刪除</button>
+        <button onClick={handleCancelDelete}>取消</button>
+      </Modal>
     </>
   );
 }

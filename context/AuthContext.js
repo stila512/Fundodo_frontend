@@ -70,7 +70,7 @@ const AuthProvider = ({ children }) => {
   console.log('AuthContext Loading:', loading); // 輸出 AuthContext 的 loading
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading }}>
+    <AuthContext.Provider value={{ user, login, logout, loading, setLoading }}>
       {children}
     </AuthContext.Provider>
   );
