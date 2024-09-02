@@ -15,17 +15,16 @@ export default function Hero() {
         <main>
           <section className={[scss.hero, "d-flex", "jc-between", "ai-center"].join(' ')}>
             <Image
-              className={scss.bg}
+              className={scss.desktopBg}
               src={HeroBg}
               alt="Desktop Background"
               layout="fill"
               quality={100}
-              className={scss.desktopBg}
             />
             <Image
               src={HeroMobileBg}
               alt="Mobile Background"
-              layout="fill"
+              width={393}
               quality={100}
               className={scss.mobileBg}
             />
