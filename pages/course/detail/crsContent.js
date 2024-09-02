@@ -15,7 +15,7 @@ export default function CrsContent({ chapters, lessons,img_path }) {
           <>
             <div className={scss.chapter} key={chapter.id}>
               <h3>{chapter.name}</h3>
-              <Link href="">全部展開 <MdOutlineArrowForwardIos /> </Link>
+              {/* <Link href="">全部展開 <MdOutlineArrowForwardIos /> </Link> */}
             </div>
             <div className={scss.lessons}>
               {chapter.lessons.map(lesson => (
