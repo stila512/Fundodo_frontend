@@ -1,11 +1,11 @@
 import Link from 'next/link';
-import scss from './navHeader.module.scss';
+import scss from './navLink.module.scss';
 import { IoIosArrowDown } from 'react-icons/io';
 
 export default function NavLinks() {
   return (
     <ul className={scss.ulLink}>
-      <li>
+      <li className={scss.listBtn}>
         <Link href="/home">首頁</Link>
       </li>
       <li className={scss.listBtn}>
@@ -36,10 +36,10 @@ export default function NavLinks() {
           </li>
         </ul>
       </li>
-      <li>
+      <li className={scss.listBtn}>
         <Link href="/hotel/list">寵物旅館</Link>
       </li>
-      <li>
+      <li className={scss.listBtn}>
         <Link href="/article">討論區</Link>
       </li>
     </ul>
