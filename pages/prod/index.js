@@ -30,11 +30,14 @@ export default function ProductList() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className='container'>
-        <Section />
-        <MobileFilter />
+        <div className='d-none d-md-flex'>
+          <Section />
+        </div>
         <div className={['hstack', scss.margin].join(' ')}>
           <Breadcrumb />
-          <Search onSearch={handleSearch} />
+          <div className='d-none d-md-flex'>
+            <Search onSearch={handleSearch} />
+          </div>
           <Select onChange={handleSortChange} />
         </div>
         <div className={scss.my}>

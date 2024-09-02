@@ -91,9 +91,9 @@ export default function ProductGrid({ products, className, page, totalPages, onP
   };
 
   return (
-    <div className={['row', 'g-3', className].join(' ')}>
+    <div className={['row', 'g-3', 'w-100', className].join(' ')}>
       {totalPages > 1 && (
-        <div className='d-flex'>
+        <div className='d-none d-md-flex jc-center mb-3'>
           <label
             onClick={() => handlePageChange(page - 1)}
             className={`${scss.myButton} ${page === 1 ? scss.disabled : ''}`}
@@ -166,7 +166,7 @@ export default function ProductGrid({ products, className, page, totalPages, onP
         </div>
       )}
       {totalPages > 1 && (
-        <div className='d-flex'>
+        <div className='d-flex jc-center mt-5'>
           <label
             onClick={() => handlePageChange(page - 1)}
             className={`${scss.myButton} ${page === 1 ? scss.disabled : ''}`}

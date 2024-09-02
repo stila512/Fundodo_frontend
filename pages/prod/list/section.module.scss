@@ -1,15 +1,9 @@
 @use '@/styles' as s;
 
-.rwd {
-  @media (max-width: 768px) {
-    display: none;
-  }
-}
 .mt {
   margin-top: 163px;
 }
 .section {
-  width: 100%;
   border-radius: 41px;
   background-image: url(/prodPic/Rectangle647.png);
   background-size: cover;
