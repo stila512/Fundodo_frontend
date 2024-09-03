@@ -141,10 +141,8 @@ export default function ProductGrid({ products, className, page, totalPages, onP
                   }}
                 />
               </div>
-              <div className={scss.prodImgBox}>
-                <div className={[scss.prodImg, 'img-wrap-w100', 'img-wrap-h100'].join(' ')}>
-                  <Image src={`/pic-prod/${v.picNameArr[0]}`} width={0} height={0} layout="responsive" />
-                </div>
+              <div className={[scss.prodImgBox].join(' ')}>
+                <Image objectFit="cover" src={`/pic-prod/${v.picNameArr[0]}`} width={0} height={0} layout="responsive" />
               </div>
               <div className={scss.textarea2}>
                 <div className={scss.textarea}>
