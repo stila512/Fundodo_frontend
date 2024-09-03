@@ -14,8 +14,10 @@ export default function useAuthRedirect() {
       return;
     }
 
-    // if (!authLoading && (!authUser || !authUser.uuid)) {
-    //   router.push('/member/login');
-    // }
+    if (authUser && authUser.user_level !== 20) {
+      router.push('/member/login_BackEnd');
+      return;
+    }
+
   }, [authUser, authLoading, router]);
 }

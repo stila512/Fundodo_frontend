@@ -11,7 +11,6 @@ import '@fontsource-variable/noto-sans-tc';
 import NextTopLoader from 'nextjs-toploader';
 import Head from 'next/head';
 import { AuthProvider } from '@/context/AuthContext';
-import { BackendProvider } from '@/context/BackendContext';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
 
@@ -28,15 +27,13 @@ export default function MyApp({ Component, pageProps }) {
         </Head>
         <GoogleOAuthProvider clientId={CLIENT_ID}>
           <AuthProvider>
-            <BackendProvider>
-              <Layout>
-                <NextTopLoader
-                  color='#f4d284'
-                  height={5}
-                />
-                <Component {...pageProps} />
-              </Layout>
-            </BackendProvider>
+            <Layout>
+              <NextTopLoader
+                color='#f4d284'
+                height={5}
+              />
+              <Component {...pageProps} />
+            </Layout>
           </AuthProvider>
         </GoogleOAuthProvider>
       </>
@@ -49,15 +46,13 @@ export default function MyApp({ Component, pageProps }) {
         </Head>
         <GoogleOAuthProvider clientId={CLIENT_ID}>
           <AuthProvider>
-            <BackendProvider>
-              <NextTopLoader
-                color='#f4d284'
-                height={5}
-              />
-              <Component {...pageProps} />
-            </BackendProvider>
+            <NextTopLoader
+              color='#f4d284'
+              height={5}
+            />
+            <Component {...pageProps} />
           </AuthProvider>
-        </GoogleOAuthProvider>
+        </GoogleOAuthProvider >
       </>
     );
   }

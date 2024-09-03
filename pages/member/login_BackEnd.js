@@ -11,7 +11,7 @@ import Modal from '@/components/common/modal';
 import { FcGoogle } from "react-icons/fc";
 import FddBtn from '@/components/buttons/fddBtn';
 
-export default function LoginPage() {
+export default function LoginBackEndPage() {
   // 顯示密碼使用
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
@@ -37,7 +37,7 @@ export default function LoginPage() {
       .then(response => {
         if (!response.ok) {
           return response.json().then(errorData => {
-            throw new Error(`錯誤 ${response.status}: ${errorData.message}`);
+            throw new Error(`${errorData.message}`);
           });
         }
         return response.json();
@@ -89,12 +89,16 @@ export default function LoginPage() {
                       />隱藏</div>
                   </div></div>
                 <input type={showPassword ? 'text' : 'password'} name="password" required />
-                <p>使用8個或以上的字元, 包含字母數字和符號</p>
+                {error && (
+                  <div className={scss.errorMessage}>
+                    {error}
+                  </div>
+                )}
               </div>
             </div>
             <div className={scss.area3}>
               {/* <div className={scss.Backend_Btn} >會員登入頁</div> */}
-              <FddBtn color='info' className={scss.Backend_Btn}  size='sm' href="/member/login">會員登入頁</FddBtn>
+              <FddBtn color='info' className={scss.Backend_Btn} size='sm' href="/member/login">會員登入頁</FddBtn>
             </div>
             <div className={scss.area4}>
               <button className={scss.createBtn} type="submit"
