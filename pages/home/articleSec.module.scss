@@ -52,7 +52,12 @@
   height: 322px;
   flex-shrink: 0;
 }
-
+.imageWrapper {
+  position: relative;
+  width: 424px;
+  height: 322px;
+  overflow: hidden;
+}
 .card_body {
   padding: 0 20px;
   p {
