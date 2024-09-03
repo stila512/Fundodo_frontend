@@ -17,11 +17,21 @@
 }
 
 .section {
-  padding-block: 2rem;
+  padding: 2rem 1rem;
 }
 
 .countPanel {
   margin-top: 1rem;
   padding-inline: rem(20px);
   border-bottom: 1px solid $tint3;
+}
+
+.cpCard {
+  margin-inline: 1rem;
+  @extend .gr-center;
+  height: 100%;
+  background-color: $tint3;
+  border-radius: 12px;
+  font-size: 3.5rem;
+  color: $shade4;
 }
