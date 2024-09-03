@@ -1,35 +1,47 @@
-import scss from '../navHeader.module.scss';
+//== Parameters ================================================================
+import { breakpoints } from '@/configs';
+//== Functions =================================================================
+import { useEffect, useState } from 'react';
+//== Components ================================================================
 import Logo from '@/components/common/logo';
-
-import { useState } from 'react';
-import NavLinks from '../NavLinks';
 import NavFuncBtns from '../NavFuncBtns';
-import { GiHamburgerMenu } from "react-icons/gi";
-import FddBtn from '@/components/buttons/fddBtn';
+import NavLinks from '../NavLinks';
+//== Styles =================================================================
+import useScreenWidth from '@/hooks/useScreenWidth';
+import scss from '../navHeader.module.scss';
+import NavToggleBtn from '../NavToggleBtn';
+
 /**
  * 導覽列 | Fundodo 頁面基本架構
  * @description 高度固定為 70px，fixed at top
  */
 export default function NavHeader() {
-  const [showMenu, setShowMenu] = useState(true);
+  const [showMenu, setShowMenu] = useState(false);
+  const screenWidth = useScreenWidth();
+  const [w__screen, setW__screen] = useState(1920);
+
+  useEffect(() => {
+    setW__screen(screenWidth);
+  }, [screenWidth]);
 
   return (
-    <header className={scss.layout}>
-      <div className='container'>
-        <FddBtn
-          color='white'
-          pill={false}
-          icon
-          className={scss.hbgBtn}
-          callback={() => setShowMenu(!showMenu)}
-        >
-          <GiHamburgerMenu />
-        </FddBtn>
-        <Logo width={210} href="/"></Logo>
-        <nav className='txPrimary'>
-          {showMenu && <NavLinks />}
-          <NavFuncBtns />
-        </nav>
+    <header className={scss.header}>
+      <div className='container h-100'>
+        <div className={scss.headerMembrane}>
+          <div className='d-block d-md-none flex-grow-1 flex-lg-grow-0'>
+            <NavToggleBtn showMenu={showMenu} setShowMenu={setShowMenu} />
+          </div>
+          <div className='pos-a t-50 l-50 translate-middle pos-md-r t-md-0 l-md-0 translate-middle-md-none'>
+            <Logo width={210} href="/"></Logo>
+          </div>
+          <nav className='flex-grow-1 flex-lg-grow-0'>
+            {
+              (w__screen >= breakpoints.md || showMenu) &&
+              <NavLinks />
+            }
+            <NavFuncBtns />
+          </nav>
+        </div>
       </div>
     </header>
   );

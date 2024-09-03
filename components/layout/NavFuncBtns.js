@@ -6,7 +6,7 @@ import { AuthProvider, AuthContext } from '@/context/AuthContext';
 import axios from 'axios';
 import tokenDecoder from '@/context/token-decoder';
 //== Styles =================================================================
-import scss from './navHeader.module.scss';
+import scss from './navFunc.module.scss';
 import { IoMdPerson } from 'react-icons/io';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { IoCart } from 'react-icons/io5';
@@ -23,7 +23,8 @@ export default function NavFuncBtns({ showCart = true }) {
   //======= handle 購物車數量提示
   const [cartCount, setCartCount] = useState(0);
   //===== 會員 ID
-  const [uID, setUID] = useState(0);
+  //0 | 未登入 ; -1 | 讀取中
+  const [uID, setUID] = useState(-1);
 
   //===== 解讀登入的會員 ID
   useEffect(() => {
@@ -80,11 +81,11 @@ export default function NavFuncBtns({ showCart = true }) {
   return (
     <ul className={scss.ulFunc}>
       {/* 站內搜尋 */}
-      <li>
+      {/* <li>
         <FddBtn color='white' pill={false} icon callback={() => { }}>
           <AiOutlineSearch />
         </FddBtn>
-      </li>
+      </li> */}
       {/* 會員 */}
       <li>
         <FddBtn color='white' pill={false} icon href="/member/peopleInfoData">
@@ -98,17 +99,23 @@ export default function NavFuncBtns({ showCart = true }) {
         </FddBtn>
       </li> */}
       {/* 購物車 */}
-      {showCart ? (
-        <li className={scss.cartBtn} style={{ paddingRight: uID === 0 ? '' : '.5rem' }}>
-          <FddBtn color='white' pill={false} icon href="/buy">
-            <IoCart />
-            <div className={[scss.number, uID === 0 ? 'd-none' : 'd-flex'].join(' ')}>{cartCount}</div>
-          </FddBtn>
-        </li>
-      ) : (<></>
-      )}
+      {
+        (showCart && uID >= 0) ? (
+          <li
+            style={{
+              paddingRight: uID === 0 ? '' : '.5rem',
+              position: 'relative'
+            }}
+          >
+            <FddBtn color='white' pill={false} icon href="/buy">
+              <IoCart />
+              <div className={[scss.cartNumber, uID === 0 ? 'd-none' : 'd-flex'].join(' ')}>{cartCount}</div>
+            </FddBtn>
+          </li>
+        ) : (<></>)
+      }
       {/* 會員 */}
-      <li className='d-none d-lg-inline-flex'>
+      <li className='d-none d-md-inline-flex'>
         <FddBtn
           color='white'
           pill={false}

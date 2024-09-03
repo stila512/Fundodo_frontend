@@ -213,8 +213,9 @@ export default function PeopleInfoData() {
                     </div>
 
                   </div>
-                  <div className={`${scss.botarea} my-5 mx-5`}>
-                    <Link href="/member/peopleInfo"><button className={scss.btn1}>編輯資料</button></Link>
+                  <div className='m-5 hstack gap-3'>
+                    {/* <Link href="/member/peopleInfo"><button className={scss.btn1}>編輯資料</button></Link> */}
+                    <FddBtn color='heading' outline pill={false} href='/member/peopleInfo'>編輯資料</FddBtn>
                     {/* <FddBtn color='error' outline pill={false} callback={() => setIsModalOpen(true)}>刪除用戶</FddBtn> */}
                     <button type="button" className={scss.btn2} onClick={openModal}>刪除用戶</button>
                   </div>

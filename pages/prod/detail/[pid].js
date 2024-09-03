@@ -236,8 +236,10 @@ export default function Pid() {
       </Head>
       <main className='container'>
         <h1 className={[scss.shade3, 'd-none', 'd-lg-block'].join(' ')}>狗狗的{product.cate_1}用品</h1>
-        <div className='mt-3 d-flex'>
-          <Breadcrumb />
+        <div className={['hstack jc-between mb-3', scss.mt].join(' ')}>
+          <div>
+            <Breadcrumb />
+          </div>
           <Link className={['text-nowrap', scss.backBtn].join(' ')} href='http://localhost:3000/prod'>回到上一頁</Link>
         </div>
         <div>
@@ -294,11 +296,11 @@ export default function Pid() {
                   </div>
                 </div>
               )}
-              <hr className={[scss.mt, 'bg-primary'].join(' ')} />
+              <hr className={'bg-primary mt-3'} />
               <div className={scss.priceGroup}>
                 <span className={scss.price}>{renderPrice()}</span>
               </div>
-              <div className={['gap-3', 'd-flex', scss.mt].join(' ')}>
+              <div className='gap-3 hstack mt-3'>
                 <span className={[scss.cs3, 'd-none', 'd-lg-block'].join(' ')}>數量</span>
                 <NumberPanel
                   className={scss.NumberPanel}
@@ -318,12 +320,14 @@ export default function Pid() {
                   >
                     {loading ? '載入中...' : '加入購物車'}
                   </button>
-                  <FavoriteIcon className={scss.mbFavIcon} size={28} />
+                  <FavoriteIcon className={scss.mbFavIcon} size={28} style={{ color: '#b9a399' }} />
                 </div>
               </div>
             </div>
           </div>
-          <Table product={product} />
+          <div className='mt-5'>
+            <Table product={product} />
+          </div>
           <Recommend currentProductId={product.id} currentProductCategory={product.cate_1} />
         </div>
       </main>

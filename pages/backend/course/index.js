@@ -111,15 +111,22 @@ export default function CourseList() {
       pageNumbers.push(i);
     }
 
-    return pageNumbers.map(number => (
-      <button
-        key={number}
-        onClick={() => handlePageChange(number)}
-        className={number === currentPage ? scss.activePage : ''}
-      >
-        {number}
-      </button>
-    ));
+    return (
+      <div className={scss.pagination}>
+      <ul>
+      {pageNumbers.map(number => (
+          <li
+            key={number}
+            className={number === currentPage ? scss.activePage : ''}
+          >
+          <a href="#" onClick={() => handlePageChange(number)}>
+          {number}
+          </a>
+          </li>
+        ))}
+      </ul>
+      </div>
+    );
   };
 
   return (
