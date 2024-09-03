@@ -10,6 +10,14 @@ import DefaultLayout from '@/components/layout/default'
 import SideText from '@/components/member/SideText';
 //== Styles =================================================================
 import s from './coupon.module.scss';
+import { BsCake2 } from "react-icons/bs";
+import { CiDeliveryTruck } from "react-icons/ci";
+import {
+  MdOutlineCelebration,
+  MdOutlineAttachMoney,
+  MdOutlineDiscount
+} from "react-icons/md";
+import { RiSparkling2Line } from "react-icons/ri";
 
 export default function CouponPage() {
   let uID = 0;
@@ -20,6 +28,46 @@ export default function CouponPage() {
   })
   const [activeIndex, setActiveIndex] = useState(0);
   const [data2show, setData2show] = useState([]);
+
+  /** ICON */
+  const iconList = [
+    <RiSparkling2Line />,
+    <MdOutlineDiscount />,
+    <MdOutlineAttachMoney />,
+    <CiDeliveryTruck />,
+    <BsCake2 />,
+    <MdOutlineCelebration />,
+  ];
+  const getIcon = cp_id => {
+    switch (cp_id) {
+      case 4:
+      case 10:
+        return iconList[0];
+      case 5:
+      case 6:
+      case 11:
+      case 12:
+      case 13:
+      case 14:
+        return iconList[1];
+      case 1:
+      case 2:
+      case 15:
+      case 16:
+        return iconList[2];
+      case 3:
+      case 9:
+        return iconList[3];
+      case 7:
+        return iconList[4];
+      case 8:
+      case 17:
+      case 18:
+      case 19:
+        return iconList[5];
+      default: return iconList[1];
+    }
+  }
 
 
   //===== 驗證登入狀態
@@ -145,15 +193,19 @@ export default function CouponPage() {
                     <div className={[s.section].join(' ')}>
                       <div className="row">
                         {data2show.map((data) => (
-                          <div className='col-12' style={{ border: '1px solid #888' }}>
-                            <p>code: {data.code}</p>
-                            <p>expired_at: {data.expired_at}</p>
-                            <p>name: {data.name}</p>
-                            <p>desc: {data.desc}</p>
-                            <p>desc_sp: {data.desc_sp}</p>
-                            <p>discount: {data.discount}</p>
-                            <p>min_spent: {data.min_spent}</p>
-                            <p>max_discount: {data.max_discount}</p>
+                          <div key={data.code} className='col-12' style={{ borderBottom: '1px solid #888' }}>
+                            <div className="row py-3">
+                              <div className="col-3">
+                                <div className={s.cpCard}>
+                                  {getIcon(data.cp_id)}
+                                </div>
+                              </div>
+                              <div className="col-9">
+                                <p className='tx-lg'>{data.name}</p>
+                                <p>適用情形: {data.desc}</p>
+                                <p>有效期限: {data.expired_at} 以前</p>
+                              </div>
+                            </div>
                           </div>
                         ))}
                       </div>
