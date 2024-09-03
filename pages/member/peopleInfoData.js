@@ -213,7 +213,7 @@ export default function PeopleInfoData() {
                     </div>
 
                   </div>
-                  <div className='m-5 hstack gap-3'>
+                  <div className={scss.botarea}>
                     {/* <Link href="/member/peopleInfo"><button className={scss.btn1}>編輯資料</button></Link> */}
                     <FddBtn color='heading' outline pill={false} href='/member/peopleInfo'>編輯資料</FddBtn>
                     {/* <FddBtn color='error' outline pill={false} callback={() => setIsModalOpen(true)}>刪除用戶</FddBtn> */}
