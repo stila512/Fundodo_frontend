@@ -1,17 +1,14 @@
-import React,{useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import FddBtn from '@/components/buttons/fddBtn';
 import scss from './articleSec.module.scss';
 import Image from 'next/image';
-import artdog1 from '@/public/homePic/artdog2.png';
 import AtBg from '@/public/homePic/at_bg.svg'
 import Link from 'next/link';
 import axios from 'axios';
 
-
 export default function ArticleSec() {
-  const [imagePath, setImagePath] = useState('/defaltImg.jpg');
+  const [articles, setArticles] = useState([])
   const baseUrl = 'http://localhost:3005'
-  const [articles,setArticles]=useState([])
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -29,23 +26,36 @@ export default function ArticleSec() {
     }
     fetchArticles()
   }, [])
-  // useEffect(() => {
-  //   if (articles && articles.id) {
-  //     // 發送請求到後端 API 來獲取圖片路徑
-  //     axios.get(`http://localhost:3005/api/article/images/${articles.id}`)
-  //       .then(response => {
-  //         if (response.data && response.data.imagePath) {
-  //           setImagePath(`${baseUrl}${response.data.imagePath}`);
-  //           // `http://localhost:3005/${response.data.imagePath}`
-  //         }
-  //       })
-  //       .catch(error => {
-  //         console.error('Error fetching image:', error);
-  //       });
-  //   }
-  // }, [articles]);
+
+  const getImagePath = async (articleId) => {
+    try {
+      const response = await axios.get(`${baseUrl}/api/article/images/${articleId}`)
+      if (response.data && response.data.imagePath) {
+        return `${baseUrl}${response.data.imagePath}`
+      }
+    } catch (error) {
+      console.error('Error fetching image:', error)
+    }
+    return '/defaltImg.jpg'
+  }
+
+  useEffect(() => {
+    const loadImages = async () => {
+      const updatedArticles = await Promise.all(
+        articles.map(async (article) => ({
+          ...article,
+          imagePath: await getImagePath(article.id)
+        }))
+      )
+      setArticles(updatedArticles)
+    }
+    if (articles.length > 0) {
+      loadImages()
+    }
+  }, [articles])
 
   if (!articles) return null
+
   const formatDate = (dateString) => {
     const date = new Date(dateString)
     return date.toLocaleString('zh-TW', {
@@ -58,39 +68,40 @@ export default function ArticleSec() {
       hour12: false
     })
   }
+
   return (
     <>
-    <section className={scss.bgWrapper}>
-      <div className={scss.bg} style={{'--bg-image': `url(${AtBg.src})`}}>
-      <div className='container'>
-        <div className={scss.card_text}>
-          <h2>最新文章</h2>
-          <FddBtn color='tint3' outline href='/'>閱讀更多</FddBtn>
-        </div>
+      <section className={scss.bgWrapper}>
+        <div className={scss.bg} style={{ '--bg-image': `url(${AtBg.src})` }}>
+          <div className='container'>
+            <div className={scss.card_text}>
+              <h2>最新文章</h2>
+              <FddBtn color='tint3' outline href='/'>閱讀更多</FddBtn>
+            </div>
 
-        <div className={scss.cards}>
-        {articles.slice(0,3).map(arti => (
-          <div className={scss.card}>
-            <Image src={imagePath}
-            alt=""
-            width={424}
-            height={322}
-            className={scss.card_img}
-             />
-            <div className={scss.card_body}>
-              <p>{formatDate(arti.create_at)}</p>
-              <h3>{arti.title}</h3>
-              <h4><div dangerouslySetInnerHTML={{ __html: arti.content.substring(0, 20)+'...' }} /></h4>
-              <Link href={`/article/content?aid=${arti.id}`} className={scss.link}>More</Link>
+            <div className={scss.cards}>
+              {articles.slice(0, 3).map(article => (
+                <div key={article.id} className={scss.card}>
+                  <div className={scss.imageWrapper}>
+                    <Image
+                      src={article.imagePath}
+                      alt=""
+                      layout="fill"
+                      objectFit="cover"
+                      className={scss.card_img}
+                    />
+                  </div>
+                  <div className={scss.card_body}>
+                    <p>{formatDate(article.create_at)}</p>
+                    <h3>{article.title}</h3>
+                    <h4><div dangerouslySetInnerHTML={{ __html: article.content.substring(0, 20) + '...' }} /></h4>
+                    <Link href={`/article/content?aid=${article.id}`} className={scss.link}>More</Link>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-          ))}
-          
         </div>
-
-
-      </div>
-      </div>
       </section>
     </>
   )
