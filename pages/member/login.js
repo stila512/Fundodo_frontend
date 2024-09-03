@@ -166,6 +166,7 @@ export default function LoginPage() {
             </div>
             <div className={scss.area3}>
               <p onClick={openModal}> 忘記密碼?</p>
+              <Link href="/member/login_BackEnd"><div className={scss.Backend_Btn} >後台</div></Link>
             </div>
             <div className={scss.area4}>
               <button className={scss.createBtn} type="submit"

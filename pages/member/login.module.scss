@@ -9,7 +9,7 @@
   width: 1440px;
   height: 100vh;
   display: flex;
-  .point{
+  .point {
     cursor: pointer;
   }
 }
@@ -34,7 +34,7 @@
   }
   .area2 {
     padding-bottom: 32px;
-    .passwordarea{
+    .passwordarea {
       display: flex;
       justify-content: space-between;
     }
@@ -154,19 +154,38 @@
   }
   .area2 {
     padding-bottom: 32px;
-    .passwordarea{
+    .passwordarea {
       display: flex;
       justify-content: space-between;
-      .point{
+      .point {
         cursor: pointer;
       }
     }
-    .Googleicon{
+    .Googleicon {
       cursor: pointer;
     }
   }
   .area3 {
+    display: flex;
+    justify-content: row;
+    gap: 50px;
     padding-bottom: 32px;
+    .Backend_Btn {
+      display: flex;
+      padding: 6px 25px;
+      align-items: flex-start;
+      gap: 8px;
+      border-radius: 47.273px;
+      background: var(--Primary, #6F625C);
+      border: #ccc;
+
+      color: var(--shade4, #37312e);
+      font-family: 'Noto Sans';
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
   }
   .area3 p {
     color: var(--shade4, #37312e);
