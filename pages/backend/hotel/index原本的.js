@@ -13,6 +13,7 @@ import { FaCircleDot } from "react-icons/fa6";
 import { MdRemoveRedEye } from "react-icons/md";
 import { TiArrowUnsorted } from "react-icons/ti";
 
+// todo 旅館id排序
 
 
 export default function List() {
@@ -70,11 +71,6 @@ export default function List() {
     getHotels()
   }, [])
 
-  // 當 hotels 數據更新時，重新計算狀態計數
-  useEffect(() => {
-    updateStatusCounts(hotels);
-  }, [hotels])
-
   //搜尋
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value)
@@ -89,17 +85,6 @@ export default function List() {
   }
 
   //紀錄上下架狀態跟數量
-  const updateStatusCounts = (hotelData) => {
-    const counts = hotelData.reduce((acc, hotel) => {
-      acc.all++;
-      if (hotel.valid === 1) acc.active++;
-      else acc.inactive++;
-      return acc;
-    }, { all: 0, active: 0, inactive: 0 });
-
-    setStatusCounts(counts);
-  }
-  // 處理狀態選擇
   const handleStatusSelect = (status) => {
     setSelectedStatus(status);
     if (status === 'all') {
@@ -112,7 +97,13 @@ export default function List() {
     }
   }
 
-  //刪除旅館
+  //刪除
+  // const handleDelete = async (id) => {
+  //   if (!confirm('確定要刪除這個旅館嗎？')) {
+  //     return;
+  //   }
+
+  //   setIsLoading(true); // 添加載入狀態
   const handleDelete = (id) => {
     setDeletingId(id);
     setModalContent({
@@ -121,18 +112,18 @@ export default function List() {
     });
     setShowDeleteConfirmModal(true);
   };
-
+  
   const confirmDelete = async () => {
     if (deletingId === null) return;
-
+    
     setIsLoading(true);
     setShowDeleteConfirmModal(false);
-
+    
     try {
       const response = await fetch(`http://localhost:3005/api/hotel/${deletingId}`, {
         method: 'DELETE',
       });
-
+      
       if (response.ok) {
         setModalContent({
           title: '成功',
@@ -158,7 +149,7 @@ export default function List() {
       setDeletingId(null);
     }
   };
-
+  
   const cancelDelete = () => {
     setShowDeleteConfirmModal(false);
     setDeletingId(null);
@@ -170,12 +161,16 @@ export default function List() {
   };
 
   const handleStatusChange = (hotelId, newStatus) => {
-    const updatedHotels = hotels.map(hotel =>
-      hotel.id === hotelId ? { ...hotel, valid: newStatus } : hotel
+    setHotels(prevHotels =>
+      prevHotels.map(hotel =>
+        hotel.id === hotelId ? { ...hotel, valid: newStatus } : hotel
+      )
     );
-    setHotels(updatedHotels);
-    setFilteredHotels(updatedHotels);
-    updateStatusCounts(updatedHotels);
+    setFilteredHotels(prevFilteredHotels =>
+      prevFilteredHotels.map(hotel =>
+        hotel.id === hotelId ? { ...hotel, valid: newStatus } : hotel
+      )
+    );
   };
 
   const getImagePath = (main_img_path) => {
