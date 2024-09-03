@@ -132,6 +132,7 @@ export default function HotelBlock({ searchQuery, sortOption }) {
                   </Link>
                 </div>
                 <h3 className={styles.hotelName}>{v.name}</h3>
+                <p className={styles.address}>{v.address}</p>
                 <p className={styles.description}>{v.description}</p>
                 <p className={styles.price}>${v.price_s}~${v.price_l}</p>
                 <div className={styles.Btn}>
