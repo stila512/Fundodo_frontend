@@ -11,13 +11,22 @@ import { useContext } from 'react';
 import { AuthProvider, AuthContext } from '@/context/AuthContext';
 
 export default function SideText({ activeIndex = 0 }) {
-  const { logout } = useContext(AuthContext);
+  const { logout, user } = useContext(AuthContext);
+
   const handleLogout = () => {
     logout(); // 呼叫登出函數
   };
+  const showEnter = user ? user.user_level === 20 : false;
   return (
     <div className={scss.sideText}>
-      <div className={[scss.menuItem, activeIndex === 0 ? scss.active : ''].join(' ')}>
+      {showEnter ?
+        <div className={[scss.menuItem, activeIndex === 7 ? scss.active : ''].join(' ')}>
+          <Image className={scss.icon} src={mdi_dog} alt="管理後台" />
+          <Link href="/backend"><span>管理後台</span></Link>
+        </div>
+        : <></>
+      }
+      <div className={[scss.menuItem, scss.bigItem, activeIndex === 0 ? scss.active : ''].join(' ')}>
         <div className={scss.mainItem}>
           <div className={scss.reactIcon}>
             <IoMdPerson />
@@ -61,6 +70,7 @@ export default function SideText({ activeIndex = 0 }) {
           <IoIosLogOut />
         </div><span onClick={handleLogout} style={{ cursor: 'pointer' }}>登出</span>
       </div>
+
     </div>
   );
 }
