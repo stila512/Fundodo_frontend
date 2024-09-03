@@ -1,7 +1,7 @@
 //== Parameters ================================================================
 import { apiBaseUrl } from '@/configs';
 //== Functions =================================================================
-import { useEffect, useState } from 'react'
+import { act, useEffect, useState } from 'react'
 import axios from 'axios';
 import tokenDecoder from '@/context/token-decoder';
 import useAuthRedirect from '@/hooks/useAuthRedirect';
@@ -68,7 +68,6 @@ export default function CouponPage() {
       default: return iconList[1];
     }
   }
-
 
   //===== 驗證登入狀態
   useAuthRedirect();
@@ -151,7 +150,9 @@ export default function CouponPage() {
         setData2show(cpPkg.usableArr);
         break;  // 預設顯示可使用的優惠券
     }
-  }, [activeIndex])
+  }, [activeIndex]);
+
+  const cardClass = activeIndex === 0 ? '' : 'card' + activeIndex;
 
   return (
     <div className='bg-tint5'>
@@ -194,9 +195,9 @@ export default function CouponPage() {
                       <div className="row">
                         {data2show.map((data) => (
                           <div key={data.code} className='col-12' style={{ borderBottom: '1px solid #888' }}>
-                            <div className="row py-3">
+                            <div className={["row py-3", activeIndex === 0 ? s.cpRow : ''].join(' ')}>
                               <div className="col-3">
-                                <div className={s.cpCard}>
+                                <div className={[s.cpCard, s[cardClass]].join(' ')}>
                                   {getIcon(data.cp_id)}
                                 </div>
                               </div>

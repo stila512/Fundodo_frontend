@@ -16,12 +16,10 @@ export default function ReturnPage() {
     CVS: '超商取貨',
     DLV: '宅配到府'
   };
-  const payWayOf = [
-    '綠界線上付款',
-    'LINE PAY'
-  ];
-
-
+  const payWayOf = {
+    EC: '綠界線上付款',
+    LINE: 'LINE PAY'
+  };
 
   /**
      * user ID
