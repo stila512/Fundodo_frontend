@@ -416,9 +416,10 @@ export default function FillingPage({
                         <select
                           name="addr_city"
                           value={autoOrderData ? autoOrderData.addr_city : undefined}
+                          defaultValue={0}
                           onChange={e => handleCityInput(e)}
                         >
-                          <option value={0} selected disabled >- 縣市 -</option>
+                          <option value={0} disabled >- 縣市 -</option>
                           {cityList && cityList.map(city =>
                             <option key={city.id} value={city.id}>{city.name}</option>
                           )}
@@ -427,12 +428,12 @@ export default function FillingPage({
                       <div className="col-6">
                         <select name="addr_code"
                           value={autoOrderData ? autoOrderData.addr_code : 0}
+                          defaultValue={0}
                           onChange={e => handleZipInput(e)}
                         >
-                          <option
-                            selected
-                            disabled
-                          >- {distList.length > 0 ? "請選擇" : "區鄉鎮"} -</option>
+                          <option value={0} disabled>
+                            - {distList.length > 0 ? "請選擇" : "區鄉鎮"} -
+                          </option>
                           {distList.length > 0 && distList.map(district =>
                             <option key={district.zipcode} value={district.zipcode}>{district.name}</option>
                           )}
