@@ -35,7 +35,6 @@ export default function BuyPage() {
    *  @type {[number, React.Dispatch<number>]} */
   const [buyPhase, setBuyPhase] = useState(1);
 
-
   const initBuyInfoPkg = {
     coupons: [],
     orderInfo: {
@@ -63,9 +62,6 @@ export default function BuyPage() {
    * 跨 phase 儲存使用者購買資訊
    *  @type {[object[], React.Dispatch<object[]>]} */
   const [buyInfoPkg, setBuyInfoPkg] = useState(initBuyInfoPkg);
-
-
-
 
   return (
     <>

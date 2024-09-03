@@ -21,6 +21,8 @@ export default function ConfirmPage({
 
   const [username, setUsername] = useState('會員');
   const [ECPAY_PKG, setECPAY_PKG] = useState(null);
+  /** 處理狀態 */
+  const [isLoading, setIsLoading] = useState(false);
 
   const shipWayOf = {
     CVS: '超商取貨',
@@ -48,12 +50,14 @@ export default function ConfirmPage({
   }, []);
 
   /**偵測使用的優惠券，若是特定的 cp_id，則給予新的優惠券*/
-  const triggerNewCoupon = () => {
+  const triggerNewCoupon = async () => {
+    if (coupons.length === 0) return;
+
     const dataPkg = {
       user_id: orderInfo.user_id,
       ucids: coupons
     };
-    axios.post(`${apiBaseUrl}/coupon/checkout`, dataPkg)
+    await axios.post(`${apiBaseUrl}/coupon/checkout`, dataPkg)
       .then(res => {
         console.log(res.data.message);
       })
@@ -77,10 +81,10 @@ export default function ConfirmPage({
       tel: orderInfo.phone_num
     };
 
-    axios.post(`${apiBaseUrl}/order`, data)
+    return await axios.post(`${apiBaseUrl}/order`, data)
       .then(res => {
         console.log(res.data.message);
-        return res.data.order_id;
+        return res.data.result.order_id;
       })
       .catch(err => {
         if (err.response) {
@@ -153,6 +157,8 @@ export default function ConfirmPage({
   }
 
   const updateCoupons = async () => {
+    if (coupons.length === 0) return;
+
     const dataPkg = {
       user_id: orderInfo.user_id,
       ucids: coupons
@@ -176,11 +182,13 @@ export default function ConfirmPage({
   };
 
   const checkout = async () => {
-    triggerNewCoupon();
+    setIsLoading(true);
+    await triggerNewCoupon();
     const orderID = await insertOrder();
     await insertOrderItem(orderID);
     await emptyCart();
     await updateCoupons();
+    console.log('u.3a87');
     document.getElementById('ECPAY-form').submit();
   }
 
@@ -230,7 +238,7 @@ export default function ConfirmPage({
                       <p>電子信箱：{orderInfo.email}</p>
                       <p>收件郵遞區號：{orderInfo.ship_zipcode}</p>
                       <p>收件完整地址：{orderInfo.ship_address}</p>
-                      <p>收件備註：{orderInfo.ps}</p>
+                      <p>收件備註：{orderInfo.ship_ps}</p>
                     </div>
                   </div>
                 </tr>
@@ -243,7 +251,7 @@ export default function ConfirmPage({
                 編輯資料
               </FddBtn>
               <FddBtn color={ECPAY_PKG ? 'primary' : 'muted'} pill={false} disabled={!ECPAY_PKG} callback={() => checkout()}>
-                {ECPAY_PKG ? "前往付款" : "請稍後"}
+                {ECPAY_PKG ? (isLoading ? "送出中..." : "前往付款") : "請稍後"}
               </FddBtn>
             </div>
           </div>
