@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { IoMdPerson } from 'react-icons/io';
@@ -9,11 +9,16 @@ import mdi_dog from '@/public/memberPic/mdi_dog.svg';
 import { AuthContext } from '@/context/AuthContext';
 import styles from './side2.module.scss';
 
-const SideText = ({ activeIndex = 0 }) => {
+const SideText = ({ initialActiveIndex = 0 }) => {
   const { logout } = useContext(AuthContext);
+  const [activeIndex, setActiveIndex] = useState(initialActiveIndex);
 
   const handleLogout = () => {
     logout();
+  };
+
+  const handleMenuItemClick = (index) => {
+    setActiveIndex(index);
   };
 
   const menuItems = [
@@ -38,7 +43,7 @@ const SideText = ({ activeIndex = 0 }) => {
         <ul>
           {menuItems.map((item, index) => (
             <li key={index} className={activeIndex === index ? styles.active : ''}>
-              <Link href={item.link} className={styles.menuItem}>
+              <Link href={item.link} className={styles.menuItem} onClick={() => handleMenuItemClick(index)}>
                 <span className={styles.icon}>{item.icon}</span>
                 <span className={styles.text}>{item.text}</span>
               </Link>
