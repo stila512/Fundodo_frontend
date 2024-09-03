@@ -13,7 +13,7 @@ import ProductImages from './productImages';
 import Table from './table';
 import Link from 'next/link';
 import Modal from '@/components/common/modal';
-import Toggle from './toggle';
+import ReviewSection from './reviewSection';
 
 export default function Pid() {
   const { user, loading } = useContext(AuthContext);
@@ -44,6 +44,11 @@ export default function Pid() {
   const [maxQuantity, setMaxQuantity] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState({ title: '', message: '' });
+  const [activeTab, setActiveTab] = useState('description');
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+  };
 
   const getProduct = async (id) => {
     const URL = `http://localhost:3005/api/prod/${id}`;
@@ -285,8 +290,8 @@ export default function Pid() {
               <div className={scss.headerGrid}>
                 <h3 className={scss.header}>{product.name}</h3>
                 <FavoriteIcon className={scss.handleFavIcon} size={24} style={{ color: '#B9A399' }} productId={product.id} productData={{
-                  id:product.id,
-                  name:product.name,
+                  id: product.id,
+                  name: product.name,
                   price: getPriceDisplay(product.priceArr),
                   image: product.picNameArr[0]
 
@@ -360,14 +365,31 @@ export default function Pid() {
                   >
                     {loading ? '載入中...' : '加入購物車'}
                   </button>
-                  
+
                 </div>
               </div>
             </div>
           </div>
-          <Toggle />
+          <div className={scss.selectBar}>
+            <button
+              className={`${scss.selectBtn} ${activeTab === 'description' ? scss.active : ''}`}
+              onClick={() => handleTabChange('description')}
+            >
+              商品描述
+            </button>
+            <button
+              className={`${scss.selectBtn} ${activeTab === 'reviews' ? scss.active : ''}`}
+              onClick={() => handleTabChange('reviews')}
+            >
+              商品評價
+            </button>
+          </div>
           <div className='mt-5'>
-            <Table product={product} />
+            {activeTab === 'description' ? (
+              <Table product={product} />
+            ) : (
+              <ReviewSection productId={product.id} />
+            )}
           </div>
           <Recommend currentProductId={product.id} currentProductCategory={product.cate_1} />
         </div>

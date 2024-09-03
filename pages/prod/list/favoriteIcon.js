@@ -8,7 +8,7 @@ export default function FavoriteIcon({ className = {}, size = 24, style = {}, pr
 	const [isFavorite, setIsFavorite] = useState(false);
 	const { user, loading } = useContext(AuthContext);
 	const [showModal, setShowModal] = useState(false);
-  const [modalContent, setModalContent] = useState({ title: '', message: '' });
+	const [modalContent, setModalContent] = useState({ title: '', message: '' });
 	const router = useRouter();
 
 	useEffect(() => {
@@ -95,9 +95,9 @@ export default function FavoriteIcon({ className = {}, size = 24, style = {}, pr
 		}
 	};
 	const displayModal = (title, message) => {
-    setModalContent({ title, message });
-    setShowModal(true);
-  };
+		setModalContent({ title, message });
+		setShowModal(true);
+	};
 	return (
 		<>
 			<div
@@ -108,13 +108,13 @@ export default function FavoriteIcon({ className = {}, size = 24, style = {}, pr
 				{isFavorite ? <FaHeart color="#B9A399" /> : <FaRegHeart />}
 			</div>
 			<Modal
-        mode={1}
-        active={showModal}
-        onClose={() => setShowModal(false)}
-      >
-        <h4>{modalContent.title}</h4>
-        <p>{modalContent.message}</p>
-      </Modal>
+				mode={1}
+				active={showModal}
+				onClose={() => setShowModal(false)}
+			>
+				<h4>{modalContent.title}</h4>
+				<p>{modalContent.message}</p>
+			</Modal>
 		</>
 
 	);

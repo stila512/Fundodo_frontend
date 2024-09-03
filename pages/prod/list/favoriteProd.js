@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import DefaultLayout from '@/components/layout/default';
 import scss from './favoriteProd.module.scss';
-import FavoriteIcon from './favoriteIcon';
 import Image from 'next/image';
 import Link from 'next/link';
 import SideText from '@/components/member/SideText';

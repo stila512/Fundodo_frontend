@@ -1,0 +1,28 @@
+@use '@/styles' as s;
+
+.starRating {
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  .starWrapper {
+    display: inline-block;
+    cursor: pointer;
+    padding: 0 2px;
+  }
+  
+  .star {
+    font-size: 24px;
+    color: s.$primary;
+    transition: color 0.2s;
+  }
+  
+  .filled .star {
+    color: s.$primary;
+  }
+  
+//   如果你想要星星有hover效果，可以添加：
+  .starWrapper:hover .star,
+  .starWrapper:hover ~ .starWrapper .star {
+    color: s.$primary;
+  }

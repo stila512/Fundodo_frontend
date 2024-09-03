@@ -1,0 +1,52 @@
+@import '@/styles';
+
+.hotelPage {
+  h1 {
+    display: flex;
+    width: 252px;
+    height: 52px;
+    margin-bottom: 20px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: $heading;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; 
+  }
+}
+
+.Table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 18px;
+
+  
+}
+.Table th {
+  background-color: $body;
+  color: white;
+  text-align: left;
+  padding: 12px;
+  font-weight: 500;
+
+}
+.Table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  color: $gray-700; 
+}
+
+.imageContainer {
+  width: 100px;
+  height: 80px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+}
+.btn{
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
