@@ -59,16 +59,25 @@ $shade-names: ('shade1', 'shade2', 'shade3', 'shade4', 'shade5');
       border-color: transparent;
     }
   }
-}
 
-a.btn-shade4,
-button.btn-shade4,
-a.btn-shade4-icon,
-button.btn-shade4-icon {
-  &:hover {
-    background-color: c.$shade5;
+  #{$elem}.btn-shade4,
+  #{$elem}.btn-shade4-icon {
+    &:hover {
+      background-color: c.$shade5;
+    }
+    &:active {
+      background-color: c.$black;
+    }
   }
-  &:active {
-    background-color: c.$black;
+
+  #{$elem}.btn-shade4-2,
+  #{$elem}.btn-shade4-brick-2,
+  #{$elem}.btn-shade4-icon-2 {
+    &:hover {
+      background-color: c.$tint1;
+    }
+    &:active {
+      background-color: c.$primary;
+    }
   }
 }
