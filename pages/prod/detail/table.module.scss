@@ -8,7 +8,7 @@
   margin-bottom: 20px;
 }
 .tableTd1 {
-  width: fit-content;
+  min-width: 100px;
   background-color: s.$primary;
   color: s.$white;
   border: 1px solid #ddd;

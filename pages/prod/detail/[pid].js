@@ -135,9 +135,9 @@ export default function Pid() {
 
   const renderPrice = () => {
     if (selectedPrice !== null) {
-      return `NT$ ${selectedPrice}`;
+      return `NT$ ${selectedPrice.toLocaleString()}`;
     } else if (product.priceArr.length === 1) {
-      return `NT$ ${product.priceArr[0]}`;
+      return `NT$ ${product.priceArr[0].toLocaleString()}`;
     } else {
       return '請選擇選項';
     }
