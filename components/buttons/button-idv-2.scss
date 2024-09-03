@@ -73,30 +73,30 @@ button.btn-black-icon-2 {
 }
 
 //================= heading =================//
-a.btn-heading,
-button.btn-heading,
-a.btn-heading-icon,
-button.btn-heading-icon {
-  color: c.$tint4;
-  border-color: transparent;
+@each $elem in (a, button) {
+  #{$elem}.btn-heading,
+  #{$elem}.btn-heading-brick,
+  #{$elem}.btn-heading-icon {
+    color: c.$tint4;
+    border-color: transparent;
 
-  &:hover {
-    background-color: c.$shade4;
+    &:hover {
+      background-color: c.$shade4;
+    }
+    &:active {
+      background-color: c.$shade5;
+    }
   }
-  &:active {
-    background-color: c.$shade5;
-  }
-}
-a.btn-heading-2,
-button.btn-heading-2,
-a.btn-heading-icon-2,
-button.btn-heading-icon-2 {
-  background-color: transparent;
+  #{$elem}.btn-heading-2,
+  #{$elem}.btn-heading-brick-2,
+  #{$elem}.btn-heading-icon-2 {
+    background-color: transparent;
 
-  &:hover {
-    background-color: c.$tint5;
-  }
-  &:active {
-    background-color: c.$tint2;
+    &:hover {
+      background-color: c.$tint5;
+    }
+    &:active {
+      background-color: c.$tint2;
+    }
   }
 }

@@ -1,6 +1,6 @@
 @use '@/styles' as s;
 
-.layout {
+.header {
   background-color: s.$white;
   box-shadow: 0 3px 8px rgba(s.$shade2, 0.15), 0 1px 2px rgba(s.$shade3, 0.1);
   position: fixed;
@@ -9,15 +9,35 @@
   height: 70px; //給其他區域的參考用數據
   z-index: 999;
 }
-.layout > div {
+//* container
+.headerMembrane {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  height: 100%;
 }
-.layout nav {
-  // display: none;
 
+//================================================
+// .hbgBtn {
+//   background-color: transparent;
+//   svg {
+//     transition: transform 1s linear, color 1s linear;
+//   }
+
+//   @include s.rwd-above('md') {
+//     display: none !important;
+//   }
+
+//   &.active {
+//     svg {
+//       color: s.$primary;
+//       transform: rotate(270deg) scaleY(1.2);
+//     }
+//   }
+// }
+.header nav {
+  // display: none;
   @include s.rwd-above('md') {
     display: flex;
     flex-direction: row;
@@ -25,144 +45,77 @@
     gap: 1rem;
   }
 }
-//================================================
+
+//*======== 選單切換按鈕
+
+$unit_lang: 4px;
+
 .hbgBtn {
-  // width: 1.5rem;
-  // height: 1.5rem;
+  $h-nav: 70px;
+  $leng: 8 * $unit_lang;
+  // display: block;
   background-color: transparent;
-  // border: none;
-  // font-size: 1.5rem;
-  @include s.rwd-above('md') {
-    display: none !important;
-  }
+  // @include s.rwd-above('md') {
+  //   display: none;
+  // }
+  // &,
+  // &::before,
+  // &::after {
+  //   position: absolute;
+  //   background-color: s.$shade4;
+  // }
+  // top: ($h-nav - $leng) / 3;
+  // right: 25px;
 }
-//================================================
-.ulLink {
-  position: absolute;
-  display: flex;
-  top: 70px;
-  left: 0;
-  right: 0;
-  flex-direction: column;
-  background-color: s.$tint5;
-  align-items: stretch;
-  text-align: center;
 
-  @include s.rwd-above('md') {
-    top: initial;
-    left: initial;
-    position: relative;
-    top: initial;
-    background-color: transparent;
-    flex-direction: row;
-    text-align: left;
-  }
-
-  & > li {
-    padding: 0.5rem;
-    display: flex;
-    gap: 0.5rem;
-    color: s.$shade2;
-    font-size: 1.125rem;
-    border-bottom: 5px solid transparent;
-    transition: border 0.4s linear;
-
-    & > a {
-      display: block;
-      width: 100%;
-    }
-
-    &:hover {
-      border-bottom-color: s.$primary;
-
-      a {
-        color: s.$shade2;
-      }
-    }
-  }
-}
-.listBtn {
+.bar {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  @include s.rwd-above('md') {
-    display: block;
-  }
-
-  &:hover {
-    .subList {
-      display: block;
-    }
-  }
-}
-
-.subList {
-  display: none;
-  padding-block: 0.5rem;
-  top: calc(100% + 4px);
-  left: 0;
-  right: 0;
-  background-color: s.$tint4;
-
-  @include s.rwd-above('md') {
+  width: 6 * $unit_lang;
+  //* (HBGer) 2 of 3 : 三條線設定
+  &::before,
+  &::after {
+    content: '';
     position: absolute;
-    min-width: 10rem;
-    right: initial;
-    background-color: s.$secondary;
-    box-shadow: 0 3px 4px 2px rgba(s.$shade2, 0.3);
+    left: 0;
+    right: 0;
   }
-
-  li a {
-    display: block;
-    padding: 0.5rem 1rem;
-    transition: background 0.4s;
-    transition: color 0.4s;
+  // 三 = {before, &, after}
+  &,
+  &::before,
+  &::after {
+    height: $unit_lang;
+    // width: 6 * $unit_lang;
+    background-color: rgba(s.$shade4, 0.75);
+    border-radius: 1px;
+    //回復動畫的緩動
+    transition: 300ms;
   }
-  li:hover a {
-    background-color: s.$tint1;
-    color: s.$shade4;
+  $gap: 1.75 * $unit_lang;
+  &::before {
+    top: -$gap;
   }
+  &::after {
+    top: $gap;
+  }
+  /* 2 of 3 : 三條線設定 END */
 }
 
-//================================================
-.ulFunc {
-  padding-top: 0.5rem;
-  display: flex;
-  flex-direction: row;
-  gap: 0.5rem;
-
-  button,
-  a {
-    font-size: 2rem;
-    color: s.$shade2;
+$unit_theta: -45deg;
+.hbgBtn.active .bar {
+  &,
+  &::before,
+  &::after {
+    //變成叉叉的動畫緩動
+    transition: 700ms;
   }
-
-  button {
-    background-color: transparent;
-    border: none;
+  transform: rotate(4 * $unit_theta);
+  background-color: transparent;
+  &::before {
+    transform: rotate($unit_theta);
+    top: 0; //回到正中央，以形成叉叉
   }
-
-  .cartBtn {
-    position: relative;
-
-    // 購物車項目數量
-    .number {
-      $l: s.rem(20px);
-      position: absolute;
-      // @extend .fx-center;
-      //! display 由 js 控制
-      justify-content: center;
-      align-items: center;
-      width: $l;
-      height: $l;
-      top: -10px;
-      right: -8px;
-      background-color: s.$shade1;
-      color: s.$white;
-      font-weight: 600;
-      font-size: 1rem;
-      // padding: 0.25rem 0.5rem;
-      border-radius: 50%;
-    }
+  &::after {
+    transform: rotate(-$unit_theta);
+    top: 0;
   }
 }

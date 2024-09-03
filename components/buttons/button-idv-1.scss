@@ -1,4 +1,5 @@
 @use '@/styles/color/variables' as c;
+@use '@/styles/color/function' as f;
 
 //*====== 個別樣式
 //此檔整理特定款式按鈕的個別設定
@@ -6,6 +7,36 @@
 
 //若為模組已設定之樣式，則不重複設定
 //以下按顏色分類
+//todo================= todo =================//
+.bPrimary2:has(.test-paw) {
+  position: relative;
+
+  &:hover {
+    background-color: c.$white;
+
+    .test-paw {
+      color: c.$primary;
+    }
+  }
+  &:active {
+    background-color: c.$tint5;
+  }
+}
+.test-paw {
+  --fa-rotate-angle: 30deg;
+  position: absolute;
+  color: c.$white;
+  transition: color 0.4s ease-in-out;
+
+  &:first-child {
+    bottom: 0.25rem;
+    left: 0.75rem;
+  }
+  &:last-child {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+}
 //================= primary =================//
 @each $elem in (a, button) {
   #{$elem}.btn-primary,
@@ -91,6 +122,12 @@
   #{$elem}.btn-error {
     color: c.$white;
   }
+  #{$elem}.btn-error-2,
+  #{$elem}.btn-error-brick-2 {
+    &:hover {
+      background-color: f.shift-color(c.$error, -80%);
+    }
+  }
   //================= info =================//
   #{$elem}.btn-info-2 {
     color: c.$info-text;
@@ -98,7 +135,7 @@
       background-color: c.$tint4;
     }
     &:active {
-      background-color: shift-color(c.$info, -50%);
+      background-color: f.shift-color(c.$info, -50%);
     }
   }
 }

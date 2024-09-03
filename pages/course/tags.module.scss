@@ -6,7 +6,7 @@
   gap: 8px;
   margin-top: 36px;
   margin-bottom: 50px;
-  scroll-behavior: smooth;
+  
   @include rwd-above(sm){
     gap: 20px;
     flex-wrap: wrap;

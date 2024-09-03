@@ -118,7 +118,7 @@ export default function LoginPage() {
         if (data.status === 'success' && data.data && data.data.accessToken) {
           localStorage.setItem('accessToken', data.data.accessToken);
           login(data.data.accessToken);
-          router.push('/member');
+          router.push('/member/peopleInfoData');
         } else {
           alert(data.message || '登入失敗');
           setError(data.message || '登入失敗');

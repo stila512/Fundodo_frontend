@@ -1,47 +1,37 @@
 import Link from 'next/link';
-import scss from './navHeader.module.scss';
-import { IoIosArrowDown } from 'react-icons/io';
+import scss from './navLink.module.scss';
+import { useContext } from 'react';
+import { AuthContext } from '@/context/AuthContext';
 
 export default function NavLinks() {
+
+  const { user } = useContext(AuthContext);
+  
+  //判斷管理員登入
+  const isAdmin = user && user.user_level >= 20;
+
   return (
     <ul className={scss.ulLink}>
-      <li>
+      <li className={scss.listBtn}>
         <Link href="/home">首頁</Link>
       </li>
       <li className={scss.listBtn}>
         <Link href="/prod">寵物商城</Link>
       </li>
       <li className={scss.listBtn}>
-        <Link href="/course">
-          <span style={{ position: 'relative' }}>
-            線上課程
-            <span className='pos-a' style={{ right: '-16px' }}>
-              <IoIosArrowDown />
-            </span>
-          </span>
-        </Link>
-
-        <ul className={scss.subList}>
-          <li>
-            <Link href="/course/detail">課程列表</Link>
-          </li>
-          <li>
-            <Link href="#">課程分類</Link>
-          </li>
-          <li>
-            <Link href="#">熱門課程</Link>
-          </li>
-          <li>
-            <Link href="#">常見問題</Link>
-          </li>
-        </ul>
+        <Link href="/course"> 線上課程</Link>
       </li>
-      <li>
+      <li className={scss.listBtn}>
         <Link href="/hotel/list">寵物旅館</Link>
       </li>
-      <li>
+      <li className={scss.listBtn}>
         <Link href="/article">討論區</Link>
       </li>
+      {isAdmin && (
+        <li className={scss.listBtn}>
+          <Link href="/backend/course">後台管理</Link>
+        </li>
+      )}
     </ul>
   );
 }

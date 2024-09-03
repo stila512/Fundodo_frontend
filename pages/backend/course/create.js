@@ -17,36 +17,34 @@ export default function CourseAdd() {
     img_path: null,
     chapters: [{ name: '', lessons: [{ name: '', duration: '', video_path: null }] }],
     original_price: '',
-    sale_price: ''
+    sale_price: '',
+    outline_images: []
   });
 
   const [tags, setTags] = useState([]);
   const [previewImage, setPreviewImage] = useState(null);
+  const [outlineImagePreviews, setOutlineImagePreviews] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
 
-
   useEffect(() => {
-    const fetchTags = async () => {
-      try {
-        const res = await fetch('http://localhost:3005/api/course/tags');
-        if (!res.ok) {
-          throw new Error('Failed to fetch tags');
-        }
-        const data = await res.json();
-        if (data.status === "success" && Array.isArray(data.data)) {
-          setTags(data.data);
-        } else {
-          console.error('Unexpected tag data format:', data);
-        }
-      } catch (error) {
-        console.error('Error fetching tags:', error);
-        setErrors(prev => ({ ...prev, fetchTags: '無法獲取課程分類，請稍後再試' }));
-      }
-    };
-
     fetchTags();
   }, []);
+
+  const fetchTags = async () => {
+    try {
+      const res = await fetch('http://localhost:3005/api/course/tags');
+      const data = await res.json();
+      if (data.status === "success" && Array.isArray(data.data)) {
+        setTags(data.data);
+      } else {
+        console.error('Unexpected tag data format:', data);
+      }
+    } catch (error) {
+      console.error('Error fetching tags:', error);
+      setErrors(prev => ({ ...prev, fetchTags: '無法獲取課程分類，請稍後再試' }));
+    }
+  };
 
 
   const addChapter = () => {
@@ -92,6 +90,32 @@ export default function CourseAdd() {
     }
   };
 
+  const handleOutlineImagesUpload = (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length > 0) {
+      setCourse(prev => ({
+        ...prev,
+        outline_images: [...prev.outline_images, ...files]
+      }));
+
+      const newPreviews = files.map(file => URL.createObjectURL(file));
+      setOutlineImagePreviews(prev => [...prev, ...newPreviews]);
+    }
+  };
+
+  const removeOutlineImage = (index) => {
+    setCourse(prev => ({
+      ...prev,
+      outline_images: prev.outline_images.filter((_, i) => i !== index)
+    }));
+    setOutlineImagePreviews(prev => {
+      const newPreviews = [...prev];
+      URL.revokeObjectURL(newPreviews[index]);
+      newPreviews.splice(index, 1);
+      return newPreviews;
+    });
+  };
+
   const handleVideoUpload = (chapterIndex, lessonIndex, event) => {
     const file = event.target.files[0];
     if (file) {
@@ -122,6 +146,9 @@ export default function CourseAdd() {
     if (!course.description?.trim()) errors.push('請輸入課程描述');
     if (course.tags.length === 0) errors.push('請選擇至少一個課程分類');
     if (!course.img_path) errors.push('請上傳課程封面圖片');
+    if (course.outline_images.length === 0) {
+      errors.push('請上傳至少一張課程大綱圖片');
+    } 
 
     course.chapters.forEach((chapter, chapterIndex) => {
       if (!chapter.name?.trim()) {
@@ -165,11 +192,19 @@ export default function CourseAdd() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const validationErrors = validateForm(course);
+
     if (validationErrors.length > 0) {
       setModalContent({
         title: '新增失敗',
-        message: validationErrors.join(', ')
+        message: (
+          <ul>
+            {validationErrors.map((error, index) => (
+              <li key={index}>{error}</li>
+            ))}
+          </ul>
+        )
       });
       setShowModal(true);
       return;
@@ -181,9 +216,13 @@ export default function CourseAdd() {
       formData.append('title', course.title);
       formData.append('summary', course.summary);
       formData.append('description', course.description);
+      
+      // 確保 tags 是一個數組並且只包含數字
+      const tagIds = course.tags.map(tag => Number(tag)).filter(id => !isNaN(id));
+      formData.append('tags', JSON.stringify(tagIds));
+      
       formData.append('original_price', course.original_price);
       formData.append('sale_price', course.sale_price);
-      formData.append('tags', JSON.stringify(course.tags));
   
       if (course.img_path) {
         formData.append('img_path', course.img_path);
@@ -198,7 +237,11 @@ export default function CourseAdd() {
       }));
       formData.append('chapters', JSON.stringify(chaptersData));
   
-      // 上傳所有視頻文件
+      // 上傳課程大綱圖片
+      course.outline_images.forEach((image, index) => {
+        formData.append('outline_images', image);
+      });
+
       course.chapters.forEach((chapter, chapterIndex) => {
         chapter.lessons.forEach((lesson, lessonIndex) => {
           if (lesson.video_path instanceof File) {
@@ -207,6 +250,8 @@ export default function CourseAdd() {
         });
       });
   
+      console.log("Sending tags:", JSON.stringify(tagIds));
+
       const res = await fetch('http://localhost:3005/api/course', {
         method: 'POST',
         body: formData
@@ -239,7 +284,7 @@ export default function CourseAdd() {
   return (
     <>
       <Head>
-        <title>後台管理-新增課程</title>
+        <title>新增課程 | Fundodo 後台</title>
       </Head>
       <BackendLayout>
         <div className="container">
@@ -318,6 +363,30 @@ export default function CourseAdd() {
                     </div>
                   )}
                 </div>
+
+                <div className={scss.formGroupImg}>
+              <div className={scss.uploadImg}>
+                <label htmlFor="outline_images">課程大綱圖片（可多選）</label>
+                <input
+                  type="file"
+                  id="outline_images"
+                  name="outline_images"
+                  onChange={handleOutlineImagesUpload}
+                  accept="image/*"
+                  multiple
+                />
+              </div>
+              <div className={scss.imagePreviewContainer}>
+                {outlineImagePreviews.map((preview, index) => (
+                  <div key={index} className={scss.imagePreviewItem}>
+                    <img src={preview} alt={`大綱圖片 ${index + 1}`} />
+                    <button type="button" onClick={() => removeOutlineImage(index)}>刪除</button>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+
 
                 {course.chapters.map((chapter, chapterIndex) => (
                   <div key={chapterIndex} className={scss.chapterSection}>

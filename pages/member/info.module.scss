@@ -535,6 +535,41 @@
 .PeopleInfoDataContainer {
   display: flex;
   flex-direction: row;
+  @media (max-width: 499px) {
+    .botarea {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+
+      .btn1 {
+        border: 1px solid var(--Neutral-Colors-Headings-Black, #5d5a88);
+        background: var(--Neutral-Colors-White, #fff);
+        padding: 8px 20px; /* 調整按鈕的內邊距 */
+        font-size: 14px;   /* 調整按鈕的字體大小 */
+      }
+
+      .btn2 {
+        background-color: hsl(0, 0%, 100%);
+        color: #E53835;
+        border: 3px solid #E53835;
+        padding: 8px 20px; /* 調整按鈕的內邊距 */
+        font-size: 14px;   /* 調整按鈕的字體大小 */
+      }
+
+      button {
+        display: flex;
+        padding: 6px 20px; /* 調整按鈕的內邊距 */
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+        position: relative;
+        font-size: 14px; /* 調整按鈕的字體大小 */
+      }
+    }
+  }
+  
   .midarea {
     margin-top: 60px;
     justify-content: center;
@@ -659,9 +694,9 @@
       background: var(--Neutral-Colors-White, #fff);
     }
     .btn2 {
-      color: #fff;
-      background: var(--Primary, #e53835);
-      border: none;
+        background-color: hsl(0, 0%, 100%);
+        color: #E53835;
+        border: 3px solid #E53835;
     }
     button {
       display: flex;

@@ -40,7 +40,7 @@ const reviews = [
     content: '這裡簡直就是寵物的度假天堂！妮妮每次來都玩得很開心。工作人員會耐心地陪伴和照顧，還會提供豐富的玩具和活動。強烈推薦給所有寵物主人！',
     author: '妮妮媽',
     date: '2024/09/10',
-    image: '/hotelPic/pic/nini.jpg'
+    image: '/hotelPic/pic/HT0000173.jpg'
   }
 ];
 

@@ -1,5 +1,6 @@
 import DefaultLayout from '@/components/layout/default';
 import { useState, useEffect, useContext } from 'react';
+import { useRouter } from 'next/router';
 import { AuthProvider, AuthContext } from '@/context/AuthContext';
 import scss from './info.module.scss';
 import Image from 'next/image';
@@ -12,10 +13,12 @@ export default function ChangePassword() {
   useAuthRedirect();
   const { user: authUser, loading: authLoading } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
   const [errors, setErrors] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
 
   const [user, setUser] = useState({
+    old_password: '',
     password: '',
     repassword: '',
     email: authUser?.email || 'example@gmail.com',
@@ -95,11 +98,12 @@ export default function ChangePassword() {
     // 表單檢查--- END ---
 
     const formData = new FormData();
+    formData.append('old_password', user.old_password);
     formData.append('password', user.password);
 
     // 提交表單到伺服器
     try {
-      const url = `http://localhost:3005/api/member/ChangePassword/${authUser.uuid}`;
+      const url = `http://localhost:3005/api/member/UpdatePassword/${authUser.uuid}`;
       const res = await fetch(url, {
         method: 'POST',
         body: formData,
@@ -109,6 +113,7 @@ export default function ChangePassword() {
 
       if (res.ok) {
         alert('修改成功');
+        router.push('/member/peopleInfoData')
       } else {
         // 從後端獲取錯誤信息並顯示
         const errorMessages = resData.message || '修改失敗';
@@ -145,6 +150,7 @@ export default function ChangePassword() {
               <div className={`${scss.toptext} my-5`}>
                 <div className={`${scss.toptexta1} col-3 col-lg-2`}>
                   <div>Email </div>
+                  <div>舊密碼 </div>
                   <div>新密碼</div>
                   <div>確認新密碼</div>
                 </div>
@@ -154,9 +160,9 @@ export default function ChangePassword() {
                   <div className={`${scss.icon_password}`} >
                     <input
                       type={showPassword ? 'text' : 'password'}
-                      name="password"
-                      placeholder="密碼"
-                      value={user.password}
+                      name="old_password"
+                      placeholder="舊密碼"
+                      value={user.old_password}
                       onChange={handleFieldChange}
                       required
                     />
@@ -164,6 +170,16 @@ export default function ChangePassword() {
                       <Image className="imgWrap" src={pswd_icon} alt="Image" onClick={() => setShowPassword(!showPassword)}
                       />
                     </div>
+                  </div>
+                  <div>
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      name="password"
+                      placeholder="密碼"
+                      value={user.password}
+                      onChange={handleFieldChange}
+                      required
+                    />
                   </div>
                   <div>
                     <input

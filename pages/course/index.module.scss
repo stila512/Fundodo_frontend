@@ -1,21 +1,32 @@
 @import '@/styles';
 
 .pagination {
+  padding: 16px 0;
+  @include rwd-above(sm) {
+    padding: 30px 0;
+  }
+
+  ul {
     display: flex;
     justify-content: center;
-    margin: 35px 0;
-  
-    button {
-      margin: 0 5px;
+  }
+
+  li {
+    margin: 0 5px;
+    a {
       padding: 8px 12px;
-      border: 1px solid #ccc;
-      background-color: #f8f8f8;
+      color: $primary;
       cursor: pointer;
-  
-      &.activePage {
-        background-color:$primary;
-        color: #fff;
-        border-color: $secondary;
+      &:hover{
+        background-color: $tint5;
+        color: $shade4;
+        border-radius: 6px;
       }
     }
+    &.activePage a{
+      background-color: $tint5;
+      color: $shade4;
+      border-radius: 6px;
+    }
   }
+}

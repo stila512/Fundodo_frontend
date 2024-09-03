@@ -18,7 +18,8 @@ export default function Course() {
   const [sortBy, setSortBy] = useState('newest');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const coursesPerPage = 9;
+  const [isMobile, setIsMobile] = useState(false);
+  const coursesPerPage = isMobile ? 10 : 9;
 
 
   useEffect(() => {
@@ -35,7 +36,7 @@ export default function Course() {
         setTotalPages(result.totalPages); // 使用 API 返回的總頁數
       })
       .catch(err => console.log(err));
-  
+
     // 獲取分類數據（如果還沒有獲取）
     if (tags.length === 0) {
       fetch("http://localhost:3005/api/course/tags")
@@ -43,7 +44,7 @@ export default function Course() {
         .then(result => setTags([{ id: 0, name: '全部分類' }, ...result.data]))
         .catch(err => console.log(err));
     }
-  }, [currentPage, coursesPerPage, selectedTag, sortBy]);
+  }, [currentPage, coursesPerPage, selectedTag, sortBy,isMobile]);
 
   useEffect(() => {
     // 檢查 URL 中是否有 tag 參數
@@ -52,6 +53,17 @@ export default function Course() {
       setSelectedTag(decodeURIComponent(tag));
     }
   }, [router.query]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize(); // 初始化
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -62,7 +74,7 @@ export default function Course() {
     setSelectedTag(tag);
     setCurrentPage(1); // 重置到第一頁
   };
-  
+
   const handleSortChange = (newSortBy) => {
     setSortBy(newSortBy);
     setCurrentPage(1); // 重置到第一頁
@@ -74,27 +86,31 @@ export default function Course() {
     for (let i = 1; i <= totalPages; i++) {
       pageNumbers.push(i);
     }
-  
+
     return (
       <div className={scss.pagination}>
-        {pageNumbers.map(number => (
-          <button
+      <ul>
+      {pageNumbers.map(number => (
+          <li
             key={number}
-            onClick={() => handlePageChange(number)}
             className={number === currentPage ? scss.activePage : ''}
           >
-            {number}
-          </button>
+          <a href="#" onClick={() => handlePageChange(number)}>
+          {number}
+          </a>
+          </li>
         ))}
+      </ul>
       </div>
     );
   };
 
 
+
   return (
     <>
       <Head>
-        <title>Course</title>
+        <title>課程列表 | Fundodo</title>
       </Head>
       <div className="container">
         <Banner />
@@ -108,11 +124,11 @@ export default function Course() {
           selectedTag={selectedTag}
           setSelectedTag={handleTagChange}
           tags={tags} />
-        <CourseGrid courses={displayedCourses} />
+        <CourseGrid courses={displayedCourses} isMobile={isMobile}/>
 
         <div className={scss.pagination}>
-        {renderPagination()}
-          </div>
+          {renderPagination()}
+        </div>
       </div>
 
 
