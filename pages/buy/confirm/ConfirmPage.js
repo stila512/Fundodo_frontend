@@ -77,7 +77,7 @@ export default function ConfirmPage({
       tel: orderInfo.phone_num
     };
 
-    axios.post(`${apiBaseUrl}/order`, data)
+    return await axios.post(`${apiBaseUrl}/order`, data)
       .then(res => {
         console.log(res.data.message);
         return res.data.order_id;

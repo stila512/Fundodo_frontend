@@ -68,15 +68,7 @@ export default function FavoriteProd() {
             ) : (
               favoriteProducts.map((product) => (
                 <div key={product.id} className='col-xxl-3 col-xl-4 col-6'>
-                  <div  className={scss.card}>
-                    <div className='d-flex jc-end'>
-                      <FavoriteIcon
-                        style={{ color: '#B9A399' }}
-                        className={scss.cardFavIcon}
-                        productId={product.product_id}
-                        productData={product}
-                      />
-                    </div>
+                  <div className={scss.card}>
                     <div className={scss.prodImgBox}>
                       <div className={[scss.prodImg, 'img-wrap-w100', 'img-wrap-h100'].join(' ')}>
                         <Image
