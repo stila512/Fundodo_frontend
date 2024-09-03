@@ -16,7 +16,7 @@ export default function FillingPage({
   setBuyInfoPkg = () => { }
 }) {
   const [isBeginning, setIsBeginning] = useState(true);
-  const [payCode, setPayCode] = useState(0);//0 | ECPAY ; 1 | LINEPAY
+  const [payCode, setPayCode] = useState('EC');//EC ; LINE
   const [isCVS, setIsCVS] = useState(false);
   const [cityList, setCityList] = useState([]);
   const [cityID, setCityID] = useState(0);

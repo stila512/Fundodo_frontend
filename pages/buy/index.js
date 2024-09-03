@@ -45,12 +45,13 @@ export default function BuyPage() {
       phone_num: "",
       pay_thru: "",
       ship_thru: "",
-      ship_zipcode: "",
+      ship_zipcode: 0,
       ship_address: "",
+      ship_ps: ""
     },
     boughtItems: [
       {
-        purchase_sort: null,
+        purchase_sort: "",
         purchase_id: 0,
         purchase_price: 0,
         cart_id: 0,

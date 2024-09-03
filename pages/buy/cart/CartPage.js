@@ -408,7 +408,6 @@ export default function CartPage({
                       callback={() => handleCpBtn(i_cp)}
                     >
                       <p className='tx-left'>{coupon.name}</p>
-                      <p className='tx-primary' style={{ position: 'absolute', top: '0.5rem', right: '1rem' }}>{coupon.code}</p>
                       <p>{coupon.desc}</p>
                     </FddBtn>
                   ))}
