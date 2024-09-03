@@ -178,30 +178,6 @@
       flex: 1 0 0;
     }
   }
-  .botarea {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    .btn1 {
-      border: 1px solid var(--Neutral-Colors-Headings-Black, #5d5a88);
-      background: var(--Neutral-Colors-White, #fff);
-    }
-    .btn2 {
-      color: #fff;
-      background: var(--Primary, #b9a399);
-      border: none;
-    }
-    button {
-      display: flex;
-      padding: 12px 60px;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-      justify-content: center;
-      align-items: center;
-      flex-shrink: 0;
-    }
-  }
   //-------- sideText
   .sideText {
     display: inline-flex;
@@ -396,33 +372,6 @@
       border-radius: 2px;
       border: 1px solid var(--tint2, #cebfb8);
       background: #fff;
-    }
-  }
-  .botarea {
-    display: flex;
-    width: fill;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    .btn1 {
-      border: 1px solid var(--Neutral-Colors-Headings-Black, #5d5a88);
-      background: var(--Neutral-Colors-White, #fff);
-    }
-    .btn2 {
-      color: #fff;
-      background: var(--Primary, #b9a399);
-      border: none;
-    }
-    button {
-      display: flex;
-      padding: 12px 60px;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-      justify-content: center;
-      align-items: center;
-      flex-shrink: 0;
-      position: relative;
     }
   }
   //-------- sideText
@@ -647,32 +596,6 @@
       flex-direction: column;
       align-items: flex-start;
       gap: 8px;
-    }
-  }
-  .botarea {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    .btn1 {
-      border: 1px solid var(--Neutral-Colors-Headings-Black, #5d5a88);
-      background: var(--Neutral-Colors-White, #fff);
-    }
-    .btn2 {
-      color: #fff;
-      background: var(--Primary, #e53835);
-      border: none;
-    }
-    button {
-      display: flex;
-      padding: 12px 60px;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-      justify-content: center;
-      align-items: center;
-      flex-shrink: 0;
-      position: relative;
     }
   }
   //-------- sideText
