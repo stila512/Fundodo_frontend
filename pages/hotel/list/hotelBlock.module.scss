@@ -72,6 +72,21 @@
   line-height: 1.6;
 }
 
+.address{
+  font-size: 18px;
+  color: c.$shade2;
+  font-weight: 500;
+  flex-grow: 1;
+  padding: 0 15px;
+  max-height: 100px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  line-height: 1.6;
+  // margin-bottom: 2px;
+}
+
 .price {
   display: none;
   color: c.$shade4;
@@ -133,7 +148,7 @@
   .hotelName {
     align-self: stretch;
     color: var(--shade4, #37312e);
-    font-size: 12px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 700;
     // line-height: 20px;
@@ -151,9 +166,16 @@
     display: block;
     align-self: stretch;
     padding: 0 8px;
-    margin: 0px;
+    margin: 10px 0;
+    font-size: 18px;
   }
   .button {
     display: none;
+  }
+  .address{
+    font-size: 12px;
+    max-width: 160px;
+    overflow: hidden;
+    padding: 0 6px;
   }
 }
