@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useContext } from 'react'
 import { useRouter } from 'next/router';
-import { useContext } from 'react';
 import { AuthContext } from '@/context/AuthContext';
 import Modal from '@/components/common/modal';
 import scss from './addCart.module.scss';
 import { RiCoupon3Line } from "react-icons/ri";
 import { FaPlayCircle } from "react-icons/fa";
-import { PiVideoBold  } from "react-icons/pi";
+import { PiVideoBold } from "react-icons/pi";
 import Link from 'next/link';
 import tokenDecoder from '@/context/token-decoder';
 
 export default function AddCart({ original_price, sale_price, id }) {
   const { user } = useContext(AuthContext);
+  const router = useRouter();
+  const [uID, setUID] = useState(0);
   const [hasPurchased, setHasPurchased] = useState(false);
   const [purchaseDate, setPurchaseDate] = useState(null);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState({ title: '', message: '' });
-  const router = useRouter();
-  const [uID, setUID] = useState(0);
+
 
   useEffect(() => {
     const { userId } = tokenDecoder();
@@ -47,12 +47,11 @@ export default function AddCart({ original_price, sale_price, id }) {
         }
       }
     };
-  
+
     checkPurchaseStatus();
   }, [user, id, uID]);
-  
 
-  const handlePurchase = () => {
+ const handlePurchase = () => {
     if (!uID) {
       router.push('/member/login');
       return;
@@ -119,12 +118,13 @@ export default function AddCart({ original_price, sale_price, id }) {
 
   return (
     <>
-      <div className={scss.cartBox}>
+    <div className={scss.stickyWrapper}>
+    <div className={scss.cartBox}>
         {hasPurchased ? (
           <>
             <div className={scss.watchContent}>
-            <PiVideoBold  className={scss.icon}/>
-            {/* <img src="/pic-course/dog.png" alt="" /> */}
+              <PiVideoBold className={scss.icon} />
+              {/* <img src="/pic-course/dog.png" alt="" /> */}
               <p>您已於 {new Date(purchaseDate).toLocaleDateString()} 購買此課程</p>
             </div>
             <Link href={`/course/play/${id}`} className={scss.btn}>
@@ -143,9 +143,9 @@ export default function AddCart({ original_price, sale_price, id }) {
               <p>專屬優惠券 NT$ 50</p>
             </div>
             <div className={scss.btns}>
-              <button onClick={handlePurchase}>
+              {/* <button onClick={handlePurchase}>
                 立即購買
-              </button>
+              </button> */}
               <button onClick={handleAddToCart} disabled={isAddingToCart}>
                 {isAddingToCart ? '加入中...' : '加入購物車'}
               </button>
@@ -161,6 +161,8 @@ export default function AddCart({ original_price, sale_price, id }) {
         <h4>{modalContent.title}</h4>
         <p>{modalContent.message}</p>
       </Modal>
+    </div>
+     
     </>
   )
 }

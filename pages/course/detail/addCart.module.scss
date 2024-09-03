@@ -1,5 +1,13 @@
 @import '@/styles';
 
+$headerHeight:70px;
+
+.stickyWrapper {
+  position: relative;
+  height: 100%;
+  margin-bottom: 50px;
+}
+
 .cartBox {
   display: flex;
   flex-direction: column;
@@ -10,14 +18,20 @@
   box-shadow: 0px 0px 4.7px 0px rgba(0, 0, 0, 0.2);
   gap: 12px;
   margin-bottom: 24px;
-  @include rwd-above(sm){
+  position: sticky;
+  top: #{$headerHeight+50px};
+  z-index: 999;
+overflow: hidden;
+
+
+  @include rwd-above(sm) {
     margin-top: 0;
     gap: 43px;
   }
 }
 
 .price {
-  @include rwd-above(sm){
+  @include rwd-above(sm) {
     padding-bottom: 43px;
   }
   display: flex;
@@ -25,7 +39,7 @@
   padding-bottom: 6px;
   border-bottom: 1px solid $tint3;
   h2 {
-    @include rwd-above(sm){
+    @include rwd-above(sm) {
       font-size: 36px;
     }
     font-size: 18px;
@@ -35,8 +49,8 @@
     line-height: 46px;
     margin-right: 20px;
   }
-  p{
-    @include rwd-above(sm){
+  p {
+    @include rwd-above(sm) {
       font-size: 20px;
     }
     font-weight: 700;
@@ -47,13 +61,13 @@
 }
 
 .coupon {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   p {
     color: $shade4;
     font-size: 12px;
-    @include rwd-above(sm){
+    @include rwd-above(sm) {
       font-size: 18px;
     }
     font-style: normal;
@@ -84,7 +98,7 @@
       border: 1px solid $shade3;
       background: #fff;
     }
-    &:hover{
+    &:hover {
       background: $secondary;
     }
   }
@@ -109,11 +123,10 @@
   justify-content: center;
   align-items: center;
   background: $primary;
-  color: $gray-800 !important;;
+  color: $gray-800 !important;
   font-weight: bold;
   border-radius: 5px;
   cursor: pointer;
-
 
   &:hover {
     background: darken($primary, 10%);
@@ -124,6 +137,6 @@
   }
 }
 
-.icon{
+.icon {
   font-size: 2rem;
 }
