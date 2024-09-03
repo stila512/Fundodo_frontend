@@ -1,7 +1,7 @@
 //== Parameters ================================================================
 import { breakpoints } from '@/configs';
 //== Functions =================================================================
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 //== Components ================================================================
 import Logo from '@/components/common/logo';
 import NavFuncBtns from '../NavFuncBtns';
@@ -18,6 +18,11 @@ import NavToggleBtn from '../NavToggleBtn';
 export default function NavHeader() {
   const [showMenu, setShowMenu] = useState(false);
   const screenWidth = useScreenWidth();
+  const [w__screen, setW__screen] = useState(1920);
+
+  useEffect(() => {
+    setW__screen(screenWidth);
+  }, [screenWidth]);
 
   return (
     <header className={scss.header}>
@@ -31,7 +36,7 @@ export default function NavHeader() {
           </div>
           <nav className='flex-grow-1 flex-lg-grow-0'>
             {
-              (screenWidth >= breakpoints.md || showMenu) &&
+              (w__screen >= breakpoints.md || showMenu) &&
               <NavLinks />
             }
             <NavFuncBtns />
