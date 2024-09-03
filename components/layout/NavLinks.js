@@ -1,8 +1,15 @@
 import Link from 'next/link';
 import scss from './navLink.module.scss';
-import { IoIosArrowDown } from 'react-icons/io';
+import { useContext } from 'react';
+import { AuthContext } from '@/context/AuthContext';
 
 export default function NavLinks() {
+
+  const { user } = useContext(AuthContext);
+  
+  //判斷管理員登入
+  const isAdmin = user && user.user_level >= 20;
+
   return (
     <ul className={scss.ulLink}>
       <li className={scss.listBtn}>
@@ -20,6 +27,11 @@ export default function NavLinks() {
       <li className={scss.listBtn}>
         <Link href="/article">討論區</Link>
       </li>
+      {isAdmin && (
+        <li className={scss.listBtn}>
+          <Link href="/backend/course">後台管理</Link>
+        </li>
+      )}
     </ul>
   );
 }
