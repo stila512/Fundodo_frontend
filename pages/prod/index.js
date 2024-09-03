@@ -33,7 +33,7 @@ export default function ProductList() {
         <div className='d-none d-md-flex'>
           <Section />
         </div>
-        <div className={['hstack', scss.margin].join(' ')}>
+        <div className={['hstack jc-between', scss.margin].join(' ')}>
           <Breadcrumb />
           <div className='d-none d-md-flex'>
             <Search onSearch={handleSearch} />
