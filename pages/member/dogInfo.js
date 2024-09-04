@@ -153,6 +153,32 @@ export default function DogInfo() {
       });
   };
 
+  useEffect(() => {
+    if (!id || !authUser) return;
+
+    // 取得當前 localStorage 中的狗狗資料
+    const existingData = [];
+    Object.keys(localStorage).forEach(key => {
+      if (key.startsWith(`dogData_${authUser.uuid}`)) {
+        const data = JSON.parse(localStorage.getItem(key));
+        if (Array.isArray(data)) {
+          existingData.push(...data);
+        } else if (data) {
+          existingData.push(data);
+        }
+      }
+    });
+
+    // 根據 id 查找對應的狗狗資料
+    const dogData = existingData.find(dog => dog.id === parseInt(id, 10));
+
+    if (dogData) {
+      setDog(prevState => ({ ...prevState, name: dogData.name }));
+    } else {
+      setError('未找到對應的狗狗資料');
+    }
+  }, [id, authUser]);
+
   return (
     <>
       <div className="col-12 d-lg-none">

@@ -10,7 +10,7 @@ import Link from 'next/link';
 import Modal from '@/components/common/modal';
 import { FcGoogle } from "react-icons/fc";
 import FddBtn from '@/components/buttons/fddBtn';
-
+import { IoMdHome } from "react-icons/io";
 export default function LoginBackEndPage() {
   // 顯示密碼使用
   const [showPassword, setShowPassword] = useState(false);
@@ -98,13 +98,15 @@ export default function LoginBackEndPage() {
             </div>
             <div className={scss.area3}>
               {/* <div className={scss.Backend_Btn} >會員登入頁</div> */}
-              <FddBtn color='info' className={scss.Backend_Btn} size='sm' href="/member/login">會員登入頁</FddBtn>
+              {/* <FddBtn color='info' className={scss.Backend_Btn} size='sm' href="/member/login">會員登入頁</FddBtn> */}
+              <Link href="/member/login"><div className={scss.Backend_Btn}>登入頁</div></Link>
             </div>
             <div className={scss.area4}>
               <button className={scss.createBtn} type="submit"
                 disabled={loading}>{loading ? '登入中...' : '登入'}
               </button>
             </div>
+            <Link href="/home"><div className={scss.xBtn}><IoMdHome /></div></Link>
           </form>
         </div>
       </div>
