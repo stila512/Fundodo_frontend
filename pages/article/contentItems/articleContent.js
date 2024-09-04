@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import scss from '@/pages/article/contentItems/articleContent.module.scss';
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { BiLike,BiDislike } from "react-icons/bi";
 
 export default function ArticleContent({ user, onContentLoad }) {
   const formatDate = (dateString) => {
@@ -19,6 +20,9 @@ export default function ArticleContent({ user, onContentLoad }) {
     })
   }
   const [content, setContent] = useState({})
+  const [likes, setLikes] = useState(0)
+  const [dislikes, setDislikes] = useState(0)
+  const [userRating, setUserRating] = useState(null)
   const router = useRouter()
   const { aid } = router.query
 
@@ -35,15 +39,61 @@ export default function ArticleContent({ user, onContentLoad }) {
                 : []
             }
             setContent(articleContent);
+            setLikes(articleContent.likes || 0);
+            setDislikes(articleContent.dislikes || 0);
             onContentLoad(data.content[0])
           }
         }).catch(error => console.log(error.message))
+
+      // 獲取用戶的評分（如果已登入）
+      if (user && user.userId) {
+        fetch(`http://localhost:3005/api/article/userRating/${aid}/${user.userId}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.status === 'success') {
+              setUserRating(data.rating);
+            }
+          }).catch(error => console.log(error.message))
+      }
     }
-  }, [aid, onContentLoad])
+  }, [aid, onContentLoad, user])
 
   const canEdit = () => {
     if (!user || !content) return false;
     return user.userId === content.userid || (user.userLevel && user.userLevel > 2);
+  }
+
+  const handleRating = async (isLike) => {
+    if (!user || !user.userId) {
+      alert('請先登入再進行評分');
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:3005/api/article/rate/${aid}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: user.userId,
+          isLike: isLike
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.status === 'success') {
+        setLikes(data.likes);
+        setDislikes(data.dislikes);
+        setUserRating(isLike ? 'like' : 'dislike');
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error('Error rating article:', error);
+      alert('評分失敗，請稍後再試');
+    }
   }
 
   return (
@@ -72,6 +122,28 @@ export default function ArticleContent({ user, onContentLoad }) {
         <div className={[scss.articleTitle].join()}>{"【"+content.sort+"】"+content.title}</div>
         <div className={[scss.mainContent].join()}>
           <div dangerouslySetInnerHTML={{ __html: content.content }} />
+        </div>
+        <div className={scss.ratingArea}>
+          <div className={scss.rateBtnArea}>
+            <button 
+              className={`${scss.rateBtn} ${userRating === 'like' ? scss.active : ''}`}
+              onClick={() => handleRating(true)}
+              disabled={userRating === 'like'}
+            >
+              <BiLike />
+            </button>
+            <span>{likes}</span>
+          </div>
+          <div className={scss.rateBtnArea}>
+            <button 
+              className={`${scss.rateBtn} ${userRating === 'dislike' ? scss.active : ''}`}
+              onClick={() => handleRating(false)}
+              disabled={userRating === 'dislike'}
+            >
+              <BiDislike />
+            </button>
+            <span>{dislikes}</span>
+          </div>
         </div>
         <div className={[scss.artiInfo].join()}>
           <div className={[scss.artiTags].join()}>
