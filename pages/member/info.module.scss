@@ -85,10 +85,10 @@
     gap: 78px;
     .genderRadio {
       display: flex;
+      flex-direction: row;
       width: 205px;
       height: 32px;
-      padding: 5px 71px 5px 0px;
-      align-items: flex-start;
+      align-items: center;
       gap: 34px;
       input[type='radio'] {
         display: none;

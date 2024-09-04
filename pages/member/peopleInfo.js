@@ -197,7 +197,7 @@ export default function PeopleInfo() {
                   type="date" id="birthday" name="dob"
                   value={user.dob}
                   onChange={(e) => setUser({ ...user, dob: e.target.value })}
-                  min="1900-01" max="2030-12-31" required>
+                  min="1900-01" max={new Date().toISOString().split("T")[0]} required>
                 </input>
               </div>
             </div>
@@ -205,7 +205,11 @@ export default function PeopleInfo() {
               <input type="tel"
                 value={user.tel}
                 onChange={(e) => setUser({ ...user, tel: e.target.value })}
-                placeholder="請輸入電話">
+                placeholder="請輸入電話"
+                pattern="^09\d{8}$"
+                title="請輸入有效的台灣手機號碼，如：0912345678"
+                required
+              >
               </input></div>
             <div className={scss.area7}>聯絡地址
               <div className={scss.address}>
