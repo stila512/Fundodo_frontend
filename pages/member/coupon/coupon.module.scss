@@ -1,5 +1,13 @@
 @import '@/styles/';
 
+.claimInput {
+  display: block;
+  margin-right: 1rem;
+  padding: 0.75rem 0.5rem;
+  // height: 100%;
+  width: 10rem;
+}
+
 .tabBox {
   display: flex;
   flex-direction: row;
@@ -87,6 +95,7 @@
     bottom: 0;
     left: 0;
     right: 0;
+    border-radius: 12px;
     display: grid;
     place-items: center;
     font-size: 2rem;
@@ -95,5 +104,6 @@
     background-color: rgba($shade3, 0.5);
     text-shadow: 1px 1px $shade4;
     color: $tint4;
+    z-index: 9;
   }
 }
