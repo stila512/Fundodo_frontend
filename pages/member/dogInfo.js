@@ -16,6 +16,7 @@ export default function DogInfo() {
   useAuthRedirect();
   const fileInputRef = useRef(null);
   const [avatar, setAvatar] = useState(null);
+  const [showUploadHint, setShowUploadHint] = useState(true);
   const [weight, setWeight] = useState('');
   const { user: authUser, loading: authLoading } = useContext(AuthContext);
   const [dog, setDog] = useState({
@@ -65,6 +66,7 @@ export default function DogInfo() {
       const reader = new FileReader();
       reader.onloadend = () => {
         setAvatar(reader.result);
+        setShowUploadHint(false);
       };
       reader.readAsDataURL(file);
       setDog({ ...dog, avatar_file: file });
@@ -178,6 +180,11 @@ export default function DogInfo() {
                   style={{ display: 'none' }}
                   onChange={handleFileChange}
                 />
+                {showUploadHint && mdi_dogAvatar && (
+                  <div className={scss.tips}>
+                    請點擊上傳
+                  </div>
+                )}
               </div>
             </div>
             <div className={`${scss.textarea}`}>
@@ -223,7 +230,7 @@ export default function DogInfo() {
                       type="date" id="dob" name="dob"
                       value={dog.dob}
                       onChange={(e) => setDog({ ...dog, dob: e.target.value })}
-                      min="1900-01" max="2030-12-31" required>
+                      min="1900-01" max={new Date().toISOString().split("T")[0]} required>
                     </input>
                   </div>
                   <div>

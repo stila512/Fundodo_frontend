@@ -13,8 +13,7 @@ import Link from 'next/link';
 import useAuthRedirect from '@/hooks/useAuthRedirect';
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import Modal from '@/components/common/modal';
-
-
+import Head from 'next/head';
 
 export default function DogInfoData() {
   useAuthRedirect();
@@ -299,77 +298,80 @@ export default function DogInfoData() {
   };
 
   const renderDogInfo = (dog) => (
-    <div className={`${scss.mainArea} col-12 col-lg-6`}>
-      <div className={`${scss.leftPic} col-6`}>
-        <div className={['img-wrap-h100', scss.imgDogavatar].join(' ')}>
-          <div className={['img-wrap-h100', scss.avatarWrapper].join(' ')}>
-            <Image
-              className="img"
-              src={dog.dog_avatar_file ? `http://localhost:3005/upload_dog/${dog.dog_avatar_file}` : Shiba}
-              alt="Dog Avatar"
-              width={0}
-              height={0}
-            />
+    <>
+      <Head><title>狗狗管理 | Fundodo</title></Head>
+      <div className={`${scss.mainArea} col-12 col-lg-6`}>
+        <div className={`${scss.leftPic} col-6`}>
+          <div className={['img-wrap-h100', scss.imgDogavatar].join(' ')}>
+            <div className={['img-wrap-h100', scss.avatarWrapper].join(' ')}>
+              <Image
+                className="img"
+                src={dog.dog_avatar_file ? `http://localhost:3005/upload_dog/${dog.dog_avatar_file}` : Shiba}
+                alt="Dog Avatar"
+                width={0}
+                height={0}
+              />
+            </div>
+          </div>
+          <div className={`${scss.Dogname}`}>
+            {dog.name || '小廢柴'}
           </div>
         </div>
-        <div className={`${scss.Dogname}`}>
-          {dog.name || '小廢柴'}
-        </div>
-      </div>
-      <div className={`${scss.rightText} col-6`}>
-        <div className={`${scss.rightA1} col-12`}>
-          <div className={`col-2`}>
-            <Image className="img" src={dogicon} alt="Dog Icon" />
-          </div>
-          <div className={`${scss.a0} col-6`}>
-            <div className={`${scss.textgroup}`}>
-              <div className={`col-2`}>性別<br /><p>{dog.gender === 1 ? '公' : '母'}</p></div>
-              <div className={`col-6`}>生日<br /><p>{formatDate(dog.dob)}</p></div>
-              <div className={`col-6`}>體重<br /><p>{dog.weight}kg</p></div>
-              {/* <div className={`col-4`}>犬型<br /><p>{getBodyTypeDescription(dog.bodytype)}</p></div> */}
+        <div className={`${scss.rightText} col-6`}>
+          <div className={`${scss.rightA1} col-12`}>
+            <div className={`col-2`}>
+              <Image className="img" src={dogicon} alt="Dog Icon" />
             </div>
-            <div>
-              <div>疫苗接種紀錄<br /><p>{getVaccinationDescription(dog.vaccinations)}</p></div>
-            </div>
-            <div>
-              <div>絕育狀態<br /><p>{dog.neutering === 'yes' ? '是' : (dog.neutering === 'no' ? '否' : '-')}</p></div>
-            </div>
-          </div>
-          <div className={`col-4`}></div>
-        </div>
-        <div className={`${scss.rightA2} col-12`}>
-          <div className={`col-2`}>
-            <Image className="img" src={icon_i} alt="Info Icon" />
-          </div>
-          <div className={`${scss.a3} col-8`}>
-            <div>
-              <div>性格描述<br /><p>{dog.introduce || '-'}</p></div>
-            </div>
-            <div>
-              <div>行為習慣<br /><p>{dog.behavior || '-'}</p></div>
-            </div>
-            <div>
+            <div className={`${scss.a0} col-6`}>
+              <div className={`${scss.textgroup}`}>
+                <div className={`col-3`}>性別<br /><p>{dog.gender === 1 ? '公' : '母'}</p></div>
+                <div className={`col-6`}>生日<br /><p>{formatDate(dog.dob)}</p></div>
+                <div className={`col-5`}>體重<br /><p>{dog.weight}kg</p></div>
+                {/* <div className={`col-4`}>犬型<br /><p>{getBodyTypeDescription(dog.bodytype)}</p></div> */}
+              </div>
               <div>
-                <div className={`${scss.delBTN}`} onClick={openModal}><RiDeleteBin2Fill /></div>
-                {/* <Modal mode={1}>
+                <div>疫苗接種紀錄<br /><p>{getVaccinationDescription(dog.vaccinations)}</p></div>
+              </div>
+              <div>
+                <div>絕育狀態<br /><p>{dog.neutering === 'yes' ? '是' : (dog.neutering === 'no' ? '否' : '-')}</p></div>
+              </div>
+            </div>
+            <div className={`col-4`}></div>
+          </div>
+          <div className={`${scss.rightA2} col-12`}>
+            <div className={`col-2`}>
+              <Image className="img" src={icon_i} alt="Info Icon" />
+            </div>
+            <div className={`${scss.a3} col-8`}>
+              <div>
+                <div>性格描述<br /><p>{dog.introduce || '-'}</p></div>
+              </div>
+              <div>
+                <div>行為習慣<br /><p>{dog.behavior || '-'}</p></div>
+              </div>
+              <div>
+                <div>
+                  <div className={`${scss.delBTN}`} onClick={openModal}><RiDeleteBin2Fill /></div>
+                  {/* <Modal mode={1}>
                   <h4>這是標題</h4>
                   <p>這是內文</p>
                 </Modal> */}
+                </div>
               </div>
             </div>
+            <div className={`col-2`}></div>
           </div>
-          <div className={`col-2`}></div>
         </div>
+        {isModalOpen && (
+          <Modal mode={1} active={isModalOpen} onClose={closeModal} onConfirm={handleDeleteDog}>
+            <h4>刪除確認</h4>
+            <p>你確定要刪除這隻狗狗嗎？這個操作無法撤銷。</p>
+            <button onClick={handleDeleteDog}>確認</button>
+            <button onClick={handleCancelDelete}>取消</button>
+          </Modal>
+        )}
       </div>
-      {isModalOpen && (
-        <Modal mode={1} active={isModalOpen} onClose={closeModal} onConfirm={handleDeleteDog}>
-          <h4>刪除確認</h4>
-          <p>你確定要刪除這隻狗狗嗎？這個操作無法撤銷。</p>
-          <button onClick={handleDeleteDog}>確認</button>
-          <button onClick={handleCancelDelete}>取消</button>
-        </Modal>
-      )}
-    </div>
+    </>
   );
 
 
@@ -391,9 +393,6 @@ export default function DogInfoData() {
                 <div className={`${scss.tags}`}>
                   <div className={`${scss.tagGroup}`}>
                     <div className={`${scss.tag1}`}>狗狗的資料</div>
-                    <div onClick={addDog} className={`${scss.tag2}`}>新增狗狗</div>
-                  </div>
-                  <div className={`${scss.tagGroup}`}>
                     {dogData.map((dog, index) => (
                       <div
                         key={index}
@@ -403,6 +402,7 @@ export default function DogInfoData() {
                         {dog.name || `狗狗${index + 1}`}
                       </div>
                     ))}
+                    <div onClick={addDog} className={`${scss.tag2}`}>新增狗狗</div>
                   </div>
                 </div>
                 {dogData.length > 0 && renderDogInfo(dogData[selectedDogIndex])}

@@ -11,20 +11,25 @@ export default function ArticleSec() {
   const baseUrl = 'http://localhost:3005'
 
   useEffect(() => {
-    const fetchArticles = async () => {
-      const url = 'http://localhost:3005/api/article/articles'
-
+    const fetchArticlesAndImages = async () => {
       try {
-        const response = await fetch(url)
+        const response = await fetch(`${baseUrl}/api/article/articles`)
         const data = await response.json()
         if (data.status === 'success') {
-          setArticles(data.articles)
+          const articlesWithImages = await Promise.all(
+            data.articles.map(async (article) => ({
+              ...article,
+              imagePath: await getImagePath(article.id)
+            }))
+          )
+          setArticles(articlesWithImages)
         }
       } catch (error) {
-        console.log(error.message)
+        console.log('Error fetching articles:', error.message)
       }
     }
-    fetchArticles()
+
+    fetchArticlesAndImages()
   }, [])
 
   const getImagePath = async (articleId) => {
@@ -39,22 +44,7 @@ export default function ArticleSec() {
     return '/defaltImg.jpg'
   }
 
-  useEffect(() => {
-    const loadImages = async () => {
-      const updatedArticles = await Promise.all(
-        articles.map(async (article) => ({
-          ...article,
-          imagePath: await getImagePath(article.id)
-        }))
-      )
-      setArticles(updatedArticles)
-    }
-    if (articles.length > 0) {
-      loadImages()
-    }
-  }, [articles])
-
-  if (!articles) return null
+  if (!articles.length) return null
 
   const formatDate = (dateString) => {
     const date = new Date(dateString)
@@ -70,39 +60,37 @@ export default function ArticleSec() {
   }
 
   return (
-    <>
-      <section className={scss.bgWrapper}>
-        <div className={scss.bg} style={{ '--bg-image': `url(${AtBg.src})` }}>
-          <div className='container'>
-            <div className={scss.card_text}>
-              <h2>最新文章</h2>
-              <FddBtn color='tint3' outline href='/'>閱讀更多</FddBtn>
-            </div>
+    <section className={scss.bgWrapper}>
+      <div className={scss.bg} style={{ '--bg-image': `url(${AtBg.src})` }}>
+        <div className='container'>
+          <div className={scss.card_text}>
+            <h2>最新文章</h2>
+            <FddBtn color='tint3' outline href='/'>閱讀更多</FddBtn>
+          </div>
 
-            <div className={scss.cards}>
-              {articles.slice(0, 3).map(article => (
-                <div key={article.id} className={scss.card}>
-                  <div className={scss.imageWrapper}>
-                    <Image
-                      src={article.imagePath}
-                      alt=""
-                      layout="fill"
-                      objectFit="cover"
-                      className={scss.card_img}
-                    />
-                  </div>
-                  <div className={scss.card_body}>
-                    <p>{formatDate(article.create_at)}</p>
-                    <h3>{article.title}</h3>
-                    <h4><div dangerouslySetInnerHTML={{ __html: article.content.substring(0, 20) + '...' }} /></h4>
-                    <Link href={`/article/content?aid=${article.id}`} className={scss.link}>More</Link>
-                  </div>
+          <div className={scss.cards}>
+            {articles.slice(0, 3).map(article => (
+              <div key={article.id} className={scss.card}>
+                <div className={scss.imageWrapper}>
+                  <Image
+                    src={article.imagePath}
+                    alt=""
+                    layout="fill"
+                    objectFit="cover"
+                    className={scss.card_img}
+                  />
                 </div>
-              ))}
-            </div>
+                <div className={scss.card_body}>
+                  <p>{formatDate(article.create_at)}</p>
+                  <h3>{article.title}</h3>
+                  <h4><div dangerouslySetInnerHTML={{ __html: article.content.substring(0, 20) + '...' }} /></h4>
+                  <Link href={`/article/content?aid=${article.id}`} className={scss.link}>More</Link>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   )
 }
