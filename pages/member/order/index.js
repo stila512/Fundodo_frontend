@@ -75,6 +75,39 @@ export default function OrderPage() {
   return (
     <>
       <Head><title>我的訂單 | Fundodo</title></Head>
+      <div className="container">
+        <div className="row jc-center">
+          <div className="col-12 col-lg-8">
+            <table className='tx-center'>
+              <caption><h2 className='pb-5'>訂單列表</h2></caption>
+              <thead className='bg-shade4 tx-tint3'>
+                <tr>
+                  <th className='px-5'>訂單狀態</th>
+                  <th className='px-5'>訂單成立日期</th>
+                  <th className='px-5'>付款方式</th>
+                  <th className='px-5'>配送方式</th>
+                  <th className='px-5'>訂單金額</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(orderPkg.length > 0) &&
+                  orderPkg.map(order => (
+                    <tr key={order.id}>
+                      <td>已出貨</td>
+                      <td>{order.created_at.split('T')[0].replace('-', '年').replace('-', '月')}日</td>
+                      <td>{order.pay_thru === 'EC' ? "綠界線上付款" : "LINE PAY"}</td>
+                      <td>{order.ship_thru === 'DLV' ? "宅配到府" : "超商取貨"}</td>
+                      <td>{order.amount}</td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="col-12 col-lg-4 tx-right">
+            <SideText title="我的訂單" />
+          </div>
+        </div>
+      </div>
     </>
   )
 }

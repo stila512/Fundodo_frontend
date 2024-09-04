@@ -1,17 +1,19 @@
-//== Parameters
+//== Parameters ================================================================
 import { apiBaseUrl } from '@/configs';
-// function
+import { breakpoints } from '@/configs';
+//== Functions =================================================================
 import { useEffect, useState } from 'react';
 import deleteCartOf from './doSoftDelete';
-// component
+import axios from 'axios';
+import useScreenWidth from '@/hooks/useScreenWidth';
+//== Components ================================================================
 import Image from 'next/image';
 import FddBtn from '@/components/buttons/fddBtn';
 import { NumberPanel } from '@/components/buttons/NumberPanel';
-// styles
+//== Styles =================================================================
 import s from './cart-page.module.scss';
 import { TbTrashX } from "react-icons/tb";
 import { RxCross2 } from "react-icons/rx";
-import axios from 'axios';
 
 //todo 將 isOutOfStock 與 stock_when_few 納入機制
 
@@ -30,6 +32,13 @@ export default function ProdCartTable({
   const [qtyArr, setQtyArr] = useState([]);
   const [subtotArr, setSubtotArr] = useState([]);
 
+  //for RWD
+  const screenWidth = useScreenWidth();
+  const [w__screen, setW__screen] = useState(1920);
+
+  useEffect(() => {
+    setW__screen(screenWidth);
+  }, [screenWidth]);
 
   useEffect(() => {
     if (data) setQtyArr(data.map(d => d.quantity));
@@ -92,15 +101,25 @@ export default function ProdCartTable({
           共 {itemStateArr.filter(v => v).length} 件商品
         </caption>
         <thead>
-          <tr>
-            <th className='d-none d-lg-table-cell'><TbTrashX /></th>
-            <th></th>
-            <th>商品資訊</th>
-            <th>規格</th>
-            <th style={{ width: '9rem' }}>單價</th>
-            <th>數量</th>
-            <th style={{ width: '9rem' }}>小計</th>
-          </tr>
+          {w__screen >= breakpoints.md ? (
+            <tr>
+              <th className='d-none d-lg-table-cell'><TbTrashX /></th>
+              <th></th>
+              <th>商品資訊</th>
+              <th>規格</th>
+              <th style={{ width: '9rem' }}>單價</th>
+              <th>數量</th>
+              <th style={{ width: '9rem' }}>小計</th>
+            </tr>) : (
+            <tr>
+              <th className='d-none d-lg-table-cell'><TbTrashX /></th>
+              <th></th>
+              <th>商品資訊</th>
+              <th>規格</th>
+              <th style={{ width: '9rem' }}>單價</th>
+              <th>數量</th>
+              <th style={{ width: '9rem' }}>小計</th>
+            </tr>)}
         </thead>
         <tbody className='tx-body'>
           {noData || data.map((item, i_item) => itemStateArr[i_item] && (
