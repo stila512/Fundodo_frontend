@@ -38,6 +38,14 @@
   display: none;
 }
 
+.rwdCreate{
+  display: none;
+  border: 1px solid $primary;
+  padding: 5px 10px;
+  align-items: center;
+  border-radius: 5px;
+  background: #FFF;
+}
 .search{
   display: flex;
 }
@@ -49,7 +57,11 @@
   align-items: center;
   cursor: pointer;
 }
-
+@media (max-width: 1440px){
+  .rwdCreate{
+    display: block;
+  }
+}
 @media (max-width: 768px) {
   .userAction h4{
     display: none;
