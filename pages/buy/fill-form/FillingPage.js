@@ -8,7 +8,7 @@ import FddBtn from '@/components/buttons/fddBtn';
 import Head from 'next/head';
 //== Styles =================================================================
 import s from './filling-page.module.scss'
-import { FaAngleLeft } from "react-icons/fa6";
+import { FaAngleLeft, FaCheck } from "react-icons/fa6";
 
 export default function FillingPage({
   userID = 0,
@@ -309,7 +309,10 @@ export default function FillingPage({
         <title>填寫付款資料 | Fundodo</title>
       </Head>
       <main className='container'>
-        <div className={['row jc-center py-5', s.topPanel, isBeginning ? s.beginningMode : ''].join(' ')}>
+        <div className={[
+          'row jc-center py-5',
+          s.topPanel, isBeginning ? s.beginningMode : ''
+        ].join(' ')}>
           {isBeginning &&
             <div className="col-12 col-lg-8 me-auto mb-5">
               <div className="hstack">
@@ -318,11 +321,14 @@ export default function FillingPage({
                   pill={false}
                   className={s.tempBtn}
                   callback={() => goPrevPhase()}>
-                  <FaAngleLeft />回到購物車
+                  <FaAngleLeft />回到前一步
                 </FddBtn>
               </div>
-            </div>}
-          <h3 className="col-12">請選擇配送方式：</h3>
+            </div>
+          }
+          <h3 className="col-12 tx-center">
+            {isBeginning ? "請選擇配送方式：" : "配送方式："}
+          </h3>
           <div className="col-5 d-flex flex-row jc-end">
             <FddBtn color='primary' outline={isCVS} size='sm' className={s.modeBtn} callback={() => handleBeginingBtn(false)}>
               <>
@@ -340,163 +346,180 @@ export default function FillingPage({
         </div>
         {isBeginning ||
           <div className="row jc-center">
-            {/*======== 宅配模式  ==================================== */}
-            {isCVS ||
-              (<>
-                <div className="col-12 col-lg-8">
-                  <div className="hstack">
-                    {/*===================== 取用訂購資料 ======================= */}
-                    <FddBtn
-                      color='primary'
-                      outline size='sm'
-                      disabled={!prevOrderData}
-                      callback={() => autoFill()}
-                    >
-                      {prevOrderData ? "使用上次訂購的紀錄" : "訂購的紀錄可供下次再次使用"}
-                    </FddBtn>
-                    {/*===================== 儲存訂購資料 ======================= */}
-                    <div className='ms-3'>
-                      <input type="checkbox" name="saveForNext"
-                        checked={wannaSave}
-                        onChange={() => setWannaSave(!wannaSave)}
-                      />
-                      <label htmlFor="saveForNext">儲存訂購資料</label>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-12 col-lg-8">
-                  <form action="" className={s.form}>
-                    {/*//*===================== 收件人姓名 ======================= */}
-                    <div className="row">
-                      <div className="col-12">
-                        <label htmlFor="name_receiver" className='tx-default'>收件人姓名 *</label>
+            <div className="col-8 col-lg-12">
+              <div className="row jc-center">
+                <div className="col">
+                  {/*======== 宅配模式  ==================================== */}
+                  {isCVS ||
+                    (<>
+                      <div className="col-12 col-lg-8">
+                        <div className="hstack">
+                          {/*===================== 取用訂購資料 ======================= */}
+                          <FddBtn
+                            color='primary'
+                            outline size='sm'
+                            disabled={!prevOrderData}
+                            callback={() => autoFill()}
+                          >
+                            {prevOrderData ? "使用上次訂購的紀錄" : "訂購的紀錄可供"}
+                            <br className='d-lg-none' />
+                            {prevOrderData ? "一鍵填入" : "下次再次使用"}
+                          </FddBtn>
+                          {/*===================== 儲存訂購資料 ======================= */}
+                          <div className='ms-3 hstack ai-center'>
+                            <FddBtn color='primary' size='sm'
+                              callback={() => setWannaSave(!wannaSave)}
+                              style={{ fontSize: "1rem" }}
+                              outline={!wannaSave}
+                              icon
+                            >
+                              <FaCheck />
+                            </FddBtn>
+                            <span className="ms-2">儲存訂購資料</span>
+                          </div>
+                        </div>
                       </div>
-                      <div className="col-12">
-                        <input
-                          type='text'
-                          name='addressee'
-                          value={autoOrderData ? autoOrderData.addressee : undefined}
-                          onChange={e => handleInput(e)}
-                          required
-                        />
-                      </div>
-                    </div>
-                    {/*//*===================== EMAIL ======================= */}
-                    <div className="row">
-                      <div className="col-12">
-                        <label htmlFor="email" className='tx-default'>EMAIL *</label>
-                      </div>
-                      <div className="col-12">
-                        <input
-                          type='email'
-                          name='email'
-                          value={autoOrderData ? autoOrderData.email : undefined}
-                          onChange={e => handleInput(e)}
-                        />
-                      </div>
-                    </div>
-                    {/*//*===================== 收件人行動電話 ======================= */}
-                    <div className="row">
-                      <div className="col-12">
-                        <label htmlFor="phone_num" className='tx-default'>收件人行動電話 *</label>
-                      </div>
-                      <div className="col-12">
-                        <input
-                          type='text'
-                          name='phone_num'
-                          value={autoOrderData ? autoOrderData.phone_num : undefined}
-                          onChange={e => handleInput(e)} />
-                      </div>
-                    </div>
-                    {/*//*===================== 收件地址 ======================= */}
-                    <div className="row">
-                      <div className="col-12">
-                        <label htmlFor="address" className='tx-default'>收件地址 *</label>
-                      </div>
-                      <div className="col-6">
-                        <select
-                          name="addr_city"
-                          value={autoOrderData ? autoOrderData.addr_city : undefined}
-                          defaultValue={0}
-                          onChange={e => handleCityInput(e)}
-                        >
-                          <option value={0} disabled >- 縣市 -</option>
-                          {cityList && cityList.map(city =>
-                            <option key={city.id} value={city.id}>{city.name}</option>
-                          )}
-                        </select>
-                      </div>
-                      <div className="col-6">
-                        <select name="addr_code"
-                          value={autoOrderData ? autoOrderData.addr_code : 0}
-                          defaultValue={0}
-                          onChange={e => handleZipInput(e)}
-                        >
-                          <option value={0} disabled>
-                            - {distList.length > 0 ? "請選擇" : "區鄉鎮"} -
-                          </option>
-                          {distList.length > 0 && distList.map(district =>
-                            <option key={district.zipcode} value={district.zipcode}>{district.name}</option>
-                          )}
-                        </select>
-                      </div>
-                      <div className="col-12">
-                        <input
-                          type="text"
-                          name='address'
-                          value={autoOrderData ? autoOrderData.address : undefined}
-                          onChange={e => handleInput(e)}
-                        />
-                      </div>
-                    </div>
+                      <div className="col-12 col-lg-8">
+                        <form action="" className={s.form}>
+                          {/*//*===================== 收件人姓名 ======================= */}
+                          <div className="row">
+                            <div className="col-12">
+                              <label htmlFor="name_receiver" className='tx-default'>收件人姓名 *</label>
+                            </div>
+                            <div className="col-12">
+                              <input
+                                type='text'
+                                name='addressee'
+                                value={autoOrderData ? autoOrderData.addressee : undefined}
+                                onChange={e => handleInput(e)}
+                                required
+                              />
+                            </div>
+                          </div>
+                          {/*//*===================== EMAIL ======================= */}
+                          <div className="row">
+                            <div className="col-12">
+                              <label htmlFor="email" className='tx-default'>EMAIL *</label>
+                            </div>
+                            <div className="col-12">
+                              <input
+                                type='email'
+                                name='email'
+                                value={autoOrderData ? autoOrderData.email : undefined}
+                                onChange={e => handleInput(e)}
+                              />
+                            </div>
+                          </div>
+                          {/*//*===================== 收件人行動電話 ======================= */}
+                          <div className="row">
+                            <div className="col-12">
+                              <label htmlFor="phone_num" className='tx-default'>收件人行動電話 *</label>
+                            </div>
+                            <div className="col-12">
+                              <input
+                                type='text'
+                                name='phone_num'
+                                value={autoOrderData ? autoOrderData.phone_num : undefined}
+                                onChange={e => handleInput(e)} />
+                            </div>
+                          </div>
+                          {/*//*===================== 收件地址 ======================= */}
+                          <div className="row">
+                            <div className="col-12">
+                              <label htmlFor="address" className='tx-default'>收件地址 *</label>
+                            </div>
+                            <div className="col-6">
+                              <select
+                                name="addr_city"
+                                value={autoOrderData ? autoOrderData.addr_city : undefined}
+                                defaultValue={0}
+                                onChange={e => handleCityInput(e)}
+                              >
+                                <option value={0} disabled >- 縣市 -</option>
+                                {cityList && cityList.map(city =>
+                                  <option key={city.id} value={city.id}>{city.name}</option>
+                                )}
+                              </select>
+                            </div>
+                            <div className="col-6">
+                              <select name="addr_code"
+                                value={autoOrderData ? autoOrderData.addr_code : 0}
+                                defaultValue={0}
+                                onChange={e => handleZipInput(e)}
+                              >
+                                <option value={0} disabled>
+                                  - {distList.length > 0 ? "請選擇" : "區鄉鎮"} -
+                                </option>
+                                {distList.length > 0 && distList.map(district =>
+                                  <option key={district.zipcode} value={district.zipcode}>{district.name}</option>
+                                )}
+                              </select>
+                            </div>
+                            <div className="col-12">
+                              <input
+                                type="text"
+                                name='address'
+                                value={autoOrderData ? autoOrderData.address : undefined}
+                                onChange={e => handleInput(e)}
+                              />
+                            </div>
+                          </div>
 
-                    {/*//*===================== 備註 ======================= */}
-                    <div>
-                      <label htmlFor="ship_ps" className='tx-default'>備註</label>
+                          {/*//*===================== 備註 ======================= */}
+                          <div className="row">
+                            <div className="col-12">
+                              <label htmlFor="ship_ps" className='tx-default'>備註</label>
+                            </div>
+                          </div>
+                          <div className="row">
+                            <div className="col-12">
+                              <textarea
+                                name='ship_ps'
+                                value={autoOrderData ? autoOrderData.ship_ps : undefined}
+                                onChange={e => handleInput(e)}
+                              />
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                      {/* ===================== 切換鈕 ======================= */}
+                      <div className="col-12 col-lg-8">
+                        <div className="hstack jc-evenly py-5">
+                          <FddBtn
+                            color='primary'
+                            outline pill={false}
+                            size="lg"
+                            className={s.moveBtn}
+                            callback={() => goPrevPhase()}
+                          >
+                            <FaAngleLeft /><span className='ms-1'>回到購物車</span>
+                          </FddBtn>
+                          <FddBtn
+                            color='primary'
+                            pill={false}
+                            size="lg"
+                            className={s.moveBtn}
+                            callback={() => goNextPhase()}
+                          >
+                            確認送出
+                          </FddBtn>
+                        </div>
+                      </div>
+                    </>)
+                  }
+                  {/*======== 超商模式  ==================================== */}
+                  {
+                    isCVS &&
+                    <div className="col-12">
+                      <h2 className='d-inline'>超商選擇：</h2>
+                      <FddBtn color='primary' size="sm" href="http://localhost:3005/api/cart/ecpay2">7-11</FddBtn>
                     </div>
-                    <div>
-                      <textarea
-                        name='ship_ps'
-                        value={autoOrderData ? autoOrderData.ship_ps : undefined}
-                        onChange={e => handleInput(e)}
-                      />
-                    </div>
-                  </form>
+                  }
                 </div>
-                {/* ===================== 切換鈕 ======================= */}
-                <div className="col-12 col-lg-8">
-                  <div className="hstack jc-evenly py-5">
-                    <FddBtn
-                      color='primary'
-                      outline pill={false}
-                      size="lg"
-                      className={s.moveBtn}
-                      callback={() => goPrevPhase()}
-                    >
-                      <FaAngleLeft /><span className='ms-1'>回到購物車</span>
-                    </FddBtn>
-                    <FddBtn
-                      color='primary'
-                      pill={false}
-                      size="lg"
-                      className={s.moveBtn}
-                      callback={() => goNextPhase()}
-                    >
-                      確認送出
-                    </FddBtn>
-                  </div>
-                </div>
-              </>)
-            }
-            {/*======== 超商模式  ==================================== */}
-            {
-              isCVS &&
-              <div className="col-12">
-                <h2 className='d-inline'>超商選擇：</h2>
-                <FddBtn color='primary' size="sm" href="http://localhost:3005/api/cart/ecpay2">7-11</FddBtn>
               </div>
-            }
-          </div >}
+            </div>
+          </div >
+        }
       </main >
     </>
   )

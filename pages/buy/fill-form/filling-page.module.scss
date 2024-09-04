@@ -1,21 +1,20 @@
 @import '@/styles';
 
-.topPanel {
-  button {
-    // display: block !important;
-    width: rem(180px);
-    height: 3rem;
-    $t: 0.8s;
-    transition: all $t ease-in-out !important;
-    // transition: color $t ease-in-out, background-color $t ease-in-out,
-    //   border-color $t ease-in-out, box-shadow $t ease-in-out,
-    //   width $t ease-in-out, height $t ease-in-out !important;
-    h4 {
-      font-size: 1rem;
-    }
-    p {
-      display: none;
-    }
+.topPanel .modeBtn {
+  // display: block !important;
+  width: rem(180px);
+  padding: 0 !important;
+  height: 3rem;
+  $t: 0.8s;
+  transition: all $t ease-in-out !important;
+  // transition: color $t ease-in-out, background-color $t ease-in-out,
+  //   border-color $t ease-in-out, box-shadow $t ease-in-out,
+  //   width $t ease-in-out, height $t ease-in-out !important;
+  h4 {
+    font-size: 1.25rem;
+  }
+  p {
+    display: none;
   }
 }
 .tempBtn {
@@ -28,12 +27,16 @@
   .modeBtn {
     transition: all 10s ease-in-out !important;
     width: 100%;
-    height: 200px;
+    height: 120px;
     background-color: $secondary;
     box-shadow: 2px 2px 5px rgba($black, 0.2);
     border: 5px solid $primary;
     border-radius: 1rem;
     text-shadow: none !important;
+
+    @include rwd-above('lg') {
+      height: 200px;
+    }
 
     h4 {
       font-size: 3rem !important;
@@ -54,6 +57,13 @@
 }
 
 .form {
+  & > div {
+    margin-bottom: 1rem;
+
+    & > div {
+      text-align: center;
+    }
+  }
   label {
     color: $heading;
   }
