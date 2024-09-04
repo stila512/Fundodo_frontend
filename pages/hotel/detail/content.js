@@ -44,7 +44,7 @@ export default function Content({hotelCode}) {
 
   return (
     <>
-      <div className={styles.description}>
+      <div id="hotel-intro" className={styles.description}>
         <h3 className={styles.title}>旅館簡介</h3>
         {hotel && (
         <p className={styles.content}>
@@ -85,7 +85,7 @@ export default function Content({hotelCode}) {
         </ul>
       </div>
 
-      <div className={styles.faqSection}>
+      <div id="faq-section" className={styles.faqSection}>
         <h3 className={styles.title}>常見問題</h3>
         <div className={styles.faqQuestion}
           onClick={() => toggleQuestion('preparation')}
