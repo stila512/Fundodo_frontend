@@ -14,6 +14,7 @@ import useAuthRedirect from '@/hooks/useAuthRedirect';
 import Modal from '@/components/common/modal';
 import { GoCheck } from "react-icons/go";
 import FddBtn from '@/components/buttons/fddBtn';
+import Head from 'next/head';
 
 
 export default function PeopleInfoData() {
@@ -175,6 +176,7 @@ export default function PeopleInfoData() {
 
   return (
     <>
+      <Head><title>會員中心 | Fundodo</title></Head>
       <main>
         {loading ? (
           <p>Loading...</p>

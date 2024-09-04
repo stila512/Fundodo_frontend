@@ -31,7 +31,7 @@ export default function SideText({ activeIndex = 0 }) {
           <div className={scss.reactIcon}>
             <IoMdPerson />
           </div>
-          <span>會員管理</span>
+          <span>會員中心</span>
         </div>
         <div className={scss.subItems}>
           <Link href="/member/peopleInfoData">基本資料</Link>
@@ -46,8 +46,7 @@ export default function SideText({ activeIndex = 0 }) {
         <div className={scss.reactIcon}>
           <IoIosPaper />
         </div>
-        {/* <Image className={scss.icon} src={mdi_list} alt="訂單查詢" /> */}
-        <span>訂單查詢</span>
+        <Link href="/member/order"><span>訂單查詢</span></Link>
       </div>
       <div className={[scss.menuItem, activeIndex === 3 ? scss.active : ''].join(' ')}>
         <div className={scss.reactIcon}>

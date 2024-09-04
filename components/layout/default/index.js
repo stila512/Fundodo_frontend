@@ -17,7 +17,7 @@ export default function DefaultLayout({ children }) {
     <>
       <NavHeader />
       {/* <Suspense fallback={<Loading />}> */}
-      <div style={{ marginTop: '70px' }}>{children}</div>
+      <div style={{ marginTop: '80px' }}>{children}</div>
       {/* </Suspense> */}
       <Footer />
     </>

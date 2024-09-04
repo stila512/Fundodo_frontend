@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import { useEffect } from 'react';
+import DefaultLayout from '@/components/layout/default';
 import dynamic from 'next/dynamic';
 
 export default function Index() {
@@ -20,3 +21,4 @@ export default function Index() {
   return (<HomePage />)
 
 }
+Index.layout = DefaultLayout;
