@@ -8,8 +8,8 @@
   gap: 15px;
   align-self: stretch;
   border-radius: 5px;
-  border: 1px solid var(--Border, #EAEAEA);
-  background: #FFF;
+  border: 1px solid var(--Border, #eaeaea);
+  background: #fff;
   width: 726px;
   height: 221px;
   margin-bottom: 12px;
@@ -37,7 +37,7 @@
 
 .nickName {
   color: #000;
-  font-family: "Noto Sans";
+  font-family: 'Noto Sans';
   font-size: 13px;
   font-style: normal;
   font-weight: 400;
@@ -47,7 +47,7 @@
 
 .creatTime {
   color: var(--Subtitle-text-color, #808080);
-  font-family: "Noto Sans";
+  font-family: 'Noto Sans';
   font-size: 10px;
   font-style: normal;
   font-weight: 400;
@@ -65,7 +65,7 @@
 
 .mainTitle {
   color: var(--Header, #424242);
-  font-family: "Noto Sans";
+  font-family: 'Noto Sans';
   font-size: 14px;
   font-style: normal;
   font-weight: 700;
@@ -73,11 +73,15 @@
   letter-spacing: 0.7px;
   cursor: pointer;
 }
+.mainTitle a:link,
+.mainTitle a:visited {
+  color: #000 !important;
+}
 
 .extract {
   width: 665px;
   color: #000;
-  font-family: "Noto Sans";
+  font-family: 'Noto Sans';
   font-size: 14px;
   font-style: normal;
   font-weight: 300;
@@ -105,19 +109,19 @@
   padding: 5px 10px;
   align-items: center;
   border-radius: 5px;
-  background: var(--tint5, #F1EDEB);
+  background: var(--tint5, #f1edeb);
 }
 
 .info {
   display: flex;
   align-items: center;
   gap: 15px;
-  background: #FFF;
+  background: #fff;
 }
 
 .infoText {
   color: var(--Body, #757575);
-  font-family: "Noto Sans";
+  font-family: 'Noto Sans';
   font-size: 13px;
   font-style: normal;
   font-weight: 400;
@@ -126,20 +130,20 @@
 }
 
 @media (max-width: 768px) {
-  .article{
+  .article {
     width: 100%;
     height: 100%;
     padding: 12px;
     gap: 12px;
   }
-  .extract{
+  .extract {
     width: 100%;
     font-size: 12px;
   }
-  .artiTags{
+  .artiTags {
     display: none;
   }
-  .userData{
+  .userData {
     display: none;
   }
 }

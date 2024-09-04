@@ -114,7 +114,7 @@ export default function EditArticle() {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className={scss.loadingArea}>文章更新中...</div>;
   }
 
   return (

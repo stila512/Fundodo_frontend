@@ -22,7 +22,7 @@ export default function PageControl({aid}) {
         <div className={scss.ctrler}>
           <Image
             className={scss.userImg}
-            src="/logo.png"
+            src="/userHead.png"
             alt=""
             width={200}
             height={200}
