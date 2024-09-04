@@ -38,7 +38,7 @@ export default function ReplyBlock({user, reply }) {
           </div>
           <div>          
           {canEdit() && (
-            <a href={`/article`}>
+            <a href={`/article/editReply?rid=${reply.id}`}>
               <BsThreeDotsVertical />
             </a>
           )}
