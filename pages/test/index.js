@@ -35,7 +35,13 @@ export default function TestPage() {
                   完善會員資料
                 </FddBtn>
 
-                <FddBtn color="primary" outline icon callback={() => openWindow()}>
+                <FddBtn
+                  color="primary"
+                  outline
+                  icon
+                  title="選擇 7-11 分店"
+                  callback={() => openWindow()}
+                >
                   <IconContext.Provider value={{ size: '2.5rem' }}>
                     <PiNumberSquareSevenBold />
                   </IconContext.Provider>
