@@ -41,8 +41,18 @@
 @each $elem in (a, button) {
   #{$elem}.btn-primary,
   #{$elem}.btn-primary-brick {
-    color: c.$tint5;
-    text-shadow: -1px -1px 0 c.$shade2;
+    // color: c.$black;
+    // $mu: 1px;
+    // $nu: -1px;
+    // $light: c.$tint3;
+    // text-shadow: -1px -1px 0 $light, -2px -1px 0 $light, 1px 1px 0 $light,
+    //   2px 1px 0 $light;
+    // text-shadow: $mu $mu 0 $light, $nu $nu 0 $light;
+    // letter-spacing: 2px;
+
+    color: c.$white;
+    text-shadow: 1px 0 1px c.$shade3, -1px 0 1px c.$shade3;
+    font-weight: 600;
 
     &:hover {
       background-color: c.$tint1;
