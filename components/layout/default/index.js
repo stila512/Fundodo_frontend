@@ -12,12 +12,12 @@ export default function DefaultLayout({ children }) {
   // })
   return (
     <>
-      <NavHeader />
-      {/* <Suspense fallback={<Loading />}> */}
-      <div style={{ marginTop: '80px' }}>{children}</div>
-      {/* </Suspense> */}
-      <GoTop />
-      <Footer />
+      <Suspense fallback={<Loading />}>
+        <NavHeader />
+        <div style={{ marginTop: '80px' }}>{children}</div>
+        <GoTop />
+        <Footer />
+      </Suspense>
     </>
   );
 }
