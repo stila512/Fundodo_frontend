@@ -15,7 +15,7 @@ table.cartTable thead {
     padding-block: 0.5rem;
   }
   th:nth-child(1) {
-      width: 4rem;
+    width: 4rem;
   }
   th:nth-child(2) {
     width: rem(120px);
@@ -31,7 +31,8 @@ table.cartTable tbody tr {
   td {
     padding-block: 1rem;
   }
-  td:nth-child(3), td:nth-child(4) {
+  td:nth-child(3),
+  td:nth-child(4) {
     padding-inline: 1rem;
   }
   p {
@@ -80,5 +81,22 @@ table.cartTable tbody tr {
       background-color: $shade2;
       color: $white;
     }
+  }
+}
+
+.cartRowMb {
+  &:nth-child(odd) {
+    background-color: $tint5;
+  }
+  &:nth-child(even) {
+    background-color: shift-color($tint5, -60%);
+  }
+}
+
+.cartTableMb {
+  p {
+    color: $body;
+    line-height: 3;
+    text-align: center;
   }
 }

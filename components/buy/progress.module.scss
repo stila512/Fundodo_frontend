@@ -1,7 +1,7 @@
 @use '@/styles' as styles;
 
 .progressBox {
-  margin: 10rem auto 3rem;
+  margin: 10rem auto 5rem;
   max-width: 50rem;
   display: flex;
   align-items: center;
@@ -10,6 +10,7 @@
 
   width: 80%;
   @include styles.rwd-above('md') {
+    margin: 10rem auto 3rem;
     width: initial;
   }
 }
