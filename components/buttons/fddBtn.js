@@ -33,6 +33,7 @@ const colorList = {
  * @param {bool} icon 圓形款式 (optional)
  * @param {bool} outline 外框款式 (optional)
  * @param {string} href 連結路徑 (optional)
+ * @param {string} title 提示文字 (optional)
  * @param {string} className 客製化樣式名稱 (optional)
  * @param {function} callback 按鈕 onClick 事件 (optional)
  * @description 按鈕內容文字如同一般 button 元件，擺在 HTML tag 內即可
@@ -46,6 +47,7 @@ export default function FddBtn({
   outline = false,
   disabled = false,
   callback = undefined,
+  title = '',
   href = '',
   className = ''
 }) {
@@ -84,6 +86,8 @@ export default function FddBtn({
         className={[classStr, className].join(' ')}
         onClick={() => callback()}
         disabled={disabled}
+        title={title}
+        type='button'
       >
         {children}
       </button>
@@ -91,15 +95,26 @@ export default function FddBtn({
   } else if (href !== '') {
     return (
       disabled
-        ? (<button
-          className={[classStr, className].join(' ')}
-          onClick={() => { }}
-        >
-          {children}
-        </button >)
-        : (<Link className={[classStr, className].join(' ')} href={href}>
-          {children}
-        </Link>)
+        ? (
+          <button
+            className={[classStr, className].join(' ')}
+            disabled
+            onClick={() => { }}
+            title={title}
+            type='button'
+          >
+            {children}
+          </button >
+        )
+        : (
+          <Link
+            className={[classStr, className].join(' ')}
+            title={title}
+            href={href}
+          >
+            {children}
+          </Link>
+        )
     );
   } else {
     throw new Error('FddBtn 元件的參數 callback 與 href 必須擇一輸入');

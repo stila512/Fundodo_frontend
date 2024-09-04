@@ -110,7 +110,7 @@ export default function ReturnPage() {
           <div className="col-12 col-lg-7">
             <div className="hstack jc-center gap-5">
               <FddBtn color='primary' pill={false} outline href='/member'>
-                讓我想想
+                前往我的訂單
               </FddBtn>
             </div>
           </div>

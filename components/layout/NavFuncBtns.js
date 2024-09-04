@@ -2,20 +2,18 @@
 import { apiBaseUrl } from '@/configs';
 //== Functions =================================================================
 import { useState, useEffect, useContext } from 'react';
-import { AuthProvider, AuthContext } from '@/context/AuthContext';
+import { AuthContext } from '@/context/AuthContext';
 import axios from 'axios';
-import tokenDecoder from '@/context/token-decoder';
+import FddBtn from '../buttons/fddBtn';
 //== Styles =================================================================
 import scss from './navFunc.module.scss';
 import { IoMdPerson } from 'react-icons/io';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { IoCart } from 'react-icons/io5';
 import { IoIosLogOut } from "react-icons/io";
-import { FaHeart } from 'react-icons/fa';
-import FddBtn from '../buttons/fddBtn';
 
 export default function NavFuncBtns({ showCart = true }) {
-  const { logout } = useContext(AuthContext);
+  const { logout, user } = useContext(AuthContext);
   const handleLogout = () => {
     logout(); // 呼叫登出函數
   };
@@ -24,13 +22,15 @@ export default function NavFuncBtns({ showCart = true }) {
   const [cartCount, setCartCount] = useState(0);
   //===== 會員 ID
   //0 | 未登入 ; -1 | 讀取中
+  /** @type {[number, React.Dispatch<number>]} */
   const [uID, setUID] = useState(-1);
 
-  //===== 解讀登入的會員 ID
+  //===== 獲得登入的會員 ID
   useEffect(() => {
-    const { userId } = tokenDecoder();
+    if (user === null) return;
+    const { userId } = user;
     setUID(userId ? userId : 0);
-  }, [])
+  }, [user]);
   //===== 以會員 ID 索取購物車資料
   useEffect(() => {
     if (uID === 0) return;
@@ -88,16 +88,16 @@ export default function NavFuncBtns({ showCart = true }) {
       </li> */}
       {/* 會員 */}
       <li>
-        <FddBtn color='white' pill={false} icon href="/member/peopleInfoData">
+        <FddBtn
+          color='white'
+          pill={false}
+          icon
+          title='會員專區'
+          href="/member/peopleInfoData"
+        >
           <IoMdPerson />
         </FddBtn>
       </li>
-      {/* 我的最愛: 開發階段用 */}
-      {/* <li>
-        <FddBtn color='white' pill={false} icon href="/prod/list/favoriteProd">
-          <FaHeart size={24} />
-        </FddBtn>
-      </li> */}
       {/* 購物車 */}
       {
         (showCart && uID >= 0) ? (
@@ -107,23 +107,34 @@ export default function NavFuncBtns({ showCart = true }) {
               position: 'relative'
             }}
           >
-            <FddBtn color='white' pill={false} icon href="/buy">
+            <FddBtn
+              color='white'
+              pill={false}
+              icon
+              title='購物車'
+              href="/buy">
               <IoCart />
               <div className={[scss.cartNumber, uID === 0 ? 'd-none' : 'd-flex'].join(' ')}>{cartCount}</div>
             </FddBtn>
           </li>
         ) : (<></>)
       }
-      {/* 會員 */}
-      <li className='d-none d-md-inline-flex'>
-        <FddBtn
-          color='white'
-          pill={false}
-          icon
-          callback={() => handleLogout()}>
-          <IoIosLogOut />
-        </FddBtn>
-      </li>
+      {/* 會員登出 */}
+      {
+        (uID > 0) && (
+          <li className='d-none d-md-inline-flex'>
+            <FddBtn
+              color='white'
+              pill={false}
+              icon
+              title='登出'
+              callback={() => handleLogout()}>
+              <IoIosLogOut />
+            </FddBtn>
+          </li>
+        )
+      }
+
     </ul>
   );
 }

@@ -4,11 +4,16 @@ import FddBtn from '@/components/buttons/fddBtn.js';
 import { useState } from 'react'
 import scss from './test.module.scss';
 import { DiApple } from 'react-icons/di';
+import { PiNumberSquareSevenBold } from "react-icons/pi";
 import { IconContext } from 'react-icons';
 import Modal from '@/components/common/modal';
+import { useShip711StoreOpener } from '@/hooks/use-ship711';
+import { apiBaseUrl } from '@/configs/index.js';
 
 export default function TestPage() {
-  const [showModal, setShowModal] = useState(false);
+  const { store711, openWindow, closeWindow } = useShip711StoreOpener(
+    `${apiBaseUrl}/pay/ship711`
+  );
 
   return (
     <>
@@ -30,9 +35,15 @@ export default function TestPage() {
                   完善會員資料
                 </FddBtn>
 
-                <FddBtn color="primary" outline icon callback={() => setShowModal(true)}>
+                <FddBtn
+                  color="primary"
+                  outline
+                  icon
+                  title="選擇 7-11 分店"
+                  callback={() => openWindow()}
+                >
                   <IconContext.Provider value={{ size: '2.5rem' }}>
-                    <DiApple />
+                    <PiNumberSquareSevenBold />
                   </IconContext.Provider>
                 </FddBtn>
                 <FddBtn color="info" size="lg" href="#">
@@ -41,21 +52,17 @@ export default function TestPage() {
               </div>
             </div>
           </div>
+          <div className="col-12">
+            <div className="hstack jc-evenly">
+              <div>
+                門市名稱: <input type="text" value={store711.storename} disabled />
+              </div>
+              <div>
+                門市地址: <input type="text" value={store711.storeaddress} disabled />
+              </div>
+            </div>
+          </div>
         </div>
-        {/* <Modal mode={1} active={false} onClose={() => setShowModal(false)}>
-          <h1>確認成功！</h1>
-          <span>拉不拉多拉不拉多拉布拉布拉布拉布拉布拉布拉布拉不拉多拉布拉布拉布拉布拉布拉布拉不拉多拉布拉布拉布拉布拉布拉不拉多拉布拉布拉布拉布拉不拉多拉布拉布拉布拉</span>
-        </Modal> */}
-        <Modal
-          mode={2}
-          active={showModal}
-          onClose={() => setShowModal(false)}
-          confirmText='確定'
-          cancelText='算了'
-        >
-          <h1>你確定這樣的行為是正確的嗎？</h1>
-          <p>拉不拉多拉不拉多拉布拉布拉布拉布拉布拉布拉布拉不拉多拉布拉布拉布拉布拉布拉布拉不拉多拉布拉布拉布拉布拉布拉不拉多拉布拉布拉布拉布拉不拉多拉布拉布拉布拉</p>
-        </Modal>
       </div>
     </>
   );

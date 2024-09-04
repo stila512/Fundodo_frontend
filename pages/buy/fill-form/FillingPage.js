@@ -349,12 +349,13 @@ export default function FillingPage({
                     <FddBtn
                       color='primary'
                       outline size='sm'
+                      disabled={!prevOrderData}
                       callback={() => autoFill()}
                     >
-                      {prevOrderData ? "使用上次訂購的紀錄" : "訂購的紀錄得下次再次使用"}
+                      {prevOrderData ? "使用上次訂購的紀錄" : "訂購的紀錄可供下次再次使用"}
                     </FddBtn>
                     {/*===================== 儲存訂購資料 ======================= */}
-                    <div>
+                    <div className='ms-3'>
                       <input type="checkbox" name="saveForNext"
                         checked={wannaSave}
                         onChange={() => setWannaSave(!wannaSave)}
@@ -464,14 +465,21 @@ export default function FillingPage({
                 </div>
                 {/* ===================== 切換鈕 ======================= */}
                 <div className="col-12 col-lg-8">
-                  <div className="hstack jc-between">
-                    <FddBtn color='white' pill={false} callback={() => goPrevPhase()}>
-                      <FaAngleLeft />回到購物車
+                  <div className="hstack jc-evenly py-5">
+                    <FddBtn
+                      color='primary'
+                      outline pill={false}
+                      size="lg"
+                      className={s.moveBtn}
+                      callback={() => goPrevPhase()}
+                    >
+                      <FaAngleLeft /><span className='ms-1'>回到購物車</span>
                     </FddBtn>
                     <FddBtn
                       color='primary'
                       pill={false}
                       size="lg"
+                      className={s.moveBtn}
                       callback={() => goNextPhase()}
                     >
                       確認送出
