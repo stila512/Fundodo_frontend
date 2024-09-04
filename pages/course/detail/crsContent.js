@@ -19,7 +19,7 @@ export default function CrsContent({ chapters, lessons,img_path }) {
             </div>
             <div className={scss.lessons}>
               {chapter.lessons.map(lesson => (
-                <Link href="" key={lesson.id}>
+                <Link href="/" key={lesson.id} className={scss.link}>
                 <div className={scss.lesson}>
                   <h2>{lesson.name}</h2>
                   <p>{lesson.duration}min</p>

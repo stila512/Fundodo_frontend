@@ -6,6 +6,8 @@ import NoPermissionPage from './nopermission';
 import scss from './play.module.scss';
 import { AuthContext } from '@/context/AuthContext';
 import tokenDecoder from '@/context/token-decoder';
+import Breadcrumb from '../breadCrumb';
+
 
 const VideoPlayer = ({ video_path }) => {
     console.log('Video path:', video_path);
@@ -122,11 +124,11 @@ export default function CoursePlay() {
     };
 
     if (hasPermission === null || !course) {
-        return null; 
+        return null;
     }
 
     if (hasPermission === false) {
-        return <NoPermissionPage courseId={router.query.id} />; 
+        return <NoPermissionPage courseId={router.query.id} />;
     }
     return (
         <>
@@ -135,7 +137,12 @@ export default function CoursePlay() {
             </Head>
 
             <div className={scss.container}>
-                <div className={["container d-flex", scss.mainContent].join(" ")}>
+            <div className='container p-0'>
+            <div className="">
+                    <Breadcrumb />
+                </div></div>
+                
+                <div className={["container d-flex ", scss.mainContent].join(" ")}>
                     <div className={[scss.videoContent, "col-8"].join(" ")}>
                         {currentLesson && <VideoPlayer video_path={currentLesson.video_path} />}
                         <h2>{course.title}</h2>

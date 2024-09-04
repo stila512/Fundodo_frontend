@@ -4,7 +4,6 @@
     display: flex;
     gap: 20px;
     position: relative;
-    width: 300px;
     align-items: center;
     margin: 6px 14px 6px 8px;
     gap: 8px;
@@ -15,8 +14,8 @@
       appearance: none; // 隱藏預設下箭頭
       -webkit-appearance: none;
       -moz-appearance: none;
-      width: 9rem;
-      padding: 6px 14px; // 留空間給自訂箭頭
+      width: 10rem;
+      padding: 6px 16px; // 留空間給自訂箭頭
       border: 1px solid $primary;
       border-radius: 50px;
     }
