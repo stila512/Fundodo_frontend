@@ -208,7 +208,6 @@ export default function RegisterPage() {
                 </p>
               </div>
             </div>
-            <div className={scss.xBtn}>x</div>
           </div>
         </div>
       </form>

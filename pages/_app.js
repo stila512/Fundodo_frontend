@@ -13,6 +13,7 @@ import Head from 'next/head';
 import { AuthProvider } from '@/context/AuthContext';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
+
 export default function MyApp({ Component, pageProps }) {
   // 使用自訂在頁面層級的版面(layout)
   // const getLayout = Component.getLayout || ((page) => page);
@@ -51,7 +52,7 @@ export default function MyApp({ Component, pageProps }) {
             />
             <Component {...pageProps} />
           </AuthProvider>
-        </GoogleOAuthProvider>
+        </GoogleOAuthProvider >
       </>
     );
   }

@@ -1,9 +1,10 @@
 //== Parameters ================================================================
 import { apiBaseUrl } from '@/configs';
 //== Functions =================================================================
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import axios from 'axios';
 import tokenDecoder from '@/context/token-decoder';
+import { AuthContext } from '@/context/AuthContext';
 import useAuthRedirect from '@/hooks/useAuthRedirect';
 //== Components ================================================================
 import DefaultLayout from '@/components/layout/default'
@@ -18,17 +19,96 @@ import {
   MdOutlineDiscount
 } from "react-icons/md";
 import { RiSparkling2Line } from "react-icons/ri";
+import FddBtn from '@/components/buttons/fddBtn';
+import useTimeout from '@/hooks/use-setTimeout';
 
 export default function CouponPage() {
-  let uID = 0;
+  //*============================ 初始渲染
+  //===== 驗證登入狀態
+  useAuthRedirect();
+
+  const { user } = useContext(AuthContext);
+
+  //===== 會員 ID
+  //0 | 未登入 ; -1 | 讀取中
+  /** @type {[number, React.Dispatch<number>]} */
+  const [uID, setUID] = useState(-1);
+
+  //===== 獲得登入的會員 ID
+  useEffect(() => {
+    if (user === null) return;
+    const { userId } = user;
+    setUID(userId ? userId : 0);
+  }, [user]);
+
   const [cpPkg, setCpPkg] = useState({
     usableArr: [],
     usedArr: [],
     overdueArr: []
   })
-  const [activeIndex, setActiveIndex] = useState(0);
+
   const [data2show, setData2show] = useState([]);
 
+  //===== 以會員 ID 索取優惠券資料
+  useEffect(() => {
+    if (uID === 0) return;
+
+    const CancalToken = axios.CancelToken;//中止情況用的信號彈
+    const source = CancalToken.source();
+
+    //以下寫法參考 Axios 官方文件
+    axios.get(`${apiBaseUrl}/coupon/${uID}`, { cancelToken: source.token })
+      .then(res => {
+        // 略過將之前被刪除的購物車項目
+        //===== 可以避免購物車在回復刪除階段時，將重複品項救回
+        const dataPkg = res.data.result;
+        const usableArr = dataPkg.usableArr;
+        const usedArr = dataPkg.usedArr;
+        const overdueArr = dataPkg.overdueArr;
+        setCpPkg(
+          {
+            usableArr,
+            usedArr,
+            overdueArr
+          }
+        );
+      })
+      .catch(err => {
+        if (axios.isCancel(err)) {
+          console.log('索取會員優惠券資料之請求已成功取消');
+          return;
+        }
+
+        setCpPkg({
+          usableArr: [],
+          usedArr: [],
+          overdueArr: []
+        });
+        if (err.response) {
+          //status != 2XX
+          console.error(err.response.data.message);
+        } else if (err.request) {
+          // 伺服器沒有回應
+          console.log("伺服器沒有回應，請檢查伺服器狀態");
+        } else {
+          console.log("未知的錯誤情形");
+          console.log(err);
+        }
+      });
+
+    return () => {
+      //取消 API request
+      // 主要在為了在 API 還沒跑完的時間點，使用者就離開頁面的情況
+      // 避免 API 無法正常結束
+      source.cancel("API 請求已被臨時取消");
+    }
+  }, [uID]);
+
+  useEffect(() => {
+    setData2show(cpPkg.usableArr);
+  }, [cpPkg]);
+
+  //*============================顯示切換
   /** ICON */
   const iconList = [
     <RiSparkling2Line />,
@@ -38,6 +118,12 @@ export default function CouponPage() {
     <BsCake2 />,
     <MdOutlineCelebration />,
   ];
+
+  /**
+   * 根據優惠券種類決定圖案
+   * @param {number} cp_id 優惠券系統之 id
+   * @returns {React.Component} React.icons 元件
+   */
   const getIcon = cp_id => {
     switch (cp_id) {
       case 4:
@@ -69,71 +155,7 @@ export default function CouponPage() {
     }
   }
 
-
-  //===== 驗證登入狀態
-  useAuthRedirect();
-  //===== 解讀登入的會員 ID
-  useEffect(() => {
-    const { userId } = tokenDecoder();
-    uID = userId;
-  }, [])
-
-  //===== 以會員 ID 索取優惠券資料
-  useEffect(() => {
-    if (uID === 0) return;
-
-    const CancalToken = axios.CancelToken;//中止情況用的信號彈
-    const source = CancalToken.source();
-
-    //以下寫法參考 Axios 官方文件
-    axios.get(`${apiBaseUrl}/coupon/${uID}`, { cancelToken: source.token })
-      .then(res => {
-        // 略過將之前被刪除的購物車項目
-        //===== 可以避免購物車在回復刪除階段時，將重複品項救回
-        const dataPkg = res.data.result;
-        const usableArr = dataPkg.usableArr;
-        const usedArr = dataPkg.usedArr;
-        const overdueArr = dataPkg.overdueArr;
-        setCpPkg(
-          {
-            usableArr,
-            usedArr,
-            overdueArr
-          }
-        );
-      })
-      .catch(err => {
-        if (axios.isCancel(err)) {
-          console.log('此請求已成功取消');
-          return;
-        }
-
-        console.log("未得到如預期的回應，已啟用備援資料");
-        setCpPkg({
-          usableArr: [],
-          usedArr: [],
-          overdueArr: []
-        });
-        if (err.response) {
-          //status != 2XX
-          console.error(err.response.data.message);
-        } else if (err.request) {
-          // 伺服器沒有回應
-          console.log("伺服器沒有回應，請檢查伺服器狀態");
-        } else {
-          console.log("未知的錯誤情形");
-          console.log(err);
-        }
-      });
-
-    return () => {
-      //取消 API request
-      // 主要在為了在 API 還沒跑完的時間點，使用者就離開頁面的情況
-      // 避免 API 無法正常結束
-      source.cancel("API 請求已被臨時取消");
-    }
-  }, [uID])
-
+  const [activeIndex, setActiveIndex] = useState(0);
 
   //===== 切換顯示資料
   useEffect(() => {
@@ -151,10 +173,48 @@ export default function CouponPage() {
         setData2show(cpPkg.usableArr);
         break;  // 預設顯示可使用的優惠券
     }
-  }, [activeIndex])
+  }, [activeIndex]);
+
+  const cardClass = activeIndex === 0 ? '' : 'card' + activeIndex;
+
+
+  //*============================ 領取優惠券
+
+  const [claimCode, setClaimcode] = useState('');
+  const [claimMsg, setClaimMsg] = useState('');
+
+  // const handleClaimMsg = message => {
+  //   setClaimMsg(message);
+  //   useTimeout(() => setClaimMsg(''), 5000);
+  // };
+
+  const handleClaim = () => {
+    if (claimCode.length === 0) setClaimMsg('請輸入領取碼');
+
+    const pkg = {
+      user_id: uID,
+      cp_code: claimCode
+    }
+    axios.post(`${apiBaseUrl}/coupon/claim`, pkg)
+      .then(res => setClaimMsg(res.data.message))
+      .catch(err => {
+        if (err.response) {
+          //status != 2XX
+          setClaimMsg(err.response.data.message);
+          console.error(err.response.data.message);
+        } else if (err.request) {
+          // 伺服器沒有回應
+          console.log("伺服器沒有回應，請檢查伺服器狀態");
+        } else {
+          console.log("未知的錯誤情形");
+          console.log(err);
+        }
+      });
+  }
+
 
   return (
-    <div className='bg-tint5'>
+    <div className='bg-tint5' onClick={() => setClaimMsg('')}>
       <div className='container'>
         <div className="row">
           <div className="col-12"><span>Home &gt; 會員中心 &gt; 我的優惠券</span></div>
@@ -162,10 +222,18 @@ export default function CouponPage() {
             <div className="row">
               <div className="col-10">
                 <main className='bg-white'>
-                  <div className='hstack'>
-                    <input type="text" placeholder='請輸入優惠碼' />
-                    <div className='bg-primary px-5 py-2'>領取優惠</div>
+                  {/* 領取區域 */}
+                  <div className='hstack p-3'>
+                    <input
+                      type="text"
+                      className={s.claimInput}
+                      placeholder='請輸入優惠碼'
+                      onChange={e => setClaimcode(e.target.value)}
+                    />
+                    <FddBtn color='primary' pill={false} callback={() => handleClaim()}>領取優惠</FddBtn>
+                    <p className='ps-3 tx-error'>{claimMsg}</p>
                   </div>
+                  {/* 分頁按鈕 */}
                   <div className={s.tabBox}>
                     <button
                       className={['', activeIndex === 0 ? s.active : ''].join(' ')}
@@ -186,17 +254,20 @@ export default function CouponPage() {
                       已失效的優惠券 ({cpPkg.overdueArr.length})
                     </button>
                   </div>
+                  {/* 優惠券列表 */}
                   <section>
                     <div className={s.countPanel}>
-                      <h3 className='tx-shade3' style={{ fontSize: '1.25rem' }}>{data2show.length} 張優惠券</h3>
+                      <h3 className='tx-shade3'>
+                        {data2show.length} 張優惠券
+                      </h3>
                     </div>
                     <div className={[s.section].join(' ')}>
                       <div className="row">
                         {data2show.map((data) => (
                           <div key={data.code} className='col-12' style={{ borderBottom: '1px solid #888' }}>
-                            <div className="row py-3">
+                            <div className={["row py-3", activeIndex === 0 ? s.cpRow : ''].join(' ')}>
                               <div className="col-3">
-                                <div className={s.cpCard}>
+                                <div className={[s.cpCard, s[cardClass]].join(' ')}>
                                   {getIcon(data.cp_id)}
                                 </div>
                               </div>

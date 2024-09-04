@@ -4,16 +4,16 @@ import DefaultLayout from '@/components/layout/default';
 import Breadcrumb from '../list/breadcrumb';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
-
 import { useContext } from 'react';
 import { AuthContext } from '@/context/AuthContext';
-
 import { NumberPanel } from '@/components/buttons/NumberPanel';
 import Recommend from './recommend';
 import FavoriteIcon from '../list/favoriteIcon';
 import ProductImages from './productImages';
 import Table from './table';
 import Link from 'next/link';
+import Modal from '@/components/common/modal';
+import ReviewSection from './reviewSection';
 
 export default function Pid() {
   const { user, loading } = useContext(AuthContext);
@@ -42,6 +42,13 @@ export default function Pid() {
   const [selectedPrice, setSelectedPrice] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [maxQuantity, setMaxQuantity] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState({ title: '', message: '' });
+  const [activeTab, setActiveTab] = useState('description');
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+  };
 
   const getProduct = async (id) => {
     const URL = `http://localhost:3005/api/prod/${id}`;
@@ -56,6 +63,32 @@ export default function Pid() {
     }
   };
 
+  const getMaxMinPrice = (priceArr) => {
+    const prices = priceArr.map(price => parseFloat(price)).filter(price => price > 0);
+    if (prices.length === 0) return { maxPrice: 0, minPrice: 0 };
+    const maxPrice = Math.max(...prices);
+    const minPrice = Math.min(...prices);
+    return { maxPrice, minPrice };
+  }
+
+  // 定義一個函數來格式化價格
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat('zh-TW').format(Math.floor(price));
+  }
+
+  // 定義一個函數來獲取價格顯示的文字
+  const getPriceDisplay = (priceArr) => {
+    const { maxPrice, minPrice } = getMaxMinPrice(priceArr);
+    const uniquePrices = [...new Set(priceArr.filter(price => parseFloat(price) > 0))];
+
+    if (uniquePrices.length === 0) {
+      return '價格未提供';
+    } else if (uniquePrices.length === 1) {
+      return `NT$ ${formatPrice(uniquePrices[0])}`;
+    } else {
+      return `NT$ ${formatPrice(minPrice)} - NT$ ${formatPrice(maxPrice)}`;
+    }
+  }
   const initializeSelectionAndPrice = (productData) => {
     if (productData.sortArr.length === 0 && productData.specArr.length === 0) {
       setSelectedPrice(productData.priceArr[0]);
@@ -217,14 +250,20 @@ export default function Pid() {
       const result = await response.json();
 
       if (result.status === "success") {
-        alert('已成功加入購物車');
+        displayModal('成功', '加入購物車成功，請至購物車查看選購的商品。');
+        location.reload()
       } else {
         alert('加入購物車失敗: ' + result.message);
       }
     } catch (error) {
       console.error('加入購物車失敗:', error);
-      alert('加入購物車失敗，請稍後再試');
+      displayModal('錯誤', '加入購物車時發生錯誤，請稍後再試。');
     }
+  };
+
+  const displayModal = (title, message) => {
+    setModalContent({ title, message });
+    setShowModal(true);
   };
   return (
     <>
@@ -250,7 +289,13 @@ export default function Pid() {
             <div className='col-lg-6 col-12'>
               <div className={scss.headerGrid}>
                 <h3 className={scss.header}>{product.name}</h3>
-                <FavoriteIcon className={scss.handleFavIcon} size={24} style={{ color: '#B9A399' }} productId={product.id} />
+                <FavoriteIcon className={scss.handleFavIcon} size={24} style={{ color: '#B9A399' }} productId={product.id} productData={{
+                  id: product.id,
+                  name: product.name,
+                  price: getPriceDisplay(product.priceArr),
+                  image: product.picNameArr[0]
+
+                }} />
               </div>
               <hr className='bg-primary' />
               {product.sortArr.length > 0 && (
@@ -320,17 +365,43 @@ export default function Pid() {
                   >
                     {loading ? '載入中...' : '加入購物車'}
                   </button>
-                  <FavoriteIcon className={scss.mbFavIcon} size={28} style={{ color: '#b9a399' }} />
+
                 </div>
               </div>
             </div>
           </div>
+          <div className={scss.selectBar}>
+            <button
+              className={`${scss.selectBtn} ${activeTab === 'description' ? scss.active : ''}`}
+              onClick={() => handleTabChange('description')}
+            >
+              商品描述
+            </button>
+            <button
+              className={`${scss.selectBtn} ${activeTab === 'reviews' ? scss.active : ''}`}
+              onClick={() => handleTabChange('reviews')}
+            >
+              商品評價
+            </button>
+          </div>
           <div className='mt-5'>
-            <Table product={product} />
+            {activeTab === 'description' ? (
+              <Table product={product} />
+            ) : (
+              <ReviewSection productId={product.id} />
+            )}
           </div>
           <Recommend currentProductId={product.id} currentProductCategory={product.cate_1} />
         </div>
       </main>
+      <Modal
+        mode={1}
+        active={showModal}
+        onClose={() => setShowModal(false)}
+      >
+        <h4>{modalContent.title}</h4>
+        <p>{modalContent.message}</p>
+      </Modal>
     </>
   );
 }

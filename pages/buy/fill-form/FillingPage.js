@@ -16,7 +16,7 @@ export default function FillingPage({
   setBuyInfoPkg = () => { }
 }) {
   const [isBeginning, setIsBeginning] = useState(true);
-  const [payCode, setPayCode] = useState(0);//0 | ECPAY ; 1 | LINEPAY
+  const [payCode, setPayCode] = useState('EC');//EC ; LINE
   const [isCVS, setIsCVS] = useState(false);
   const [cityList, setCityList] = useState([]);
   const [cityID, setCityID] = useState(0);
@@ -349,12 +349,13 @@ export default function FillingPage({
                     <FddBtn
                       color='primary'
                       outline size='sm'
+                      disabled={!prevOrderData}
                       callback={() => autoFill()}
                     >
-                      {prevOrderData ? "使用上次訂購的紀錄" : "訂購的紀錄得下次再次使用"}
+                      {prevOrderData ? "使用上次訂購的紀錄" : "訂購的紀錄可供下次再次使用"}
                     </FddBtn>
                     {/*===================== 儲存訂購資料 ======================= */}
-                    <div>
+                    <div className='ms-3'>
                       <input type="checkbox" name="saveForNext"
                         checked={wannaSave}
                         onChange={() => setWannaSave(!wannaSave)}
@@ -416,9 +417,10 @@ export default function FillingPage({
                         <select
                           name="addr_city"
                           value={autoOrderData ? autoOrderData.addr_city : undefined}
+                          defaultValue={0}
                           onChange={e => handleCityInput(e)}
                         >
-                          <option value={0} selected disabled >- 縣市 -</option>
+                          <option value={0} disabled >- 縣市 -</option>
                           {cityList && cityList.map(city =>
                             <option key={city.id} value={city.id}>{city.name}</option>
                           )}
@@ -427,12 +429,12 @@ export default function FillingPage({
                       <div className="col-6">
                         <select name="addr_code"
                           value={autoOrderData ? autoOrderData.addr_code : 0}
+                          defaultValue={0}
                           onChange={e => handleZipInput(e)}
                         >
-                          <option
-                            selected
-                            disabled
-                          >- {distList.length > 0 ? "請選擇" : "區鄉鎮"} -</option>
+                          <option value={0} disabled>
+                            - {distList.length > 0 ? "請選擇" : "區鄉鎮"} -
+                          </option>
                           {distList.length > 0 && distList.map(district =>
                             <option key={district.zipcode} value={district.zipcode}>{district.name}</option>
                           )}
@@ -463,14 +465,21 @@ export default function FillingPage({
                 </div>
                 {/* ===================== 切換鈕 ======================= */}
                 <div className="col-12 col-lg-8">
-                  <div className="hstack jc-between">
-                    <FddBtn color='white' pill={false} callback={() => goPrevPhase()}>
-                      <FaAngleLeft />回到購物車
+                  <div className="hstack jc-evenly py-5">
+                    <FddBtn
+                      color='primary'
+                      outline pill={false}
+                      size="lg"
+                      className={s.moveBtn}
+                      callback={() => goPrevPhase()}
+                    >
+                      <FaAngleLeft /><span className='ms-1'>回到購物車</span>
                     </FddBtn>
                     <FddBtn
                       color='primary'
                       pill={false}
                       size="lg"
+                      className={s.moveBtn}
                       callback={() => goNextPhase()}
                     >
                       確認送出

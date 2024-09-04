@@ -30,6 +30,7 @@ const nextConfig = {
     includePaths: [path.resolve(__dirname, 'styles')],
     // prepredData: `@import "global.scss;"`,
   },
+  
   // output: 'export', // don't use with `next start` or api route
   // distDir: 'dist',
   // avoid cors with proxy

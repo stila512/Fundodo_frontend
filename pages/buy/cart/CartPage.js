@@ -85,8 +85,6 @@ export default function CartPage({
   //============================================================//
   //=============== useEffect 區
 
-
-
   //===== 以會員 ID 索取購物車資料，建構購物車初始資料
   useEffect(() => {
     if (!userID || userID === 0) return;
@@ -327,7 +325,7 @@ export default function CartPage({
       const copy = JSON.parse(JSON.stringify(prev));
       //*===== 打包優惠券資訊: coupon_user IDs
       copy.coupons = cpState
-        .map((isActive, i_cp) => isActive ? cpList[i_cp].id : null)
+        .map((stateCode, i_cp) => stateCode === 1 ? cpList[i_cp].id : null)
         .filter(v => v);
 
       //*===== 打包購買品項資訊: 訂單所需及 cart IDs
@@ -410,7 +408,6 @@ export default function CartPage({
                       callback={() => handleCpBtn(i_cp)}
                     >
                       <p className='tx-left'>{coupon.name}</p>
-                      <p className='tx-primary' style={{ position: 'absolute', top: '0.5rem', right: '1rem' }}>{coupon.code}</p>
                       <p>{coupon.desc}</p>
                     </FddBtn>
                   ))}

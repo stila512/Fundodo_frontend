@@ -9,6 +9,7 @@ import { AuthContext } from '@/context/AuthContext';
 import Link from 'next/link';
 import Modal from '@/components/common/modal';
 import { FcGoogle } from "react-icons/fc";
+import FddBtn from '@/components/buttons/fddBtn';
 
 export default function LoginPage() {
   // 顯示密碼使用
@@ -48,7 +49,7 @@ export default function LoginPage() {
       .then(response => {
         if (!response.ok) {
           return response.json().then(errorData => {
-            throw new Error(`錯誤 ${response.status}: ${errorData.message}`);
+            throw new Error(`${errorData.message}`);
           });
         }
         return response.json();
@@ -154,7 +155,12 @@ export default function LoginPage() {
                       />隱藏</div>
                   </div></div>
                 <input type={showPassword ? 'text' : 'password'} name="password" required />
-                <p>使用8個或以上的字元, 包含字母數字和符號</p>
+                {/* <p>使用8個或以上的字元, 包含字母數字和符號</p> */}
+                {error && (
+                  <div className={scss.errorMessage}>
+                    {error}
+                  </div>
+                )}
                 <Link href="/member/register">註冊會員</Link>
                 <div className={`mt-5 col-6 ${scss.Googleicon}`}>
                   <GoogleLogin
@@ -166,6 +172,7 @@ export default function LoginPage() {
             </div>
             <div className={scss.area3}>
               <p onClick={openModal}> 忘記密碼?</p>
+              <FddBtn color='info' className={scss.Backend_Btn} pill={false} size='sm' href="/member/login_BackEnd">後台</FddBtn>
             </div>
             <div className={scss.area4}>
               <button className={scss.createBtn} type="submit"

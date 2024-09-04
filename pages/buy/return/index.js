@@ -16,12 +16,10 @@ export default function ReturnPage() {
     CVS: '超商取貨',
     DLV: '宅配到府'
   };
-  const payWayOf = [
-    '綠界線上付款',
-    'LINE PAY'
-  ];
-
-
+  const payWayOf = {
+    EC: '綠界線上付款',
+    LINE: 'LINE PAY'
+  };
 
   /**
      * user ID
@@ -112,7 +110,7 @@ export default function ReturnPage() {
           <div className="col-12 col-lg-7">
             <div className="hstack jc-center gap-5">
               <FddBtn color='primary' pill={false} outline href='/member'>
-                讓我想想
+                前往我的訂單
               </FddBtn>
             </div>
           </div>

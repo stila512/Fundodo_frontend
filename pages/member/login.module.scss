@@ -9,7 +9,7 @@
   width: 1440px;
   height: 100vh;
   display: flex;
-  .point{
+  .point {
     cursor: pointer;
   }
 }
@@ -34,7 +34,7 @@
   }
   .area2 {
     padding-bottom: 32px;
-    .passwordarea{
+    .passwordarea {
       display: flex;
       justify-content: space-between;
     }
@@ -77,12 +77,14 @@
     line-height: normal;
   }
   input {
+    padding: 8px 0px;
+    line-height: 0.5;
     display: flex;
     width: 473px;
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     margin-bottom: 24px;
   }
   .h5 {
@@ -105,6 +107,7 @@
     border-radius: 47.273px;
     background: var(--Primary, #b9a399);
     color: white;
+    border: none;
   }
   .xBtn {
     display: flex;
@@ -132,6 +135,10 @@
   width: 1440px;
   height: 100vh;
   display: flex;
+  .errorMessage{
+    color: #E53835;
+    padding-bottom: 12px;
+  }
 }
 
 .LoginContainer .lfpic {
@@ -154,21 +161,32 @@
   }
   .area2 {
     padding-bottom: 32px;
-    .passwordarea{
+    .passwordarea {
       display: flex;
       justify-content: space-between;
-      .point{
+      .point {
         cursor: pointer;
       }
     }
-    .Googleicon{
+    .Googleicon {
       cursor: pointer;
     }
   }
   .area3 {
+    display: flex;
+    justify-content: row;
+    gap: 50px;
     padding-bottom: 32px;
+    .Backend_Btn {
+      height: 4px;
+      padding-inline: 8px;
+    }
   }
   .area3 p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
     color: var(--shade4, #37312e);
     font-family: 'Noto Sans';
     font-size: 18px;
@@ -186,12 +204,14 @@
     line-height: normal;
   }
   input {
+    padding: 8px 0px;
+    line-height: 0.5;
     display: flex;
     width: 473px;
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     margin-bottom: 24px;
   }
   .h5 {
