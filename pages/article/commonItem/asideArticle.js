@@ -44,11 +44,13 @@ export default function AsideArticle({ article }) {
             alt=""
             layout="fill"
             className={scss.leftArtiImg}
-             />
+          />
         </div>
 
         <div className={[scss.leftArticleTitle].join()}>
-          <a className={[scss.leftTitle].join()} href={`/article/content?aid=${article.id}`}>{article.title}</a>
+          <a className={[scss.leftTitle].join()} href={`/article/content?aid=${article.id}`}>
+            {"【" + article.sort + "】" + article.title.substring(0, 20) + '...'}
+          </a>
           <p className={[scss.leftTime].join()}>{formatDate(article.create_at)}</p>
         </div>
       </div>

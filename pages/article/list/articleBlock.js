@@ -43,7 +43,6 @@ export default function ArticleBlock({ article }) {
           </a>
           <div className={[scss.extract].join()}>
           <div dangerouslySetInnerHTML={{ __html: article.content.substring(0, 20)+'...' }} />
-            {/* {article.content.substring(0, 50)+'...'} */}
           </div>
         </div>
         <div className={[scss.artiInfo].join()}>
@@ -55,7 +54,7 @@ export default function ArticleBlock({ article }) {
             ))}
           </div>
           <div className={[scss.info].join()}>
-            <div className={[scss.infoText].join()}><FaRegEye />120</div>
+            <div className={[scss.infoText].join()}><FaRegEye />{article.view_count}</div>
             <div className={[scss.infoText].join()}><FiMessageSquare />{article.reply_count || 0}</div>
           </div>
         </div>

@@ -26,7 +26,7 @@ export default function ReplyBlock({user, reply }) {
           <div className={[scss.userData].join()}>
             <Image
               className={[scss.userIcon].join()}
-              src="/logo.png"
+              src="/userHead.png"
               alt=""
               width={40}
               height={40}
@@ -44,11 +44,12 @@ export default function ReplyBlock({user, reply }) {
           )}
           </div>
         </div>
+        <hr style={{ width: '100%' }} />
         <div className={scss.mainContent}>
           <div dangerouslySetInnerHTML={{ __html: reply.content }} />
         </div>
-        <hr style={{ width: '100%' }} />
-        <div className={scss.ratingArea}>
+        
+        {/* <div className={scss.ratingArea}>
           <div className={scss.rateBtnArea}>
             <button className={scss.rateBtn}>good</button>
             <span>12</span>
@@ -57,7 +58,7 @@ export default function ReplyBlock({user, reply }) {
             <button className={scss.rateBtn}>bad</button>
             <span>3</span>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   )

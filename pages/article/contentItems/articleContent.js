@@ -53,7 +53,7 @@ export default function ArticleContent({ user, onContentLoad }) {
           <div className={[scss.userData].join()}>
             <Image
               className={[scss.userIcon].join()}
-              src="/logo.png"
+              src="/userHead.png"
               alt=""
               width={40}
               height={40}
@@ -69,7 +69,7 @@ export default function ArticleContent({ user, onContentLoad }) {
             </a>
           )}
         </div>
-        <div className={[scss.articleTitle].join()}>{content.title}</div>
+        <div className={[scss.articleTitle].join()}>{"【"+content.sort+"】"+content.title}</div>
         <div className={[scss.mainContent].join()}>
           <div dangerouslySetInnerHTML={{ __html: content.content }} />
         </div>
