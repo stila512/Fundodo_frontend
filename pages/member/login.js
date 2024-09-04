@@ -10,7 +10,7 @@ import Link from 'next/link';
 import Modal from '@/components/common/modal';
 import { FcGoogle } from "react-icons/fc";
 import FddBtn from '@/components/buttons/fddBtn';
-
+import { IoMdHome } from "react-icons/io";
 export default function LoginPage() {
   // 顯示密碼使用
   const [showPassword, setShowPassword] = useState(false);
@@ -172,12 +172,14 @@ export default function LoginPage() {
             </div>
             <div className={scss.area3}>
               <p onClick={openModal}> 忘記密碼?</p>
-              <FddBtn color='info' className={scss.Backend_Btn} pill={false} size='sm' href="/member/login_BackEnd">後台</FddBtn>
+              <Link href="/member/login_BackEnd"><div className={scss.Backend_Btn}>後台</div></Link>
+              {/* <FddBtn color='info' className={scss.Backend_Btn} pill={false} size='sm' href="/member/login_BackEnd">後台</FddBtn> */}
             </div>
             <div className={scss.area4}>
               <button className={scss.createBtn} type="submit"
                 disabled={loading}>{loading ? '登入中...' : '登入'}</button>
             </div>
+            <Link href="/home"><div className={scss.xBtn}><IoMdHome /></div></Link>
           </form>
         </div>
       </div>
