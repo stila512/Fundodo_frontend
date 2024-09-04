@@ -2,9 +2,8 @@
 import { apiBaseUrl } from '@/configs';
 //== Functions =================================================================
 import { useState, useEffect, useContext } from 'react';
-import { AuthProvider, AuthContext } from '@/context/AuthContext';
+import { AuthContext } from '@/context/AuthContext';
 import axios from 'axios';
-import tokenDecoder from '@/context/token-decoder';
 import FddBtn from '../buttons/fddBtn';
 //== Styles =================================================================
 import scss from './navFunc.module.scss';
