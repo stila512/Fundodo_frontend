@@ -17,7 +17,7 @@ export default function Home() {
       <ProdSec />
       <CourseSec />
       <HotelSec />
-      <ArticleSec/>
+      <ArticleSec />
     </>
   );
 }
