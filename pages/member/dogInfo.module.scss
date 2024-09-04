@@ -254,7 +254,7 @@
       background: var(--tint4, #eae3e0);
       .toparea {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
         flex: 1 0 0;
         align-self: stretch;
@@ -266,6 +266,17 @@
           display: flex;
           align-items: center;
           justify-content: center;
+          .tips {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: #5d524d; /* Adjust color if needed */
+            font-size: 12px;
+            text-align: center;
+          }
         }
       }
       .textarea {
@@ -289,10 +300,10 @@
 
           .genderRadio {
             display: flex;
+            flex-direction: row;
             width: 205px;
             height: 32px;
-            padding: 5px 71px 5px 0px;
-            align-items: flex-start;
+            align-items: center;
             gap: 34px;
             input[type='radio'] {
               display: none;
@@ -537,7 +548,7 @@
 .dogInfoDataContainer {
   display: flex;
   flex-direction: row;
-
+  
   .midarea {
     display: flex;
     margin-top: 60px;
@@ -555,11 +566,11 @@
     .tags {
       display: flex;
       flex-direction: row;
-      gap: 50px;
+      gap: 30px;
       .tagGroup {
         display: flex;
         flex-direction: row;
-        gap: 6px;
+        gap: 5px;
       }
       .tag1 {
         display: inline-flex;
@@ -673,7 +684,7 @@
           color: var(--shade1, #b9a399);
           font-feature-settings: 'liga' off, 'clig' off;
           font-family: 'Noto Sans';
-          font-size: 22px;
+          font-size: 28px;
           font-style: normal;
           font-weight: 600;
           line-height: 36px;
@@ -692,7 +703,7 @@
         font-family: 'Noto Sans';
         font-style: normal;
         font-weight: 400;
-        font-size: 12px;
+        font-size: 16px;
         line-height: 18px;
         .rightA1 {
           display: flex;
@@ -708,7 +719,7 @@
           .a0 {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 30px;
             .textgroup {
               gap: 30px;
               display: flex;

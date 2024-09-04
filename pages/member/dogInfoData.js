@@ -323,9 +323,9 @@ export default function DogInfoData() {
           </div>
           <div className={`${scss.a0} col-6`}>
             <div className={`${scss.textgroup}`}>
-              <div className={`col-2`}>性別<br /><p>{dog.gender === 1 ? '公' : '母'}</p></div>
+              <div className={`col-3`}>性別<br /><p>{dog.gender === 1 ? '公' : '母'}</p></div>
               <div className={`col-6`}>生日<br /><p>{formatDate(dog.dob)}</p></div>
-              <div className={`col-6`}>體重<br /><p>{dog.weight}kg</p></div>
+              <div className={`col-5`}>體重<br /><p>{dog.weight}kg</p></div>
               {/* <div className={`col-4`}>犬型<br /><p>{getBodyTypeDescription(dog.bodytype)}</p></div> */}
             </div>
             <div>
@@ -391,9 +391,6 @@ export default function DogInfoData() {
                 <div className={`${scss.tags}`}>
                   <div className={`${scss.tagGroup}`}>
                     <div className={`${scss.tag1}`}>狗狗的資料</div>
-                    <div onClick={addDog} className={`${scss.tag2}`}>新增狗狗</div>
-                  </div>
-                  <div className={`${scss.tagGroup}`}>
                     {dogData.map((dog, index) => (
                       <div
                         key={index}
@@ -403,6 +400,7 @@ export default function DogInfoData() {
                         {dog.name || `狗狗${index + 1}`}
                       </div>
                     ))}
+                    <div onClick={addDog} className={`${scss.tag2}`}>新增狗狗</div>
                   </div>
                 </div>
                 {dogData.length > 0 && renderDogInfo(dogData[selectedDogIndex])}
