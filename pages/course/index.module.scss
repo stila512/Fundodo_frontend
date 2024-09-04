@@ -1,5 +1,11 @@
 @import '@/styles';
 
+.sort{
+  
+}
+
+
+
 .pagination {
   padding: 16px 0;
   @include rwd-above(sm) {
@@ -30,3 +36,8 @@
     }
   }
 }
+
+@media (max-width: 767px) {
+  .desktop-only {
+    display: none;
+  }}

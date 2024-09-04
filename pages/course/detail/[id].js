@@ -10,6 +10,8 @@ import CrsContent from './crsContent';
 import FAQ from './FAQ';
 import Tags from './tags';
 import AddCart from './addCart';
+import Breadcrumb from '../breadCrumb';
+
 
 export default function CourseDetail() {
   const router = useRouter();
@@ -57,6 +59,10 @@ export default function CourseDetail() {
       <div className='container'>
         <div className={["row", scss.wrapper].join(" ")}>
           <div className="col-12">
+          <div className="my-4">
+          <Breadcrumb/>
+          </div>
+          
             <DetailBanner
               title={course.title}
               img_path={course.img_path}
@@ -89,7 +95,7 @@ export default function CourseDetail() {
                 img_path={course.img_path}
               />
             </div>
-            <div id='faq'>
+            <div id='faq' className="pt-6">
               <FAQ />
             </div>
             <Tags tags={course.tags} linkMode={true} />
