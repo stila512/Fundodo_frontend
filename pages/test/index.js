@@ -6,9 +6,9 @@ import scss from './test.module.scss';
 import { DiApple } from 'react-icons/di';
 import { PiNumberSquareSevenBold } from "react-icons/pi";
 import { IconContext } from 'react-icons';
-import Modal from '@/components/common/modal';
 import { useShip711StoreOpener } from '@/hooks/use-ship711';
 import { apiBaseUrl } from '@/configs/index.js';
+// import Loading from '@/components/common/loading';
 
 export default function TestPage() {
   const { store711, openWindow, closeWindow } = useShip711StoreOpener(
@@ -20,6 +20,7 @@ export default function TestPage() {
       <Head>
         <title>測試用頁面</title>
       </Head>
+      {/* <Loading /> */}
       <div className="container">
         <div className="row jc-center">
           <div className="col-12 col-lg-6">
