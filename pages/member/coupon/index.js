@@ -3,12 +3,12 @@ import { apiBaseUrl } from '@/configs';
 //== Functions =================================================================
 import { useEffect, useState, useContext } from 'react'
 import axios from 'axios';
-import tokenDecoder from '@/context/token-decoder';
 import { AuthContext } from '@/context/AuthContext';
 import useAuthRedirect from '@/hooks/useAuthRedirect';
 //== Components ================================================================
 import DefaultLayout from '@/components/layout/default'
 import SideText from '@/components/member/SideText';
+import Head from 'next/head';
 //== Styles =================================================================
 import s from './coupon.module.scss';
 import { BsCake2 } from "react-icons/bs";
@@ -45,7 +45,7 @@ export default function CouponPage() {
     usableArr: [],
     usedArr: [],
     overdueArr: []
-  })
+  });
 
   const [data2show, setData2show] = useState([]);
 
@@ -59,8 +59,6 @@ export default function CouponPage() {
     //以下寫法參考 Axios 官方文件
     axios.get(`${apiBaseUrl}/coupon/${uID}`, { cancelToken: source.token })
       .then(res => {
-        // 略過將之前被刪除的購物車項目
-        //===== 可以避免購物車在回復刪除階段時，將重複品項救回
         const dataPkg = res.data.result;
         const usableArr = dataPkg.usableArr;
         const usedArr = dataPkg.usedArr;
@@ -214,84 +212,87 @@ export default function CouponPage() {
 
 
   return (
-    <div className='bg-tint5' onClick={() => setClaimMsg('')}>
-      <div className='container'>
-        <div className="row">
-          <div className="col-12"><span>Home &gt; 會員中心 &gt; 我的優惠券</span></div>
-          <div className="col-12">
-            <div className="row">
-              <div className="col-10">
-                <main className='bg-white'>
-                  {/* 領取區域 */}
-                  <div className='hstack p-3'>
-                    <input
-                      type="text"
-                      className={s.claimInput}
-                      placeholder='請輸入優惠碼'
-                      onChange={e => setClaimcode(e.target.value)}
-                    />
-                    <FddBtn color='primary' pill={false} callback={() => handleClaim()}>領取優惠</FddBtn>
-                    <p className='ps-3 tx-error'>{claimMsg}</p>
-                  </div>
-                  {/* 分頁按鈕 */}
-                  <div className={s.tabBox}>
-                    <button
-                      className={['', activeIndex === 0 ? s.active : ''].join(' ')}
-                      onClick={() => setActiveIndex(0)}
-                    >
-                      可使用的優惠券 ({cpPkg.usableArr.length})
-                    </button>
-                    <button
-                      className={['', activeIndex === 1 ? s.active : ''].join(' ')}
-                      onClick={() => setActiveIndex(1)}
-                    >
-                      已使用的優惠券 ({cpPkg.usedArr.length})
-                    </button>
-                    <button
-                      className={['', activeIndex === 2 ? s.active : ''].join(' ')}
-                      onClick={() => setActiveIndex(2)}
-                    >
-                      已失效的優惠券 ({cpPkg.overdueArr.length})
-                    </button>
-                  </div>
-                  {/* 優惠券列表 */}
-                  <section>
-                    <div className={s.countPanel}>
-                      <h3 className='tx-shade3'>
-                        {data2show.length} 張優惠券
-                      </h3>
+    <>
+      <Head><title>我的優惠券 | Fundodo</title></Head>
+      <div className='bg-tint5' onClick={() => setClaimMsg('')}>
+        <div className='container'>
+          <div className="row">
+            <div className="col-12"><span>Home &gt; 會員中心 &gt; 我的優惠券</span></div>
+            <div className="col-12">
+              <div className="row">
+                <div className="col-10">
+                  <main className='bg-white'>
+                    {/* 領取區域 */}
+                    <div className='hstack p-3'>
+                      <input
+                        type="text"
+                        className={s.claimInput}
+                        placeholder='請輸入優惠碼'
+                        onChange={e => setClaimcode(e.target.value)}
+                      />
+                      <FddBtn color='primary' pill={false} callback={() => handleClaim()}>領取優惠</FddBtn>
+                      <p className='ps-3 tx-error'>{claimMsg}</p>
                     </div>
-                    <div className={[s.section].join(' ')}>
-                      <div className="row">
-                        {data2show.map((data) => (
-                          <div key={data.code} className='col-12' style={{ borderBottom: '1px solid #888' }}>
-                            <div className={["row py-3", activeIndex === 0 ? s.cpRow : ''].join(' ')}>
-                              <div className="col-3">
-                                <div className={[s.cpCard, s[cardClass]].join(' ')}>
-                                  {getIcon(data.cp_id)}
+                    {/* 分頁按鈕 */}
+                    <div className={s.tabBox}>
+                      <button
+                        className={['', activeIndex === 0 ? s.active : ''].join(' ')}
+                        onClick={() => setActiveIndex(0)}
+                      >
+                        可使用的優惠券 ({cpPkg.usableArr.length})
+                      </button>
+                      <button
+                        className={['', activeIndex === 1 ? s.active : ''].join(' ')}
+                        onClick={() => setActiveIndex(1)}
+                      >
+                        已使用的優惠券 ({cpPkg.usedArr.length})
+                      </button>
+                      <button
+                        className={['', activeIndex === 2 ? s.active : ''].join(' ')}
+                        onClick={() => setActiveIndex(2)}
+                      >
+                        已失效的優惠券 ({cpPkg.overdueArr.length})
+                      </button>
+                    </div>
+                    {/* 優惠券列表 */}
+                    <section>
+                      <div className={s.countPanel}>
+                        <h3 className='tx-shade3'>
+                          {data2show.length} 張優惠券
+                        </h3>
+                      </div>
+                      <div className={[s.section].join(' ')}>
+                        <div className="row">
+                          {data2show.map((data) => (
+                            <div key={data.code} className='col-12' style={{ borderBottom: '1px solid #888' }}>
+                              <div className={["row py-3", activeIndex === 0 ? s.cpRow : ''].join(' ')}>
+                                <div className="col-3">
+                                  <div className={[s.cpCard, s[cardClass]].join(' ')}>
+                                    {getIcon(data.cp_id)}
+                                  </div>
+                                </div>
+                                <div className="col-9">
+                                  <p className='tx-lg'>{data.name}</p>
+                                  <p>適用情形: {data.desc}</p>
+                                  <p>有效期限: {data.expired_at} 以前</p>
                                 </div>
                               </div>
-                              <div className="col-9">
-                                <p className='tx-lg'>{data.name}</p>
-                                <p>適用情形: {data.desc}</p>
-                                <p>有效期限: {data.expired_at} 以前</p>
-                              </div>
                             </div>
-                          </div>
-                        ))}
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  </section>
-                </main>
-              </div>
-              <div className="col-2">
-                <SideText activeIndex={5} />
+                    </section>
+                  </main>
+                </div>
+                <div className="col-2">
+                  <SideText activeIndex={5} />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
