@@ -74,78 +74,108 @@
       background-color: c.$tint4;
     }
   }
-  //================= secondary =================//
-  #{$elem}.btn-secondary {
-    color: c.$shade4;
+}
+//================= secondary =================//
+@each $elem in (a, button) {
+  @each $type in ('', '-icon', '-brick', '-brick-icon') {
+    #{$elem}.btn-secondary {
+      color: c.$shade4;
 
-    &:hover {
-      background-color: shift-color(c.$secondary, 5%);
+      &:hover {
+        background-color: shift-color(c.$secondary, 5%);
+      }
+      &:active {
+        background-color: shift-color(c.$secondary, 10%);
+      }
     }
-    &:active {
-      background-color: shift-color(c.$secondary, 10%);
-    }
-  }
-  #{$elem}.btn-secondary-2 {
-    color: c.$shade3;
-    border: 2px solid c.$shade3;
+    #{$elem}.btn-secondary-2 {
+      color: c.$shade3;
+      border: 2px solid c.$shade3;
 
-    transition: top 0.4s;
-    //extra
-    position: relative;
-    overflow: hidden;
+      transition: top 0.4s;
+      //extra
+      position: relative;
+      overflow: hidden;
 
-    &::before {
-      content: '';
-      position: absolute;
-      display: block;
-      // height: 50px;
-      left: 0;
-      right: 0;
-      // top: 100%;
-      top: 0;
-      bottom: 0;
-      background-color: c.$shade3;
-      transition: transform 0.15s ease-in-out;
-      transform: translateY(100%);
+      &::before {
+        content: '';
+        position: absolute;
+        display: block;
+        // height: 50px;
+        left: 0;
+        right: 0;
+        // top: 100%;
+        top: 0;
+        bottom: 0;
+        background-color: c.$shade3;
+        transition: transform 0.15s ease-in-out;
+        transform: translateY(100%);
+      }
+
+      &:hover::before {
+        // top: 50%;
+        transform: translateY(70%);
+        // background-color: c.$tint4;
+        // box-shadow: inset 0 0 8px c.$shade3, inset 0 0 16px c.$shade1;
+        // box-shadow: inset 0 -1rem 0 c.$shade3;
+      }
+      &:active {
+        background-color: c.$shade3;
+      }
+    }
+    #{$elem}.btn-secondary-icon {
+      color: c.$shade2;
+    }
+    #{$elem}.btn-secondary-icon {
+      background-color: c.$tint5;
+      color: c.$shade2;
+      border: 2px solid c.$shade2;
+    }
+  }
+}
+//================= error =================//
+@each $elem in (a, button) {
+  @each $type in ('', '-icon', '-brick', '-brick-icon') {
+    #{$elem}.btn-error#{$type} {
+      color: c.$white;
     }
 
-    &:hover::before {
-      // top: 50%;
-      transform: translateY(70%);
-      // background-color: c.$tint4;
-      // box-shadow: inset 0 0 8px c.$shade3, inset 0 0 16px c.$shade1;
-      // box-shadow: inset 0 -1rem 0 c.$shade3;
-    }
-    &:active {
-      background-color: c.$shade3;
-    }
-  }
-  #{$elem}.btn-secondary-icon {
-    color: c.$shade2;
-  }
-  #{$elem}.btn-secondary-icon {
-    background-color: c.$tint5;
-    color: c.$shade2;
-    border: 2px solid c.$shade2;
-  }
-  //================= error =================//
-  #{$elem}.btn-error {
-    color: c.$white;
-  }
-  #{$elem}.btn-error-2,
-  #{$elem}.btn-error-brick-2 {
-    &:hover {
-      background-color: f.shift-color(c.$error, -80%);
+    #{$elem}.btn-error#{$type}-2 {
+      &:hover {
+        background-color: f.shift-color(c.$error, -80%);
+      }
+      &:active {
+        color: c.$white;
+        background-color: f.shift-color(c.$error, -50%);
+      }
     }
   }
-  //================= info =================//
-  #{$elem}.btn-info-2 {
-    color: c.$info-text;
-    &:hover {
-      background-color: c.$tint4;
+}
+//================= info =================//
+@each $elem in (a, button) {
+  @each $type in ('', '-icon', '-brick', '-brick-icon') {
+    #{$elem}.btn-info#{$type}-2 {
+      color: c.$info-text;
+      &:hover {
+        background-color: f.shift-color(c.$info, -80%);
+      }
+      &:active {
+        background-color: f.shift-color(c.$info, -50%);
+      }
     }
-    &:active {
-      background-color: f.shift-color(c.$info, -50%);
+  }
+}
+//================= warning =================//
+@each $elem in (a, button) {
+  @each $type in ('', '-icon', '-brick', '-brick-icon') {
+    #{$elem}.btn-warning#{$type}-2 {
+      color: f.shift-color(c.$warning, 40%);
+      &:hover {
+        background-color: f.shift-color(c.$warning, -80%);
+      }
+      &:active {
+        background-color: f.shift-color(c.$warning, -50%);
+      }
     }
   }
 }
