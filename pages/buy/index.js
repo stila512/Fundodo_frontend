@@ -1,5 +1,3 @@
-//== Parameters =============================================================
-import { apiBaseUrl } from '@/configs';
 //== Functions ==============================================================
 import { useState, useEffect } from 'react';
 import useAuthRedirect from '@/hooks/useAuthRedirect';
