@@ -60,13 +60,12 @@ export default function FavoriteProd() {
 
   return (
     <>
-
       <body className={'bg-secondary'}>
         <div className="col-12 d-lg-none">
           <SideText2 layoutType={0} />
         </div>
         <main className={['container row', scss.pd].join(' ')}>
-          <div className={[scss.bg, 'col-lg-9 col-xl-'].join(' ')}>
+          <div className={[scss.bg, 'col-lg-9 row'].join(' ')}>
             {favoriteProducts.length === 0 ? (
               <div className={scss.content}>您還沒有收藏任何商品。</div>
             ) : (
@@ -102,7 +101,7 @@ export default function FavoriteProd() {
               ))
             )}
           </div>
-          <div className={['col-lg-3', scss.sideTextGrid].join(' ')}>
+          <div className='col-lg-3 d-none d-lg-block'>
             <SideText activeIndex={4} />
           </div>
         </main>

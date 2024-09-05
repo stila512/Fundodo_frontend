@@ -1,8 +1,6 @@
 @use '@/styles' as s;
 
-.mt {
-  margin-top: 163px;
-}
+
 .section {
   border-radius: 41px;
   background-image: url(/prodPic/Rectangle647.png);
@@ -11,9 +9,12 @@
   justify-content: space-around;
 }
 
-.pt3 {
+.pet {
   padding-top: 5.6rem;
-}
-.dogFood {
+	font-size: 56px;
+	font-family: "Zen Maru Gothic";
+	font-weight: 700;
+	line-height: 66px;
   color: s.$shade2;
 }
+

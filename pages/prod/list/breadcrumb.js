@@ -30,7 +30,7 @@ const Breadcrumb = () => {
   });
 
   return (
-    <div className='d-block'>
+    <div className='d-md-block d-none'>
       <nav aria-label="breadcrumb">
         <ol className={`${scss.ul} d-flex`}>
           <li>
