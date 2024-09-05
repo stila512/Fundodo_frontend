@@ -4,7 +4,7 @@ import Filter from './filter';
 import PriceFilter from './priceFilter';
 import { FaFilterCircleXmark } from "react-icons/fa6";
 
-export default function Aside({ onFilterChange, className }) {
+export default function Aside({ onFilterChange, className, filters }) {
   const [filterOptions, setFilterOptions] = useState({
     categories: {},
     categoryBrands: {},
@@ -68,7 +68,7 @@ export default function Aside({ onFilterChange, className }) {
     });
   }, [onFilterChange, filterOptions.priceRange]);
 
-  const showAgeFilter = ['飼料', '罐頭', '保健'].includes(selectedCategory);
+  const showAgeFilter = ['飼料', '罐頭', '保健'].includes(filters.category);
 
   return (
     <aside className={[scss.rwd, className].join(' ')}>
