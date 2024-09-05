@@ -8,95 +8,121 @@
 //以下按顏色分類
 //================= white =================//
 @each $elem in (a, button) {
-  #{$elem}.btn-white,
-  #{$elem}.btn-white-icon {
-    color: c.$black;
-    border-color: transparent;
+  @each $type in ('', '-icon', '-brick', '-brick-icon') {
+    #{$elem}.btn-white#{$type} {
+      color: c.$black;
+      border-color: transparent;
 
-    &:hover {
-      background-color: c.$tint5;
+      &:hover {
+        background-color: c.$tint5;
+      }
+      &:active {
+        background-color: c.$tint4;
+      }
     }
-    &:active {
-      background-color: c.$tint4;
-    }
-  }
-  #{$elem}.btn-white-2,
-  #{$elem}.btn-white-icon-2 {
-    color: c.$white;
-    background-color: transparent;
+    //TODO: 底下衝突版本，待合併
+    // #{$elem}.btn-white#{$type} {
+    //   &:hover {
+    //     color: c.$shade1;
+    //   }
+    //   &:active {
+    //     color: c.$primary;
+    //   }
+    // }
 
-    &:hover {
-      background-color: c.$tint2;
-    }
-    &:active {
-      background-color: c.$tint1;
-    }
-  }
-  #{$elem}.btn-white-brick,
-  #{$elem}.btn-white-brick-icon {
-    &:hover {
-      color: c.$shade1;
-    }
-    &:active {
-      color: c.$primary;
+    #{$elem}.btn-white#{$type}-2 {
+      color: c.$white;
+      background-color: transparent;
+
+      &:hover {
+        background-color: c.$tint2;
+      }
+      &:active {
+        background-color: c.$tint1;
+      }
     }
   }
 }
 //================= black =================//
-a.btn-black,
-button.btn-black,
-a.btn-black-icon,
-button.btn-black-icon {
-  color: c.$white;
-  border-color: transparent;
+@each $elem in (a, button) {
+  @each $type in ('', '-icon', '-brick', '-brick-icon') {
+    #{$elem}.btn-black#{$type} {
+      color: c.$white;
+      border-color: transparent;
 
-  &:hover {
-    background-color: c.$shade4;
-  }
-  &:active {
-    background-color: c.$shade3;
+      &:hover {
+        background-color: c.$shade4;
+      }
+      &:active {
+        background-color: c.$shade3;
+      }
+    }
+
+    #{$elem}.btn-black#{$type}-2 {
+      color: c.$black;
+      background-color: transparent;
+
+      &:hover {
+        background-color: c.$tint5;
+      }
+      &:active {
+        background-color: c.$tint4;
+      }
+    }
   }
 }
-a.btn-black-2,
-button.btn-black-2,
-a.btn-black-icon-2,
-button.btn-black-icon-2 {
-  color: c.$black;
-  background-color: transparent;
+// a.btn-black,
+// button.btn-black,
+// a.btn-black-icon,
+// button.btn-black-icon {
+//   color: c.$white;
+//   border-color: transparent;
 
-  &:hover {
-    background-color: c.$tint5;
-  }
-  &:active {
-    background-color: c.$tint4;
-  }
-}
+//   &:hover {
+//     background-color: c.$shade4;
+//   }
+//   &:active {
+//     background-color: c.$shade3;
+//   }
+// }
+// a.btn-black-2,
+// button.btn-black-2,
+// a.btn-black-icon-2,
+// button.btn-black-icon-2 {
+//   color: c.$black;
+//   background-color: transparent;
+
+//   &:hover {
+//     background-color: c.$tint5;
+//   }
+//   &:active {
+//     background-color: c.$tint4;
+//   }
+// }
 
 //================= heading =================//
 @each $elem in (a, button) {
-  #{$elem}.btn-heading,
-  #{$elem}.btn-heading-brick,
-  #{$elem}.btn-heading-icon {
-    color: c.$tint4;
-    border-color: transparent;
+  @each $type in ('', '-icon', '-brick', '-brick-icon') {
+    #{$elem}.btn-heading#{$type} {
+      color: c.$tint4;
+      border-color: transparent;
 
-    &:hover {
-      background-color: c.$shade4;
+      &:hover {
+        background-color: c.$shade4;
+      }
+      &:active {
+        background-color: c.$shade5;
+      }
     }
-    &:active {
-      background-color: c.$shade5;
-    }
-  }
-  #{$elem}.btn-heading-2,
-  #{$elem}.btn-heading-brick-2,
-  #{$elem}.btn-heading-icon-2 {
-    background-color: transparent;
+    #{$elem}.btn-heading#{$type}-2 {
+      background-color: transparent;
 
-    &:hover {
-      background-color: c.$tint5;
-    }
-    &:active {
-      background-color: c.$tint2;
+      &:hover {
+        background-color: c.$tint5;
+      }
+      &:active {
+        background-color: c.$tint2;
+      }
     }
   }
 }

@@ -1,0 +1,76 @@
+@import '@/styles';
+
+$border-style: 5px solid $shade2;
+
+.selectBtn {
+  flex-direction: column;
+  border-radius: 1rem;
+
+  p {
+    line-height: 2.5;
+  }
+}
+
+.shipwayArrow {
+  $l: 4rem;
+  width: $l;
+  height: $l;
+  font-size: $l;
+  color: $shade2;
+
+  transform: rotate(180deg);
+
+  @include rwd-above('md') {
+    transform: rotate(90deg);
+  }
+}
+
+.shopInputBox {
+  border: $border-style;
+  border-radius: 8px;
+
+  @include rwd-above('md') {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem 1.5rem;
+  }
+
+  label {
+    padding-left: 4px;
+  }
+
+  input {
+    margin-top: 0.75rem;
+    font-size: 1.5rem;
+    @include rwd-above('md') {
+      display: block;
+      // width: 20rem;
+    }
+  }
+}
+//================================================================
+
+.form {
+  padding-block: 1rem;
+  border: $border-style;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  @include rwd-above('md') {
+    min-height: 75vh;
+  }
+  & > div {
+    width: 100%;
+  }
+
+  div:has(> label) {
+    text-align: right;
+  }
+  div:has(> input),
+  div:has(> textarea) {
+    text-align: left;
+  }
+}

@@ -11,40 +11,37 @@
 $tint-names: ('tint1', 'tint2', 'tint3', 'tint4', 'tint5');
 
 @each $elem in (a, button) {
-  @each $name in $tint-names {
-    #{$elem}.btn-#{$name}-2,
-    #{$elem}.btn-#{$name}-icon-2 {
-      // color: c.$tint5;
-      background-color: transparent;
-    }
-  }
-
-  #{$elem}.btn-tint1,
-  #{$elem}.btn-tint1-icon {
-    color: c.$white;
-  }
-
-  @each $name in ('tint3', 'tint4', 'tint5') {
-    #{$elem}.btn-#{$name},
-    #{$elem}.btn-#{$name}-2,
-    #{$elem}.btn-#{$name}-icon,
-    #{$elem}.btn-#{$name}-icon-2 {
-      color: c.$shade3;
-
-      &:hover {
-        border-color: c.$tint1;
-        color: c.$tint1;
-      }
-      &:active {
-        border-color: c.$shade1;
-        color: c.$shade1;
+  @each $type in ('', '-icon', '-brick', '-brick-icon') {
+    @each $name in $tint-names {
+      #{$elem}.btn-#{$name}#{$type}-2 {
+        // color: c.$tint5;
+        background-color: transparent;
       }
     }
-  }
 
-  #{$elem}.btn-tint4,
-  #{$elem}.btn-tint4-icon {
-    color: c.$primary;
+    #{$elem}.btn-tint1#{$type} {
+      color: c.$white;
+    }
+
+    @each $name in ('tint3', 'tint4', 'tint5') {
+      #{$elem}.btn-#{$name}#{$type},
+      #{$elem}.btn-#{$name}#{$type}-2 {
+        color: c.$shade3;
+
+        &:hover {
+          border-color: c.$tint1;
+          color: c.$tint1;
+        }
+        &:active {
+          border-color: c.$shade1;
+          color: c.$shade1;
+        }
+      }
+    }
+
+    #{$elem}.btn-tint4#{$type} {
+      color: c.$primary;
+    }
   }
 }
 
@@ -52,32 +49,63 @@ $tint-names: ('tint1', 'tint2', 'tint3', 'tint4', 'tint5');
 $shade-names: ('shade1', 'shade2', 'shade3', 'shade4', 'shade5');
 
 @each $elem in (a, button) {
-  @each $name in $shade-names {
-    #{$elem}.btn-#{$name},
-    #{$elem}.btn-#{$name}-icon {
-      color: c.$tint5;
-      border-color: transparent;
+  @each $type in ('', '-icon', '-brick', '-brick-icon') {
+    @each $name in $shade-names {
+      #{$elem}.btn-#{$name}#{$type} {
+        color: c.$tint5;
+        border-color: transparent;
+      }
+
+      #{$elem}.btn-shade3#{$type} {
+        &:hover {
+          background-color: c.$shade2;
+        }
+        &:active {
+          background-color: c.$shade4;
+        }
+      }
+
+      #{$elem}.btn-shade4#{$type} {
+        &:hover {
+          background-color: c.$shade5;
+        }
+        &:active {
+          background-color: c.$black;
+        }
+      }
+
+      #{$elem}.btn-shade4#{$type}-2 {
+        &:hover {
+          background-color: c.$tint1;
+        }
+        &:active {
+          background-color: c.$primary;
+        }
+      }
     }
   }
 
-  #{$elem}.btn-shade4,
-  #{$elem}.btn-shade4-icon {
-    &:hover {
-      background-color: c.$shade5;
-    }
-    &:active {
-      background-color: c.$black;
-    }
-  }
+  // #{$elem}.btn-shade4,
+  // #{$elem}.btn-shade4-icon,
+  // #{$elem}.btn-shade4-brick,
+  // #{$elem}.btn-shade4-brick-icon {
+  //   &:hover {
+  //     background-color: c.$shade5;
+  //   }
+  //   &:active {
+  //     background-color: c.$black;
+  //   }
+  // }
 
-  #{$elem}.btn-shade4-2,
-  #{$elem}.btn-shade4-brick-2,
-  #{$elem}.btn-shade4-icon-2 {
-    &:hover {
-      background-color: c.$tint1;
-    }
-    &:active {
-      background-color: c.$primary;
-    }
-  }
+  // #{$elem}.btn-shade4-2,
+  // #{$elem}.btn-shade4-icon-2,
+  // #{$elem}.btn-shade4-brick-2,
+  // #{$elem}.btn-shade4-brick-icon-2 {
+  //   &:hover {
+  //     background-color: c.$tint1;
+  //   }
+  //   &:active {
+  //     background-color: c.$primary;
+  //   }
+  // }
 }

@@ -1,13 +1,17 @@
 // function
-import { useEffect } from 'react';
+//== Parameters ================================================================
+import { breakpoints } from '@/configs';
+//== Functions =================================================================
+import { useState, useEffect } from 'react';
 import deleteCartOf from './doSoftDelete';
-// component
+import useScreenWidth from '@/hooks/useScreenWidth';
+//== Components ================================================================
 import Image from 'next/image';
 import FddBtn from '@/components/buttons/fddBtn';
-// styles
+//== Styles =================================================================
+import s from './cart-page.module.scss';
 import { TbTrashX } from "react-icons/tb";
 import { RxCross2 } from "react-icons/rx";
-import s from './cart-page.module.scss';
 
 //* 不可更改
 const i_cart = 2;
@@ -20,6 +24,14 @@ export default function CrsCartTable({
 }) {
   const noData = (!data || data.length === 0
     || itemStateArr.filter(v => v).length === 0);
+
+  //for RWD
+  const screenWidth = useScreenWidth();
+  const [w__screen, setW__screen] = useState(1920);
+
+  useEffect(() => {
+    setW__screen(screenWidth);
+  }, [screenWidth]);
 
   useEffect(() => {
     if (data) {
@@ -43,57 +55,91 @@ export default function CrsCartTable({
 
   return (
     <>
-      <table className={s.cartTable}>
-        <caption className='tx-default tx-shade4 tx-left'>
-          共 {itemStateArr.filter(v => v).length} 堂課程
-        </caption>
-        <thead>
-          <tr>
-            <th><TbTrashX /></th>
-            <th></th>
-            <th>課程資訊</th>
-            <th style={{ width: '9rem' }}>方案價</th>
-            <th style={{ width: '9rem' }}>小計</th>
-          </tr>
-        </thead>
-        <tbody className='tx-body'>
-          {noData || data.map((item, i_item) => (
-            <tr key={item.cart_id}>
-              <td>
-                <FddBtn color='tint4' size='sm' icon callback={() => handleDelete(i_item, item.key)}>
-                  <RxCross2 />
-                </FddBtn>
-              </td>
-              <td>
-                <div className="img-wrap-w100">
-                  <Image
-                    src={"/pic-course/" + item.pic_name}
-                    width={0}
-                    height={0}
-                    alt={item.prod_name}
-                  />
-                </div>
-              </td>
-              <td>
-                <p>{item.prod_name}</p>
-              </td>
-              <td>
-                <div className="mx-auto pe-1 tx-right w-fit">
-                  ${item.price}
-                </div>
-              </td>
-              <td>
-                <div className="mx-auto pe-1 tx-right w-fit">
-                  ${item.price}
-                </div></td>
+      {w__screen >= breakpoints.md ? (
+        <table className={s.cartTable}>
+          <caption className='tx-default tx-shade4 tx-left'>
+            共 {itemStateArr.filter(v => v).length} 堂課程
+          </caption>
+          <thead>
+            <tr>
+              <th><TbTrashX /></th>
+              <th></th>
+              <th>課程資訊</th>
+              <th style={{ width: '9rem' }}>方案價</th>
+              <th style={{ width: '9rem' }}>小計</th>
             </tr>
-          ))
-          }
-          {noData && <tr><td colSpan={7}>
-            <FddBtn color='tint1' size='sm' href='/course'>來去逛逛寵物課程</FddBtn>
-          </td></tr>}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className='tx-body'>
+            {noData || data.map((item, i_item) => (
+              <tr key={item.cart_id}>
+                <td>
+                  <FddBtn color='tint4' size='sm' icon callback={() => handleDelete(i_item, item.key)}>
+                    <RxCross2 />
+                  </FddBtn>
+                </td>
+                <td>
+                  <div className="img-wrap-w100">
+                    <Image
+                      src={"/pic-course/" + item.pic_name}
+                      width={0}
+                      height={0}
+                      alt={item.prod_name}
+                    />
+                  </div>
+                </td>
+                <td>
+                  <p>{item.prod_name}</p>
+                </td>
+                <td>
+                  <div className="mx-auto pe-1 tx-right w-fit">
+                    ${item.price.toLocaleString()}
+                  </div>
+                </td>
+                <td>
+                  <div className="mx-auto pe-1 tx-right w-fit">
+                    ${item.price}
+                  </div></td>
+              </tr>
+            ))
+            }
+            {noData && <tr><td colSpan={7}>
+              <FddBtn color='tint1' size='sm' href='/course'>來去逛逛寵物課程</FddBtn>
+            </td></tr>}
+          </tbody>
+        </table>) : (<>
+          <div className="container mt-5">
+            <div className="row jc-between bg-shade2 p-2">
+              <h3 className='col-auto tx-white tx-center'>購物車 - 課程</h3>
+              <p className='col-auto tx-tint4'>
+                共 {itemStateArr.filter(v => v).length} 堂課程
+              </p>
+            </div>
+            {noData || data.map((item, i_item) => itemStateArr[i_item] && (
+              <div className={["row", s.cartRowMb].join(' ')}>
+                <div className="col-4 gr-center">
+                  <div className="img-wrap-w100">
+                    <Image
+                      src={"/pic-course/" + item.pic_name}
+                      width={0}
+                      height={0}
+                      alt={item.prod_name}
+                    />
+                  </div>
+                </div>
+                <div className={["col-8 py-3", s.cartTableMb].join(' ')}>
+                  <p>{item.prod_name}</p>
+                  <p>
+                    ${item.price.toLocaleString()}
+                  </p>
+                </div>
+              </div>
+            ))}
+            {noData &&
+              <div className='row'>
+                <FddBtn color='tint1' size='sm' href='/prod'>來去逛逛寵物商城</FddBtn>
+              </div>}
+          </div>
+        </>)}
     </>
   )
 }
