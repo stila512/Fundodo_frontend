@@ -33,7 +33,7 @@ export default function NavFuncBtns({ showCart = true }) {
   }, [user]);
   //===== 以會員 ID 索取購物車資料
   useEffect(() => {
-    if (uID === 0) return;
+    if (uID <= 0) return;
 
     const CancalToken = axios.CancelToken;//中止情況用的信號彈
     const source = CancalToken.source();
