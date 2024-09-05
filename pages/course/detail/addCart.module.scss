@@ -1,6 +1,8 @@
 @import '@/styles';
 
 $headerHeight: 70px;
+$transitionDuration: 0.3s;
+$buttonWidth: 48%; 
 
 .stickyWrapper {
   position: relative;
@@ -29,75 +31,104 @@ $headerHeight: 70px;
 }
 
 .price {
-  @include rwd-above(sm) {
-    padding-bottom: 43px;
-  }
   display: flex;
   align-items: center;
   padding-bottom: 6px;
   border-bottom: 1px solid $tint3;
+  
   h2 {
-    @include rwd-above(sm) {
-      font-size: 36px;
-    }
     font-size: 18px;
     color: $shade3;
     font-style: normal;
     font-weight: 700;
     line-height: 46px;
     margin-right: 20px;
-  }
-  p {
+
     @include rwd-above(sm) {
-      font-size: 20px;
+      font-size: 36px;
     }
+  }
+
+  p {
     font-weight: 700;
     font-size: 14px;
     text-decoration-line: line-through;
     color: $body;
-  }
-}
 
-.coupon {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  p {
-    color: $shade4;
-    font-size: 12px;
     @include rwd-above(sm) {
-      font-size: 18px;
+      font-size: 20px;
     }
-    font-style: normal;
-    font-weight: 400;
-    line-height: 30px;
+  }
+
+  @include rwd-above(sm) {
+    padding-bottom: 43px;
   }
 }
 
 .btns {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   gap: 12px;
 
   button {
     display: flex;
-    width: 301px;
     height: 46px;
-    padding: 18px 24px;
+    padding: 0 24px;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    &:nth-child(1) {
-      background: $primary;
+    transition: all $transitionDuration ease-in-out;
+    border-radius: 5px;
+    font-weight: bold;
+    width: $buttonWidth;
+  }
+
+  .purchaseBtn {
+    background: $primary;
+    color: $gray-800;
+
+    &:hover {
+      background: darken($primary, 10%);
+    }
+  }
+
+  .cartBtn {
+    border: 1px solid $shade3;
+    background: #fff;
+    overflow: hidden;
+    white-space: nowrap;
+
+    svg {
+      transition: all $transitionDuration ease-in-out;
     }
 
-    &:nth-child(2) {
-      border: 1px solid $shade3;
-      background: #fff;
+    span {
+      margin-left: 8px;
     }
-    &:hover {
-      background: $secondary;
+
+    @include rwd-below(sm) {
+      span {
+        display: inline;
+      }
+    }
+
+    @include rwd-above(sm) {
+      span {
+        display: none;
+      }
+
+      &:hover {
+        background: $secondary;
+
+        span {
+          display: inline;
+        }
+
+        svg {
+          transform: scale(0.8);
+        }
+      }
     }
   }
 }
