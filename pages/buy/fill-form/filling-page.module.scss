@@ -17,6 +17,13 @@
     display: none;
   }
 }
+.topPanel .shipwayH3 {
+  text-align: center;
+  @include rwd-above('lg') {
+    margin-bottom: 2rem;
+    text-align: left;
+  }
+}
 .tempBtn {
   min-width: 15rem;
 }
