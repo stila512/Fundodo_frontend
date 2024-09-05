@@ -9,15 +9,15 @@ import GoTop from '@/components/common/goTop';
  * @description 請以此元件包住頁面內容
  */
 export default function DefaultLayout({ children }) {
-  // })
+  // todo: implement dynamic marginTop of header by useRef
   return (
     <>
+      <NavHeader />
       <Suspense fallback={<Loading />}>
-        <NavHeader />
         <div style={{ marginTop: '80px' }}>{children}</div>
-        <GoTop />
-        <Footer />
       </Suspense>
+      <GoTop />
+      <Footer />
     </>
   );
 }
