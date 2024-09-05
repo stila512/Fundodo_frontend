@@ -46,6 +46,8 @@ export default function FillingPage({
     address: '',/* 收件地址 */
     ship_ps: '',/* 配送備註 */
   };
+
+  /** 全改為 undefined 以避免多餘的自動填入 */
   const bufferOrderDate = {
     addressee: undefined,
     email: undefined,
@@ -193,7 +195,7 @@ export default function FillingPage({
     }
   }, []);
 
-  //更新這次的填寫紀錄
+  //將這次的填寫紀錄存進資料庫
   const saveFormData = () => {
     const {
       addressee,
@@ -238,11 +240,6 @@ export default function FillingPage({
     setAutoOrderData(bufferOrderDate);
   }
 
-  const handleBeginingBtn = bool => {
-    if (isBeginning) setIsBeginning(false);
-    setIsCVS(bool);
-  }
-
   const handleCityInput = e => {
     //需要特地轉 number 是因為 input 元素回傳都會變成字串
     setCityID(Number(e.target.value));
@@ -257,7 +254,9 @@ export default function FillingPage({
   }
 
   const autoFill = () => {
+    // just in case
     if (!prevOrderData) return;
+
     //先用以觸發「區鄉鎮」的搜尋
     setCityID(prevOrderData.addr_city);
     //觸發畫面上填入
@@ -266,6 +265,11 @@ export default function FillingPage({
     setOrderData(prevOrderData);
   }
 
+  //*==================== 模式切換
+  const handleBeginingBtn = bool => {
+    if (isBeginning) setIsBeginning(false);
+    setIsCVS(bool);
+  }
 
   //*==================== 711 分店選擇
   const { store711, openWindow, closeWindow } = useShip711StoreOpener(
@@ -287,6 +291,7 @@ export default function FillingPage({
 
       if (distName.charAt(0) === '（') distName = '';
 
+      // 有需要額外處理的才另外給值，其餘則直接給下一階段
       return {
         ...prev,
         orderInfo: {
