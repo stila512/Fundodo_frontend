@@ -50,11 +50,14 @@
 
   padding: s.rem(12px) s.rem(60px);
   font-size: 1.125rem;
+  font-weight: 700;
   &.btn-sm {
     font-size: 1rem;
+    font-weight: 500;
   }
   &.btn-lg {
     font-size: 1.25rem;
+    // font-weight: 700;
   }
 }
 //*====== 圓形按鈕

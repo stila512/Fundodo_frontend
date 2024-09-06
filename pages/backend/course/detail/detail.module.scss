@@ -79,6 +79,7 @@
   }
   
   .summary {
+    white-space: pre-wrap;
     font-size: 16px;
     color: #666;
     margin-bottom: 15px;
@@ -117,6 +118,7 @@
     }
   
     p {
+      white-space: pre-wrap;
       font-size: 16px;
       line-height: 1.6;
       margin-bottom: 10px;
@@ -147,10 +149,20 @@
     padding: 10px 0;
     border-bottom: 1px solid #eee;
 
-    &:last-child {
-      border-bottom: none;
+    span {
+        flex: 1; 
+        text-align: left; 
     }
-  }
+
+    .filename {
+        flex: 0 0 200px; 
+        text-align: right; 
+    }
+
+    &:last-child {
+        border-bottom: none;
+    }
+}
 }
 
 .filename {
@@ -165,7 +177,6 @@
 }
 
 .courseDetail {
-  // ... 現有的樣式 ...
 
   .outlineImages {
       display: flex;

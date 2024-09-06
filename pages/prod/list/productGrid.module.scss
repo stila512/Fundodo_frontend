@@ -56,6 +56,14 @@
     color: s.$secondary !important;
   }
 }
+.pet {
+  padding-top: 5.6rem;
+  font-size: 40px;
+  font-family: 'Zen Maru Gothic';
+  font-weight: 700;
+  line-height: 66px;
+  color: s.$shade2;
+}
 .activePage {
   font-weight: bold;
   color: s.$black !important;

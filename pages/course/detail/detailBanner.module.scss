@@ -1,11 +1,11 @@
 @import '@/styles';
 
 .banner {
- margin: 0;
   @include rwd-above(sm) {
     padding: 45px 0;
+    height: 518px;
   }
-
+  height: 347px;
   display: flex;
   flex-wrap: wrap;
   background: $tint1;
@@ -14,8 +14,11 @@
 }
 
 .crsPic {
+  @include rwd-above(sm) {
+    height: 427px;
+  }
   width: 100%;
-  height: auto;
+  height:221px;
   object-fit: cover;
 }
 
@@ -39,7 +42,6 @@
     width: 371px;
     height: 20px;
     text-wrap: wrap;
-    
   }
 }
 
@@ -60,13 +62,12 @@
 .tags {
   display: flex;
   gap: 10px;
-  justify-content:flex-start;
+  justify-content: flex-start;
   align-items: center;
-  .tag{
+  .tag {
     display: inline-block;
     background-color: $tint5;
     padding: 0 5px;
-    
   }
   p {
     font-style: normal;

@@ -4,15 +4,8 @@ import ProductGrid from './productGrid';
 import TagFilter from './tagFilter';
 import scss from './productPage.module.scss';
 
-function ProductPage({ sortBy, searchTerm }) {
-  const [filters, setFilters] = useState({
-    category: '',
-    subcategory: '',
-    brand: '',
-    minPrice: '',
-    maxPrice: '',
-    tag: ''
-  });
+function ProductPage({ sortBy, searchTerm, filters, onFilterChange }) {
+  
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -20,6 +13,7 @@ function ProductPage({ sortBy, searchTerm }) {
 
   const fetchProducts = useCallback(async (currentFilters, currentSortBy, currentPage, currentSearchTerm) => {
     try {
+      console.log('Fetching products with:', { currentFilters, currentSortBy, currentPage, currentSearchTerm });
       const queryParams = new URLSearchParams({
         ...currentFilters,
         sortBy: currentSortBy,
@@ -49,44 +43,41 @@ function ProductPage({ sortBy, searchTerm }) {
       console.error('Error fetching tags:', error);
     }
   }, []);
-
-  useEffect(() => {
-    fetchProducts(filters, sortBy, page, searchTerm);
-  }, [filters, sortBy, page, searchTerm, fetchProducts]);
-
+  
   useEffect(() => {
     fetchTags();
   }, [fetchTags]);
 
-
-  const handleFilterChange = useCallback((newFilters) => {
-    setFilters(prevFilters => ({
-      ...prevFilters,
-      ...newFilters
-    }));
+  useEffect(() => {
     setPage(1);
-  }, []);
+    fetchProducts(filters, sortBy, 1, searchTerm);
+  }, [filters, sortBy, searchTerm, fetchProducts]);
+
+  useEffect(() => {
+    fetchProducts(filters, sortBy, page, searchTerm);
+  }, [page, filters, sortBy, searchTerm, fetchProducts]);
 
   const handlePageChange = useCallback((newPage) => {
     setPage(newPage);
   }, []);
 
   const handleTagChange = useCallback((tag) => {
-    console.log('Tag changed:', tag);
-    setFilters(prevFilters => ({
-      ...prevFilters,
-      tag: prevFilters.tag === tag ? '' : tag
-    }));
-    setPage(1);
-  }, []);
-
-  console.log('ProductPage rendering. Current page:', page);
+    onFilterChange({ tag });
+  }, [onFilterChange]);
 
   return (
     <div className={["row", scss.jcb].join(' ')}>
-      <Aside className={'col-3'} onFilterChange={handleFilterChange} />
+      <Aside 
+        className={'col-3'} 
+        filters={filters}
+        onFilterChange={onFilterChange}
+      />
       <div className="col-lg-9">
-        <TagFilter tags={tags} selectedTag={filters.tag} onTagChange={handleTagChange}/>
+        <TagFilter 
+          tags={tags} 
+          selectedTag={filters.tag} 
+          onTagChange={handleTagChange}
+        />
         <ProductGrid
           products={products}
           page={page}
@@ -96,6 +87,7 @@ function ProductPage({ sortBy, searchTerm }) {
       </div>
     </div>
   );
+
 }
 
 export default ProductPage;

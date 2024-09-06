@@ -8,7 +8,7 @@ export default function Sort({sortBy, setSortBy}) {
   return (
     <>
       <div className={scss.sort}>
-        <div>排序依據: </div>
+       
         <select value={sortBy} onChange={e=>setSortBy(e.target.value)} >
           <option value="newest">最新上架 </option>
           <option value="mostViewed">最多觀看人數</option>

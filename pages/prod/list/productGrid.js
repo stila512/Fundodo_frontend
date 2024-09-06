@@ -3,6 +3,7 @@ import scss from './productGrid.module.scss'
 import Image from 'next/image'
 import FavoriteIcon from './favoriteIcon'
 import Link from 'next/link'
+import doggy from '/public/prodPic/44f50e13786c6d6f2a1be1fff7eab1c2.png';
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 export default function ProductGrid({ products, className, page, totalPages, onPageChange }) {
@@ -78,13 +79,11 @@ export default function ProductGrid({ products, className, page, totalPages, onP
       clearTimeout(debounceTimerRef.current);
     }
     debounceTimerRef.current = setTimeout(() => {
-      console.log('Debounced page change:', newPage);
       onPageChange(newPage);
     }, 300); // 300ms 延遲
   }, [onPageChange]);
 
   const handlePageChange = (newPage) => {
-    console.log('ProductGrid: Attempting to change page to:', newPage);
     if (newPage >= 1 && newPage <= totalPages && newPage !== page) {
       debouncedPageChange(newPage);
     }
@@ -159,8 +158,9 @@ export default function ProductGrid({ products, className, page, totalPages, onP
           </div>
         ))
       ) : (
-        <div className="col-12 text-center">
-          <p>沒有找到符合條件的商品</p>
+        <div className="d-flex flex-col ai-center">
+          <div className={scss.pet}>找不到QAQ</div>
+          <Image src={doggy} />
         </div>
       )}
       {totalPages > 1 && (

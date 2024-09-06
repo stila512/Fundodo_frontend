@@ -198,61 +198,61 @@ export default function ConfirmPage({
         <title>確認付款 | Fundodo</title>
       </Head>
       <div className="container pt-5">
-        <div className={["row jc-center", s.row].join(' ')}>
-          <div className="col-12 col-lg-7">
-            <table className={s.table}>
-              <thead>
-                <tr className='bg-tint5'>
-                  <th className='py-3'>付款與寄送資訊</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className='p-3'>
+        <div className="row jc-center">
+          <div className="col-8 col-lg-12">
+            <div className={["row jc-center", s.row].join(' ')}>
+              <div className="col-12 col-lg-7">
+                <div className={['row', s.tableRow].join(' ')}>
+                  <div className='col-12 bg-tint5'>
+                    <h4 className='py-3 tx-center'>付款與寄送資訊</h4>
+                  </div>
+                </div>
+                <div className={['row', s.tableRow, , s.tableRow2].join(' ')}>
+                  <div className='col-12 py-3 px-5'>
                     <p>親愛的 {username}</p>
-                    <p>為確保您的權益，請您再次確認以下的訂單資訊是否正確。</p>
+                    <p>為確保您的權益，請您再次確認<br className='d-lg-none' />以下的訂單資訊是否正確。</p>
                     <p>訂單總金額： {orderInfo.amount} 元</p>
                     <p>訂購日期： {today}</p>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div className="col-12 col-lg-7">
-            <table className={s.table}>
-              <thead>
-                <tr className='bg-tint5'>
-                  <th className='py-3'>付款與寄送資訊</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <div className="d-flex flex-c flex-lg-r w-100">
-                    <div className='p-3 flex-grow-1'>
-                      <p>付款方式：線上付款</p>
-                      <p>配送方式：{shipWayOf[orderInfo.ship_thru]}</p>
-                    </div>
-                    <div className='p-3 flex-grow-1'>
-                      <p>收件人：{orderInfo.addressee}</p>
-                      <p>聯絡電話：{orderInfo.phone_num}</p>
-                      <p>電子信箱：{orderInfo.email}</p>
-                      <p>收件郵遞區號：{orderInfo.ship_zipcode}</p>
-                      <p>收件完整地址：{orderInfo.ship_address}</p>
-                      <p>收件備註：{orderInfo.ship_ps}</p>
-                    </div>
                   </div>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div className="col-12 col-lg-7">
-            <div className="hstack jc-center gap-5">
-              <FddBtn color='primary' pill={false} outline callback={() => setBuyPhase(2)}>
-                編輯資料
-              </FddBtn>
-              <FddBtn color={ECPAY_PKG ? 'primary' : 'muted'} pill={false} disabled={!ECPAY_PKG} callback={() => checkout()}>
-                {ECPAY_PKG ? (isLoading ? "送出中..." : "前往付款") : "請稍後"}
-              </FddBtn>
+                </div>
+              </div>
+              <div className="col-12 col-lg-7">
+                <div className={['row', s.tableRow].join(' ')}>
+                  <div className='col-12 bg-tint5'>
+                    <h4 className='py-3 tx-center'>付款與寄送資訊</h4>
+                  </div>
+                </div>
+                <div className={['row', s.tableRow, , s.tableRow2].join(' ')}>
+                  <div className='col-12 col-lg-4 py-3 px-5'>
+                    <p>付款方式：線上付款</p>
+                    <p>配送方式：{shipWayOf[orderInfo.ship_thru]}</p>
+                  </div>
+                  <div className='col-12 col-lg-8 py-3 px-5'>
+                    <p>收件人：{orderInfo.addressee}</p>
+                    <p>聯絡電話：{orderInfo.phone_num}</p>
+                    <p>電子信箱：{orderInfo.email}</p>
+                    <p>收件郵遞區號：{orderInfo.ship_zipcode}</p>
+                    <p>收件完整地址：{orderInfo.ship_address}</p>
+                    <p>收件備註：{orderInfo.ship_ps}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-12 col-lg-7">
+                <div className="hstack jc-center gap-5">
+                  <FddBtn
+                    color='primary' pill={false}
+                    style={{ paddingInline: 0, width: '100%' }}
+                    outline callback={() => setBuyPhase(2)}>
+                    編輯資料
+                  </FddBtn>
+                  <FddBtn
+                    color={ECPAY_PKG ? 'primary' : 'muted'} pill={false}
+                    style={{ paddingInline: 0, width: '100%' }}
+                    disabled={!ECPAY_PKG} callback={() => checkout()}>
+                    {ECPAY_PKG ? (isLoading ? "送出中..." : "前往付款") : "請稍後"}
+                  </FddBtn>
+                </div>
+              </div>
             </div>
           </div>
         </div>

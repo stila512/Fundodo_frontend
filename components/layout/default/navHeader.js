@@ -2,12 +2,12 @@
 import { breakpoints } from '@/configs';
 //== Functions =================================================================
 import { useEffect, useState } from 'react';
+import useScreenWidth from '@/hooks/useScreenWidth';
 //== Components ================================================================
 import Logo from '@/components/common/logo';
 import NavFuncBtns from '../NavFuncBtns';
 import NavLinks from '../NavLinks';
 //== Styles =================================================================
-import useScreenWidth from '@/hooks/useScreenWidth';
 import scss from '../navHeader.module.scss';
 import NavToggleBtn from '../NavToggleBtn';
 

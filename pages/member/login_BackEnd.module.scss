@@ -30,7 +30,6 @@
     padding-bottom: 32px;
   }
   .area2 {
-    
     padding-bottom: 48px;
     .passwordarea {
       display: flex;
@@ -43,7 +42,13 @@
   .area3 {
     padding-bottom: 32px;
     .Backend_Btn {
-      padding-inline: 12px;
+      color: var(--shade4, #37312e);
+      font-family: 'Noto Sans';
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      text-decoration-line: underline;
     }
   }
   .area3 p {
@@ -115,6 +120,6 @@
     right: 50px;
   }
 }
-.errorMessage{
-  color: #E53835;
+.errorMessage {
+  color: #e53835;
 }

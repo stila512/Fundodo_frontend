@@ -38,7 +38,7 @@ export default function ReplyBlock({user, reply }) {
           </div>
           <div>          
           {canEdit() && (
-            <a href={`/article`}>
+            <a href={`/article/editReply?rid=${reply.id}`}>
               <BsThreeDotsVertical />
             </a>
           )}
@@ -48,17 +48,6 @@ export default function ReplyBlock({user, reply }) {
         <div className={scss.mainContent}>
           <div dangerouslySetInnerHTML={{ __html: reply.content }} />
         </div>
-        
-        {/* <div className={scss.ratingArea}>
-          <div className={scss.rateBtnArea}>
-            <button className={scss.rateBtn}>good</button>
-            <span>12</span>
-          </div>
-          <div className={scss.rateBtnArea}>
-            <button className={scss.rateBtn}>bad</button>
-            <span>3</span>
-          </div>
-        </div> */}
       </div>
     </>
   )

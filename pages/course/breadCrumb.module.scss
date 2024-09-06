@@ -1,0 +1,49 @@
+@import '@/styles';
+
+.breadcrumb {
+  display: block;
+  text-align: center;
+  padding: 10px 0;
+  margin: 10px 0;
+
+  ol {
+    
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  li {
+  text-decoration: none;
+    list-style: none;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    color: $shade2;
+    display: flex;
+    align-items: center;
+    a {
+      color: $body;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    &:last-child {
+      span {
+        color: $shade3;
+      }
+    }
+  }
+  .arrow {
+    margin: 0 5px;
+    color: $body;
+    font-size:  18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+  }
+}

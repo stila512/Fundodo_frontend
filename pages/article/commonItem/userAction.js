@@ -16,10 +16,13 @@ export default function UserAction({ onOrderByChange, currentOrderBy }) {
                 <div>
                     <h4>home/討論區</h4>
                 </div>
+                <div>
+                    <a className={[scss.rwdCreate].join()} href='/article/createArticle'>發表新文章</a>
+                </div>
                 <div className={[scss.dflex].join()}>
                     <select
                         className={[scss.listSelect].join()}
-                        value={currentOrderBy} 
+                        value={currentOrderBy}
                         onChange={handleOrderByChange}
                     >
                         <option value="1">最新文章 </option>
@@ -36,6 +39,7 @@ export default function UserAction({ onOrderByChange, currentOrderBy }) {
                     </div>
 
                 </div>
+
             </div>
         </>
     )

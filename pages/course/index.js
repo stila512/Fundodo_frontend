@@ -6,8 +6,9 @@ import Banner from './banner';
 import Sort from './sort';
 import Tags from './tags';
 import scss from './index.module.scss';
-import Breadcrumb from '../prod/list/breadcrumb';
+import Breadcrumb from './breadCrumb';
 import CourseGrid from './courseGrid';
+import MobileFilterSort from './mobile';
 
 export default function Course() {
   const router = useRouter();
@@ -44,7 +45,7 @@ export default function Course() {
         .then(result => setTags([{ id: 0, name: '全部分類' }, ...result.data]))
         .catch(err => console.log(err));
     }
-  }, [currentPage, coursesPerPage, selectedTag, sortBy,isMobile]);
+  }, [currentPage, coursesPerPage, selectedTag, sortBy, isMobile]);
 
   useEffect(() => {
     // 檢查 URL 中是否有 tag 參數
@@ -89,18 +90,18 @@ export default function Course() {
 
     return (
       <div className={scss.pagination}>
-      <ul>
-      {pageNumbers.map(number => (
-          <li
-            key={number}
-            className={number === currentPage ? scss.activePage : ''}
-          >
-          <a href="#" onClick={() => handlePageChange(number)}>
-          {number}
-          </a>
-          </li>
-        ))}
-      </ul>
+        <ul>
+          {pageNumbers.map(number => (
+            <li
+              key={number}
+              className={number === currentPage ? scss.activePage : ''}
+            >
+              <a href="#" onClick={() => handlePageChange(number)}>
+                {number}
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     );
   };
@@ -109,29 +110,38 @@ export default function Course() {
 
   return (
     <>
-      <Head>
+     <Head>
         <title>課程列表 | Fundodo</title>
       </Head>
       <div className="container">
         <Banner />
-        <div className='d-flex jc-between ai-center'>
-          <p>Home 狗狗課程</p>
-          <div className="d-flex ai-center">
-            <Sort sortBy={sortBy} setSortBy={handleSortChange} />
-          </div>
-        </div>
-        <Tags
-          selectedTag={selectedTag}
-          setSelectedTag={handleTagChange}
-          tags={tags} />
-        <CourseGrid courses={displayedCourses} isMobile={isMobile}/>
-
+        {isMobile ? (
+          <MobileFilterSort
+            selectedTag={selectedTag}
+            setSelectedTag={handleTagChange}
+            tags={tags}
+            sortBy={sortBy}
+            setSortBy={handleSortChange}
+          />
+        ) : (
+          <>
+            <div className='d-flex jc-between ai-center'>
+              <Breadcrumb />
+              <div className={scss.sort}>  <Sort sortBy={sortBy} setSortBy={handleSortChange} /></div>
+             
+            </div>
+            <Tags
+              selectedTag={selectedTag}
+              setSelectedTag={handleTagChange}
+              tags={tags}
+            />
+          </>
+        )}
+        <CourseGrid courses={displayedCourses} isMobile={isMobile} />
         <div className={scss.pagination}>
           {renderPagination()}
         </div>
       </div>
-
-
     </>
   )
 }

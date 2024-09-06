@@ -4,12 +4,9 @@
   margin-bottom: rem(58px);
 }
 
-.table {
-  width: 100%;
-  border-collapse: collapse;
-
-  &,
-  th {
-    border: 1px solid $shade2;
-  }
+.tableRow {
+  border: 1px solid $shade2;
+}
+.tableRow {
+  margin-top: -1px;
 }

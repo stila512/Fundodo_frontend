@@ -1,9 +1,15 @@
-import { useEffect } from 'react';
+//== Parameters ================================================================
+import { breakpoints } from '@/configs';
+//== Functions =================================================================
+import { useState, useEffect } from 'react';
+import useScreenWidth from '@/hooks/useScreenWidth';
+//== Components ================================================================
 import FddBtn from '@/components/buttons/fddBtn';
 import Image from 'next/image';
+//== Styles =================================================================
+import s from './cart-page.module.scss';
 import { TbTrashX } from "react-icons/tb";
 import { RxCross2 } from "react-icons/rx";
-import s from './cart-page.module.scss';
 
 //todo 旅館類刪除要加確認 modal
 
@@ -23,6 +29,14 @@ export default function HotelCartTable({
 }) {
   const noData = (!data || data.length === 0
     || itemStateArr.filter(v => v).length === 0);
+
+  //for RWD
+  const screenWidth = useScreenWidth();
+  const [w__screen, setW__screen] = useState(1920);
+
+  useEffect(() => {
+    setW__screen(screenWidth);
+  }, [screenWidth]);
 
   useEffect(() => {
     if (data) {
@@ -46,60 +60,98 @@ export default function HotelCartTable({
 
   return (
     <>
-      <table className={s.cartTable}>
-        <caption className='tx-default tx-shade4 tx-left'>
-          共 {itemStateArr.filter(v => v).length} 筆訂房
-        </caption>
-        <thead>
-          <tr>
-            <th><TbTrashX /></th>
-            <th></th>
-            <th>入住資訊</th>
-            <th>房型</th>
-            <th style={{ width: '9rem' }}>小計</th>
-          </tr>
-        </thead>
-        <tbody className='tx-body'>
-          {noData || data.map((item, i_item) => (
-            <tr key={item.cart_id}>
-              <td>
-                <FddBtn color='tint4' size='sm' icon callback={() => handleDelete(i_item, item.key)}>
-                  <RxCross2 />
-                </FddBtn>
-              </td>
-              <td>
-                <Image
-                  src={"/hotelPic/pic/" + item.pic_name}
-                  width={100}
-                  height={100}
-                  alt={item.prod_name}
-                />
-              </td>
-              <td>
-                <p>{item.prod_name}</p>
-                <p>{date2str(item.check_in_date) + '—' + date2str(item.check_out_date)}</p>
-              </td>
-              <td>
-                <p>
-                  <span>{item.room_type}（{item.dog_name}）</span>
-                  <br className="d-lg-none" />
-                  <span className="d-none d-lg-inline">{' '}</span>
-                  <span>1 間</span>
-                </p>
-
-              </td>
-              <td>
-                <div className="mx-auto pe-1 tx-right w-fit">
-                  ${item.amount}
-                </div></td>
+      {w__screen >= breakpoints.md ? (
+        <table className={s.cartTable}>
+          <caption className='tx-default tx-shade4 tx-left'>
+            共 {itemStateArr.filter(v => v).length} 筆訂房
+          </caption>
+          <thead>
+            <tr>
+              <th><TbTrashX /></th>
+              <th></th>
+              <th>入住資訊</th>
+              <th>房型</th>
+              <th style={{ width: '9rem' }}>小計</th>
             </tr>
-          ))
-          }
-          {noData && <tr><td colSpan={6}>
-            <FddBtn color='tint1' size='sm' href='/hotel/list'>來去逛逛寵物旅館</FddBtn>
-          </td></tr>}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className='tx-body'>
+            {noData || data.map((item, i_item) => (
+              <tr key={item.cart_id}>
+                <td>
+                  <FddBtn color='tint4' size='sm' icon callback={() => handleDelete(i_item, item.key)}>
+                    <RxCross2 />
+                  </FddBtn>
+                </td>
+                <td>
+                  <Image
+                    src={"/hotelPic/pic/" + item.pic_name}
+                    width={100}
+                    height={100}
+                    alt={item.prod_name}
+                  />
+                </td>
+                <td>
+                  <p>{item.prod_name}</p>
+                  <p>{date2str(item.check_in_date) + '—' + date2str(item.check_out_date)}</p>
+                </td>
+                <td>
+                  <p>
+                    <span>{item.room_type}{item.dog_name ? `（${item.dog_name}）` : ''}</span>
+                    <br className="d-lg-none" />
+                    <span className="d-none d-lg-inline">{' '}</span>
+                    <span>1 間</span>
+                  </p>
+
+                </td>
+                <td>
+                  <div className="mx-auto pe-1 tx-right w-fit">
+                    ${item.amount.toLocaleString()}
+                  </div></td>
+              </tr>
+            ))
+            }
+            {noData && <tr><td colSpan={6}>
+              <FddBtn color='tint1' size='sm' href='/hotel/list'>來去逛逛寵物旅館</FddBtn>
+            </td></tr>}
+          </tbody>
+        </table>) : (<>
+          <div className="container">
+            <div className="row jc-between bg-shade2 p-2">
+              <h3 className='col-auto tx-white tx-center'>購物車 - 寵物旅館</h3>
+              <p className='col-auto tx-tint4'>
+                共 {itemStateArr.filter(v => v).length} 筆訂房
+              </p>
+            </div>
+            {noData || data.map((item, i_item) => itemStateArr[i_item] && (
+              <div className={["row", s.cartRowMb].join(' ')}>
+                <div className="col-4 gr-center">
+                  <div className="img-wrap-h100" style={{ height: 100 }}>
+                    <Image
+                      src={"/hotelPic/pic/" + item.pic_name}
+                      width={0}
+                      height={0}
+                      alt={item.prod_name}
+                    />
+                  </div>
+                </div>
+                <div className={["col-8 py-3", s.cartTableMb].join(' ')}>
+                  <p>{item.prod_name}</p>
+                  <p>{date2str(item.check_in_date) + '—' + date2str(item.check_out_date)}</p>
+                  <p>
+                    <span>{item.room_type} 1 間{item.dog_name ? `（${item.dog_name}）` : ''}</span>
+                  </p>
+                  <p>
+                    ${item.amount.toLocaleString()}
+                  </p>
+                </div>
+              </div>
+            ))}
+            {noData &&
+              <div className='row'>
+                <FddBtn color='tint1' size='sm' href='/prod'>來去逛逛寵物商城</FddBtn>
+              </div>}
+          </div>
+        </>)}
     </>
   )
 }

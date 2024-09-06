@@ -14,9 +14,7 @@ import { IoIosLogOut } from "react-icons/io";
 
 export default function NavFuncBtns({ showCart = true }) {
   const { logout, user } = useContext(AuthContext);
-  const handleLogout = () => {
-    logout(); // 呼叫登出函數
-  };
+
 
   //======= handle 購物車數量提示
   const [cartCount, setCartCount] = useState(0);
@@ -33,7 +31,7 @@ export default function NavFuncBtns({ showCart = true }) {
   }, [user]);
   //===== 以會員 ID 索取購物車資料
   useEffect(() => {
-    if (uID === 0) return;
+    if (uID <= 0) return;
 
     const CancalToken = axios.CancelToken;//中止情況用的信號彈
     const source = CancalToken.source();
@@ -77,6 +75,13 @@ export default function NavFuncBtns({ showCart = true }) {
       source.cancel("API 請求已被臨時取消");
     }
   }, [uID])
+
+  /** 清除登入狀態相關數值 */
+  const handleLogout = () => {
+    setUID(-1);
+    setCartCount(0);
+    logout();
+  };
 
   return (
     <ul className={scss.ulFunc}>

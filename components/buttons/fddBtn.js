@@ -36,6 +36,8 @@ const colorList = {
  * @param {string} title 提示文字 (optional)
  * @param {string} className 客製化樣式名稱 (optional)
  * @param {function} callback 按鈕 onClick 事件 (optional)
+ * @param {object} style 行內樣式 (optional)
+ * @param {string} type 按鈕屬性 (optional)
  * @description 按鈕內容文字如同一般 button 元件，擺在 HTML tag 內即可
  */
 export default function FddBtn({
@@ -49,7 +51,9 @@ export default function FddBtn({
   callback = undefined,
   title = '',
   href = '',
-  className = ''
+  className = '',
+  type = 'button',
+  style = {}
 }) {
   if (!Object.prototype.hasOwnProperty.call(colorList, color)) {
     throw new Error(
@@ -84,10 +88,11 @@ export default function FddBtn({
     return (
       <button
         className={[classStr, className].join(' ')}
+        style={style}
         onClick={() => callback()}
         disabled={disabled}
         title={title}
-        type='button'
+        type={type}
       >
         {children}
       </button>
@@ -98,10 +103,11 @@ export default function FddBtn({
         ? (
           <button
             className={[classStr, className].join(' ')}
+            style={style}
             disabled
             onClick={() => { }}
             title={title}
-            type='button'
+            type={type}
           >
             {children}
           </button >
@@ -109,6 +115,7 @@ export default function FddBtn({
         : (
           <Link
             className={[classStr, className].join(' ')}
+            style={style}
             title={title}
             href={href}
           >

@@ -12,6 +12,21 @@ import Search from './list/search';
 export default function ProductList() {
   const [sortBy, setSortBy] = useState('default');
   const [searchTerm, setSearchTerm] = useState('');
+  const [filters, setFilters] = useState({
+    category: '',
+    subcategory: '',
+    brand: '',
+    minPrice: '',
+    maxPrice: '',
+    age: ''
+  });
+
+  const handleFilterChange = useCallback((newFilters) => {
+    setFilters(prevFilters => ({
+      ...prevFilters,
+      ...newFilters
+    }));
+  }, []);
 
   const handleSortChange = useCallback((newSortBy) => {
     setSortBy(newSortBy);
@@ -29,7 +44,12 @@ export default function ProductList() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className='container'>
+      <MobileFilter
+        filters={filters}
+        onFilterChange={handleFilterChange}
+        onSortChange={handleSortChange}
+      />
+      <main className='container pt-3'>
         <div className='d-none d-md-flex'>
           <Section />
         </div>
@@ -41,7 +61,12 @@ export default function ProductList() {
           <Select onChange={handleSortChange} />
         </div>
         <div className={scss.my}>
-          <ProductPage sortBy={sortBy} searchTerm={searchTerm} />
+          <ProductPage
+            sortBy={sortBy}
+            searchTerm={searchTerm}
+            filters={filters}
+            onFilterChange={handleFilterChange}
+          />
         </div>
       </main>
     </>
