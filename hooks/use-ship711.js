@@ -27,7 +27,6 @@ const initShopInfo = {
  * @param {number} config.w 彈出視窗的寬度
  * @param {number} config.autoCloseMins 在指定分鐘後自動關閉
  * @param {boolean} config.enableLocalStorage 是否 didMount 時要讀取 localStorage 資料
- * @param {string} config.keyLocalStorage localStorage 的 key
  * @returns 
  */
 export function useShip711StoreOpener(
@@ -38,12 +37,13 @@ export function useShip711StoreOpener(
     w = 950,
     autoCloseMins = 5,
     enableLocalStorage = true,
-    keyLocalStorage = 'store711',
   } = {}
 ) {
   // 除錯用
   //console.log(serverCallbackUrl, title, h, w, autoCloseMins, enableLocalStorage,keyLocalStorage )
 
+  /** localStorage 的 key */
+  const keyLocalStorage = 'store711';
 
   const [storedValue] = useLocalStorage(keyLocalStorage, initShopInfo);
 
@@ -58,10 +58,10 @@ export function useShip711StoreOpener(
   // 預設 5 min 倒數時間，自動關閉
   const [countDown, setContDown] = useState(60 * autoCloseMins)
 
-  // 如果使用 localStorage，才會使用 localStroage 的值作為預設值
+  // 初始化時清空
   useEffect(() => {
     if (storedValue && storedValue.storeid && enableLocalStorage)
-      setStore711(storedValue)
+      setStore711(initShopInfo)
   }, []);
 
   useEffect(() => {
@@ -118,6 +118,7 @@ export function useShip711StoreOpener(
     startCountDown ? 1000 : null
   )
 
+  /** 開啟彈出視窗 */
   const openWindow = () => {
     if (!serverCallbackUrl) {
       console.error('錯誤:001-必要。伺服器7-11運送商店用Callback路由網址')
@@ -136,7 +137,7 @@ export function useShip711StoreOpener(
     setStartCountDown(true)
   }
 
-  // 關閉視窗
+  /** 關閉彈出視窗 */
   const closeWindow = () => {
     newWindow.current.close()
     setStartCountDown(false)
@@ -146,6 +147,7 @@ export function useShip711StoreOpener(
     store711,
     openWindow,
     closeWindow,
+    keyLocalStorage
   }
 }
 
@@ -154,7 +156,7 @@ export function useShip711StoreOpener(
  * @param {string} keyLocalStorage local storage key
  */
 export function useShip711StoreCallback(keyLocalStorage = 'store711') {
-  const [storedValue, setValue] = useLocalStorage(keyLocalStorage, initShopInfo);
+  const [_, setValue] = useLocalStorage(keyLocalStorage, initShopInfo);
 
   const router = useRouter()
 

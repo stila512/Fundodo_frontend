@@ -3,6 +3,7 @@ import { apiBaseUrl } from '@/configs';
 //== Functions =================================================================
 import { useState, useEffect } from 'react'
 import { useShip711StoreOpener } from '@/hooks/use-ship711';
+import useLocalStorage from '@/hooks/use-localstorage'
 import axios from 'axios';
 //== Components ================================================================
 import FddBtn from '@/components/buttons/fddBtn';
@@ -67,6 +68,24 @@ export default function FillingPage({
   //暫存上次購物的訂單資料
   /** @type {[myobj, React.Dispatch<myobj>]} */
   const [autoOrderData, setAutoOrderData] = useState(null);
+
+  //*==================== 711 分店選擇
+  const { store711, openWindow, closeWindow, keyLocalStorage } = useShip711StoreOpener(
+    `${apiBaseUrl}/pay/ship711`
+  );
+  const [_, set711obj] = useLocalStorage(keyLocalStorage, '');
+
+  //===== 初始化：清空 local storage 中的分店資訊
+  useEffect(() => {
+    set711obj({
+      storeid: '',
+      storename: '',
+      storeaddress: '',
+      outside: '',
+      ship: '',
+      TempVar: ''
+    });
+  }, []);
 
   //===== 索取縣市資料
   useEffect(() => {
@@ -271,10 +290,7 @@ export default function FillingPage({
     setIsCVS(bool);
   }
 
-  //*==================== 711 分店選擇
-  const { store711, openWindow, closeWindow } = useShip711StoreOpener(
-    `${apiBaseUrl}/pay/ship711`
-  );
+
 
   //*==================== 步驟切換方法
   const goPrevPhase = () => {
@@ -308,6 +324,7 @@ export default function FillingPage({
       }
     });
     if (wannaSave) saveFormData();
+
 
     (() => {
       if (typeof window === 'undefined') return;
@@ -370,10 +387,10 @@ export default function FillingPage({
             </FddBtn>
           </div>
         </div>
-        {/*================= topPanel =================*/}
+        {/*================= main area =================*/}
         {isBeginning ||
           <div className="row jc-center">
-            <div className="col-8 col-lg-12">
+            <div className="col-12">
               {/*========//* 宅配模式  ==================================== */
                 isCVS ||
                 (
