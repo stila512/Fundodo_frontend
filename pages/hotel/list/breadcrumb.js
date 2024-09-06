@@ -1,17 +1,40 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import scss from './breadCrumb.module.scss';
+import scss from './breadcrumb.module.scss'; 
 
-const pathMap = {
-  '/home': { label: 'Home', link: '/home' },
-  '/hotel': { label: '旅館列表', link: '/hotel' },
-  '/hotel/detail': { label: '旅館詳情', link: '/hotel/detail' },
-};
+
 
 const Breadcrumb = () => {
   const router = useRouter();
   const { id } = router.query;
+  const [hotelName, setHotelName] = useState('');
+
+  const pathMap = {
+    '/home': { label: '首頁', link: '/home' },
+    '/hotel/list': { label: '旅館列表', link: '/hotel/list' },
+    '/hotel/detail': { label: '旅館詳情', link: `/hotel/detail/${id}` },
+  };
+
+  useEffect(() => {
+    const fetchHotelName = async () => {
+      if (id) {
+        try {
+          const response = await fetch(`/api/hotel/detail/${id}`);
+          const result = await response.json();
+          if (result.status === 'success') {
+            setHotelName(result.data.name);
+          } else {
+            console.error('獲取旅館失敗:', result.message);
+          }
+        } catch (error) {
+          console.error('獲取旅館失敗:', error);
+        }
+      }
+    };
+
+    fetchHotelName();
+  }, [id]);
 
   const generateBreadcrumbs = () => {
     const asPath = router.asPath;
@@ -19,12 +42,17 @@ const Breadcrumb = () => {
     const breadcrumbs = [pathMap['/home']];
 
     if (pathnames[0] === 'hotel') {
-      breadcrumbs.push(pathMap['/hotel']);
-
-      if (pathnames[1] === 'detail' && id) {
-        breadcrumbs.push({ ...pathMap['/hotel/detail'], link: `/hotel/detail/${id}` });
+      if (pathnames[1] === 'list') {
+        breadcrumbs.push(pathMap['/hotel/list']);
+      } else if (pathnames[1] === 'detail' && pathnames[2]) {
+        breadcrumbs.push(pathMap['/hotel/list']);
+        breadcrumbs.push({ 
+          label: hotelName || '旅館詳情', 
+          link: `/hotel/detail/${pathnames[2]}` 
+        });
       }
     }
+
 
     return breadcrumbs;
   };

@@ -10,21 +10,19 @@
   box-sizing: border-box;
 }
 
-.sortContainer {
+.navContainer {
   margin: 20px 0;
   display: flex;
-  justify-content: flex-end;
   align-items: center;
+  justify-content: space-between;
+  gap: 820px;
 }
 
-.breadcrumbs {
-  margin-bottom: 20px;
-  font-size: 14px;
-  color: #666;
-}
-
-@media (max-width: 1600px) {
+@media (max-width: 480px) {
   .pageContainer {
     padding: 0 5%;
+  }
+  .navContainer {
+    gap: 0px
   }
 }
