@@ -132,7 +132,7 @@
   justify-content: center;
 }
 .LoginContainer {
-  width: 1440px;
+  width: 100%;
   height: 100vh;
   display: flex;
   .errorMessage {
@@ -151,7 +151,7 @@
 
 .LoginContainer .rightText {
   display: flex;
-  width: 734px;
+  width: 50%;
   padding: 96px 137px 151px 124px;
   flex-direction: column;
   align-items: flex-start;
@@ -160,6 +160,7 @@
     padding-bottom: 32px;
   }
   .area2 {
+    width: 100%;
     padding-bottom: 32px;
     .passwordarea {
       display: flex;
@@ -216,7 +217,8 @@
     padding: 8px 0px;
     line-height: 0.5;
     display: flex;
-    width: 473px;
+    width: 100%;
+    max-width: 473px;
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;

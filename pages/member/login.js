@@ -135,15 +135,15 @@ export default function LoginPage() {
   return (
     <main className={scss.Loginmain}>
       <div className={scss.LoginContainer}>
-        <div className={scss.lfpic}>
+        <div className={`${scss.lfpic} col-6`}>
           <Image className="imgWrap" src={lfpic} alt="Image" />
         </div>
-        <div className={scss.rightText}>
-          <div className={scss.area1}>
-            <p className={scss.h5}>歡迎回來</p>
+        <div className={`${scss.rightText} col-6`}>
+          <div className={`${scss.area1} col-12`}>
+            <p className={`${scss.h5} col-12`}>歡迎回來</p>
           </div>
           <form onSubmit={handleLogin}>
-            <div className={scss.area2}>
+            <div className={`${scss.area2} col-12`}>
               <label>電子郵件地址</label>
               <input type="email" name="email" required />
               <div>
@@ -170,12 +170,12 @@ export default function LoginPage() {
                 </div>
               </div>
             </div>
-            <div className={scss.area3}>
+            <div className={`${scss.area3} col-12`}>
               <p onClick={openModal}> 忘記密碼?</p>
               <Link href="/member/login_BackEnd"><div className={scss.Backend_Btn}>後台</div></Link>
               {/* <FddBtn color='info' className={scss.Backend_Btn} pill={false} size='sm' href="/member/login_BackEnd">後台</FddBtn> */}
             </div>
-            <div className={scss.area4}>
+            <div className={`${scss.area4} col-12`}>
               <button className={scss.createBtn} type="submit"
                 disabled={loading}>{loading ? '登入中...' : '登入'}</button>
             </div>
