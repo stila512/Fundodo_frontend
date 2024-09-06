@@ -30,10 +30,11 @@ export default function HotelPage() {
     </Head>
     <div className={styles.pageContainer}>
       <div className={styles.breadcrumbs}>
-       <BreadCrumb />
+ 
       </div>
       <SearchBar onSearch={handleSearch}/>
-      <div className={styles.sortContainer}>
+      <div className={styles.navContainer}>
+       <BreadCrumb/>
         <Sort onSort={handleSort} />
       </div>
       <HotelBlock searchQuery={searchQuery} sortOption={sortOption}/>
