@@ -187,7 +187,19 @@ export default function CouponPage() {
   // };
 
   const handleClaim = () => {
-    if (claimCode.length === 0) setClaimMsg('請輸入領取碼');
+    if (claimCode.length === 0)
+      return setClaimMsg('請輸入領取碼');
+
+    if (isNaN(uID) || uID <= 0)
+      return console.error('登入狀態異常，請重新登入');
+
+    if (
+      [
+        claimCode.length > 10,
+        claimCode.length < 8,
+        !claimCode.startsWith('fdd')
+      ].some(v => v))
+      return setClaimMsg('查無此張優惠券');
 
     const pkg = {
       user_id: uID,
