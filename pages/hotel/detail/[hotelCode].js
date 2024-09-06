@@ -71,8 +71,8 @@ export default function HotelPage() {
       <title>{hotel.name ? `${hotel.name} - 立即預定` : '立即預定'}</title>
       </Head>
       <div className={styles.pageContainer}>
+      <Breadcrumb />
         <div className={styles.container}>
-        <Breadcrumb />
           <HotelImg hotelCode={router.query.hotelCode}/>
           {/* <div className={styles.wrapper}> */}
           <SelectDetail hotelCode={router.query.hotelCode} />

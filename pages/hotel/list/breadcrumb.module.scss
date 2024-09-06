@@ -1,5 +1,6 @@
 .breadcrumb {
   padding: 10px 0;
+ 
   
   ol {
     list-style-type: none; // 移除默認的數字樣式
@@ -7,11 +8,14 @@
     margin: 0;
     display: flex;
     align-items: center;
+    white-space: nowrap;
+    color: #6F625C;
   }
 
   li {
     display: inline;
-    font-size: 14px;
+    font-size: 18px;
+
     
     &:not(:last-child) {
       margin-right: 8px;
@@ -19,7 +23,7 @@
   }
 
   a {
-    color: #007bff;
+    color: #38312e;
     text-decoration: none;
     
     &:hover {
@@ -28,7 +32,14 @@
   }
 
   .arrow {
-    margin: 0 8px;
-    color: #6c757d;
+    margin: 0 4px;
+    color: #6F625C;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .breadcrumb {
+    display: none;
   }
 }
