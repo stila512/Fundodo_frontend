@@ -1,0 +1,53 @@
+@use '@/styles' as s;
+
+.mobileFilterOptions {
+  padding: 15px;
+
+  .filterHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    h3 {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .clearButton {
+      background: none;
+      border: none;
+      color: s.$primary;
+      font-size: 14px;
+      cursor: pointer;
+    }
+  }
+
+  .filterSection {
+    margin-bottom: 20px;
+
+    h4 {
+      margin-bottom: 10px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+
+  .categoryButton {
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    border: 1px solid s.$primary;
+    border-radius: 20px;
+    background: s.$white;
+    color: s.$primary;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .selectedCategory {
+    background: s.$primary;
+    color: s.$white;
+  }
+}

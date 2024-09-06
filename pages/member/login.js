@@ -11,6 +11,8 @@ import Modal from '@/components/common/modal';
 import { FcGoogle } from "react-icons/fc";
 import FddBtn from '@/components/buttons/fddBtn';
 import { IoMdHome } from "react-icons/io";
+import useLocalStorage from '@/hooks/use-localstorage.js';
+
 export default function LoginPage() {
   // 顯示密碼使用
   const [showPassword, setShowPassword] = useState(false);
@@ -20,6 +22,7 @@ export default function LoginPage() {
   const { login } = useContext(AuthContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [confirmEmail, setConfirmEmail] = useState('');
+  const [storedValue, setValue] = useLocalStorage('redirFrom', '');
 
   const openModal = () => {
     console.log('開啟 Modal');
@@ -45,36 +48,35 @@ export default function LoginPage() {
     fetch('http://localhost:3005/api/member/login', {
       method: 'POST',
       body: formData,
-    })
-      .then(response => {
-        if (!response.ok) {
-          return response.json().then(errorData => {
-            throw new Error(`${errorData.message}`);
-          });
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log('回應數據:', data);
-        if (data.status === 'success' && data.token) {
-          console.log('登入成功，準備呼叫 login() 和 router.push()');
-          login(data.token);
-          alert('登入成功');
-          console.log('登入函數已呼叫，準備重定向');
-          router.push('/member/peopleInfoData')
-            .then(() => console.log('導航成功'))
-            .catch((err) => console.error('導航失敗:', err));
-        } else {
-          setError(data.message || '登入失敗');
-          alert(`登入失敗:\n${data.message || '登入失敗'}`);
-        }
-      })
-      .catch(error => {
-        setError(error.message);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    }).then(async response => {
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(`${result.message}`);
+      }
+      return result;
+    }).then(data => {
+      console.log('回應數據:', data);
+      if (data.status === 'success' && data.token) {
+        // console.log('登入成功，準備呼叫 login() 和 router.push()');
+        login(data.token);
+        alert('登入成功');
+        // console.log('登入函數已呼叫，準備重定向');
+        const path2redir = (storedValue) || '/member/peopleInfoData';
+        console.log(storedValue);
+        console.log(path2redir);
+        setValue('');
+        router.push(path2redir)
+          .then(() => console.log('導航成功'))
+          .catch((err) => console.error('導航失敗:', err));
+      } else {
+        setError(data.message || '登入失敗');
+        alert(`登入失敗:\n${data.message || '登入失敗'}`);
+      }
+    }).catch(error => {
+      setError(error.message);
+    }).finally(() => {
+      setLoading(false);
+    });
   };
 
   const sendOTP = () => {

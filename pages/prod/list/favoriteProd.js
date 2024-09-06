@@ -4,6 +4,7 @@ import scss from './favoriteProd.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
 import SideText from '@/components/member/SideText';
+import SideText2 from '@/components/member/SideText_2'
 import { AuthContext } from '@/context/AuthContext';
 
 export default function FavoriteProd() {
@@ -59,11 +60,14 @@ export default function FavoriteProd() {
 
   return (
     <>
-      <body className='bg-secondary'>
-        <main className={['container row jc-between', scss.pd].join(' ')}>
-          <div className={['row', scss.bg, 'col-9'].join(' ')}>
+      <body className={'bg-secondary'}>
+        <div className="col-12 d-lg-none">
+          <SideText2 layoutType={0} />
+        </div>
+        <main className={['container row', scss.pd].join(' ')}>
+          <div className={[scss.bg, 'col-lg-9 row'].join(' ')}>
             {favoriteProducts.length === 0 ? (
-              <div>您還沒有收藏任何商品。</div>
+              <div className={scss.content}>您還沒有收藏任何商品。</div>
             ) : (
               favoriteProducts.map((product) => (
                 <div key={product.id} className='col-xxl-3 col-xl-4 col-6'>
@@ -97,7 +101,7 @@ export default function FavoriteProd() {
               ))
             )}
           </div>
-          <div className={['col-3', scss.sideTextGrid].join(' ')}>
+          <div className='col-lg-3 d-none d-lg-block'>
             <SideText activeIndex={4} />
           </div>
         </main>
