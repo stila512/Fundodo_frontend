@@ -7,12 +7,11 @@ import SelectDetail from './selectDetail';
 import HotelImg from './hotelImg';
 import SelectBar from './selectBar'
 import Content from './content'
-import useAuthRedirect from '@/hooks/useAuthRedirect';
-import Modal from '@/components/common/modal';
+import Breadcrumb from '../list/breadcrumb';
+
 
 
 export default function HotelPage() {
-  // useAuthRedirect();
   
   const router = useRouter();
   const { hotelCode } = router.query; 
@@ -73,6 +72,7 @@ export default function HotelPage() {
       </Head>
       <div className={styles.pageContainer}>
         <div className={styles.container}>
+        <Breadcrumb />
           <HotelImg hotelCode={router.query.hotelCode}/>
           {/* <div className={styles.wrapper}> */}
           <SelectDetail hotelCode={router.query.hotelCode} />
