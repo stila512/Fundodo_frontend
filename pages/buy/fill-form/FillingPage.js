@@ -3,6 +3,7 @@ import { apiBaseUrl } from '@/configs';
 //== Functions =================================================================
 import { useState, useEffect } from 'react'
 import { useShip711StoreOpener } from '@/hooks/use-ship711';
+import useLocalStorage from '@/hooks/use-localstorage'
 import axios from 'axios';
 //== Components ================================================================
 import FddBtn from '@/components/buttons/fddBtn';
@@ -12,6 +13,7 @@ import s from './filling-page.module.scss'
 import sw from './ship-way.module.scss'
 import { FaAngleLeft, FaCheck } from "react-icons/fa6";
 import { TbTriangleFilled } from "react-icons/tb";
+import 'animate.css';
 
 export default function FillingPage({
   userID = 0,
@@ -20,7 +22,7 @@ export default function FillingPage({
 }) {
   const [isBeginning, setIsBeginning] = useState(true);
   const [payCode, setPayCode] = useState('EC');//EC ; LINE
-  const [isCVS, setIsCVS] = useState(false);
+  const [isCVS, setIsCVS] = useState(null);
   const [cityList, setCityList] = useState([]);
   const [cityID, setCityID] = useState(0);
   const [distList, setDistList] = useState([]);
@@ -35,6 +37,8 @@ export default function FillingPage({
  * @property {number} addr_city
  * @property {number} addr_code
  * @property {string} address
+ * @property {string} shop_name
+ * @property {string} shop_addr
  * @property {string} ship_ps
  */
   const initOrderDate = {
@@ -43,6 +47,8 @@ export default function FillingPage({
     phone_num: '',/* 收件人電話 */
     addr_city: 0,/* 收件縣市 */
     addr_code: 0,/* 收件郵遞區號 */
+    shop_name: '',/* 收件分店 */
+    shop_addr: '',/* 收件分店地址 */
     address: '',/* 收件地址 */
     ship_ps: '',/* 配送備註 */
   };
@@ -68,8 +74,28 @@ export default function FillingPage({
   /** @type {[myobj, React.Dispatch<myobj>]} */
   const [autoOrderData, setAutoOrderData] = useState(null);
 
+  //*==================== 711 分店選擇
+  const { store711, openWindow, closeWindow, keyLocalStorage } = useShip711StoreOpener(
+    `${apiBaseUrl}/pay/ship711`
+  );
+  const [_, set711obj] = useLocalStorage(keyLocalStorage, '');
+
+  //===== 初始化：清空 local storage 中的分店資訊
+  useEffect(() => {
+    set711obj({
+      storeid: '',
+      storename: '',
+      storeaddress: '',
+      outside: '',
+      ship: '',
+      TempVar: ''
+    });
+  }, []);
+
   //===== 索取縣市資料
   useEffect(() => {
+    if (isCVS) return;
+
     const CancalToken = axios.CancelToken;//中止情況用的信號彈
     const source = CancalToken.source();
 
@@ -101,7 +127,7 @@ export default function FillingPage({
       // 避免 API 無法正常結束
       source.cancel("API 請求已被臨時取消");
     }
-  }, []);
+  }, [isCVS]);
   //===== 索取鄉鎮區資料
   useEffect(() => {
     if (cityID === 0) return;
@@ -195,6 +221,28 @@ export default function FillingPage({
     }
   }, []);
 
+  //在一開始查詢上一次的填寫紀錄
+  useEffect(() => {
+    console.log('有嗎？');
+    console.log(store711.storename);
+    console.log(store711.storeaddress);
+
+    if (store711.storename === '') {
+      console.log('拒絕空字串');
+      return;
+    }
+    const shop_name = store711.storename;
+    const shop_addr = store711.storeaddress;
+
+    setOrderData({
+      ...orderData,
+      shop_name,
+      shop_addr,
+    });
+    console.log('更新完畢');
+    console.log(orderData.shop_name);
+  }, [store711]);
+
   //將這次的填寫紀錄存進資料庫
   const saveFormData = () => {
     const {
@@ -271,10 +319,7 @@ export default function FillingPage({
     setIsCVS(bool);
   }
 
-  //*==================== 711 分店選擇
-  const { store711, openWindow, closeWindow } = useShip711StoreOpener(
-    `${apiBaseUrl}/pay/ship711`
-  );
+
 
   //*==================== 步驟切換方法
   const goPrevPhase = () => {
@@ -285,9 +330,10 @@ export default function FillingPage({
   const goNextPhase = () => {
     setBuyInfoPkg(prev => {
       //todo: 防呆
-      const cityName = cityList.filter(c => c.id === cityID)[0].name;
-      let distName = distList.filter(c => c.zipcode === orderData.addr_code)[0].name;
-      const { addressee, email, phone_num, ship_ps } = orderData;
+
+      const cityName = isCVS ? '' : cityList.filter(c => c.id === cityID)[0].name;
+      let distName = isCVS ? '' : distList.filter(c => c.zipcode === orderData.addr_code)[0].name;
+      const { addressee, email, phone_num, ship_ps, shop_name, shop_addr } = orderData;
 
       if (distName.charAt(0) === '（') distName = '';
 
@@ -299,6 +345,8 @@ export default function FillingPage({
           addressee,
           email,
           phone_num,
+          shop_name,
+          shop_addr,
           pay_thru: payCode,
           ship_thru: isCVS ? "CVS" : "DLV",
           ship_zipcode: orderData.addr_code,
@@ -308,6 +356,7 @@ export default function FillingPage({
       }
     });
     if (wannaSave) saveFormData();
+
 
     (() => {
       if (typeof window === 'undefined') return;
@@ -370,10 +419,10 @@ export default function FillingPage({
             </FddBtn>
           </div>
         </div>
-        {/*================= topPanel =================*/}
+        {/*================= main area =================*/}
         {isBeginning ||
           <div className="row jc-center">
-            <div className="col-8 col-lg-12">
+            <div className="col-12">
               {/*========//* 宅配模式  ==================================== */
                 isCVS ||
                 (
@@ -409,10 +458,10 @@ export default function FillingPage({
                       <form action="" className={s.form}>
                         {/*//*===================== 收件人姓名 ======================= */}
                         <div className="row">
-                          <div className="col-12">
+                          <div className="col-12 col-lg-4">
                             <label htmlFor="name_receiver" className='tx-default'>收件人姓名 *</label>
                           </div>
-                          <div className="col-12">
+                          <div className="col-12 col-lg-8">
                             <input
                               type='text'
                               name='addressee'
@@ -424,10 +473,10 @@ export default function FillingPage({
                         </div>
                         {/*//*===================== EMAIL ======================= */}
                         <div className="row">
-                          <div className="col-12">
+                          <div className="col-12 col-lg-4">
                             <label htmlFor="email" className='tx-default'>EMAIL *</label>
                           </div>
-                          <div className="col-12">
+                          <div className="col-12 col-lg-8">
                             <input
                               type='email'
                               name='email'
@@ -438,10 +487,10 @@ export default function FillingPage({
                         </div>
                         {/*//*===================== 收件人行動電話 ======================= */}
                         <div className="row">
-                          <div className="col-12">
+                          <div className="col-12 col-lg-4">
                             <label htmlFor="phone_num" className='tx-default'>收件人行動電話 *</label>
                           </div>
-                          <div className="col-12">
+                          <div className="col-12 col-lg-8">
                             <input
                               type='text'
                               name='phone_num'
@@ -509,29 +558,7 @@ export default function FillingPage({
                         </div>
                       </form>
                     </article>
-                    {/* ===================== 切換鈕 ======================= */}
-                    <div className="col-12 col-lg-8">
-                      <div className="hstack jc-evenly py-5">
-                        <FddBtn
-                          color='primary'
-                          outline pill={false}
-                          size="lg"
-                          className={s.moveBtn}
-                          callback={() => goPrevPhase()}
-                        >
-                          <FaAngleLeft /><span className='ms-1'>回到購物車</span>
-                        </FddBtn>
-                        <FddBtn
-                          color='primary'
-                          pill={false}
-                          size="lg"
-                          className={s.moveBtn}
-                          callback={() => goNextPhase()}
-                        >
-                          確認送出
-                        </FddBtn>
-                      </div>
-                    </div>
+
                   </section>
                 )
               }
@@ -545,15 +572,20 @@ export default function FillingPage({
                       <FddBtn color='primary' size="sm" href="http://localhost:3005/api/cart/ecpay2">7-11</FddBtn>
                     </div> */}
                     <section className="row jc-center">
-                      <article className="col-12 col-lg-10">
+                      <article className="col-12 col-lg-10 py-3 py-lg-5">
                         <div className="row jc-center">
                           <div className="col-12 col-lg-auto">
                             <div className="h-100 gr-center">
                               <FddBtn
-                                color='shade3'
+                                color={store711.storename ? 'shade3' : 'warning'}
                                 size='lg'
                                 pill={false}
-                                className={sw.selectBtn}
+                                className={
+                                  [
+                                    'animate__animated animate__headShake',
+                                    store711.storename ? '' : 'animate__infinite',
+                                    sw.selectBtn
+                                  ].join(' ')}
                                 callback={() => openWindow()}
                               >
                                 <p>點我選取</p>
@@ -568,23 +600,23 @@ export default function FillingPage({
                               </div>
                             </div>
                           </div>
-                          <div className="col-12 col-lg-auto">
+                          <div className="col-11 col-lg-6">
                             <div className={["h-100 gr-center", sw.shopInputBox].join(' ')}>
                               <div>
                                 <div>
-                                  <label htmlFor="shopName">門市名稱：</label>
+                                  <label htmlFor="shop_name">門市名稱：</label>
                                 </div>
                                 <div>
-                                  <input type="text" name='shopName' disabled
+                                  <input type="text" name='shop_name' disabled
                                     value={store711.storename} />
                                 </div>
                               </div>
                               <div>
                                 <div>
-                                  <label htmlFor="shopAddr">門市地址：</label>
+                                  <label htmlFor="shop_addr">門市地址：</label>
                                 </div>
                                 <div>
-                                  <input type="text" name='shopAddr' disabled
+                                  <input type="text" name='shop_addr' disabled
                                     value={store711.storeaddress}
                                   />
                                 </div>
@@ -595,7 +627,7 @@ export default function FillingPage({
                       </article>
                       <article className="col-12 col-lg-10 my-5">
                         <div className="row jc-center">
-                          <div className="col-12 col-lg-8">
+                          <div className="col-11 col-lg-8">
                             <form action="" className={sw.form}>
                               {/*//*===================== 收件人姓名 ======================= */}
                               <div className="row">
@@ -643,23 +675,21 @@ export default function FillingPage({
                               {/*//*===================== 收件分店 ======================= */}
                               <div className="row">
                                 <div className="col-12 col-lg-4">
-                                  <label htmlFor="shopName">門市名稱：</label>
+                                  <label htmlFor="shop_name">門市名稱：</label>
                                 </div>
                                 <div className="col-12 col-lg-8">
-                                  <input type="text" name='shopName' disabled
+                                  <input type="text" name='shop_name' disabled
                                     value={store711.storename}
-                                    onChange={e => handleInput(e)}
                                   />
                                 </div>
                               </div>
                               <div className="row">
                                 <div className="col-12 col-lg-4">
-                                  <label htmlFor="shopAddr">門市地址：</label>
+                                  <label htmlFor="shop_addr">門市地址：</label>
                                 </div>
                                 <div className="col-12 col-lg-8">
-                                  <input type="text" name='shopAddr' disabled
+                                  <input type="text" name='shop_addr' disabled
                                     value={store711.storeaddress}
-                                    onChange={e => handleInput(e)}
                                   />
                                 </div>
                               </div>
@@ -680,6 +710,29 @@ export default function FillingPage({
                           </div>
                         </div>
                       </article>
+                      {/* ===================== 切換鈕 ======================= */}
+                      <div className="col-12 col-lg-8">
+                        <div className="hstack jc-evenly py-5">
+                          <FddBtn
+                            color='primary'
+                            outline pill={false}
+                            size="lg"
+                            className={s.moveBtn}
+                            callback={() => goPrevPhase()}
+                          >
+                            <FaAngleLeft /><span className='ms-1'>回到購物車</span>
+                          </FddBtn>
+                          <FddBtn
+                            color='primary'
+                            pill={false}
+                            size="lg"
+                            className={s.moveBtn}
+                            callback={() => goNextPhase()}
+                          >
+                            確認送出
+                          </FddBtn>
+                        </div>
+                      </div>
                     </section>
                   </>
                 )
