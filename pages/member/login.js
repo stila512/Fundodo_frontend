@@ -144,7 +144,7 @@ export default function LoginPage() {
           <div className={`${scss.area1} col-12`}>
             <p className={`${scss.h5} col-12`}>歡迎回來</p>
           </div>
-          <form onSubmit={`${handleLogin}`}>
+          <form onSubmit={handleLogin}>
             <div className={`${scss.area2} col-12`}>
               <label>電子郵件地址</label>
               <input type="email" name="email" required />

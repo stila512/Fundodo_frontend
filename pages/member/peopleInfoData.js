@@ -158,7 +158,7 @@ export default function PeopleInfoData() {
     if (authUser && authUser.uuid) {
       fetchgetMember(authUser.uuid);
     } else {
-      setError(<Loading />);
+      setError('User not authenticated');
       setLoading(false);
     }
   }, [authUser, authLoading]);
