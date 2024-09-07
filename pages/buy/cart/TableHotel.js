@@ -3,6 +3,7 @@ import { breakpoints } from '@/configs';
 //== Functions =================================================================
 import { useState, useEffect } from 'react';
 import useScreenWidth from '@/hooks/useScreenWidth';
+import deleteCartOf from './doSoftDelete';
 //== Components ================================================================
 import FddBtn from '@/components/buttons/fddBtn';
 import Image from 'next/image';
@@ -13,8 +14,8 @@ import { RxCross2 } from "react-icons/rx";
 
 //todo 旅館類刪除要加確認 modal
 
-//* 不可更改
-const i_cart = 1;
+//! CART_INDEX 不可更改
+const CART_INDEX = 1;
 
 const date2str = date => {
   const dArr = date.split('T')[0].split('-');
@@ -41,7 +42,7 @@ export default function HotelCartTable({
   useEffect(() => {
     if (data) {
       const total = data.reduce((sum, cur) => sum + cur.amount, 0);
-      setAmount(arr => arr.map((v, i) => (i === i_cart) ? total : v));
+      setAmount(arr => arr.map((v, i) => (i === CART_INDEX) ? total : v));
     }
   }, [data]);
 
@@ -75,10 +76,10 @@ export default function HotelCartTable({
             </tr>
           </thead>
           <tbody className='tx-body'>
-            {noData || data.map((item, i_item) => (
+            {noData || data.map((item, i_item) => itemStateArr[i_item] && (
               <tr key={item.cart_id}>
                 <td>
-                  <FddBtn color='tint4' size='sm' icon callback={() => handleDelete(i_item, item.key)}>
+                  <FddBtn color='tint4' size='sm' icon callback={() => handleDelete(i_item, item.cart_id)}>
                     <RxCross2 />
                   </FddBtn>
                 </td>
