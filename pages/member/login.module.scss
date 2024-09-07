@@ -4,9 +4,12 @@
 .Registermain {
   display: flex;
   justify-content: center;
+  form{
+    width: 100%;
+  }
 }
 .RegisterContainer {
-  width: 1440px;
+  width: 100%;
   height: 100vh;
   display: flex;
   .point {
@@ -15,8 +18,10 @@
 }
 
 .RegisterContainer .lfpic {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #eae3e0;
-  flex: 1;
   box-sizing: border-box;
   padding: 10px;
   border: 1px solid #ccc;
@@ -24,15 +29,16 @@
 
 .RegisterContainer .rightText {
   display: flex;
-  width: 734px;
-  padding: 96px 137px 151px 124px;
+  padding: 3% 5%;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   position: relative;
   .area1 {
     padding-bottom: 32px;
   }
   .area2 {
+    width:  60%;
+    min-width: 200px;
     padding-bottom: 32px;
     .passwordarea {
       display: flex;
@@ -80,7 +86,8 @@
     padding: 8px 0px;
     line-height: 0.5;
     display: flex;
-    width: 473px;
+    width: 100%;
+    max-width: 473px;
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
@@ -110,6 +117,14 @@
     border: none;
   }
   .xBtn {
+    @media (max-width: 550px) {
+      top: 10px;
+      right: 0; 
+    }
+    @media (max-width: 499px) {
+      top: 10px;
+      right: 0; 
+    }
     display: flex;
     width: 30px;
     height: 30px;
