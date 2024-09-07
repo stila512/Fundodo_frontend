@@ -89,6 +89,10 @@
     font-weight: 400;
     line-height: 30px;
     margin-bottom: 26px;
+    div{
+      height: 25px;
+      align-items: bottom;
+    }
   }
 
   .link {
@@ -110,9 +114,10 @@
     flex-direction: row;
     margin-bottom: 0;
   }
-
+.imageWrapper{
+  width: 200px;
+}
   .card_img {
-    width: 40%;
     height: auto;
     object-fit: cover;
   }
