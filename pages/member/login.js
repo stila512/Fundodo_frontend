@@ -136,13 +136,13 @@ export default function LoginPage() {
     <main className={scss.Loginmain}>
       <div className={scss.LoginContainer}>
         <div className={`${scss.lfpic} col-6`}>
-          <Image className="imgWrap" src={lfpic} alt="Image" />
+          <Image className="imgWrap" layout="responsive" src={lfpic} alt="Image" />
         </div>
         <div className={`${scss.rightText} col-6`}>
           <div className={`${scss.area1} col-12`}>
             <p className={`${scss.h5} col-12`}>歡迎回來</p>
           </div>
-          <form onSubmit={handleLogin}>
+          <form onSubmit={`${handleLogin}`}>
             <div className={`${scss.area2} col-12`}>
               <label>電子郵件地址</label>
               <input type="email" name="email" required />
