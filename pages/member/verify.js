@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useContext } from 'react';
 import { AuthContext } from '@/context/AuthContext';
 import Loading from '@/components/common/loading';
+import Loading from '@/components/common/loading';
 
 export default function VerifyPage() {
   const router = useRouter();
@@ -35,14 +36,14 @@ export default function VerifyPage() {
     }
   }, [router.isReady, router.query]);
 
-  switch (status) {
-    case 'loading':
-      return <Loading />;
-    case 'success':
-      return <div>處理完成。</div>;
-    case 'error':
-      return <div>處理失敗。請重試。</div>;
-    default:
-      return <div>未知狀態</div>;
-  }
+    switch (status) {
+        case 'loading':
+            return <div>驗證中...</div>;
+        case 'success':
+            return <div>處理完成。</div>;
+        case 'error':
+            return <div>處理失敗。請重試。</div>;
+        default:
+            return <div>未知狀態</div>;
+    }
 }
