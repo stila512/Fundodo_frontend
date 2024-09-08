@@ -168,7 +168,7 @@
   justify-content: center;
   align-items: center;
   @include rwd-above('lg') {
-    padding-block: rem(137px);
+    padding-block: 0;
     background-color: transparent;
     position: relative;
   }
@@ -178,6 +178,9 @@
   background-color: $white;
   padding: 5rem 4rem;
   border-radius: 3rem;
+  @include rwd-above('lg') {
+    padding: 0;
+  }
 }
 
 .inputBox {
@@ -293,7 +296,8 @@
   cursor: pointer;
 
   @include rwd-above('lg') {
-    padding-block: 1.25rem !important;
+    padding-block: 1.25rem;
+    font-size: 1.25rem;
   }
 }
 .toRegisterBtn {
@@ -304,6 +308,7 @@
 
   @include rwd-above('lg') {
     padding-block: 1.25rem !important;
+    font-size: 1.25rem !important;
   }
 }
 
