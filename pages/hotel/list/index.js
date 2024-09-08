@@ -6,6 +6,7 @@ import SearchBar from './SearchBar';
 import HotelBlock from './hotelBlock';
 import Sort from './sort';
 import BreadCrumb from './breadcrumb';
+import Loading from '@/components/common/loading.js';
 
 
 

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import scss from './hotelSec.module.scss';
-import FddBtn from '@/components/buttons/fddBtn';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
 import { IconContext } from 'react-icons';
-import { IoIosArrowBack } from "react-icons/io";
-import { IoIosArrowForward } from "react-icons/io";
-import { IoAddCircle } from 'react-icons/io5';
-import review from "@/public/homePic/review.png";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import HtBg from '@/public/homePic/ht_bg.svg'
 
 const reviews = [
@@ -46,82 +46,92 @@ const reviews = [
 
 
 export default function HotelSec() {
-  const [currentReview, setCurrentReview] = useState(0);
-  const [direction, setDirection] = useState('right');
-  const [key, setKey] = useState(0);
-  useEffect(() => {
-    const timer = setInterval(() => {
-      handleNext();
-    }, 5000);
+  // const [currentReview, setCurrentReview] = useState(0);
+  // const [direction, setDirection] = useState('right');
+  // const [key, setKey] = useState(0);
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     handleNext();
+  //   }, 5000);
 
-    return () => clearInterval(timer);
-  }, []);
+  //   return () => clearInterval(timer);
+  // }, []);
 
-  const handlePrev = () => {
-    setDirection('left');
-    setCurrentReview((prevReview) => (prevReview - 1 + reviews.length) % reviews.length);
-    setKey(prevKey => prevKey + 1);
-  };
+  // const handlePrev = () => {
+  //   setDirection('left');
+  //   setCurrentReview((prevReview) => (prevReview - 1 + reviews.length) % reviews.length);
+  //   setKey(prevKey => prevKey + 1);
+  // };
 
-  const handleNext = () => {
-    setDirection('right');
-    setCurrentReview((prevReview) => (prevReview + 1) % reviews.length);
-    setKey(prevKey => prevKey + 1);
-  };
+  // const handleNext = () => {
+  //   setDirection('right');
+  //   setCurrentReview((prevReview) => (prevReview + 1) % reviews.length);
+  //   setKey(prevKey => prevKey + 1);
+  // };
 
 
   return (
     <>
-      <div className={scss.hotel} style={{ '--bg-image': `url(${HtBg.src})` }}>
-        <div className="container">
-          <div className={scss.hotelSec}>
-            <div className={scss.hotelContent}>
-              <div className={scss.hotelText}>
-                <h2>安心寵物住宿!</h2>
-                <p>我們提供舒適、安全的住宿環境，全天候專業照顧，並安排每日活動，確保您的愛犬在這裡享受快樂、<br /> 放鬆的度假時光。</p>
-              </div>
-
-              <div className={scss.btns}>
-                <button className={scss.backBtn} onClick={handlePrev}>
-                  <IconContext.Provider value={{ size: '2.5rem' }}>
-                    <IoIosArrowBack className={scss.ArrowBack} />
-                  </IconContext.Provider>
-                </button>
-                <button className={scss.fowBtn} onClick={handleNext}>
-                  <IconContext.Provider value={{ size: '2.5rem' }}>
-                    <IoIosArrowForward className={scss.ArrowFow} />
-                  </IconContext.Provider>
-                </button>
-              </div>
-            </div>
-            <div className={scss.hotelReviewWrapper}>
-              <div className={`${scss.hotelReview} ${scss[direction]}`}>
-                <div className={scss.images}>
-                  <Image
-                    className={scss.images}
-                    src={reviews[currentReview].image}
-                    alt={`Review by ${reviews[currentReview].author}`}
-                    // layout="responsive"
-                    width={580}
-                    height={380}
-                  />
-                </div>
-                <div className={scss.content}>
-                  <div className={scss.text}>
-                    <h4>{reviews[currentReview].title}</h4>
-                    <p>{reviews[currentReview].content}</p>
-                  </div>
-                  <div className={scss.info}>
-                    <h6>{reviews[currentReview].author}</h6>
-                    <p>{reviews[currentReview].date}</p>
-                  </div>
-                </div>
-              </div>
-
+       <div className={scss.hotel} style={{ '--bg-image': `url(${HtBg.src})` }}>
+      <div className="container">
+        <div className={scss.hotelSec}>
+          <div className={scss.hotelContent}>
+            <div className={scss.hotelText}>
+              <h2>安心寵物住宿!</h2>
+              <p>我們提供舒適、安全的住宿環境，全天候專業照顧，並安排每日活動，確保您的愛犬在這裡享受快樂、<br /> 放鬆的度假時光。</p>
             </div>
           </div>
+          <Swiper
+            modules={[Navigation, Autoplay]}
+            spaceBetween={30}
+            slidesPerView={1}
+            navigation={{
+              prevEl: '.swiper-button-prev',
+              nextEl: '.swiper-button-next',
+            }}
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
+            }}
+            loop={true}
+            className={scss.hotelReviewWrapper}
+          >
+            {reviews.map((review) => (
+              <SwiperSlide key={review.id}>
+                <div className={scss.hotelReview}>
+                  <div className={scss.images}>
+                    <Image
+                      src={review.image}
+                      alt={`Review by ${review.author}`}
+                      width={600}
+                      height={400}
+                    />
+                  </div>
+                  <div className={scss.content}>
+                    <div className={scss.text}>
+                      <h4>{review.title}</h4>
+                      <p>{review.content}</p>
+                    </div>
+                    <div className={scss.info}>
+                      <h6>{review.author}</h6>
+                      <p>{review.date}</p>
+                    </div>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+            <div className={scss.btns}>
+              <button className={`swiper-button-prev ${scss.backBtn}`}>
+                <IoIosArrowBack className={scss.ArrowBack} />
+              </button>
+              <button className={`swiper-button-next ${scss.fowBtn}`}>
+                <IoIosArrowForward className={scss.ArrowFow} />
+              </button>
+            </div>
+          </Swiper>
         </div>
       </div>
+    </div>
     </>
   )
 }
