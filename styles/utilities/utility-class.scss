@@ -1,4 +1,5 @@
 .img-wrap-w100 {
+  height: fit-content;
   img {
     width: 100%;
     height: auto;
@@ -6,6 +7,7 @@
   }
 }
 .img-wrap-h100 {
+  width: fit-content;
   img {
     width: auto;
     height: 100%;
