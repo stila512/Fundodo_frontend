@@ -9,6 +9,7 @@ import SideText_2 from '@/components/member/SideText_2';
 import Link from 'next/link';
 import useAuthRedirect from '@/hooks/useAuthRedirect';
 import pswd_icon from '@/public/memberPic/password-icon.svg';
+import Loading from '@/components/common/loading';
 export default function ChangePassword() {
   useAuthRedirect();
   const { user: authUser, loading: authLoading } = useContext(AuthContext);
@@ -133,7 +134,7 @@ export default function ChangePassword() {
       // 如果 authUser 為 null，則延遲2秒後刷新頁面
       timeoutId = setTimeout(() => {
         router.reload();
-      }, 1000); // 1秒延遲
+      }, 500); // 0.5秒延遲
     } else if (authUser && authUser.uuid) {
       fetchgetMember(authUser.uuid);
     } else {
