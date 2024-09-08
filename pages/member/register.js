@@ -7,6 +7,7 @@ import pswd_icon from '@/public/memberPic/password-icon.svg';
 import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router';
+import { IoMdHome } from "react-icons/io";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -140,18 +141,18 @@ export default function RegisterPage() {
     <main className={scss.Registermain}>
       <form onSubmit={handleSubmit}>
         <div className={scss.RegisterContainer}>
-          <div className={scss.lfpic}>
-            <Image className="imgWrap" src={lfpic} alt="Image" />
+          <div className={`${scss.lfpic} col-6`}>
+            <Image className="imgWrap" layout="responsive" src={lfpic} alt="Image" />
           </div>
-          <div className={scss.rightText}>
-            <div>
-              <div className={scss.area1}>
+          <div className={`${scss.rightText} col-6`}>
+            <div className={`col-12`}>
+              <div className={`${scss.area1} col-12`}>
                 <p className={scss.h5}>建立帳號</p>
                 <p>
                   已經有帳號了嗎?<Link href="/member/login"><span className={scss.loginSpan}>登入</span></Link>
                 </p>
               </div>
-              <div className={scss.area2}>
+              <div className={`${scss.area2} col-12`}>
                 <label>暱稱</label>
                 <input
                   type="text"
@@ -198,15 +199,16 @@ export default function RegisterPage() {
                   <p>使用8個或以上的字元, 包含字母數字和符號</p>
                 </div>
               </div>
-              <div className={scss.area3}>
+              <div className={`${scss.area3} col-12`}>
                 <p>創建帳號即表示您同意我們的<span className={scss.a3Span}>使用條款</span> 和<span className={scss.a3Span}>隱私政策</span>。</p>
               </div>
-              <div className={scss.area4}>
+              <div className={`${scss.area4} col-12`}>
                 <button type="submit" className={scss.createBtn}>建立帳號</button>
                 <p>
                   已經有帳號了嗎?<Link href="/member/login"><span className={scss.loginSpan}>登入</span></Link>
                 </p>
               </div>
+              <Link href="/home"><div className={scss.xBtn}><IoMdHome /></div></Link>
             </div>
           </div>
         </div>

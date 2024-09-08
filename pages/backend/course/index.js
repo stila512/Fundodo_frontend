@@ -174,7 +174,7 @@ export default function CourseList() {
                                             <div key={index} className={scss.tag}><p>{tag}</p></div>
                                         ))
                                     ) : (
-                                        <p>No tags available</p>
+                                       <p>Loading Courses...</p>
                                     )}</td>
                     <td>NT${course.sale_price}</td>
                     <td>{new Date(course.created_at).toLocaleDateString()}</td>
@@ -187,7 +187,7 @@ export default function CourseList() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="6">No courses available</td>
+                  <td colSpan="6">Loading Courses...</td>
                 </tr>
               )}
             </tbody>

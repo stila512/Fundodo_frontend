@@ -231,8 +231,16 @@ export default function ConfirmPage({
                     <p>收件人：{orderInfo.addressee}</p>
                     <p>聯絡電話：{orderInfo.phone_num}</p>
                     <p>電子信箱：{orderInfo.email}</p>
-                    <p>收件郵遞區號：{orderInfo.ship_zipcode}</p>
-                    <p>收件完整地址：{orderInfo.ship_address}</p>
+                    {orderInfo.isCVS
+                      ? <>
+                        <p>收件郵遞區號：{orderInfo.shop_name}</p>
+                        <p>收件完整地址：{orderInfo.shop_addr}</p>
+                      </>
+                      : <>
+                        <p>收件郵遞區號：{orderInfo.ship_zipcode}</p>
+                        <p>收件完整地址：{orderInfo.ship_address}</p>
+                      </>}
+
                     <p>收件備註：{orderInfo.ship_ps}</p>
                   </div>
                 </div>

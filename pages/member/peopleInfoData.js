@@ -15,7 +15,7 @@ import Modal from '@/components/common/modal';
 import { GoCheck } from "react-icons/go";
 import FddBtn from '@/components/buttons/fddBtn';
 import Head from 'next/head';
-
+import Loading from '@/components/common/loading';
 
 export default function PeopleInfoData() {
   const router = useRouter();

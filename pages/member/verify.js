@@ -35,14 +35,14 @@ export default function VerifyPage() {
     }
   }, [router.isReady, router.query]);
 
-  switch (status) {
-    case 'loading':
-      return <Loading />;
-    case 'success':
-      return <div>處理完成。</div>;
-    case 'error':
-      return <div>處理失敗。請重試。</div>;
-    default:
-      return <div>未知狀態</div>;
-  }
+    switch (status) {
+        case 'loading':
+            return <Loading></Loading>;
+        case 'success':
+            return <div>處理完成。</div>;
+        case 'error':
+            return <div>處理失敗。請重試。</div>;
+        default:
+            return <div>未知狀態</div>;
+    }
 }

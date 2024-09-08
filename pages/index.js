@@ -31,6 +31,6 @@ export default function Index() {
     router.push('/home');
   }, [])
 
-  return <></>;
+  return <Loading />;
 }
 Index.layout = DefaultLayout;

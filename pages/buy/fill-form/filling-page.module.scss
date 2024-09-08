@@ -18,9 +18,9 @@
   }
 }
 .topPanel .shipwayH3 {
+  margin-bottom: 2rem;
   text-align: center;
   @include rwd-above('lg') {
-    margin-bottom: 2rem;
     text-align: left;
   }
 }
