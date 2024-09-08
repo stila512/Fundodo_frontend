@@ -193,12 +193,15 @@ export default function CartPage({
     const initState = Array(cpList.length).fill(0);
     let verified = initState;
     SORT_LIST.forEach(sort => {
+      const i_sort = SORT_LIST.indexOf(sort);
       if (cartPkg[sort].length === 0) {
-        verified = verified.map((s, i_cp) => {
-          if (cpList[i_cp].scope_from === sort || cpList[i_cp].scope_to === sort)
-            return -1;
-          else
-            return s;
+        verified = verified.map((zero, i_cp) => {
+          if (cpList[i_cp].scope_from === sort || cpList[i_cp].scope_to === sort) {
+            const min_spent = cpList[i_cp].min_spent;
+            return (amtArr[i_sort] > min_spent) ? zero : -1;
+          } else {
+            return zero;
+          }
         });
       }
     });
@@ -206,7 +209,6 @@ export default function CartPage({
   }, [cpList, cartPkg])
 
   //===== 以購物車內容更新折扣金額
-
   /**
    * 處理包括買旅館折商品的方案
    * @param {object} coupon 優惠券資料包
