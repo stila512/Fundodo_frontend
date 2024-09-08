@@ -18,6 +18,14 @@
   height: 100%;
 }
 
+.logoWrap {
+  width: 170px;
+
+  @include s.rwd-above('md') {
+    width: 210px;
+  }
+}
+
 //================================================
 // .hbgBtn {
 //   background-color: transparent;
