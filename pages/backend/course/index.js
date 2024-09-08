@@ -19,15 +19,17 @@ export default function CourseList() {
   const [modalContent, setModalContent] = useState({ title: '', message: '' });
   const [courseToDelete, setCourseToDelete] = useState(null);
 
+   // 當搜索或當前頁碼變化時，重新獲取課程列表
   useEffect(() => {
     fetchCourses();
   }, [searchQuery, currentPage]);
+
 
   const fetchCourses = async () => {
     try {
       const res = await fetch(`http://localhost:3005/api/course?page=${currentPage}&perPage=${coursesPerPage}&search=${searchQuery}`);
       if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
+        throw new Error(`HTTP error! ${res.status}`);
       }
       const data = await res.json();
       if (data.status === "success") {

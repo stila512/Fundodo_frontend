@@ -40,7 +40,7 @@ export default function FAQ() {
                 )}
 
                 <div className={scss.faq_q} onClick={() => { toggleAccordion(2) }}>
-                    <p><FaRegQuestionCircle /> 課程中是否包含實際的訓練示範？我如何確保能正確應用所學？</p>
+                    <p><FaRegQuestionCircle /> 課程中是否包含實際的訓練示範？</p>
                     <IoIosArrowDown />
                 </div>
                 {accordion === 2 && (

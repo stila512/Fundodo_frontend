@@ -1,8 +1,9 @@
 import React from 'react';
-import scss from "./courseGrid.module.scss";
-import { AiOutlineUser } from "react-icons/ai";
 import Image from 'next/image';
 import Link from 'next/link';
+import scss from "./courseGrid.module.scss";
+import { AiOutlineUser } from "react-icons/ai";
+
 
 export default function CourseGrid({ courses }) {
   return (

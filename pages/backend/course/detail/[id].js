@@ -4,10 +4,9 @@ import Head from 'next/head';
 import BackendLayout from '@/components/layout/backend';
 import Modal from '@/components/common/modal';
 import Image from 'next/image';
-
 import { FaEdit, FaTrashAlt, FaFile } from 'react-icons/fa';
-import scss from './detail.module.scss';
 import { format, parseISO } from 'date-fns';
+import scss from './detail.module.scss';
 
 export default function CourseDetail() {
     const router = useRouter();
@@ -15,12 +14,6 @@ export default function CourseDetail() {
     const [course, setCourse] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [modalContent, setModalContent] = useState({ title: '', message: '' });
-
-
-    const formatDate = (dateString) => {
-        const date = parseISO(dateString);
-        return format(date, 'yyyy-MM-dd');
-    };
 
     const formatDateTime = (dateString) => {
         const date = parseISO(dateString);
@@ -78,12 +71,10 @@ export default function CourseDetail() {
                 message: '課程已成功刪除'
             });
             setShowModal(true);
-            // 延遲導航，給用戶時間看到成功消息
             setTimeout(() => {
                 router.push('/backend/course');
             }, 1500);
         } catch (err) {
-            // 顯示錯誤 Modal
             setModalContent({
                 title: '刪除失敗',
                 message: '課程刪除失敗，請稍後再試'
