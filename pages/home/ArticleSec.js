@@ -60,7 +60,7 @@ export default function ArticleSec() {
   }
 
   return (
-    <section className={scss.bgWrapper}>
+    <section className={['mb-5', scss.bgWrapper].join(' ')}>
       <div className={scss.bg} style={{ '--bg-image': `url(${AtBg.src})` }}>
         <div className='container'>
           <div className={scss.card_text}>

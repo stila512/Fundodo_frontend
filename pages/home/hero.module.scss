@@ -4,13 +4,16 @@
   height: 50vh;
 
   @include rwd-above('md') {
-    height: 100vh;
+    height: calc(80svh);
     position: relative;
     display: flex;
 
     & > div {
       height: 100%;
     }
+  }
+  @include rwd-above('md') {
+    margin-top: 3rem;
   }
 }
 

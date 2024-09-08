@@ -49,8 +49,11 @@
   @include s.rwd-above('md') {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-end;
     gap: 1rem;
+  }
+  @include s.rwd-above('lg') {
+    justify-content: space-between;
   }
 }
 
