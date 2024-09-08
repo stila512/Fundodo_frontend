@@ -26,7 +26,7 @@ export default function HotelPage() {
   return (
     <>
     <Head>
-      <title>寵物旅館住宿</title>
+      <title>寵物旅館住宿 | Fundodo</title>
     </Head>
     <div className={styles.pageContainer}>
       <div className={styles.breadcrumbs}>
