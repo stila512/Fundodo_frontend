@@ -1,21 +1,20 @@
 //== Parameters ================================================================
 import { apiBaseUrl } from '@/configs';
 //== Functions =================================================================
-import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '@/context/AuthContext';
+import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import FddBtn from '../buttons/fddBtn';
+import FddBtn from '../buttons/fddBtn'
 //== Styles =================================================================
-import scss from './navFunc.module.scss';
+import s from './mb-btm-nav.module.scss';
+import { cartNumber } from './navFunc.module.scss';
+import { FaHouse } from "react-icons/fa6";
+import { FaHeart } from 'react-icons/fa';
 import { IoMdPerson } from 'react-icons/io';
-import { AiOutlineSearch } from 'react-icons/ai';
 import { IoCart } from 'react-icons/io5';
-import { IoIosLogOut } from "react-icons/io";
 
-export default function NavFuncBtns({ showCart = true }) {
-  const { logout, user } = useContext(AuthContext);
-
-
+export default function MobileBtmNav() {
+  const { user } = useContext(AuthContext);
   //======= handle 購物車數量提示
   const [cartCount, setCartCount] = useState(0);
   //===== 會員 ID
@@ -76,70 +75,19 @@ export default function NavFuncBtns({ showCart = true }) {
     }
   }, [uID]);
 
-  /** 清除登入狀態相關數值 */
-  const handleLogout = () => {
-    setUID(-1);
-    setCartCount(0);
-    logout();
-  };
-
   return (
-    <ul className={scss.ulFunc}>
-      {/* 站內搜尋 */}
-      {/* <li>
-        <FddBtn color='white' pill={false} icon callback={() => { }}>
-          <AiOutlineSearch />
-        </FddBtn>
-      </li> */}
-      {/* 會員 */}
-      <li>
-        <FddBtn
-          color='white'
-          pill={false}
-          icon
-          title='會員專區'
-          href="/member/peopleInfoData"
-        >
-          <IoMdPerson />
-        </FddBtn>
-      </li>
-      {/* 購物車 */}
-      {
-        (showCart && uID >= 0) ? (
-          <li
-            style={{
-              paddingRight: uID === 0 ? '' : '.5rem',
-              position: 'relative'
-            }}
-          >
-            <FddBtn
-              color='white'
-              pill={false}
-              icon
-              title='購物車'
-              href="/buy">
-              <IoCart />
-              <div className={[scss.cartNumber, uID === 0 ? 'd-none' : 'd-flex'].join(' ')}>{cartCount}</div>
-            </FddBtn>
-          </li>
-        ) : (<></>)
-      }
-      {/* 會員登出 */}
-      {
-        (uID > 0) && (
-          <li className='d-none d-md-inline-flex'>
-            <FddBtn
-              color='white'
-              pill={false}
-              icon
-              title='登出'
-              callback={() => handleLogout()}>
-              <IoIosLogOut />
-            </FddBtn>
-          </li>
-        )
-      }
-
-    </ul>
-  );
+    <div className={s.btmNav}>
+      <FddBtn color='white' pill={false}
+        icon size='lg' href="/home"><FaHouse /></FddBtn>
+      <FddBtn color='white' pill={false}
+        icon size='lg' href="/member/peopleInfoData"><IoMdPerson /></FddBtn>
+      <FddBtn color='white' pill={false}
+        icon size='lg' href="/prod/list/favoriteProd"><FaHeart /></FddBtn>
+      <FddBtn color='white' pill={false}
+        icon size='lg' href="/buy" style={{ position: 'relative' }}>
+        <IoCart />
+        <div className={[s.cartNumber, uID === 0 ? 'd-none' : 'd-flex'].join(' ')}>{cartCount}</div>
+      </FddBtn>
+    </div >
+  )
 }
