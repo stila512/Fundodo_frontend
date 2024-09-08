@@ -51,7 +51,7 @@ export default function CouponPage() {
 
   //===== 以會員 ID 索取優惠券資料
   useEffect(() => {
-    if (uID === 0) return;
+    if (uID <= 0) return;
 
     const CancalToken = axios.CancelToken;//中止情況用的信號彈
     const source = CancalToken.source();

@@ -7,7 +7,6 @@ import axios from 'axios';
 import FddBtn from '../buttons/fddBtn'
 //== Styles =================================================================
 import s from './mb-btm-nav.module.scss';
-import { cartNumber } from './navFunc.module.scss';
 import { FaHouse } from "react-icons/fa6";
 import { FaHeart } from 'react-icons/fa';
 import { IoMdPerson } from 'react-icons/io';

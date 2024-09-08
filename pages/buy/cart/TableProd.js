@@ -221,7 +221,7 @@ export default function ProdCartTable({
                         : (item.sort_name || item.spec_name)
                     }
                   </p>
-                  <div className='hstack mt-3'>
+                  <div className='hstack mt-3 jc-between'>
                     <NumberPanel
                       quantity={qtyArr[i_item]}
                       callback={(q) => handleQty(i_item, item.cart_id, q)}
@@ -233,7 +233,7 @@ export default function ProdCartTable({
                     <div className='gr-center bg-white tx-body'
                       style={{
                         border: '1px solid rgb(120, 116, 115)',
-                        width: '8rem',
+                        width: '5rem',
                         height: '3rem',
                         paddingInline: 0
                       }}
@@ -245,7 +245,7 @@ export default function ProdCartTable({
               </div>
             ))}
             {noData &&
-              <div className='row'>
+              <div className='row py-5'>
                 <FddBtn color='tint1' size='sm' href='/prod'>來去逛逛寵物商城</FddBtn>
               </div>}
           </div>

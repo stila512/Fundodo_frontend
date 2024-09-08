@@ -32,12 +32,14 @@ export default function NavHeader() {
             <NavToggleBtn showMenu={showMenu} setShowMenu={setShowMenu} />
           </div>
           <div className='pos-a t-50 l-50 translate-middle pos-md-r t-md-0 l-md-0 translate-middle-md-none'>
-            <Logo width={210} href="/"></Logo>
+            <Logo href="/" wrapClass={["img-wrap-w100", scss.logoWrap].join(' ')} />
           </div>
           <nav className='flex-grow-1 flex-lg-grow-0'>
             {
               (w__screen >= breakpoints.md || showMenu) &&
-              <NavLinks />
+              <NavLinks toggleLinks={
+                w__screen < breakpoints.md ? setShowMenu : () => { }
+              } />
             }
             <NavFuncBtns />
           </nav>

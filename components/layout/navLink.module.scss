@@ -10,7 +10,7 @@
   background-color: s.$tint5;
   align-items: stretch;
   text-align: center;
-  
+
   @include s.rwd-above('md') {
     top: initial;
     left: initial;
@@ -26,7 +26,6 @@
     & > a {
       display: block;
       width: 100%;
-     
     }
 
     &:hover {
