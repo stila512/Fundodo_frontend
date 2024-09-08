@@ -40,7 +40,6 @@ export default function CourseEdit() {
       const res = await fetch(`http://localhost:3005/api/course/${id}`);
       const data = await res.json();
 
-     
       setCourse(data.data);
 
       if (data.data.img_path) {
@@ -59,8 +58,6 @@ export default function CourseEdit() {
         url: getImageUrl(img),
         name: img
       })));
-      
-      console.log("Fetched outline images:", safeOutlineImages);
     } catch (error) {
       console.error('獲取課程資料失敗:', error);
     }
@@ -214,14 +211,6 @@ export default function CourseEdit() {
     if (course.img_path instanceof File) {
       formData.append('img_path', course.img_path);
     }
-
-    // if (Array.isArray(course.outline_images)) {
-    //   course.outline_images.forEach((image, index) => {
-    //     if (image instanceof File) {
-    //       formData.append('outline_images', image);
-    //     }
-    //   });
-    // }
 
     formData.append('existing_outline_images', JSON.stringify(existingOutlineImages.map(img => img.name)));
 

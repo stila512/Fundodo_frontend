@@ -16,8 +16,7 @@ const Breadcrumb = () => {
 
   const beBreadcrumb = () => {
     const asPath = router.asPath;
-    console.log('Current path:', asPath);
-    const pathnames = asPath.split('/').filter((x) => x);
+    const pathnames = asPath.split('/').filter((x) => x);   //  將路徑分割成陣列，並過濾掉空字符串
     const breadcrumbs = [];
 
     breadcrumbs.push({ label: 'Home', link: '/home' });
@@ -32,8 +31,6 @@ const Breadcrumb = () => {
         breadcrumbs.push({ ...pathMap['/course/play'], link: `/course/play/${pathnames[2]}` });
       }
     }
-
-    console.log('Generated breadcrumbs:', breadcrumbs);
     return breadcrumbs;
   };
 

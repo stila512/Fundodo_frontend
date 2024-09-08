@@ -19,7 +19,7 @@ export default function AddCart({ original_price, sale_price, id }) {
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState({ title: '', message: '' });
 
-
+ // 解析token獲取用戶ID
   useEffect(() => {
     const { userId } = tokenDecoder();
     setUID(userId ? userId : 0);

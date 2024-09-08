@@ -40,7 +40,7 @@ export default function CourseDetail() {
       imgPath: data.imgPath,
 
     };
-    console.log('Fetched course data:', courseData);
+    console.log('課程資訊:', courseData);
     setCourse(courseData)
   }
 
