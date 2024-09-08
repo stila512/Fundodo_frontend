@@ -1,5 +1,6 @@
 import { FaRegCheckCircle } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
+import { MdErrorOutline } from "react-icons/md";
 import s from './modal.module.scss';
 import FddBtn from "@/components/buttons/fddBtn";
 import { Children } from "react";
@@ -63,6 +64,13 @@ export default function Modal({
           <>
             <div className={s.style_11}>
               <div className={s.icon}><FaRegCheckCircle /></div>
+              <div className={s.textBox}>{contentText}</div>
+            </div>
+          </>}
+        {code === 12 &&
+          <>
+            <div className={s.style_11}>
+              <div className={s.icon}><MdErrorOutline /></div>
               <div className={s.textBox}>{contentText}</div>
             </div>
           </>}

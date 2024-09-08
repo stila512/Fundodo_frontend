@@ -43,7 +43,7 @@ export default function Pid() {
   const [quantity, setQuantity] = useState(1);
   const [maxQuantity, setMaxQuantity] = useState(0);
   const [showModal, setShowModal] = useState(false);
-  const [modalContent, setModalContent] = useState({ title: '', message: '' });
+  const [modalContent, setModalContent] = useState({ style: 1, title: '', message: '' });
   const [activeTab, setActiveTab] = useState('description');
 
   const handleTabChange = (tab) => {
@@ -250,21 +250,25 @@ export default function Pid() {
       const result = await response.json();
 
       if (result.status === "success") {
-        displayModal('成功', '加入購物車成功，請至購物車查看選購的商品。');
-        location.reload()
+        if (result.result) {
+          displayModal(1, '成功', '加入購物車成功，請至購物車查看選購的商品。');
+        } else {
+          displayModal(2, '失敗', '此商品已經在您的購物車囉~');
+        }
       } else {
-        alert('加入購物車失敗: ' + result.message);
+        displayModal(2, '錯誤', '加入購物車時發生錯誤，請稍後再試。');
       }
     } catch (error) {
       console.error('加入購物車失敗:', error);
-      displayModal('錯誤', '加入購物車時發生錯誤，請稍後再試。');
+      displayModal(2, '錯誤', '加入購物車時發生錯誤，請稍後再試。');
     }
   };
 
-  const displayModal = (title, message) => {
-    setModalContent({ title, message });
+  const displayModal = (style, title, message) => {
+    setModalContent({ style, title, message });
     setShowModal(true);
   };
+
   return (
     <>
       <Head>
@@ -396,8 +400,12 @@ export default function Pid() {
       </main>
       <Modal
         mode={1}
+        style={modalContent.style}
         active={showModal}
-        onClose={() => setShowModal(false)}
+        onClose={() => {
+          setShowModal(false);
+          location.reload();
+        }}
       >
         <h4>{modalContent.title}</h4>
         <p>{modalContent.message}</p>

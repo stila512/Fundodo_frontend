@@ -2,7 +2,7 @@
 
 $headerHeight: 70px;
 $transitionDuration: 0.3s;
-$buttonWidth: 48%; 
+$buttonWidth: 48%;
 
 .stickyWrapper {
   position: relative;
@@ -21,7 +21,7 @@ $buttonWidth: 48%;
   gap: 12px;
   position: sticky;
   top: #{$headerHeight + 50px};
-  z-index: 999;
+  z-index: 99;
   overflow: hidden;
 
   @include rwd-above(sm) {
@@ -35,7 +35,7 @@ $buttonWidth: 48%;
   align-items: center;
   padding-bottom: 6px;
   border-bottom: 1px solid $tint3;
-  
+
   h2 {
     font-size: 18px;
     color: $shade3;

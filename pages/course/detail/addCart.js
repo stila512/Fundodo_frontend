@@ -1,4 +1,5 @@
-import React, { useState, useEffect,useContext } from 'react'
+import { apiBaseUrl } from '@/configs';
+import { useState, useEffect, useContext } from 'react'
 import { useRouter } from 'next/router';
 import { AuthContext } from '@/context/AuthContext';
 import Modal from '@/components/common/modal';
@@ -8,6 +9,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { PiVideoBold } from "react-icons/pi";
 import Link from 'next/link';
 import tokenDecoder from '@/context/token-decoder';
+import axios from 'axios';
 
 export default function AddCart({ original_price, sale_price, id }) {
   const { user } = useContext(AuthContext);
@@ -18,8 +20,8 @@ export default function AddCart({ original_price, sale_price, id }) {
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState({ title: '', message: '' });
+  const [doesExistInCart, setDoesExistInCart] = useState(false);
 
- // 解析token獲取用戶ID
   useEffect(() => {
     const { userId } = tokenDecoder();
     setUID(userId ? userId : 0);
@@ -27,29 +29,38 @@ export default function AddCart({ original_price, sale_price, id }) {
 
   useEffect(() => {
     const checkPurchaseStatus = async () => {
-      if (user && id) {
-        try {
-          console.log('cid:', id);
-          const userId = uID; // 使用解析後的 userId
-          const res = await fetch(`http://localhost:3005/api/course/permission?courseId=${id}&userId=${userId}`, {
-            headers: {
-              'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
-          });
-          const data = await res.json();
-          console.log('Purchase status response:', data);
-          if (data.status === 'success' && data.hasPurchased) {
-            setHasPurchased(true);
-            setPurchaseDate(data.startDate);
+      try {
+        console.log('cid:', id);
+        console.log('uID:', uID);
+        const userId = uID; // 使用解析後的 userId
+        const res = await fetch(`${apiBaseUrl}/course/permission?courseId=${id}&userId=${userId}`, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
           }
-        } catch (error) {
-          console.error('檢查課程權限時出錯:', error);
+        });
+        const data = await res.json();
+        console.log('Purchase status response:', data);
+        if (data.status === 'success' && data.hasPurchased) {
+          // 如果已經購買課程
+          setHasPurchased(true);
+          setPurchaseDate(data.startDate);
+        } else {
+          // 如果尚未購買課程
+          const isInCart = await axios.get(
+            `${apiBaseUrl}/cart/check-crs?uid=${uID}&cid=${id}`
+          ).then(res => res.data.result);
+          console.log('到底: ', isInCart);
+          setDoesExistInCart(isInCart);
         }
+      } catch (error) {
+        console.error('檢查課程權限時出錯:', error);
       }
     };
 
-    checkPurchaseStatus();
-  }, [user, id, uID]);
+    if (uID !== 0 && id) {
+      checkPurchaseStatus();
+    }
+  }, [uID, id]);
 
 
   const addToCart = async (shouldRedirect = false) => {
@@ -77,13 +88,16 @@ export default function AddCart({ original_price, sale_price, id }) {
 
       if (result.status === "success") {
         if (shouldRedirect) {
-          router.push('http://localhost:3000/buy');  
+          router.push('http://localhost:3000/buy');
         } else {
           setModalContent({
-            title: '成功',
-            message: '已成功加入購物車'
+            style: result.result ? 1 : 2,
+            title: result.result ? '成功' : '放心',
+            message: result.result ? '已成功加入購物車' : '此課程已經在購物車了'
           });
           setShowModal(true);
+
+          if (result.result) setDoesExistInCart(true);
         }
       } else {
         throw new Error(result.message || '加入購物車失敗');
@@ -91,6 +105,7 @@ export default function AddCart({ original_price, sale_price, id }) {
     } catch (error) {
       console.error('操作失敗:', error);
       setModalContent({
+        style: 2,
         title: '錯誤',
         message: '操作失敗，請稍後再試'
       });
@@ -99,7 +114,7 @@ export default function AddCart({ original_price, sale_price, id }) {
   };
 
   const handlePurchase = async () => {
-   addToCart(true);
+    addToCart(true);
   };
 
   const handleAddToCart = async () => {
@@ -112,55 +127,56 @@ export default function AddCart({ original_price, sale_price, id }) {
 
   return (
     <>
-    <div className={scss.stickyWrapper}>
-    <div className={scss.cartBox}>
-        {hasPurchased ? (
-          <>
-            <div className={scss.watchContent}>
-              <PiVideoBold className={scss.icon} />
-              <p>您已於 {new Date(purchaseDate).toLocaleDateString()} 購買此課程</p>
-            </div>
-            <Link href={`/course/play/${id}`} className={scss.btn}>
-              <FaPlayCircle />
-              <p>觀看課程</p>
-            </Link>
-          </>
-        ) : (
-          <>
-            <div className={scss.price}>
-              <h2>NT$ {sale_price}</h2>
-              <p>NT$ {original_price}</p>
-            </div>
-           
-            <div className={scss.btns}>
-              <button 
-                  onClick={handlePurchase} 
+      <div className={scss.stickyWrapper}>
+        <div className={scss.cartBox}>
+          {hasPurchased ? (
+            <>
+              <div className={scss.watchContent}>
+                <PiVideoBold className={scss.icon} />
+                <p>您已於 {new Date(purchaseDate).toLocaleDateString()} 購買此課程</p>
+              </div>
+              <Link href={`/course/play/${id}`} className={scss.btn}>
+                <FaPlayCircle />
+                <p>觀看課程</p>
+              </Link>
+            </>
+          ) : (
+            <>
+              <div className={scss.price}>
+                <h2>NT$ {Number(sale_price).toLocaleString()}</h2>
+                <p>NT$ {Number(original_price).toLocaleString()}</p>
+              </div>
+
+              <div className={scss.btns}>
+                <button
+                  onClick={handlePurchase}
                   className={scss.purchaseBtn}
                 >
                   立即購買
                 </button>
-               <button 
-                  onClick={handleAddToCart}  
-                  className={scss.cartBtn} 
+                <button
+                  onClick={handleAddToCart}
+                  className={scss.cartBtn}
                   disabled={isAddingToCart}
                 >
                   <FaShoppingCart size={20} />
-                  <span>{isAddingToCart ? '加入中...' : '加入購物車'}</span>
+                  <span>{isAddingToCart ? '加入中...'
+                    : (doesExistInCart ? '已加入購物車' : '加入購物車')}</span>
                 </button>
-            </div>
-          </>
-        )}
+              </div>
+            </>
+          )}
+        </div>
+        <Modal
+          mode={1}
+          style={modalContent.style}
+          active={showModal}
+          onClose={() => setShowModal(false)}
+        >
+          <h4>{modalContent.title}</h4>
+          <p>{modalContent.message}</p>
+        </Modal>
       </div>
-      <Modal
-        mode={1}
-        active={showModal}
-        onClose={() => setShowModal(false)}
-      >
-        <h4>{modalContent.title}</h4>
-        <p>{modalContent.message}</p>
-      </Modal>
-    </div>
-     
     </>
   )
 }
