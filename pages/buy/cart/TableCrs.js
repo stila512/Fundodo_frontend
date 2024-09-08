@@ -135,7 +135,7 @@ export default function CrsCartTable({
               </div>
             ))}
             {noData &&
-              <div className='row'>
+              <div className='row py-5'>
                 <FddBtn color='tint1' size='sm' href='/prod'>來去逛逛寵物商城</FddBtn>
               </div>}
           </div>

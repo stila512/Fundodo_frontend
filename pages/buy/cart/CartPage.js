@@ -389,7 +389,7 @@ export default function CartPage({
               繼續購物
             </FddBtn>
           </div>
-          <article className={['row', s.orderInfo].join(' ')}>
+          <article className={['row jc-center', s.orderInfo].join(' ')}>
             <div className="col-12 col-lg-8">
               <div className="bg-secondary p-3 h-100">
                 <div className="hstack jc-between mb-3">
@@ -414,7 +414,7 @@ export default function CartPage({
                 </div>
               </div>
             </div>
-            <div className="col-12 col-lg-4">
+            <div className="col-8 col-lg-4">
               <table>
                 <thead>
                   <tr>
@@ -456,7 +456,7 @@ export default function CartPage({
       {isEmpty &&
         <section className="container pt-3">
           <h4 className='my-5 tx-lg tx-shade3 tx-center'>現在購物車空無一物</h4>
-          <div className='hstack jc-around'>
+          <div className='d-flex flex-col flex-md-row px-5 gap-5 jc-center'>
             <FddBtn color='tint1' size='sm' href='/prod'>來去逛逛寵物商城</FddBtn>
             <FddBtn color='tint1' size='sm' href='/hotel/list'>來去逛逛寵物旅館</FddBtn>
             <FddBtn color='tint1' size='sm' href='/course'>來去逛逛寵物課程</FddBtn>

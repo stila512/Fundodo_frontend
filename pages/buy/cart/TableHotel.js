@@ -126,7 +126,7 @@ export default function HotelCartTable({
             {noData || data.map((item, i_item) => itemStateArr[i_item] && (
               <div className={["row", s.cartRowMb].join(' ')}>
                 <div className="col-4 gr-center">
-                  <div className="img-wrap-h100" style={{ height: 100 }}>
+                  <div className="img-wrap-w100" style={{ width: 100 }}>
                     <Image
                       src={"/hotelPic/pic/" + item.pic_name}
                       width={0}
@@ -148,7 +148,7 @@ export default function HotelCartTable({
               </div>
             ))}
             {noData &&
-              <div className='row'>
+              <div className='row py-5'>
                 <FddBtn color='tint1' size='sm' href='/prod'>來去逛逛寵物商城</FddBtn>
               </div>}
           </div>
