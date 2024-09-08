@@ -190,7 +190,7 @@ export default function PeopleInfoData() {
             </div>
             <div className={scss.PeopleInfoDataContainer}>
               <div className="col-1 col-lg-4"></div>
-              <div className={`${scss.midarea} col-12 col-lg-5`}>
+              <div className={`${scss.midarea} col-10 col-lg-5`}>
                 <div className={`${scss.midtext}`}>
                   <div className={`${scss.area2} `}>Email <p>{user.email || 'example@gmail.com'}
                     <span>{user.email_verified === 1 ? (
@@ -224,7 +224,7 @@ export default function PeopleInfoData() {
                   </div>
                 </div>
               </div>
-              <div className="col-5 my-5  d-none d-lg-block">
+              <div className="col-1 col-lg-5 my-5  d-none d-lg-block">
                 <SideText activeIndex={0} />
               </div>
             </div>

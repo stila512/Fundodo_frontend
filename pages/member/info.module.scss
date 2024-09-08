@@ -12,18 +12,18 @@
     .midtext input {
       max-width: 65%;
     }
-    .midtext{
-      .area5{
+    .midtext {
+      .area5 {
         gap: 80px;
       }
-      .area6{
+      .area6 {
         gap: 55px;
       }
-      .area7{
-        gap: 60px;
+      .area7 {
+        gap: 72px;
       }
     }
-    .midtext .area7 input{
+    .midtext .area7 input {
       max-width: 83%;
     }
   }
@@ -31,7 +31,7 @@
     .midtext input {
       max-width: 50%;
     }
-    .midtext .area7 input{
+    .midtext .area7 input {
       max-width: 50%;
     }
   }
@@ -251,12 +251,31 @@
 .ForumMemberInfo {
   display: flex;
   flex-direction: row;
-  @media (max-width: 768px) {
-    .midtext input {
-      max-width: 70%;
+  @media (max-width: 499px) {
+    .midtext .area2 input {
+      max-width: 60%;
     }
-    .midtext textarea {
-      max-width: 70%;
+    .midtext .area7 textarea {
+      max-width: 60%;
+    }
+    .midtext {
+      .area5 {
+        gap: 55px;
+      }
+      .area6 {
+        gap: 55px;
+      }
+      .area7 {
+        gap: 55px;
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    .midtext .area2 input {
+      max-width: 60%;
+    }
+    .midtext .area7 textarea {
+      max-width: 60%;
     }
   }
   .midarea {
@@ -557,6 +576,29 @@
 .PeopleInfoDataContainer {
   display: flex;
   flex-direction: row;
+  @media (max-width: 768px) {
+    .midtext {
+      gap: 0;
+    }
+    .midtext input {
+      max-width: 65%;
+    }
+    .midtext {
+      .area5 {
+        gap: 80px;
+      }
+      .area6 {
+        gap: 54px;
+      }
+      .area7 {
+        white-space: nowrap;
+        gap: 54px;
+      }
+    }
+    .midtext .area7 input {
+      max-width: 83%;
+    }
+  }
   @media (max-width: 499px) {
     .botarea {
       display: flex;
@@ -573,10 +615,10 @@
 
       .btn2 {
         background-color: hsl(0, 0%, 100%);
-        color: #E53835;
-        border: 3px solid #E53835;
+        color: #e53835;
+        border: 3px solid #e53835;
         padding: 8px 20px; /* 調整按鈕的內邊距 */
-        font-size: 14px;   /* 調整按鈕的字體大小 */
+        font-size: 14px; /* 調整按鈕的字體大小 */
       }
 
       button {
@@ -591,7 +633,7 @@
       }
     }
   }
-  
+
   .midarea {
     margin-top: 60px;
     justify-content: center;
@@ -600,7 +642,7 @@
   //----------
   .midtext {
     display: flex;
-    width: 560px;
+    width: 100%;
     flex-direction: column;
     align-items: flex-start;
     gap: 22px;
@@ -716,9 +758,9 @@
       background: var(--Neutral-Colors-White, #fff);
     }
     .btn2 {
-        background-color: hsl(0, 0%, 100%);
-        color: #E53835;
-        border: 3px solid #E53835;
+      background-color: hsl(0, 0%, 100%);
+      color: #e53835;
+      border: 3px solid #e53835;
     }
     button {
       display: flex;
