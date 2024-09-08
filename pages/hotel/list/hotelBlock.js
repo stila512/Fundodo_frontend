@@ -25,8 +25,9 @@ export default function HotelBlock({ searchQuery, sortOption }) {
       const data = await res.json();
       // console.log(data);
       if (data.status === 'success' && Array.isArray(data.data)) {
-        setHotels(data.data);
-        setFilteredHotels(data.data);
+        const validHotels = data.data.filter(hotel => hotel.valid === 1);
+        setHotels(validHotels);
+        setFilteredHotels(validHotels);
       } else {
         console.log('API 獲取格式不符合預期', data);
       }

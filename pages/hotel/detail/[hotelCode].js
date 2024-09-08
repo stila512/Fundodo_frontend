@@ -60,7 +60,7 @@ export default function HotelPage() {
 
   useEffect(() => {
     if(hotel.name) {
-      document.title = `${hotel.name} - 立即預定`;
+      document.title = `${hotel.name} - 立即預定 | Fundodo`;
     }
   },[hotel.name])
 
@@ -68,7 +68,7 @@ export default function HotelPage() {
   return (
     <>
       <Head>
-      <title>{hotel.name ? `${hotel.name} - 立即預定` : '立即預定'}</title>
+      <title>{hotel.name ? `${hotel.name} - 立即預定 | Fundodo` : '立即預定 | Fundodo'}</title>
       </Head>
       <div className={styles.pageContainer}>
       <Breadcrumb />

@@ -6,6 +6,7 @@ import SearchBar from './SearchBar';
 import HotelBlock from './hotelBlock';
 import Sort from './sort';
 import BreadCrumb from './breadcrumb';
+import Loading from '@/components/common/loading.js';
 
 
 
@@ -26,7 +27,7 @@ export default function HotelPage() {
   return (
     <>
     <Head>
-      <title>寵物旅館住宿</title>
+      <title>寵物旅館住宿 | Fundodo</title>
     </Head>
     <div className={styles.pageContainer}>
       <div className={styles.breadcrumbs}>
