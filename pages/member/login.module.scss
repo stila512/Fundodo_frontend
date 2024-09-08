@@ -107,6 +107,9 @@
     //@include ff-noto(18px);
   }
   .createBtn {
+    @media (max-width: 499px) {
+      padding: 12px 50px;
+    }
     display: flex;
     padding: 24px 70px;
     align-items: flex-start;
@@ -123,7 +126,7 @@
     }
     @media (max-width: 499px) {
       top: 10px;
-      right: 0; 
+      right: -20px; 
     }
     display: flex;
     width: 30px;
@@ -200,6 +203,7 @@
     justify-content: row;
     gap: 50px;
     padding-bottom: 32px;
+    white-space: nowrap;
     .Backend_Btn {
       display: flex;
       justify-content: center;
@@ -276,7 +280,7 @@
     }
     @media (max-width: 499px) {
       top: 10px;
-      right: 0; 
+      right: -20px; 
     }
     display: flex;
     width: 30px;
