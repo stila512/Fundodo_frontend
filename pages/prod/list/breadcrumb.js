@@ -1,48 +1,58 @@
-import React from 'react';
-import { useRouter } from 'next/router';
+import { useState } from 'react';
 import Link from 'next/link';
-import scss from './bread.module.scss';
-import { IoIosArrowForward } from "react-icons/io";
+import { useRouter } from 'next/router';
+import scss from './breadcrumb.module.scss';
 
 const Breadcrumb = () => {
   const router = useRouter();
-  const pathSegments = router.asPath.split('/').filter(segment => segment);
+  const { id } = router.query;
+  const [productName, setProductName] = useState('');
 
-  const breadcrumbItems = pathSegments.map((segment, index) => {
-    const href = `/${pathSegments.slice(0, index + 1).join('/')}`;
-    const label = segment.charAt(0).toUpperCase() + segment.slice(1);
-    const isLast = index === pathSegments.length - 1;
+  const pathMap = {
+    '/': { label: '首頁', link: '/' },
+    '/prod': { label: '產品列表', link: '/prod' },
+    '/prod/detail': { label: '產品詳情', link: `/prod/detail/${id}` },
+  };
 
-    return (
-      <React.Fragment key={href}>
-        <li>
-          {isLast ? (
-            <span className={scss.shade3}>{label}</span>
-          ) : (
-            <Link href={href} className="tx-primary">
-              {label}
-            </Link>
-          )}
-        </li>
-        {!isLast && <IoIosArrowForward />}
-      </React.Fragment>
-    );
-  });
+
+  const generateBreadcrumbs = () => {
+    const asPath = router.asPath;
+    const pathnames = asPath.split('/').filter((x) => x);
+    const breadcrumbs = [pathMap['/']];
+
+    if (pathnames[0] === 'prod') {
+      breadcrumbs.push(pathMap['/prod']);
+      
+      if (pathnames[1] === 'detail' && pathnames[2]) {
+        breadcrumbs.push({ 
+          label: productName || '產品詳情', 
+          link: `/prod/detail/${pathnames[2]}` 
+        });
+      }
+    }
+
+    return breadcrumbs;
+  };
+
+  const breadcrumbs = generateBreadcrumbs();
 
   return (
-    <div className='d-md-block d-none'>
-      <nav aria-label="breadcrumb">
-        <ol className={`${scss.ul} d-flex`}>
-          <li>
-            <Link href="/" className="tx-primary">
-              Home
-            </Link>
+    <nav className={scss.breadcrumb}>
+      <ol>
+        {breadcrumbs.map((breadcrumb, index) => (
+          <li key={breadcrumb.link}>
+            {index < breadcrumbs.length - 1 ? (
+              <>
+                <Link href={breadcrumb.link}>{breadcrumb.label}</Link>
+                <span className={scss.arrow}>&gt;</span>
+              </>
+            ) : (
+              <span>{breadcrumb.label}</span>
+            )}
           </li>
-          <IoIosArrowForward />
-          {breadcrumbItems}
-        </ol>
-      </nav>
-    </div>
+        ))}
+      </ol>
+    </nav>
   );
 };
 

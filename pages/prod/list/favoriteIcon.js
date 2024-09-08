@@ -3,6 +3,7 @@ import { FaRegHeart, FaHeart } from 'react-icons/fa';
 import { AuthContext } from '@/context/AuthContext';
 import { useRouter } from 'next/router';
 import Modal from '@/components/common/modal';
+import useLocalStorage from '@/hooks/use-localstorage.js';
 
 export default function FavoriteIcon({ className = {}, size = 24, style = {}, productId, productData }) {
 	const [isFavorite, setIsFavorite] = useState(false);
@@ -10,6 +11,7 @@ export default function FavoriteIcon({ className = {}, size = 24, style = {}, pr
 	const [showModal, setShowModal] = useState(false);
 	const [modalContent, setModalContent] = useState({ title: '', message: '' });
 	const router = useRouter();
+	const [_, setValue] = useLocalStorage('redirFrom', '');
 
 	useEffect(() => {
 		if (user) {
@@ -54,6 +56,7 @@ export default function FavoriteIcon({ className = {}, size = 24, style = {}, pr
 
 		if (!user) {
 			alert('請先登入以收藏商品');
+			setValue(router.pathname);
 			router.push('/member/login');
 			return;
 		}

@@ -67,8 +67,10 @@
     color: s.$secondary !important;
   }
 }
-
-
-.content {
-  height: 200px;
+.pet {
+  font-size: 40px;
+  font-family: 'Zen Maru Gothic';
+  font-weight: 700;
+  line-height: 66px;
+  color: s.$shade2;
 }
