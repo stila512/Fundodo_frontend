@@ -1,7 +1,13 @@
-import React from 'react';
+//== Parameters ================================================================
+import { breakpoints } from '@/configs';
+//== Functions =================================================================
+import { useEffect, useState } from 'react';
+import useScreenWidth from '@/hooks/useScreenWidth';
+//== Components ================================================================
 import Image from 'next/image';
-import scss from './hero.module.scss';
 import FddBtn from '@/components/buttons/fddBtn';
+//== Styles =================================================================
+import scss from './hero.module.scss';
 import dogs from '@/public/homePic/dogs.png';
 import HeroBg from '@/public/homePic/hero_bg.svg'
 import HeroMobileBg from '@/public/homePic/bg-mobile.png'
@@ -9,43 +15,48 @@ import HeroMobileBg from '@/public/homePic/bg-mobile.png'
 
 
 export default function Hero() {
+  const screenWidth = useScreenWidth();
+  const [w__screen, setW__screen] = useState(1920);
+
+  useEffect(() => {
+    setW__screen(screenWidth);
+  }, [screenWidth]);
+
   return (
     <>
-      <div className="container">
-        <main>
-          <section className={[scss.hero, "d-flex", "jc-between", "ai-center"].join(' ')}>
-            <Image
-              className={scss.desktopBg}
-              src={HeroBg}
-              alt="Desktop Background"
-              layout="fill"
-              quality={100}
-            />
-            <Image
-              src={HeroMobileBg}
-              alt="Mobile Background"
-              width={393}
-              quality={100}
-              className={scss.mobileBg}
-            />
-            <div className={scss.hero_text}>
-              <h1>專屬毛小孩的幸福</h1>
-              <p>
-                提供頂級狗糧、各式用品、專業寵物照顧線上課程和優質住宿服務，
-                <br />
-                滿足您愛犬的所有需求。
-              </p>
-              <div className={scss.btns}>
-                <FddBtn color="primary" href="#">
-                  現在購買
-                </FddBtn>
-                <FddBtn color='tint3' outline href="#">
-                  立即詢問
-                </FddBtn>
-              </div>
+      <div className="container pt-0 pt-md-5">
+        <main className='pt-0 pt-md-4'>
+          <section className={scss.hero}>
+            <div className={['img-wrap-w100', scss.bgWrap].join(' ')}>
+              <Image
+                src={w__screen >= breakpoints.md ? HeroBg : HeroMobileBg}
+                alt="background decoration"
+              />
             </div>
-            <div className={scss.hero_image}>
-              <Image src={dogs} layout="responsive" />
+            <div className="row jc-between">
+              <div className="col-12 col-md-5">
+                <div className={scss.hero_text}>
+                  <h1>專屬毛小孩的幸福</h1>
+                  <p>
+                    提供頂級狗糧、各式用品、專業寵物照顧線上課程和優質住宿服務，
+                    <br />
+                    滿足您愛犬的所有需求。
+                  </p>
+                  <div className={scss.btns}>
+                    <FddBtn color="primary" href="#">
+                      現在購買
+                    </FddBtn>
+                    <FddBtn color='tint3' outline href="#">
+                      立即詢問
+                    </FddBtn>
+                  </div>
+                </div>
+              </div>
+              <div className="col-5 d-none d-md-block">
+                <div className='img-wrap-w100'>
+                  <Image src={dogs} />
+                </div>
+              </div>
             </div>
           </section>
         </main>

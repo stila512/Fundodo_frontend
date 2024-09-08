@@ -7,6 +7,11 @@
   justify-content: flex-end;
   gap: 0.5rem;
 
+  li {
+    display: grid;
+    place-items: center;
+  }
+
   button,
   a {
     font-size: 2rem;

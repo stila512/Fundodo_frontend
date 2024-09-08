@@ -1,6 +1,7 @@
 @use '@/styles' as s;
 
 .ulLink {
+  padding-block: 1rem;
   position: absolute;
   display: flex;
   top: 70px;
@@ -18,21 +19,9 @@
     top: initial;
     background-color: transparent;
     flex-direction: row;
+    align-items: center;
     text-align: left;
     gap: 1rem;
-  }
-
-  & > li {
-    & > a {
-      display: block;
-      width: 100%;
-    }
-
-    &:hover {
-      a {
-        color: s.$shade2;
-      }
-    }
   }
 }
 @keyframes fadeIn {
@@ -52,19 +41,24 @@
   gap: 0.5rem;
   border-bottom: 5px solid transparent;
 
-  color: s.$shade2;
-  font-size: 1.125rem;
+  font-size: 1.5rem;
   transition: border 0.4s linear;
   animation: fadeIn 0.4s ease-in-out 1;
 
-  & > a {
+  & > a,
+  & > button {
     display: block;
+    color: s.$shade2;
     width: 100%;
     transition: color 0.4s linear;
+    line-height: 2;
   }
 
-  .subList {
-    display: block;
+  &:hover {
+    a,
+    button {
+      color: s.$shade2;
+    }
   }
 
   @include s.rwd-above('md') {
@@ -105,5 +99,11 @@
   li:hover a {
     background-color: s.$tint1;
     color: s.$shade4;
+  }
+}
+
+.listBtn:last-child {
+  @include s.rwd-above('md') {
+    display: none;
   }
 }
