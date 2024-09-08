@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import scss from './mobileFilter.module.scss';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import MobileFilterOptions from './MobileFilterOptions';
@@ -41,9 +41,9 @@ export default function MobileFilter({ filters, onFilterChange, onSortChange }) 
       </div>
       {filterOpen && (
         <div className={scss.filterOptionsContainer}>
-          <MobileFilterOptions 
+          <MobileFilterOptions
             filters={filters}
-            onFilterChange={handleFilterChange} 
+            onFilterChange={handleFilterChange}
           />
         </div>
       )}
