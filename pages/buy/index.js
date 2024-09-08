@@ -1,9 +1,9 @@
 //== Functions ==============================================================
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import useAuthRedirect from '@/hooks/useAuthRedirect';
-import tokenDecoder from '@/context/token-decoder';
 import BuyLayout from '@/components/layout/buy';
 import BuyProgress from '@/components/buy/buyProgress';
+import { AuthContext } from '@/context/AuthContext';
 //== Styles =================================================================
 import CartPage from './cart/CartPage';
 import FillingPage from './fill-form/FillingPage';
@@ -16,15 +16,14 @@ export default function BuyPage() {
 
   //===== user ID
   /**
-     * user ID
-     *  @type {[number, React.Dispatch<number>]} */
+   * user ID
+   *  @type {[number, React.Dispatch<number>]} */
   const [uID, setUID] = useState(0);
   //===== 解讀登入的會員 ID
+  const { user: userPkg } = useContext(AuthContext);
   useEffect(() => {
-    const { userId } = tokenDecoder();
-
-    if (userId && userId > 0) setUID(userId);
-    else console.log("是不是登出惹？userId: ", userId);
+    if (userPkg) setUID(userPkg.userId);
+    else console.log("登入時限到了歐");
   }, []);
   //====================== 會員偵測 END ====================================
 
