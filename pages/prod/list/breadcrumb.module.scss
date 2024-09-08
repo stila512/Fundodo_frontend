@@ -1,0 +1,45 @@
+.breadcrumb {
+  padding: 10px 0;
+ 
+  
+  ol {
+    list-style-type: none; // 移除默認的數字樣式
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    color: #6F625C;
+  }
+
+  li {
+    display: inline;
+    font-size: 18px;
+
+    
+    &:not(:last-child) {
+      margin-right: 8px;
+    }
+  }
+
+  a {
+    color: #38312e;
+    text-decoration: none;
+    
+    &:hover {
+      color: #6F625C;
+    }
+  }
+
+  .arrow {
+    margin: 0 4px;
+    color: #6F625C;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .breadcrumb {
+    display: none;
+  }
+}

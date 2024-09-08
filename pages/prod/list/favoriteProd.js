@@ -6,6 +6,7 @@ import Link from 'next/link';
 import SideText from '@/components/member/SideText';
 import SideText2 from '@/components/member/SideText_2'
 import { AuthContext } from '@/context/AuthContext';
+import doggy from '/public/prodPic/44f50e13786c6d6f2a1be1fff7eab1c2.png';
 
 export default function FavoriteProd() {
   const [favoriteProducts, setFavoriteProducts] = useState([]);
@@ -67,7 +68,10 @@ export default function FavoriteProd() {
         <main className={['container row', scss.pd].join(' ')}>
           <div className={[scss.bg, 'col-lg-9 row'].join(' ')}>
             {favoriteProducts.length === 0 ? (
-              <div className={scss.content}>您還沒有收藏任何商品。</div>
+              <>
+                  <div className={[scss.pet, 'd-flex jc-center mb-3'].join(' ')}>我什麼都不喜歡</div>
+                    <Image src={doggy} width={500} />
+              </>
             ) : (
               favoriteProducts.map((product) => (
                 <div key={product.id} className='col-xxl-3 col-xl-4 col-6'>
