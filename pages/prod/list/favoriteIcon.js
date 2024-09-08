@@ -9,7 +9,7 @@ export default function FavoriteIcon({ className = {}, size = 24, style = {}, pr
 	const [isFavorite, setIsFavorite] = useState(false);
 	const { user, loading } = useContext(AuthContext);
 	const [showModal, setShowModal] = useState(false);
-	const [modalContent, setModalContent] = useState({ title: '', message: '' });
+	const [modalContent, setModalContent] = useState({ title: '', message: '', mode: 1, style: 1 });	
 	const router = useRouter();
 	const [_, setValue] = useLocalStorage('redirFrom', '');
 
@@ -55,18 +55,14 @@ export default function FavoriteIcon({ className = {}, size = 24, style = {}, pr
 		if (loading) return;
 
 		if (!user) {
-			alert('請先登入以收藏商品');
-			setValue(router.pathname);
-			router.push('/member/login');
+			displayModal('請先登入', '請先登入以收藏商品', 2, 1);
 			return;
 		}
 
 		try {
 			const token = localStorage.getItem('token');
 			if (!token) {
-				console.error('No token found');
-				alert('請重新登入');
-				router.push('/member/login');
+				displayModal('未找到登入信息', '請重新登入', 2, 1);
 				return;
 			}
 
@@ -80,8 +76,7 @@ export default function FavoriteIcon({ className = {}, size = 24, style = {}, pr
 			});
 
 			if (response.status === 401) {
-				alert('登入已過期，請重新登入');
-				router.push('/member/login');
+				displayModal('登入已過期', '請重新登入', 2, 1);
 				return;
 			}
 
@@ -91,15 +86,32 @@ export default function FavoriteIcon({ className = {}, size = 24, style = {}, pr
 
 			const result = await response.json();
 			setIsFavorite(!isFavorite);
-			displayModal(result.message);
+			displayModal('成功', result.message, 1, 1);
 		} catch (error) {
 			console.error('收藏操作失敗:', error);
-			alert('操作失敗，請稍後再試');
+			displayModal('錯誤', '操作失敗，請稍後再試', 1, 2);
 		}
 	};
-	const displayModal = (title, message) => {
-		setModalContent({ title, message });
+
+	const displayModal = (title, message, mode = 1, style = 1) => {
+		setModalContent({ title, message, mode, style });
 		setShowModal(true);
+	};
+
+	const handleModalClose = () => {
+		setShowModal(false);
+		if (modalContent.mode === 2 && !user) {
+			setValue(router.pathname);
+			router.push('/member/login');
+		}
+	};
+
+	const handleModalConfirm = () => {
+		setShowModal(false);
+		if (!user) {
+			setValue(router.pathname);
+			router.push('/member/login');
+		}
 	};
 	return (
 		<>
@@ -111,9 +123,13 @@ export default function FavoriteIcon({ className = {}, size = 24, style = {}, pr
 				{isFavorite ? <FaHeart color="#B9A399" /> : <FaRegHeart />}
 			</div>
 			<Modal
-				mode={1}
+				mode={modalContent.mode}
+				style={modalContent.style}
 				active={showModal}
-				onClose={() => setShowModal(false)}
+				onClose={handleModalClose}
+				onConfirm={handleModalConfirm}
+				confirmText="確定"
+				cancelText="取消"
 			>
 				<h4>{modalContent.title}</h4>
 				<p>{modalContent.message}</p>

@@ -43,8 +43,7 @@ export default function Pid() {
   const [quantity, setQuantity] = useState(1);
   const [maxQuantity, setMaxQuantity] = useState(0);
   const [showModal, setShowModal] = useState(false);
-  const [modalContent, setModalContent] = useState({ style: 1, title: '', message: '' });
-  const [activeTab, setActiveTab] = useState('description');
+  const [modalContent, setModalContent] = useState({ title: '', message: '', mode: 1, style: 1 });  const [activeTab, setActiveTab] = useState('description');
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -183,7 +182,7 @@ export default function Pid() {
     }
 
     if (!user) {
-      alert('請先登入');
+      displayModal('未登入', '請先登入', 2, 1);
       return;
     }
 
@@ -251,24 +250,30 @@ export default function Pid() {
 
       if (result.status === "success") {
         if (result.result) {
-          displayModal(1, '成功', '加入購物車成功，請至購物車查看選購的商品。');
+          displayModal('成功', '加入購物車成功，請至購物車查看選購的商品。', 1, 1);
         } else {
-          displayModal(2, '失敗', '此商品已經在您的購物車囉~');
+          displayModal('失敗', '此商品已經在您的購物車囉~', 1, 2);
         }
       } else {
-        displayModal(2, '錯誤', '加入購物車時發生錯誤，請稍後再試。');
+        displayModal('錯誤', '加入購物車時發生錯誤，請稍後再試。', 1, 2);
       }
     } catch (error) {
       console.error('加入購物車失敗:', error);
-      displayModal(2, '錯誤', '加入購物車時發生錯誤，請稍後再試。');
+      displayModal('錯誤', '加入購物車時發生錯誤，請稍後再試。', 1, 2);
     }
   };
 
-  const displayModal = (style, title, message) => {
-    setModalContent({ style, title, message });
+  const displayModal = (title, message, mode = 1, style = 1) => {
+    setModalContent({ title, message, mode, style });
     setShowModal(true);
   };
-
+  const handleModalConfirm = () => {
+		setShowModal(false);
+		if (!user) {
+			setValue(router.pathname);
+			router.push('/member/login');
+		}
+	};
   return (
     <>
       <Head>
@@ -399,17 +404,22 @@ export default function Pid() {
         </div>
       </main>
       <Modal
-        mode={1}
+        mode={modalContent.mode}
         style={modalContent.style}
         active={showModal}
+        onConfirm={handleModalConfirm}
         onClose={() => {
           setShowModal(false);
           location.reload();
         }}
+        confirmText="確定"
+        cancelText="取消"
+
       >
         <h4>{modalContent.title}</h4>
         <p>{modalContent.message}</p>
       </Modal>
+
     </>
   );
 }

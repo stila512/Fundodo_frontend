@@ -23,6 +23,10 @@ export default function Table({ product }) {
             <td className={scss.tableTd2}>{product.cate_1}</td>
           </tr>
           <tr>
+            <td className={['text-nowrap', scss.tableTd1].join(' ')}>商品子分類</td>
+            <td className={scss.tableTd2}>{product.cate_2}</td>
+          </tr>
+          <tr>
             <td className={['text-nowrap', scss.tableTd1].join(' ')}>適用年齡</td>
             <td className={scss.tableTd2}>  {product.ageArr ? product.ageArr.join(', ') : ""}
             </td>

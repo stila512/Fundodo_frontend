@@ -1,13 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import scss from './filter.module.scss';
 import PropTypes from 'prop-types';
 
-function Filter({ className = {}, categories = [], onChange, multiple = false, resetTrigger  }) {
-  const [selectedCategories, setSelectedCategories] = useState(multiple ? [] : '');
+function Filter({ className = {}, categories = [], onChange, multiple = false, resetTrigger, selected  }) {
+
+  const [selectedCategories, setSelectedCategories] = useState(multiple ? [] : selected || '');
 
   useEffect(() => {
     setSelectedCategories(multiple ? [] : '');
   }, [categories, multiple, resetTrigger]);
+
+  useEffect(() => {
+    setSelectedCategories(multiple ? [] : selected || '');
+  }, [categories, multiple, resetTrigger, selected]);
 
   const handleChange = (e) => {
     const newValue = e.target.value;

@@ -10,8 +10,8 @@ const Breadcrumb = () => {
 
   const pathMap = {
     '/': { label: '首頁', link: '/' },
-    '/prod': { label: '產品列表', link: '/prod' },
-    '/prod/detail': { label: '產品詳情', link: `/prod/detail/${id}` },
+    '/prod': { label: '商品列表', link: '/prod' },
+    '/prod/detail': { label: '商品詳情', link: `/prod/detail/${id}` },
   };
 
 
@@ -25,7 +25,7 @@ const Breadcrumb = () => {
       
       if (pathnames[1] === 'detail' && pathnames[2]) {
         breadcrumbs.push({ 
-          label: productName || '產品詳情', 
+          label: productName || '商品詳情', 
           link: `/prod/detail/${pathnames[2]}` 
         });
       }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import scss from './aside.module.scss';
 import Filter from './filter';
 import PriceFilter from './priceFilter';
@@ -133,6 +133,7 @@ export default function Aside({ onFilterChange, className, filters }) {
                   categories={filterOptions.ages}
                   onChange={handleAgeChange}
                   resetTrigger={resetTrigger}
+                  selected={selectedAge}
                 />
               </div>
             </div>

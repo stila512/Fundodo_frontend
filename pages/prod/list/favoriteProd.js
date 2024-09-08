@@ -15,7 +15,7 @@ export default function FavoriteProd() {
 
   useEffect(() => {
     const fetchFavoriteProducts = async () => {
-      if (loading) return; // 如果還在加載用戶信息，則等待
+      if (loading) return; 
 
       if (!user) {
         setError('請先登入');

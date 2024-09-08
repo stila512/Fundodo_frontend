@@ -7,8 +7,8 @@ export default function PriceFilter({ min, max, onChange, resetTrigger }) {
 
   useEffect(() => {
     setValues([min, max]);
-  }, [min, max, resetTrigger]); // 添加 resetTrigger 到依賴數組
-
+  }, [min, max, resetTrigger]); 
+  
   const handleSliderChange = useCallback((newValues) => {
     setValues(newValues);
     if (onChange) {

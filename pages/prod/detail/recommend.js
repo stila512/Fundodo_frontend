@@ -39,7 +39,7 @@ export default function Recommend({ currentProductId, currentProductCategory }) 
       setCurrentPage((prevPage) => 
         (prevPage + 1) % Math.ceil(recommendedProducts.length / 2)
       )
-    }, 4000)
+    }, 5000)
 
     return () => clearInterval(timer)
   }, [recommendedProducts.length])
