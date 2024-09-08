@@ -12,7 +12,7 @@ import tokenDecoder from '@/context/token-decoder';
 import axios from 'axios';
 
 export default function AddCart({ original_price, sale_price, id }) {
-  const { user } = useContext(AuthContext);
+  const { user: userPkg } = useContext(AuthContext);
   const router = useRouter();
   const [uID, setUID] = useState(0);
   const [hasPurchased, setHasPurchased] = useState(false);
@@ -23,15 +23,15 @@ export default function AddCart({ original_price, sale_price, id }) {
   const [doesExistInCart, setDoesExistInCart] = useState(false);
 
   useEffect(() => {
-    const { userId } = tokenDecoder();
+    if (userPkg === null) return;
+
+    const { userId } = userPkg;
     setUID(userId ? userId : 0);
-  }, [])
+  }, [userPkg])
 
   useEffect(() => {
     const checkPurchaseStatus = async () => {
       try {
-        console.log('cid:', id);
-        console.log('uID:', uID);
         const userId = uID; // 使用解析後的 userId
         const res = await fetch(`${apiBaseUrl}/course/permission?courseId=${id}&userId=${userId}`, {
           headers: {
@@ -39,7 +39,7 @@ export default function AddCart({ original_price, sale_price, id }) {
           }
         });
         const data = await res.json();
-        console.log('Purchase status response:', data);
+        // console.log('Purchase status response:', data);
         if (data.status === 'success' && data.hasPurchased) {
           // 如果已經購買課程
           setHasPurchased(true);
@@ -49,7 +49,6 @@ export default function AddCart({ original_price, sale_price, id }) {
           const isInCart = await axios.get(
             `${apiBaseUrl}/cart/check-crs?uid=${uID}&cid=${id}`
           ).then(res => res.data.result);
-          console.log('到底: ', isInCart);
           setDoesExistInCart(isInCart);
         }
       } catch (error) {
