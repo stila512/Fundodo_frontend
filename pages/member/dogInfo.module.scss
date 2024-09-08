@@ -185,11 +185,11 @@
   display: flex;
   flex-direction: row;
   height: 1200px;
-  // @media (max-width: 768px) {
-  //   .mainarea {
-  //     width: 100%;
-  //   }
-  // }
+  @media (max-width: 499px) {
+    .inputGroup_b{
+      width: 80%;
+    }
+  }
   .midarea {
     display: flex;
     align-items: flex-start;
@@ -548,7 +548,7 @@
 .dogInfoDataContainer {
   display: flex;
   flex-direction: row;
-  
+
   .midarea {
     display: flex;
     margin-top: 60px;

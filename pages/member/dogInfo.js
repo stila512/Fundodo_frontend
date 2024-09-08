@@ -215,7 +215,7 @@ export default function DogInfo() {
             </div>
             <div className={`${scss.textarea}`}>
               <div className={`${scss.TOPtext}`}>
-                <div className={`col-1`}>
+                <div className={`col-1 d-none d-lg-block`}>
                   <div><Image className="img" src={dogicon} alt="Image" /></div>
                 </div>
                 <div className={`${scss.labelGroup} col-2`}>
@@ -329,7 +329,7 @@ export default function DogInfo() {
 
               </div>
               <div className={`${scss.BOTtext}`}>
-                <div className={`col-1`}>
+                <div className={`col-1 d-none d-lg-block`}>
                   <div><Image className="img" src={icon_i} alt="Image" /></div>
                 </div>
                 <div className={`${scss.labelGroup_b} col-2`}>
