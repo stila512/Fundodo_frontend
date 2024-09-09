@@ -302,12 +302,12 @@
       position: relative;
       width: 180px;
       height: 180px;
-      padding: 40px;
-      align-items: center; /* 垂直居中 */
-      justify-content: center; /* 水平居中 */
+      align-items: center;
+      justify-content: center;
       gap: 10px;
       border-radius: 50%;
       background: #b9a399;
+      overflow: hidden;
     }
 
     .avatarWrapper {
