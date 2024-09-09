@@ -1,15 +1,16 @@
 //== Parameters ================================================================
 import { apiBaseUrl } from '@/configs';
 //== Functions =================================================================
-import { useState, useEffect } from 'react';
-import tokenDecoder from '@/context/token-decoder';
+import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import { AuthContext } from '@/context/AuthContext';
+import useAuthRedirect from '@/hooks/useAuthRedirect';
 //== Components ================================================================
 import DefaultLayout from '@/components/layout/default';
 import Head from 'next/head';
 import FddBtn from '@/components/buttons/fddBtn';
 //== Styles =================================================================
-import s from '../confirm/confirm.module.scss';
+import s from './style.module.scss';
 
 export default function ReturnPage() {
   const shipWayOf = {
@@ -24,33 +25,38 @@ export default function ReturnPage() {
   /**
      * user ID
      *  @type {[number, React.Dispatch<number>]} */
-  const [uID, setUID] = useState(0);
+  const [uID, setUID] = useState(-1);
 
   /**
-     * user ID
+     * 訂單資料
      *  @type {[object, React.Dispatch<object>]} */
   const [orderInfo, setOrderInfo] = useState(null);
 
-
+  //====================== 會員偵測 ====================================
+  //===== 驗證登入狀態
+  useAuthRedirect();
   //============================================================//
   //=============== useEffect 區
   //===== 解讀登入的會員 ID
+  const { user: userPkg } = useContext(AuthContext);
   useEffect(() => {
-    const { userId } = tokenDecoder();
+    if (userPkg === null) {
+      console.log("登入時限到了歐");
+      setUID(0);
+    }
 
-    if (userId && userId > 0) setUID(userId);
-    else console.log("是不是登出惹？userId: ", userId);
-  }, []);
-  //===== 以會員 ID 索取購物車資料，建構購物車初始資料
+    if (userPkg && Object.prototype.hasOwnProperty.call(userPkg, 'userId')) setUID(userPkg.userId);
+  }, [userPkg]);
+  //===== 以會員 ID 索取訂單資料，建構訂單初始資料
   useEffect(() => {
     if (!uID || uID === 0) return;
 
-    const CancalToken = axios.CancelToken;//中止情況用的信號彈
-    const source = CancalToken.source();
+    const CancelToken = axios.CancelToken;//中止情況用的信號彈
+    const source = CancelToken.source();
 
     //以下寫法參考 Axios 官方文件
     axios.get(`${apiBaseUrl}/order/${uID}?all=0`, { cancelToken: source.token })
-      .then(res => setOrderInfo(res.data.results))
+      .then(res => setOrderInfo(res.data.result))
       .catch(err => {
         if (axios.isCancel(err)) {
           console.log('此請求已成功取消');
@@ -76,8 +82,8 @@ export default function ReturnPage() {
       <Head>
         <title>交易完成 | Fundodo</title>
       </Head>
-      <div className="container pt-5">
-        <div className={["row jc-center", s.row].join(' ')}>
+      <div className="container py-5">
+        <div className="row jc-center">
           <div className="col-12 col-lg-7">
             <table className={s.table}>
               <thead>
@@ -97,8 +103,15 @@ export default function ReturnPage() {
                         <p>收件人：{orderInfo.addressee}</p>
                         <p>聯絡電話：{orderInfo.tel}</p>
                         <p>電子信箱：{orderInfo.email}</p>
-                        <p>收件郵遞區號：{orderInfo.ship_zipcode}</p>
-                        <p>收件完整地址：{orderInfo.ship_address}</p>
+                        {orderInfo.ship_thru === "CVS"
+                          ? <>
+                            <p>收件 7-11 分店：{orderInfo.ship_shop}</p>
+                            <p>收件分店地址：{orderInfo.ship_address}</p>
+                          </>
+                          : <>
+                            <p>收件郵遞區號：{orderInfo.ship_zipcode}</p>
+                            <p>收件完整地址：{orderInfo.ship_address}</p>
+                          </>}
                         <p>收件備註：{orderInfo.ship_ps}</p>
                       </div>
                     </td>
