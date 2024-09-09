@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import scss from '@/pages/article/list/articleBlock.module.scss';
@@ -6,6 +6,7 @@ import { FaRegEye } from "react-icons/fa";
 import { FiMessageSquare } from "react-icons/fi";
 
 export default function ArticleBlock({ article }) {
+  const avatarSrc = article.avatar_file || '/userHead.png'
   const formatDate = (dateString) => {
     const date = new Date(dateString)
     return date.toLocaleString('zh-TW', {
@@ -24,13 +25,16 @@ export default function ArticleBlock({ article }) {
       <div className={[scss.article].join('')}>
         <div>
           <div className={[scss.userData].join()}>
-            <Image
-              className={[scss.userIcon].join()}
-              src="/userHead.png"
-              alt=""
-              width={40}
-              height={40}
-            />
+          <div className={scss.imageContainer}>
+              <Image
+                className={scss.userIcon}
+                src={avatarSrc}
+                alt=""
+                fill
+                sizes="40px"
+                style={{ objectFit: 'cover' }}
+              />
+            </div>
             <div className={[scss.nicknameArea].join()}>
               <p className={[scss.nickName].join()}>{article.author_nickname}</p>
               <p className={[scss.creatTime].join()}>{formatDate(article.create_at)}</p>
@@ -39,15 +43,15 @@ export default function ArticleBlock({ article }) {
         </div>
         <div className={[scss.shortContent].join()}>
           <a className={[scss.mainTitle].join()} href={`/article/content?aid=${article.id}`}>
-            {"【"+article.sort+"】"+article.title}
+            {"【" + article.sort + "】" + article.title}
           </a>
           <div className={[scss.extract].join()}>
-          <div dangerouslySetInnerHTML={{ __html: article.content.substring(0, 20)+'...' }} />
+            <div dangerouslySetInnerHTML={{ __html: article.content.substring(0, 20) + '...' }} />
           </div>
         </div>
         <div className={[scss.artiInfo].join()}>
           <div className={[scss.artiTags].join()}>
-          {article.tags && article.tags.map((tag, index) => (
+            {article.tags && article.tags.map((tag, index) => (
               <Link key={index} href={`/article?tag=${encodeURIComponent(tag)}`}>
                 <div className={[scss.tag].join()}>{tag}</div>
               </Link>

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import scss from '@/pages/article/contentItems/articleContent.module.scss';
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { BiLike,BiDislike } from "react-icons/bi";
+import { BiLike, BiDislike } from "react-icons/bi";
 
 export default function ArticleContent({ user, onContentLoad }) {
   const formatDate = (dateString) => {
@@ -23,6 +23,7 @@ export default function ArticleContent({ user, onContentLoad }) {
   const [likes, setLikes] = useState(0)
   const [dislikes, setDislikes] = useState(0)
   const [userRating, setUserRating] = useState(null)
+  const [avatar, setAvatar] = useState('/userHead.png')
   const router = useRouter()
   const { aid } = router.query
 
@@ -42,6 +43,10 @@ export default function ArticleContent({ user, onContentLoad }) {
             setLikes(articleContent.likes || 0);
             setDislikes(articleContent.dislikes || 0);
             onContentLoad(data.content[0])
+
+            if (articleContent.avatar_file) {
+              setAvatar(`http://localhost:3005/upload/${articleContent.avatar_file}`);
+            }
           }
         }).catch(error => console.log(error.message))
 
@@ -61,7 +66,7 @@ export default function ArticleContent({ user, onContentLoad }) {
   const canEdit = () => {
     if (!user || !content) return false;
     return user.userId === content.userid || user.user_level
-    > 2;
+      > 2;
   }
 
   const handleRating = async (isLike) => {
@@ -102,13 +107,17 @@ export default function ArticleContent({ user, onContentLoad }) {
       <div className={[scss.articleContent].join()}>
         <div className={[scss.contentCreater].join()}>
           <div className={[scss.userData].join()}>
-            <Image
-              className={[scss.userIcon].join()}
-              src="/userHead.png"
-              alt=""
-              width={40}
-              height={40}
-            />
+            <div className={scss.imageContainer}>
+              <Image
+                className={scss.userIcon}
+                src={avatar}
+                alt=""
+                fill
+                sizes="40px"
+                style={{ objectFit: 'cover' }}
+              />
+            </div>
+
             <div className={[scss.nicknameArea].join()}>
               <p className={[scss.nickName].join()}>{content.author_nickname || '未知用戶'}</p>
               <p className={[scss.creatTime].join()}>{formatDate(content.create_at)}</p>
@@ -120,13 +129,13 @@ export default function ArticleContent({ user, onContentLoad }) {
             </a>
           )}
         </div>
-        <div className={[scss.articleTitle].join()}>{"【"+content.sort+"】"+content.title}</div>
+        <div className={[scss.articleTitle].join()}>{"【" + content.sort + "】" + content.title}</div>
         <div className={[scss.mainContent].join()}>
           <div dangerouslySetInnerHTML={{ __html: content.content }} />
         </div>
         <div className={scss.ratingArea}>
           <div className={scss.rateBtnArea}>
-            <button 
+            <button
               className={`${scss.rateBtn} ${userRating === 'like' ? scss.active : ''}`}
               onClick={() => handleRating(true)}
               disabled={userRating === 'like'}
@@ -136,7 +145,7 @@ export default function ArticleContent({ user, onContentLoad }) {
             <span>{likes}</span>
           </div>
           <div className={scss.rateBtnArea}>
-            <button 
+            <button
               className={`${scss.rateBtn} ${userRating === 'dislike' ? scss.active : ''}`}
               onClick={() => handleRating(false)}
               disabled={userRating === 'dislike'}

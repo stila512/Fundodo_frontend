@@ -22,9 +22,13 @@
   display: flex;
   width: 100%;
 }
-
+.imageContainer {
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
 .userIcon {
-  border-radius: 40px;
+  border-radius: 50%;
   background: lightgray 50% / cover no-repeat;
 }
 
