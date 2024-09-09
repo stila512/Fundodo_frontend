@@ -3,6 +3,7 @@ import { useEffect, Suspense } from 'react';
 import DefaultLayout from '@/components/layout/default';
 import dynamic from 'next/dynamic';
 import Loading from '@/components/common/loading.js';
+import Head from 'next/head';
 // import Home from '@/pages/home'
 
 //*V1
@@ -31,6 +32,12 @@ export default function Index() {
     router.push('/home');
   }, [])
 
-  return <Loading />;
+  return (
+    <>
+      <Head><title>歡迎來到翻肚肚 | Fundodo</title></Head>
+      <Loading />
+    </>
+  )
+    ;
 }
 Index.layout = DefaultLayout;

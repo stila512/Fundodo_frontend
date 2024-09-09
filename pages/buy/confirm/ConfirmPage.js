@@ -76,10 +76,18 @@ export default function ConfirmPage({
   }
   /** 建立訂單進資料庫: orders */
   const insertOrder = async () => {
-    const data = {
-      ...orderInfo,
-      tel: orderInfo.phone_num
-    };
+    const data = orderInfo.ship_thru === 'DLV'
+      ? {
+        ...orderInfo,
+        tel: orderInfo.phone_num,
+        ship_ps: orderInfo.ship_ps || '（無）'
+      } : {
+        ...orderInfo,
+        tel: orderInfo.phone_num,
+        ship_ps: orderInfo.ship_ps || '（無）',
+        ship_shop: orderInfo.shop_name,
+        ship_address: orderInfo.shop_addr
+      };
 
     return await axios.post(`${apiBaseUrl}/order`, data)
       .then(res => {
@@ -188,7 +196,6 @@ export default function ConfirmPage({
     await insertOrderItem(orderID);
     await emptyCart();
     await updateCoupons();
-    console.log('u.3a87');
     document.getElementById('ECPAY-form').submit();
   }
 
@@ -231,17 +238,16 @@ export default function ConfirmPage({
                     <p>收件人：{orderInfo.addressee}</p>
                     <p>聯絡電話：{orderInfo.phone_num}</p>
                     <p>電子信箱：{orderInfo.email}</p>
-                    {orderInfo.isCVS
+                    {orderInfo.ship_thru === "CVS"
                       ? <>
-                        <p>收件郵遞區號：{orderInfo.shop_name}</p>
-                        <p>收件完整地址：{orderInfo.shop_addr}</p>
+                        <p>收件 7-11 分店：{orderInfo.shop_name}</p>
+                        <p>收件分店地址：{orderInfo.shop_addr}</p>
                       </>
                       : <>
                         <p>收件郵遞區號：{orderInfo.ship_zipcode}</p>
                         <p>收件完整地址：{orderInfo.ship_address}</p>
                       </>}
-
-                    <p>收件備註：{orderInfo.ship_ps}</p>
+                    <p>收件備註：{orderInfo.ship_ps || '（無）'}</p>
                   </div>
                 </div>
               </div>
