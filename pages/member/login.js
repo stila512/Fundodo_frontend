@@ -1,6 +1,8 @@
-import { useContext, useState } from 'react';
+import { breakpoints } from '@/configs';
+import { useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { GoogleLogin } from '@react-oauth/google';
+import useScreenWidth from '@/hooks/useScreenWidth';
 import scss from './login.module.scss';
 import Image from 'next/image';
 import lfpic from '@/public/login.svg';
@@ -23,6 +25,12 @@ export default function LoginPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [confirmEmail, setConfirmEmail] = useState('');
   const [storedValue, setValue] = useLocalStorage('redirFrom', '');
+  const screenWidth = useScreenWidth();
+  const [w__screen, setW__screen] = useState(1920);
+
+  useEffect(() => {
+    setW__screen(screenWidth);
+  }, [screenWidth]);
 
   const openModal = () => {
     console.log('開啟 Modal');
@@ -135,27 +143,31 @@ export default function LoginPage() {
   };
 
   return (
-    <main className={scss.Loginmain}>
-      <div className={scss.LoginContainer}>
-        <div className={`${scss.lfpic} col-6`}>
-          <Image className="imgWrap" layout="responsive" src={lfpic} alt="Image" />
-        </div>
-        <div className={`${scss.rightText} col-6`}>
-          <div className={`${scss.area1} col-12`}>
-            <p className={`${scss.h5} col-12`}>歡迎回來</p>
+    <main>
+      <div className={['row jc-center', scss.LoginContainer].join(' ')}>
+        <div className="col-6 d-none d-lg-block">
+          <div className={["img-wrap-w100 fx-center", scss.lfpic].join(' ')}>
+            <Image className="imgWrap" width={0} height={0} src={lfpic} alt="Image" />
           </div>
-          <form onSubmit={handleLogin}>
-            <div className={`${scss.area2} col-12`}>
-              <label>電子郵件地址</label>
-              <input type="email" name="email" required />
-              <div>
-                <div className={scss.passwordarea}>
-                  <div><label>密碼</label></div>
-                  <div className={scss.passwordicon} onClick={() => setShowPassword(!showPassword)}>
-                    <div className={scss.point}>
-                      <Image className="imgWrap" src={pswd_icon} alt="Image"
-                      />隱藏</div>
-                  </div></div>
+        </div>
+        <div className={`${scss.rightText} col-12 col-lg-6`}>
+          <div className={scss.rightBody}>
+            <div>
+              <h4 className={`${scss.formTitle} tx-lg`}>歡迎回來</h4>
+            </div>
+            <form onSubmit={handleLogin}>
+              <div className={scss.inputBox}>
+                <label>電子郵件地址</label>
+                <input type="email" name="email" required />
+              </div>
+              <div className={scss.inputBox}>
+                <div className={scss.pwdLabel}>
+                  <label>密碼</label>
+                  <div onClick={() => setShowPassword(!showPassword)}>
+                    <Image src={pswd_icon} alt="Image" />
+                    <span>隱藏</span>
+                  </div>
+                </div>
                 <input type={showPassword ? 'text' : 'password'} name="password" required />
                 {/* <p>使用8個或以上的字元, 包含字母數字和符號</p> */}
                 {error && (
@@ -163,26 +175,33 @@ export default function LoginPage() {
                     {error}
                   </div>
                 )}
-                <Link href="/member/register">註冊會員</Link>
-                <div className={`mt-5 col-6 ${scss.Googleicon}`}>
-                  <GoogleLogin
-                    onSuccess={handleGoogleSuccess}
-                    onError={(error) => setError(error.message)}
-                  />
-                </div>
               </div>
+              <div className={`${scss.area4} col-12`}>
+                <button className={scss.createBtn} type="submit"
+                  disabled={loading}>{loading ? '登入中...' : '登入'}</button>
+              </div>
+            </form>
+            <FddBtn color='primary' outline
+              className={scss.toRegisterBtn}
+              href="/member/register"
+            >
+              註冊會員
+            </FddBtn>
+            <div className={scss.GoogleBtnWrap}>
+              <GoogleLogin
+                width={w__screen >= breakpoints.lg ? 352 : 267}
+                shape='pill'
+                onSuccess={handleGoogleSuccess}
+                onError={(error) => setError(error.message)}
+              />
             </div>
             <div className={`${scss.area3} col-12`}>
               <p onClick={openModal}> 忘記密碼?</p>
               <Link href="/member/login_BackEnd"><div className={scss.Backend_Btn}>後台</div></Link>
               {/* <FddBtn color='info' className={scss.Backend_Btn} pill={false} size='sm' href="/member/login_BackEnd">後台</FddBtn> */}
             </div>
-            <div className={`${scss.area4} col-12`}>
-              <button className={scss.createBtn} type="submit"
-                disabled={loading}>{loading ? '登入中...' : '登入'}</button>
-            </div>
             <Link href="/home"><div className={scss.xBtn}><IoMdHome /></div></Link>
-          </form>
+          </div>
         </div>
       </div>
       {isModalOpen && (

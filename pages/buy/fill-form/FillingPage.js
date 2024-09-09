@@ -184,6 +184,8 @@ export default function FillingPage({
           city_id,
           zipcode,
           order_address,
+          shop_name,
+          shop_addr,
           ship_ps
         } = res.data.result;
         setPrevOrderData({
@@ -193,6 +195,8 @@ export default function FillingPage({
           addr_city: city_id,
           addr_code: zipcode,
           address: order_address,
+          shop_name,
+          shop_addr,
           ship_ps,
         });
       }
@@ -221,16 +225,10 @@ export default function FillingPage({
     }
   }, []);
 
-  //在一開始查詢上一次的填寫紀錄
+  //渲染查得的分店資訊
   useEffect(() => {
-    console.log('有嗎？');
-    console.log(store711.storename);
-    console.log(store711.storeaddress);
+    if (store711.storename === '') return;
 
-    if (store711.storename === '') {
-      console.log('拒絕空字串');
-      return;
-    }
     const shop_name = store711.storename;
     const shop_addr = store711.storeaddress;
 
@@ -239,8 +237,6 @@ export default function FillingPage({
       shop_name,
       shop_addr,
     });
-    console.log('更新完畢');
-    console.log(orderData.shop_name);
   }, [store711]);
 
   //將這次的填寫紀錄存進資料庫
@@ -252,6 +248,8 @@ export default function FillingPage({
       addr_city,
       addr_code,
       address,
+      shop_name,
+      shop_addr,
       ship_ps
     } = orderData;
     const data = {
@@ -262,6 +260,8 @@ export default function FillingPage({
       city_id: addr_city,
       zipcode: addr_code,
       order_address: address,
+      shop_name,
+      shop_addr,
       ship_ps
     }
     axios.post(`${apiBaseUrl}/member/order-form`, data)
@@ -391,7 +391,7 @@ export default function FillingPage({
               </div>
             </div>
           }
-          <h3 className={["col-12", s.shipwayH3].join(' ')}>
+          <h3 className={["col-12 col-lg-8", s.shipwayH3].join(' ')}>
             {isBeginning ? "請選擇配送方式：" : "配送方式："}
           </h3>
           <div className="col-5 d-flex flex-row jc-end">
@@ -422,13 +422,16 @@ export default function FillingPage({
         {/*================= main area =================*/}
         {isBeginning ||
           <div className="row jc-center">
+            <h3 className={["col-12 col-lg-8", s.shipwayH3].join(' ')}>
+              訂單資料：
+            </h3>
             <div className="col-12">
               {/*========//* 宅配模式  ==================================== */
                 isCVS ||
                 (
                   <section className="row jc-center">
-                    <div className="col-12 col-lg-8">
-                      <div className="hstack">
+                    <article className="col-12 col-lg-8">
+                      <div className="hstack jc-center">
                         {/*===================== 取用訂購資料 ======================= */}
                         <FddBtn
                           color='primary'
@@ -453,9 +456,9 @@ export default function FillingPage({
                           <span className="ms-2">儲存訂購資料</span>
                         </div>
                       </div>
-                    </div>
-                    <article className="col-12 col-lg-8">
-                      <form action="" className={s.form}>
+                    </article>
+                    <article className="col-12 col-lg-8 mt-5">
+                      <form action="" className={sw.form}>
                         {/*//*===================== 收件人姓名 ======================= */}
                         <div className="row">
                           <div className="col-12 col-lg-4">
@@ -501,54 +504,56 @@ export default function FillingPage({
                         </div>
                         {/*//*===================== 收件地址 ======================= */}
                         <div className="row">
-                          <div className="col-12">
+                          <div className="col-12 col-lg-4">
                             <label htmlFor="address" className='tx-default'>收件地址 *</label>
                           </div>
-                          <div className="col-6">
-                            <select
-                              name="addr_city"
-                              value={autoOrderData ? autoOrderData.addr_city : undefined}
-                              defaultValue={0}
-                              onChange={e => handleCityInput(e)}
-                            >
-                              <option value={0} disabled >- 縣市 -</option>
-                              {cityList && cityList.map(city =>
-                                <option key={city.id} value={city.id}>{city.name}</option>
-                              )}
-                            </select>
-                          </div>
-                          <div className="col-6">
-                            <select name="addr_code"
-                              value={autoOrderData ? autoOrderData.addr_code : 0}
-                              defaultValue={0}
-                              onChange={e => handleZipInput(e)}
-                            >
-                              <option value={0} disabled>
-                                - {distList.length > 0 ? "請選擇" : "區鄉鎮"} -
-                              </option>
-                              {distList.length > 0 && distList.map(district =>
-                                <option key={district.zipcode} value={district.zipcode}>{district.name}</option>
-                              )}
-                            </select>
-                          </div>
-                          <div className="col-12">
-                            <input
-                              type="text"
-                              name='address'
-                              value={autoOrderData ? autoOrderData.address : undefined}
-                              onChange={e => handleInput(e)}
-                            />
+                          <div className="col-12 col-lg-8">
+                            <div className="row">
+                              <div className="col-6">
+                                <select
+                                  name="addr_city"
+                                  value={autoOrderData ? autoOrderData.addr_city : undefined}
+                                  defaultValue={0}
+                                  onChange={e => handleCityInput(e)}
+                                >
+                                  <option value={0} disabled >- 縣市 -</option>
+                                  {cityList && cityList.map(city =>
+                                    <option key={city.id} value={city.id}>{city.name}</option>
+                                  )}
+                                </select>
+                              </div>
+                              <div className="col-6">
+                                <select name="addr_code"
+                                  value={autoOrderData ? autoOrderData.addr_code : 0}
+                                  defaultValue={0}
+                                  onChange={e => handleZipInput(e)}
+                                >
+                                  <option value={0} disabled>
+                                    - {distList.length > 0 ? "請選擇" : "區鄉鎮"} -
+                                  </option>
+                                  {distList.length > 0 && distList.map(district =>
+                                    <option key={district.zipcode} value={district.zipcode}>{district.name}</option>
+                                  )}
+                                </select>
+                              </div>
+                              <div className="col-12">
+                                <input
+                                  type="text"
+                                  name='address'
+                                  value={autoOrderData ? autoOrderData.address : undefined}
+                                  onChange={e => handleInput(e)}
+                                />
+                              </div>
+                            </div>
                           </div>
                         </div>
 
                         {/*//*===================== 備註 ======================= */}
                         <div className="row">
-                          <div className="col-12">
+                          <div className="col-12 col-lg-4">
                             <label htmlFor="ship_ps" className='tx-default'>備註</label>
                           </div>
-                        </div>
-                        <div className="row">
-                          <div className="col-12">
+                          <div className="col-12 col-lg-8">
                             <textarea
                               name='ship_ps'
                               value={autoOrderData ? autoOrderData.ship_ps : undefined}
@@ -710,33 +715,33 @@ export default function FillingPage({
                           </div>
                         </div>
                       </article>
-                      {/* ===================== 切換鈕 ======================= */}
-                      <div className="col-12 col-lg-8">
-                        <div className="hstack jc-evenly py-5">
-                          <FddBtn
-                            color='primary'
-                            outline pill={false}
-                            size="lg"
-                            className={s.moveBtn}
-                            callback={() => goPrevPhase()}
-                          >
-                            <FaAngleLeft /><span className='ms-1'>回到購物車</span>
-                          </FddBtn>
-                          <FddBtn
-                            color='primary'
-                            pill={false}
-                            size="lg"
-                            className={s.moveBtn}
-                            callback={() => goNextPhase()}
-                          >
-                            確認送出
-                          </FddBtn>
-                        </div>
-                      </div>
                     </section>
                   </>
                 )
               }
+              {/* ===================== 切換鈕 ======================= */}
+            </div>
+            <div className="col-6">
+              <div className="hstack jc-evenly py-5">
+                <FddBtn
+                  color='primary'
+                  outline pill={false}
+                  size="lg"
+                  className={s.moveBtn}
+                  callback={() => goPrevPhase()}
+                >
+                  <FaAngleLeft /><span className='ms-1'>回到購物車</span>
+                </FddBtn>
+                <FddBtn
+                  color='primary'
+                  pill={false}
+                  size="lg"
+                  className={s.moveBtn}
+                  callback={() => goNextPhase()}
+                >
+                  確認送出
+                </FddBtn>
+              </div>
             </div>
           </div >
         }

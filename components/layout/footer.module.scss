@@ -3,7 +3,7 @@
 .foo {
   background-color: s.$tint4;
   padding-block: 0 5rem;
-  @include s.rwd-above('lg') {
+  @include s.rwd-above('md') {
     padding-block: 0;
   }
   @include s.rwd-above('lg') {
