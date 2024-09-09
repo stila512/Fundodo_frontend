@@ -60,7 +60,8 @@ export default function ArticleContent({ user, onContentLoad }) {
 
   const canEdit = () => {
     if (!user || !content) return false;
-    return user.userId === content.userid || (user.userLevel && user.userLevel > 2);
+    return user.userId === content.userid || user.user_level
+    > 2;
   }
 
   const handleRating = async (isLike) => {

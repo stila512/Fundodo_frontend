@@ -26,7 +26,7 @@ export default function ArticleBlock({ article }) {
           <div className={[scss.userData].join()}>
             <Image
               className={[scss.userIcon].join()}
-              src="/logo.png"
+              src="/userHead.png"
               alt=""
               width={40}
               height={40}
