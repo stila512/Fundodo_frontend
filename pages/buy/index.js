@@ -24,14 +24,15 @@ export default function BuyPage() {
   useEffect(() => {
     if (userPkg) setUID(userPkg.userId);
     else console.log("登入時限到了歐");
-  }, []);
+  }, [userPkg]);
   //====================== 會員偵測 END ====================================
 
   /**
-   * 購買流程
+   * 購買流程的階段代號：1 | 購物車 ; 2 | 填寫表單 ; 3 | 訂單確認
    *  @type {[number, React.Dispatch<number>]} */
   const [buyPhase, setBuyPhase] = useState(1);
 
+  /** 訂購資料的格式 */
   const initBuyInfoPkg = {
     coupons: [],
     orderInfo: {
@@ -43,6 +44,7 @@ export default function BuyPage() {
       pay_thru: "",
       ship_thru: "",
       ship_zipcode: 0,
+      ship_shop: "",
       ship_address: "",
       ship_ps: ""
     },

@@ -7,6 +7,7 @@ import scss from './login.module.scss';
 import Image from 'next/image';
 import lfpic from '@/public/login.svg';
 import pswd_icon from '@/public/memberPic/password-icon.svg';
+import Head from 'next/head';
 import { AuthContext } from '@/context/AuthContext';
 import Link from 'next/link';
 import Modal from '@/components/common/modal';
@@ -143,89 +144,92 @@ export default function LoginPage() {
   };
 
   return (
-    <main>
-      <div className={['row jc-center', scss.LoginContainer].join(' ')}>
-        <div className="col-6 d-none d-lg-block">
-          <div className={["img-wrap-w100 fx-center", scss.lfpic].join(' ')}>
-            <Image className="imgWrap" width={0} height={0} src={lfpic} alt="Image" />
-          </div>
-        </div>
-        <div className={`${scss.rightText} col-12 col-lg-6`}>
-          <div className={scss.rightBody}>
-            <div>
-              <h4 className={`${scss.formTitle} tx-lg`}>歡迎回來</h4>
+    <>
+      <Head><title>會員登入 | Fundodo</title></Head>
+      <main>
+        <div className={['row jc-center', scss.LoginContainer].join(' ')}>
+          <div className="col-6 d-none d-lg-block">
+            <div className={["img-wrap-w100 fx-center", scss.lfpic].join(' ')}>
+              <Image className="imgWrap" width={0} height={0} src={lfpic} alt="Image" />
             </div>
-            <form onSubmit={handleLogin}>
-              <div className={scss.inputBox}>
-                <label>電子郵件地址</label>
-                <input type="email" name="email" required />
+          </div>
+          <div className={`${scss.rightText} col-12 col-lg-6`}>
+            <div className={scss.rightBody}>
+              <div>
+                <h4 className={`${scss.formTitle} tx-lg`}>歡迎回來</h4>
               </div>
-              <div className={scss.inputBox}>
-                <div className={scss.pwdLabel}>
-                  <label>密碼</label>
-                  <div onClick={() => setShowPassword(!showPassword)}>
-                    <Image src={pswd_icon} alt="Image" />
-                    <span>隱藏</span>
-                  </div>
+              <form onSubmit={handleLogin}>
+                <div className={scss.inputBox}>
+                  <label>電子郵件地址</label>
+                  <input type="email" name="email" required />
                 </div>
-                <input type={showPassword ? 'text' : 'password'} name="password" required />
-                {/* <p>使用8個或以上的字元, 包含字母數字和符號</p> */}
-                {error && (
-                  <div className={scss.errorMessage}>
-                    {error}
+                <div className={scss.inputBox}>
+                  <div className={scss.pwdLabel}>
+                    <label>密碼</label>
+                    <div onClick={() => setShowPassword(!showPassword)}>
+                      <Image src={pswd_icon} alt="Image" />
+                      <span>隱藏</span>
+                    </div>
                   </div>
-                )}
+                  <input type={showPassword ? 'text' : 'password'} name="password" required />
+                  {/* <p>使用8個或以上的字元, 包含字母數字和符號</p> */}
+                  {error && (
+                    <div className={scss.errorMessage}>
+                      {error}
+                    </div>
+                  )}
+                </div>
+                <div className={`${scss.area4} col-12`}>
+                  <button className={scss.createBtn} type="submit"
+                    disabled={loading}>{loading ? '登入中...' : '登入'}</button>
+                </div>
+              </form>
+              <FddBtn color='primary' outline
+                className={scss.toRegisterBtn}
+                href="/member/register"
+              >
+                註冊會員
+              </FddBtn>
+              <div className={scss.GoogleBtnWrap}>
+                <GoogleLogin
+                  width={w__screen >= breakpoints.lg ? 352 : 267}
+                  shape='pill'
+                  onSuccess={handleGoogleSuccess}
+                  onError={(error) => setError(error.message)}
+                />
               </div>
-              <div className={`${scss.area4} col-12`}>
-                <button className={scss.createBtn} type="submit"
-                  disabled={loading}>{loading ? '登入中...' : '登入'}</button>
+              <div className={`${scss.area3} col-12`}>
+                <p onClick={openModal}> 忘記密碼?</p>
+                <Link href="/member/login_BackEnd"><div className={scss.Backend_Btn}>後台</div></Link>
+                {/* <FddBtn color='info' className={scss.Backend_Btn} pill={false} size='sm' href="/member/login_BackEnd">後台</FddBtn> */}
               </div>
-            </form>
-            <FddBtn color='primary' outline
-              className={scss.toRegisterBtn}
-              href="/member/register"
-            >
-              註冊會員
-            </FddBtn>
-            <div className={scss.GoogleBtnWrap}>
-              <GoogleLogin
-                width={w__screen >= breakpoints.lg ? 352 : 267}
-                shape='pill'
-                onSuccess={handleGoogleSuccess}
-                onError={(error) => setError(error.message)}
-              />
+              <Link href="/home"><div className={scss.xBtn}><IoMdHome /></div></Link>
             </div>
-            <div className={`${scss.area3} col-12`}>
-              <p onClick={openModal}> 忘記密碼?</p>
-              <Link href="/member/login_BackEnd"><div className={scss.Backend_Btn}>後台</div></Link>
-              {/* <FddBtn color='info' className={scss.Backend_Btn} pill={false} size='sm' href="/member/login_BackEnd">後台</FddBtn> */}
-            </div>
-            <Link href="/home"><div className={scss.xBtn}><IoMdHome /></div></Link>
           </div>
         </div>
-      </div>
-      {isModalOpen && (
-        <Modal
-          mode={1}
-          active={isModalOpen}
-          onClose={closeModal}
-          confirmText="發送 臨時密碼"
-          cancelText="取消"
-        >
-          <h4>忘記密碼</h4>
-          <p>請輸入你的電子信箱，我們將發送臨時密碼。</p>
-          <input
-            type="email"
-            value={confirmEmail}
-            onChange={handleEmailChange}
-            placeholder="輸入您的電子郵件"
-          />
-          <button onClick={sendOTP} disabled={!confirmEmail}>
-            發送
-          </button>
-          <button onClick={closeModal}>取消</button>
-        </Modal>
-      )}
-    </main>
+        {isModalOpen && (
+          <Modal
+            mode={1}
+            active={isModalOpen}
+            onClose={closeModal}
+            confirmText="發送 臨時密碼"
+            cancelText="取消"
+          >
+            <h4>忘記密碼</h4>
+            <p>請輸入你的電子信箱，我們將發送臨時密碼。</p>
+            <input
+              type="email"
+              value={confirmEmail}
+              onChange={handleEmailChange}
+              placeholder="輸入您的電子郵件"
+            />
+            <button onClick={sendOTP} disabled={!confirmEmail}>
+              發送
+            </button>
+            <button onClick={closeModal}>取消</button>
+          </Modal>
+        )}
+      </main>
+    </>
   );
 }

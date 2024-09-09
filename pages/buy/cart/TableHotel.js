@@ -88,7 +88,7 @@ export default function HotelCartTable({
                     src={"/hotelPic/pic/" + item.pic_name}
                     width={100}
                     height={100}
-                    alt={item.prod_name}
+                    alt={item.prod_name.split(','[0])}
                   />
                 </td>
                 <td>

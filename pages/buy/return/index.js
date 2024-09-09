@@ -87,7 +87,7 @@ export default function ReturnPage() {
           <div className="col-12 col-lg-7">
             <table className={s.table}>
               <thead>
-                <tr className='bg-tint5'>
+                <tr className='bg-shade3 tx-tint5'>
                   <th className='py-3'>付款與寄送資訊</th>
                 </tr>
               </thead>
@@ -122,7 +122,7 @@ export default function ReturnPage() {
           </div>
           <div className="col-12 col-lg-7">
             <div className="hstack jc-center gap-5">
-              <FddBtn color='primary' pill={false} outline href='/member'>
+              <FddBtn color='shade3' pill={false} outline href='/member/order'>
                 前往我的訂單
               </FddBtn>
             </div>

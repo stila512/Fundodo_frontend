@@ -192,12 +192,14 @@ export default function CartPage({
     // 預設皆不啟動
     const initState = Array(cpList.length).fill(0);
     let verified = initState;
+
+    //* 根據優惠券條件設定可否啟動
     SORT_LIST.forEach(sort => {
       const i_sort = SORT_LIST.indexOf(sort);
       if (cartPkg[sort].length === 0) {
         verified = verified.map((zero, i_cp) => {
           if (cpList[i_cp].scope_from === sort || cpList[i_cp].scope_to === sort) {
-            const min_spent = cpList[i_cp].min_spent;
+            const min_spent = cpList[i_cp].min_spent || 0;
             return (amtArr[i_sort] > min_spent) ? zero : -1;
           } else {
             return zero;
@@ -206,7 +208,7 @@ export default function CartPage({
       }
     });
     setCpState(verified);
-  }, [cpList, cartPkg])
+  }, [cpList, cartPkg, amtArr]);
 
   //===== 以購物車內容更新折扣金額
   /**

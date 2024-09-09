@@ -7,6 +7,7 @@ import lfpic from '@/public/adminBg.svg';
 import pswd_icon from '@/public/memberPic/password-icon.svg';
 import { AuthContext } from '@/context/AuthContext';
 import Link from 'next/link';
+import Head from 'next/head';
 import Modal from '@/components/common/modal';
 import { FcGoogle } from "react-icons/fc";
 import FddBtn from '@/components/buttons/fddBtn';
@@ -67,49 +68,52 @@ export default function LoginBackEndPage() {
 
 
   return (
-    <main className={scss.Loginmain}>
-      <div className={scss.LoginContainer}>
-        <div className={`${scss.lfpic} col-6`}>
-          <Image className="imgWrap" layout="responsive" src={lfpic} alt="Image" />
-        </div>
-        <div className={`${scss.rightText} col-6`}>
-          <div className={`${scss.area1} col-12`}>
-            <p className={scss.h5}>歡迎回來</p>
+    <>
+      <Head><title>後台登入 | Fundodo</title></Head>
+      <main className={scss.Loginmain}>
+        <div className={scss.LoginContainer}>
+          <div className={`${scss.lfpic} col-6`}>
+            <Image className="imgWrap" layout="responsive" src={lfpic} alt="Image" />
           </div>
-          <form onSubmit={handleLogin}>
-            <div className={`${scss.area2} col-12`}>
-              <label>電子郵件地址</label>
-              <input type="email" name="email" required />
-              <div>
-                <div className={scss.passwordarea}>
-                  <div><label>密碼</label></div>
-                  <div className={scss.passwordicon} onClick={() => setShowPassword(!showPassword)}>
-                    <div className={scss.point}>
-                      <Image className="imgWrap" src={pswd_icon} alt="Image"
-                      />隱藏</div>
-                  </div></div>
-                <input type={showPassword ? 'text' : 'password'} name="password" required />
-                {error && (
-                  <div className={scss.errorMessage}>
-                    {error}
-                  </div>
-                )}
+          <div className={`${scss.rightText} col-6`}>
+            <div className={`${scss.area1} col-12`}>
+              <p className={scss.h5}>歡迎回來</p>
+            </div>
+            <form onSubmit={handleLogin}>
+              <div className={`${scss.area2} col-12`}>
+                <label>電子郵件地址</label>
+                <input type="email" name="email" required />
+                <div>
+                  <div className={scss.passwordarea}>
+                    <div><label>密碼</label></div>
+                    <div className={scss.passwordicon} onClick={() => setShowPassword(!showPassword)}>
+                      <div className={scss.point}>
+                        <Image className="imgWrap" src={pswd_icon} alt="Image"
+                        />隱藏</div>
+                    </div></div>
+                  <input type={showPassword ? 'text' : 'password'} name="password" required />
+                  {error && (
+                    <div className={scss.errorMessage}>
+                      {error}
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-            <div className={`${scss.area3} col-12`}>
-              {/* <div className={scss.Backend_Btn} >會員登入頁</div> */}
-              {/* <FddBtn color='info' className={scss.Backend_Btn} size='sm' href="/member/login">會員登入頁</FddBtn> */}
-              <Link href="/member/login"><div className={scss.Backend_Btn}>登入頁</div></Link>
-            </div>
-            <div className={`${scss.area4} col-12`}>
-              <button className={scss.createBtn} type="submit"
-                disabled={loading}>{loading ? '登入中...' : '登入'}
-              </button>
-            </div>
-            <Link href="/home"><div className={scss.xBtn}><IoMdHome /></div></Link>
-          </form>
+              <div className={`${scss.area3} col-12`}>
+                {/* <div className={scss.Backend_Btn} >會員登入頁</div> */}
+                {/* <FddBtn color='info' className={scss.Backend_Btn} size='sm' href="/member/login">會員登入頁</FddBtn> */}
+                <Link href="/member/login"><div className={scss.Backend_Btn}>登入頁</div></Link>
+              </div>
+              <div className={`${scss.area4} col-12`}>
+                <button className={scss.createBtn} type="submit"
+                  disabled={loading}>{loading ? '登入中...' : '登入'}
+                </button>
+              </div>
+              <Link href="/home"><div className={scss.xBtn}><IoMdHome /></div></Link>
+            </form>
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }

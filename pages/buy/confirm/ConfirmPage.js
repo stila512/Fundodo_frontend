@@ -218,7 +218,7 @@ export default function ConfirmPage({
                   <div className='col-12 py-3 px-5'>
                     <p>親愛的 {username}</p>
                     <p>為確保您的權益，請您再次確認<br className='d-lg-none' />以下的訂單資訊是否正確。</p>
-                    <p>訂單總金額： {orderInfo.amount} 元</p>
+                    <p>訂單總金額： {orderInfo.amount.toLocaleString()} 元</p>
                     <p>訂購日期： {today}</p>
                   </div>
                 </div>

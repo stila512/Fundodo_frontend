@@ -49,10 +49,13 @@ export default function ProdCartTable({
     if (noData) return;
 
     const subtotList = qtyArr.map((q, i) => q * data[i].price);
-    const total = subtotList.reduce((total, cur) => total + cur, 0);
+    const total = subtotList.reduce((total, cur, i_item) => {
+      if (itemStateArr[i_item]) return total + cur;
+      return total;
+    }, 0);
     setSubtotArr(subtotList);
     setAmount(arr => arr.map((v, i) => (i === CART_INDEX) ? total : v));
-  }, [qtyArr]);
+  }, [qtyArr, itemStateArr]);
 
   const handleQty = async (i_item, cartID, delta) => {
     // 更新前端的監控數據
@@ -95,7 +98,7 @@ export default function ProdCartTable({
 
   const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX)
 
-  const onTouchEnd = () => {
+  const onTouchEnd = (e) => {
     if (!touchStart || !touchEnd) return
     const distance = touchStart - touchEnd
     const isLeftSwipe = distance > minSwipeDistance
@@ -103,7 +106,10 @@ export default function ProdCartTable({
     if (isLeftSwipe || isRightSwipe) console.log('向', isLeftSwipe ? '左' : '右', '滑了')
 
     // 以上為基本設定
-
+    // todo: 滑動刪除
+    if (isRightSwipe) {
+      ;
+    }
   }
   //*========== 手機版事件 END ==============================================
 
