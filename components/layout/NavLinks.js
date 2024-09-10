@@ -1,31 +1,25 @@
 import Link from 'next/link';
 import scss from './navLink.module.scss';
 import { useRouter } from 'next/router';
-import { useState, useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import { AuthContext } from '@/context/AuthContext';
 
-export default function NavLinks({ toggleLinks = () => { } }) {
+export default function NavLinks({ isAdmin = false, uID = -1, toggleLinks = () => { } }) {
   const router = useRouter();
 
-  const { user, logout } = useContext(AuthContext);
-  //===== 會員 ID
-  //0 | 未登入 ; -1 | 讀取中
-  /** @type {[number, React.Dispatch<number>]} */
-  const [uID, setUID] = useState(-1);
-
-  useEffect(() => {
-    (user === null) ? setUID(0) : setUID(user.userId);
-  }, [user])
-
-  //判斷管理員登入
-  const isAdmin = user && user.user_level >= 20;
+  const { logout } = useContext(AuthContext);
 
   const handleLog = () => {
-    if (uID <= 0) {
-      router.push('/member/login');
-    } else {
-      setUID(-1);
-      logout();
+    switch (uID) {
+      case 0:
+        router.push('/member/login');
+        break;
+      case 1:
+        setUID(-1);
+        logout();
+      case -1:
+      default:
+        return;
     }
     toggleLinks(false);
   }

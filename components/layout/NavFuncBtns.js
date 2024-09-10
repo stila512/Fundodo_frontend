@@ -7,28 +7,18 @@ import axios from 'axios';
 import FddBtn from '../buttons/fddBtn';
 //== Styles =================================================================
 import scss from './navFunc.module.scss';
-import { IoMdPerson } from 'react-icons/io';
+import { IoIosLogIn, IoMdPerson } from 'react-icons/io';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { IoCart } from 'react-icons/io5';
 import { IoIosLogOut } from "react-icons/io";
 
-export default function NavFuncBtns({ showCart = true }) {
-  const { logout, user } = useContext(AuthContext);
-
+export default function NavFuncBtns({ uID = -1, showCart = true }) {
+  const { logout } = useContext(AuthContext);
 
   //======= handle 購物車數量提示
   const [cartCount, setCartCount] = useState(0);
-  //===== 會員 ID
-  //0 | 未登入 ; -1 | 讀取中
-  /** @type {[number, React.Dispatch<number>]} */
-  const [uID, setUID] = useState(-1);
 
-  //===== 獲得登入的會員 ID
-  useEffect(() => {
-    if (user === null) return;
-    const { userId } = user;
-    setUID(userId ? userId : 0);
-  }, [user]);
+
   //===== 以會員 ID 索取購物車資料
   useEffect(() => {
     if (uID <= 0) return;
@@ -124,6 +114,22 @@ export default function NavFuncBtns({ showCart = true }) {
           </li>
         ) : (<></>)
       }
+      {/* 會員登入 */}
+      {
+        (uID <= 0) && (
+          <li className='d-none d-md-inline-flex'>
+            <FddBtn
+              color='white'
+              pill={false}
+              icon
+              title='登入'
+              href='/member/login'
+            >
+              <IoIosLogIn />
+            </FddBtn>
+          </li>
+        )
+      }
       {/* 會員登出 */}
       {
         (uID > 0) && (
@@ -133,7 +139,8 @@ export default function NavFuncBtns({ showCart = true }) {
               pill={false}
               icon
               title='登出'
-              callback={() => handleLogout()}>
+              callback={() => handleLogout()}
+            >
               <IoIosLogOut />
             </FddBtn>
           </li>

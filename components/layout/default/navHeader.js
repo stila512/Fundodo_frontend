@@ -1,15 +1,16 @@
 //== Parameters ================================================================
 import { breakpoints } from '@/configs';
 //== Functions =================================================================
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { AuthContext } from '@/context/AuthContext';
 import useScreenWidth from '@/hooks/useScreenWidth';
 //== Components ================================================================
 import Logo from '@/components/common/logo';
+import NavToggleBtn from '../NavToggleBtn';
 import NavFuncBtns from '../NavFuncBtns';
 import NavLinks from '../NavLinks';
 //== Styles =================================================================
 import scss from '../navHeader.module.scss';
-import NavToggleBtn from '../NavToggleBtn';
 
 /**
  * 導覽列 | Fundodo 頁面基本架構
@@ -24,6 +25,28 @@ export default function NavHeader() {
     setW__screen(screenWidth);
   }, [screenWidth]);
 
+  const { user } = useContext(AuthContext);
+  //===== 會員 ID
+  //0 | 未登入 ; -1 | 讀取中
+  /** @type {[number, React.Dispatch<number>]} */
+  const [uID, setUID] = useState(-1);
+  //===== 會員權限
+  /** @type {[number, React.Dispatch<number>]} */
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  //===== 獲得登入的會員 ID & 判斷管理員登入
+  useEffect(() => {
+    //第一次載入，得到 undefined
+    if (user === undefined) return;
+    //第二次載入，得到 null
+    if (user === null) return setUID(0);
+    // 其他情況的提防
+    if (typeof user !== 'object') return console.error('objcet "user" 出現了意料外的情形!!');
+
+    setUID(user.userId);
+    setIsAdmin(user.user_level >= 20)
+  }, [user]);
+
   return (
     <header className={scss.header}>
       <div className='container h-100'>
@@ -36,12 +59,13 @@ export default function NavHeader() {
           </div>
           <nav className='flex-grow-1 flex-lg-grow-0'>
             {
-              (w__screen >= breakpoints.md || showMenu) &&
-              <NavLinks toggleLinks={
-                w__screen < breakpoints.md ? setShowMenu : () => { }
-              } />
+              (w__screen >= breakpoints.md || showMenu) && (
+                <NavLinks
+                  isAdmin={isAdmin}
+                  toggleLinks={w__screen < breakpoints.md ? setShowMenu : () => { }}
+                />)
             }
-            <NavFuncBtns />
+            <NavFuncBtns uID={uID} />
           </nav>
         </div>
       </div>

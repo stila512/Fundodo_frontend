@@ -1,9 +1,12 @@
-import { useState } from 'react';
+//== Functions =================================================================
+import { useEffect, useState, useContext } from 'react';
+import { AuthContext } from '@/context/AuthContext';
+//== Components ================================================================
 import Logo from '@/components/common/logo';
 import NavToggleBtn from '../NavToggleBtn';
 import NavFuncBtns from '../NavFuncBtns';
 import NavLinks from '../NavLinks';
-
+//== Styles =================================================================
 import scss from '../navHeader.module.scss';
 
 /**
@@ -12,6 +15,26 @@ import scss from '../navHeader.module.scss';
  */
 export default function NavHeader() {
   const [showMenu, setShowMenu] = useState(false);
+
+  const { user } = useContext(AuthContext);
+  //===== 會員 ID
+  //0 | 未登入 ; -1 | 讀取中
+  /** @type {[number, React.Dispatch<number>]} */
+  const [uID, setUID] = useState(-1);
+
+  //===== 獲得登入的會員 ID & 判斷管理員登入
+  useEffect(() => {
+    //第一次載入，得到 undefined
+    if (user === undefined) return;
+    //第二次載入，得到 null
+    if (user === null) return setUID(0);
+    // 其他情況的提防
+    if (typeof user !== 'object') return console.error('objcet "user" 出現了意料外的情形!!');
+
+    setUID(user.userId);
+    setIsAdmin(user.user_level >= 20)
+  }, [user]);
+
   return (
     <header className={scss.header}>
       <div className='container h-100'>
@@ -23,8 +46,8 @@ export default function NavHeader() {
             <Logo width={210} href="/"></Logo>
           </div>
           <nav>
-            {showMenu && <NavLinks />}
-            <NavFuncBtns showCart={false} />
+            {showMenu && <NavLinks isAdmin={isAdmin} />}
+            <NavFuncBtns uID={uID} showCart={false} />
           </nav>
         </div>
       </div>

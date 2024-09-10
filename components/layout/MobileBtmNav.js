@@ -23,9 +23,14 @@ export default function MobileBtmNav() {
 
   //===== 獲得登入的會員 ID
   useEffect(() => {
-    if (user === null) return;
-    const { userId } = user;
-    setUID(userId ? userId : 0);
+    //第一次載入，得到 undefined
+    if (user === undefined) return;
+    //第二次載入，得到 null
+    if (user === null) return setUID(0);
+    // 其他情況的提防
+    if (typeof user !== 'object') return console.error('objcet "user" 出現了意料外的情形!!');
+
+    setUID(user.userId);
   }, [user]);
   //===== 以會員 ID 索取購物車資料
   useEffect(() => {

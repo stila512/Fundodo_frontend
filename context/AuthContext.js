@@ -4,7 +4,7 @@ import { jwtDecode } from 'jwt-decode';
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(undefined);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const AuthProvider = ({ children }) => {
   const logout = () => {
     // 移除 token
     localStorage.removeItem('token');
-    
+
     // 取得狗狗資料的鍵名列表
     const keys = Object.keys(localStorage);
     keys.forEach((key) => {
@@ -61,7 +61,7 @@ const AuthProvider = ({ children }) => {
         localStorage.removeItem(key);
       }
     });
-    
+
     // 清除用戶資料
     setUser(null);
   };
