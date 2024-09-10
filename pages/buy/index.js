@@ -4,27 +4,38 @@ import useAuthRedirect from '@/hooks/useAuthRedirect';
 import BuyLayout from '@/components/layout/buy';
 import BuyProgress from '@/components/buy/buyProgress';
 import { AuthContext } from '@/context/AuthContext';
-//== Styles =================================================================
+//== Components ================================================================
 import CartPage from './cart/CartPage';
 import FillingPage from './fill-form/FillingPage';
 import ConfirmPage from './confirm/ConfirmPage';
+import Loading from '@/components/common/loading';
 
 export default function BuyPage() {
+  //=====初始化狀態
+  const [isLoadingStage, setIsLoadingStage] = useState(true);
+
   //====================== 會員偵測 ====================================
   //===== 驗證登入狀態
   useAuthRedirect();
 
-  //===== user ID
-  /**
-   * user ID
-   *  @type {[number, React.Dispatch<number>]} */
-  const [uID, setUID] = useState(0);
-  //===== 解讀登入的會員 ID
-  const { user: userPkg } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
+  //===== 會員 ID
+  //0 | 未登入 ; -1 | 讀取中
+  /** @type {[number, React.Dispatch<number>]} */
+  const [uID, setUID] = useState(-1);
+
+  //===== 獲得登入的會員 ID & 判斷管理員登入
   useEffect(() => {
-    if (userPkg) setUID(userPkg.userId);
-    else console.log("登入時限到了歐");
-  }, [userPkg]);
+    //第一次載入，得到 undefined
+    if (user === undefined) return;
+    //第二次載入，得到 null
+    if (user === null) return setUID(0);
+    // 其他情況的提防
+    if (typeof user !== 'object') return console.error('objcet "user" 出現了意料外的情形!!');
+
+    setUID(user.userId);
+    setIsLoadingStage(false);
+  }, [user]);
   //====================== 會員偵測 END ====================================
 
   /**
@@ -63,8 +74,9 @@ export default function BuyPage() {
    *  @type {[object[], React.Dispatch<object[]>]} */
   const [buyInfoPkg, setBuyInfoPkg] = useState(initBuyInfoPkg);
 
-  return (
-    <>
+  return isLoadingStage
+    ? <Loading />
+    : (<>
       <BuyProgress stage={buyPhase} />
 
       {buyPhase === 1 &&
@@ -84,7 +96,6 @@ export default function BuyPage() {
           setBuyPhase={setBuyPhase}
           buyInfoPkg={buyInfoPkg}
         />}
-    </>
-  )
+    </>)
 }
 BuyPage.layout = BuyLayout;

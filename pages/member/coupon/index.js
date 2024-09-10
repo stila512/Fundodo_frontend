@@ -36,9 +36,12 @@ export default function CouponPage() {
 
   //===== 獲得登入的會員 ID
   useEffect(() => {
-    if (user === null) return;
-    const { userId } = user;
-    setUID(userId ? userId : 0);
+    //第一次載入，得到 undefined
+    if (user === undefined) return;
+    //第二次載入，得到 null
+    if (user === null) return setUID(0);
+
+    setUID(user.userId);
   }, [user]);
 
   const [cpPkg, setCpPkg] = useState({

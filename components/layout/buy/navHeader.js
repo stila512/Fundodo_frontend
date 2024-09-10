@@ -50,7 +50,7 @@ export default function NavHeader() {
           </div>
           <nav>
             {showMenu && <NavLinks isAdmin={isAdmin} />}
-            <NavFuncBtns uID={uID} showCart={false} />
+            <NavFuncBtns uID={uID} setUID={setUID} showCart={false} />
           </nav>
         </div>
       </div>

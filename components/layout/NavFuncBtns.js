@@ -12,7 +12,11 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { IoCart } from 'react-icons/io5';
 import { IoIosLogOut } from "react-icons/io";
 
-export default function NavFuncBtns({ uID = -1, showCart = true }) {
+export default function NavFuncBtns({
+  uID = -1,
+  setUID = () => { },
+  showCart = true
+}) {
   const { logout } = useContext(AuthContext);
 
   //======= handle 購物車數量提示

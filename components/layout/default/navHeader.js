@@ -65,7 +65,7 @@ export default function NavHeader() {
                   toggleLinks={w__screen < breakpoints.md ? setShowMenu : () => { }}
                 />)
             }
-            <NavFuncBtns uID={uID} />
+            <NavFuncBtns uID={uID} setUID={setUID} />
           </nav>
         </div>
       </div>
