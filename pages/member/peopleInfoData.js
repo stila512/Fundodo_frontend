@@ -170,11 +170,20 @@ export default function PeopleInfoData() {
 
     const date = new Date(dateString);
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
 
-    return `${year}-${month}-${day}`;
+    return `西元 ${year} 年 ${month} 月 ${day} 日`;
   };
+
+  const displayTel = () => {
+    if (Object.prototype.hasOwnProperty.call(user, 'tel') === false) return '-';
+
+    let telStr = user.tel.toString();
+    if (telStr.length === 9) telStr = 0 + telStr;
+
+    return [telStr.slice(0, 4), telStr.slice(4, 7), telStr.slice(-3)].join('-');
+  }
 
   return (
     <>
@@ -211,7 +220,7 @@ export default function PeopleInfoData() {
                       {formatDate(user.dob)}
                     </div>
                   </div>
-                  <div className={scss.area6}>行動電話 <p>{user.tel || '-'}</p></div>
+                  <div className={scss.area6}>行動電話 <p>{displayTel()}</p></div>
                   <div className={scss.area7}>聯絡地址
                     <div className={scss.address}>
                       {user.address || '-'}

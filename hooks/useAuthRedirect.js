@@ -11,7 +11,7 @@ export default function useAuthRedirect() {
   useEffect(() => {
     const token = localStorage.getItem('token');
 
-    if (!token) {
+    if (!token || authUser === null) {
       setValue(router.pathname);
       router.push('/member/login');
       return;
