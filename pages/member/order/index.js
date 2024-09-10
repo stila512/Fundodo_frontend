@@ -92,16 +92,19 @@ export default function OrderPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {(orderPkg.length > 0) &&
-                    orderPkg.map(order => (
-                      <tr key={order.id}>
-                        <td>已出貨</td>
-                        <td>{order.created_at.split('T')[0].replace('-', '年').replace('-', '月')}日</td>
-                        <td>{order.pay_thru === 'EC' ? "綠界線上付款" : "LINE PAY"}</td>
-                        <td>{order.ship_thru === 'DLV' ? "宅配到府" : "超商取貨"}</td>
-                        <td>{order.amount.toLocaleString()}</td>
-                      </tr>
-                    ))}
+                  {
+                    (orderPkg.length > 0)
+                      ? orderPkg.map(order => (
+                        <tr key={order.id}>
+                          <td>已出貨</td>
+                          <td>{order.created_at.split('T')[0].replace('-', '年').replace('-', '月')}日</td>
+                          <td>{order.pay_thru === 'EC' ? "綠界線上付款" : "LINE PAY"}</td>
+                          <td>{order.ship_thru === 'DLV' ? "宅配到府" : "超商取貨"}</td>
+                          <td>{order.amount.toLocaleString()}</td>
+                        </tr>
+                      ))
+                      : <tr><td colSpan={5}><h3>尚無歷史訂單</h3></td></tr>
+                  }
                 </tbody>
               </table>
             </div>
