@@ -19,7 +19,11 @@
     display: none;
   }
 }
-
+.imageContainer {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
 .userImg {
   border-radius: 50%;
 }
