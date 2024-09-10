@@ -40,16 +40,17 @@ export default function PeopleInfoData() {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  // 頁面是否載入完 authUser
+  const [isYetOpening, setIsYetOpening] = useState(true);
 
   const fetchgetMember = (uuid) => {
     const url = `http://localhost:3005/api/member/${uuid}`;
 
     fetch(url)
-      .then(response => {
+      .then(async response => {
         if (!response.ok) {
-          return response.json().then(errorData => {
-            throw new Error(`錯誤 ${response.status}: ${errorData.message}`);
-          });
+          const errorData = await response.json();
+          throw new Error(`錯誤 ${response.status}: ${errorData.message}`);
         }
         return response.json();
       })
@@ -70,7 +71,7 @@ export default function PeopleInfoData() {
 
   const handleDeleteUser = () => {
     if (confirmEmail !== user.email) {
-      alert('電子郵件地址不匹配，無法刪除帳號');
+      alert('電子信箱不匹配，無法刪除帳號');
       return;
     }
 
@@ -157,8 +158,8 @@ export default function PeopleInfoData() {
 
     if (authUser && authUser.uuid) {
       fetchgetMember(authUser.uuid);
+      setIsYetOpening(false);
     } else {
-      <Loading></Loading>
       // setError('User not authenticated');
       setLoading(false);
     }
@@ -178,9 +179,10 @@ export default function PeopleInfoData() {
   return (
     <>
       <Head><title>會員中心 | Fundodo</title></Head>
+      {isYetOpening && <Loading />}
       <main>
         {loading ? (
-          <p>Loading...</p>
+          <Loading />
         ) : error ? (
           <p>Error: {error}</p>
         ) : (
@@ -241,12 +243,12 @@ export default function PeopleInfoData() {
       >
         <h4>刪除確認</h4>
         <p>你確定要刪除帳號？這個操作無法撤銷。</p>
-        <p>請輸入您的電子郵件地址以確認刪除：</p>
+        <p>請輸入您的電子信箱以確認刪除：</p>
         <input
           type="email"
           value={confirmEmail}
           onChange={handleEmailChange}
-          placeholder="輸入您的電子郵件"
+          placeholder="輸入您的電子信箱"
         />
         <button onClick={handleDeleteUser} disabled={confirmEmail !== user.email}>確認刪除</button>
         <button onClick={handleCancelDelete}>取消</button>

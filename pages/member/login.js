@@ -160,7 +160,7 @@ export default function LoginPage() {
               </div>
               <form onSubmit={handleLogin}>
                 <div className={scss.inputBox}>
-                  <label>電子郵件地址</label>
+                  <label>電子信箱</label>
                   <input type="email" name="email" required />
                 </div>
                 <div className={scss.inputBox}>
@@ -221,7 +221,7 @@ export default function LoginPage() {
               type="email"
               value={confirmEmail}
               onChange={handleEmailChange}
-              placeholder="輸入您的電子郵件"
+              placeholder="輸入您的電子信箱"
             />
             <button onClick={sendOTP} disabled={!confirmEmail}>
               發送
