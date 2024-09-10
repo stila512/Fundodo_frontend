@@ -21,6 +21,9 @@ export default function NavHeader() {
   //0 | 未登入 ; -1 | 讀取中
   /** @type {[number, React.Dispatch<number>]} */
   const [uID, setUID] = useState(-1);
+  //===== 會員權限
+  /** @type {[number, React.Dispatch<number>]} */
+  const [isAdmin, setIsAdmin] = useState(false);
 
   //===== 獲得登入的會員 ID & 判斷管理員登入
   useEffect(() => {
