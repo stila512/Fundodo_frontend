@@ -14,7 +14,6 @@ import axios from 'axios';
 export default function AddCart({ original_price, sale_price, id }) {
   const { user: userPkg } = useContext(AuthContext);
   const router = useRouter();
-  const [uID, setUID] = useState(0);
   const [hasPurchased, setHasPurchased] = useState(false);
   const [purchaseDate, setPurchaseDate] = useState(null);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
@@ -22,12 +21,23 @@ export default function AddCart({ original_price, sale_price, id }) {
   const [modalContent, setModalContent] = useState({ title: '', message: '' });
   const [doesExistInCart, setDoesExistInCart] = useState(false);
 
-  useEffect(() => {
-    if (userPkg === null) return;
+  const { user } = useContext(AuthContext);
+  //===== 會員 ID
+  //0 | 未登入 ; -1 | 讀取中
+  /** @type {[number, React.Dispatch<number>]} */
+  const [uID, setUID] = useState(-1);
 
-    const { userId } = userPkg;
-    setUID(userId ? userId : 0);
-  }, [userPkg])
+  //===== 獲得登入的會員 ID & 判斷管理員登入
+  useEffect(() => {
+    //第一次載入，得到 undefined
+    if (user === undefined) return;
+    //第二次載入，得到 null
+    if (user === null) return setUID(0);
+    // 其他情況的提防
+    if (typeof user !== 'object') return console.error('objcet "user" 出現了意料外的情形!!');
+
+    setUID(user.userId);
+  }, [user]);
 
   useEffect(() => {
     const checkPurchaseStatus = async () => {

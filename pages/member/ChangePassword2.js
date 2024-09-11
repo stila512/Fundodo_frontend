@@ -134,7 +134,7 @@ export default function ChangePassword() {
       // 如果 authUser 為 null，則延遲2秒後刷新頁面
       timeoutId = setTimeout(() => {
         router.reload();
-      }, 500); // 0.5秒延遲
+      }, 1000); // 0.5秒延遲
     } else if (authUser && authUser.uuid) {
       fetchgetMember(authUser.uuid);
     } else {

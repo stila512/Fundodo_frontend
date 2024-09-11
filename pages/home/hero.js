@@ -38,9 +38,8 @@ export default function Hero() {
                 <div className={scss.hero_text}>
                   <h1>專屬毛小孩的幸福</h1>
                   <p>
-                    提供頂級狗糧、各式用品、專業寵物照顧線上課程和優質住宿服務，
-                    <br />
-                    滿足您愛犬的所有需求。
+                    提供頂級狗糧、各式用品、專業寵物照顧線上課程<br />
+                    和優質住宿服務，滿足您愛犬的所有需求。
                   </p>
                   <div className={scss.btns}>
                     <FddBtn color="primary" href="#">
@@ -52,7 +51,7 @@ export default function Hero() {
                   </div>
                 </div>
               </div>
-              <div className="col-5 d-none d-md-block">
+              <div className="col-7 d-none d-md-block">
                 <div className='img-wrap-w100'>
                   <Image src={dogs} />
                 </div>
