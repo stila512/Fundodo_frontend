@@ -27,7 +27,7 @@ export default function ProdCartTable({
   setAmount = () => { },
 }) {
   const noData = (!data || data.length === 0
-    || itemStateArr.filter(v => v).length === 0);
+    || itemStateArr[CART_INDEX].filter(v => v).length === 0);
 
   const [qtyArr, setQtyArr] = useState([]);
   const [subtotArr, setSubtotArr] = useState([]);
@@ -50,7 +50,7 @@ export default function ProdCartTable({
 
     const subtotList = qtyArr.map((q, i) => q * data[i].price);
     const total = subtotList.reduce((total, cur, i_item) => {
-      if (itemStateArr[i_item]) return total + cur;
+      if (itemStateArr[CART_INDEX][i_item]) return total + cur;
       return total;
     }, 0);
     setSubtotArr(subtotList);
@@ -108,6 +108,7 @@ export default function ProdCartTable({
     // 以上為基本設定
     // todo: 滑動刪除
     if (isRightSwipe) {
+      //? 我不知道怎麼抓 id
       ;
     }
   }
@@ -116,7 +117,7 @@ export default function ProdCartTable({
   /** 刪除購物車資料 */
   const handleDelete = (i_item, db_id) => {
     // 更新前端的監控數據
-    const new_arr = itemStateArr.map(
+    const new_arr = itemStateArr[CART_INDEX].map(
       (state, j_item) => i_item === j_item ? false : state
     );
     setItemStateArr(prev => prev.map(
@@ -129,78 +130,85 @@ export default function ProdCartTable({
   return (
     <>
       {w__screen >= breakpoints.md ? (
-        <table className={s.cartTable}>
-          <caption className='tx-default tx-shade4 tx-left'>
-            共 {itemStateArr.filter(v => v).length} 件商品
+        <article className='my-5'>
+          <caption className='d-flex flex-row jc-between ai-center bg-tint5'>
+            <span className='tx-default tx-shade4 ps-2 ps-lg-4'>
+              共 {itemStateArr[CART_INDEX].filter(v => v).length} 件商品
+            </span>
+            <FddBtn color='tint5' pill={false} size='sm' href='/prod'>
+              再逛一下商城
+            </FddBtn>
           </caption>
-          <thead>
-            <tr>
-              <th className='d-none d-lg-table-cell'><TbTrashX /></th>
-              <th></th>
-              <th>商品資訊</th>
-              <th>規格</th>
-              <th style={{ width: '9rem' }}>單價</th>
-              <th>數量</th>
-              <th style={{ width: '9rem' }}>小計</th>
-            </tr>
-          </thead>
-          <tbody className='tx-body'>
-            {noData || data.map((item, i_item) => itemStateArr[i_item] && (
-              <tr key={item.cart_id}>
-                <td className='d-none d-lg-table-cell'>
-                  <FddBtn
-                    color='tint4'
-                    size='sm' icon
-                    callback={() => handleDelete(i_item, item.cart_id)}
-                  >
-                    <RxCross2 />
-                  </FddBtn>
-                </td>
-                <td>
-                  <div className="img-wrap-h100" style={{ height: 100 }}>
-                    <Image
-                      src={'/pic-prod/' + item.pic_name}
-                      width={0}
-                      height={0}
-                      alt={item.prod_name}
-                    />
-                  </div>
-                </td>
-                <td>{item.prod_name}</td>
-                <td>
-                  {item.sort_name ? <p>{item.sort_name}</p> : <></>}
-                  {item.spec_name ? <p>{item.spec_name}</p> : <></>}
-                </td>
-                <td>
-                  <div className="mx-auto pe-1 tx-right w-fit">
-                    ${item.price.toLocaleString()}
-                  </div>
-                </td>
-                <td>
-                  <NumberPanel
-                    quantity={qtyArr[i_item]}
-                    callback={(q) => handleQty(i_item, item.cart_id, q)}
-                    min={1}
-                    onOverMin={() => handleZero()}
-                    doesDisableMinus={qtyArr[i_item] <= 0}
-                  />
-                </td>
-                <td>${subtotArr[i_item]}</td>
+          <table className={s.cartTable}>
+            <thead>
+              <tr>
+                <th className='d-none d-lg-table-cell'><TbTrashX /></th>
+                <th></th>
+                <th>商品資訊</th>
+                <th>規格</th>
+                <th style={{ width: '9rem' }}>單價</th>
+                <th>數量</th>
+                <th style={{ width: '9rem' }}>小計</th>
               </tr>
-            ))}
-            {noData && <tr><td colSpan={7}>
-              <FddBtn color='tint1' size='sm' href='/prod'>來去逛逛寵物商城</FddBtn>
-            </td></tr>}
-          </tbody>
-        </table>) : (<>
+            </thead>
+            <tbody className='tx-body'>
+              {noData || data.map((item, i_item) => itemStateArr[CART_INDEX][i_item] && (
+                <tr key={item.cart_id}>
+                  <td className='d-none d-lg-table-cell'>
+                    <FddBtn
+                      color='tint4'
+                      size='sm' icon
+                      callback={() => handleDelete(i_item, item.cart_id)}
+                    >
+                      <RxCross2 />
+                    </FddBtn>
+                  </td>
+                  <td>
+                    <div className="img-wrap-h100" style={{ height: 100 }}>
+                      <Image
+                        src={'/pic-prod/' + item.pic_name}
+                        width={0}
+                        height={0}
+                        alt={item.prod_name}
+                      />
+                    </div>
+                  </td>
+                  <td>{item.prod_name}</td>
+                  <td>
+                    {item.sort_name ? <p>{item.sort_name}</p> : <></>}
+                    {item.spec_name ? <p>{item.spec_name}</p> : <></>}
+                  </td>
+                  <td>
+                    <div className="mx-auto pe-1 tx-right w-fit">
+                      ${item.price.toLocaleString()}
+                    </div>
+                  </td>
+                  <td>
+                    <NumberPanel
+                      quantity={qtyArr[i_item]}
+                      callback={(q) => handleQty(i_item, item.cart_id, q)}
+                      min={1}
+                      onOverMin={() => handleZero()}
+                      doesDisableMinus={qtyArr[i_item] <= 0}
+                    />
+                  </td>
+                  <td>${subtotArr[i_item]}</td>
+                </tr>
+              ))}
+              {noData && <tr><td colSpan={7}>
+                <FddBtn color='tint1' size='sm' href='/prod'>來去逛逛寵物商城</FddBtn>
+              </td></tr>}
+            </tbody>
+          </table>
+        </article>) : (<>
           <div className="container mb-4">
             <div className="row jc-between bg-shade2 p-2">
               <h3 className='col-auto tx-white tx-center'>購物車 - 商品</h3>
               <p className='col-auto tx-tint4'>
-                共 {itemStateArr.filter(v => v).length} 件商品
+                共 {itemStateArr[CART_INDEX].filter(v => v).length} 件商品
               </p>
             </div>
-            {noData || data.map((item, i_item) => itemStateArr[i_item] && (
+            {noData || data.map((item, i_item) => itemStateArr[CART_INDEX][i_item] && (
               <div
                 key={item.cart_id}
                 className={["row", s.cartRowMb].join(' ')}

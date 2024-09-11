@@ -50,52 +50,57 @@ export default function CouponPage() {
     overdueArr: []
   });
 
-  const [data2show, setData2show] = useState([]);
 
   //===== 以會員 ID 索取優惠券資料
+
+  const readCpData = (tokenSrc = null) => {
+    //以下寫法參考 Axios 官方文件
+    axios.get(
+      `${apiBaseUrl}/coupon/${uID}`,
+      tokenSrc ? { cancelToken: tokenSrc.token } : {}
+    ).then(res => {
+      const dataPkg = res.data.result;
+      const usableArr = dataPkg.usableArr;
+      const usedArr = dataPkg.usedArr;
+      const overdueArr = dataPkg.overdueArr;
+      setCpPkg(
+        {
+          usableArr,
+          usedArr,
+          overdueArr
+        }
+      );
+    }).catch(err => {
+      if (axios.isCancel(err)) {
+        console.log('索取會員優惠券資料之請求已成功取消');
+        return;
+      }
+
+      setCpPkg({
+        usableArr: [],
+        usedArr: [],
+        overdueArr: []
+      });
+      if (err.response) {
+        //status != 2XX
+        console.error(err.response.data.message);
+      } else if (err.request) {
+        // 伺服器沒有回應
+        console.log("伺服器沒有回應，請檢查伺服器狀態");
+      } else {
+        console.log("未知的錯誤情形");
+        console.log(err);
+      }
+    });
+  }
+
   useEffect(() => {
     if (uID <= 0) return;
 
     const CancalToken = axios.CancelToken;//中止情況用的信號彈
     const source = CancalToken.source();
 
-    //以下寫法參考 Axios 官方文件
-    axios.get(`${apiBaseUrl}/coupon/${uID}`, { cancelToken: source.token })
-      .then(res => {
-        const dataPkg = res.data.result;
-        const usableArr = dataPkg.usableArr;
-        const usedArr = dataPkg.usedArr;
-        const overdueArr = dataPkg.overdueArr;
-        setCpPkg(
-          {
-            usableArr,
-            usedArr,
-            overdueArr
-          }
-        );
-      })
-      .catch(err => {
-        if (axios.isCancel(err)) {
-          console.log('索取會員優惠券資料之請求已成功取消');
-          return;
-        }
-
-        setCpPkg({
-          usableArr: [],
-          usedArr: [],
-          overdueArr: []
-        });
-        if (err.response) {
-          //status != 2XX
-          console.error(err.response.data.message);
-        } else if (err.request) {
-          // 伺服器沒有回應
-          console.log("伺服器沒有回應，請檢查伺服器狀態");
-        } else {
-          console.log("未知的錯誤情形");
-          console.log(err);
-        }
-      });
+    readCpData(source);
 
     return () => {
       //取消 API request
@@ -104,6 +109,8 @@ export default function CouponPage() {
       source.cancel("API 請求已被臨時取消");
     }
   }, [uID]);
+
+  const [data2show, setData2show] = useState([]);
 
   useEffect(() => {
     setData2show(cpPkg.usableArr);
@@ -209,7 +216,10 @@ export default function CouponPage() {
       cp_code: claimCode
     }
     axios.post(`${apiBaseUrl}/coupon/claim`, pkg)
-      .then(res => setClaimMsg(res.data.message))
+      .then(res => {
+        if (res.data.result === true) readCpData();
+        setClaimMsg(res.data.message);
+      })
       .catch(err => {
         if (err.response) {
           //status != 2XX
