@@ -42,6 +42,20 @@ $tint-names: ('tint1', 'tint2', 'tint3', 'tint4', 'tint5');
     #{$elem}.btn-tint4#{$type} {
       color: c.$primary;
     }
+
+    #{$elem}.btn-tint5#{$type},
+    #{$elem}.btn-tint5#{$type}-2 {
+      color: c.$shade3;
+
+      &:hover {
+        border-color: c.$shade4;
+        color: c.$shade4;
+      }
+      &:active {
+        background-color: c.$tint4;
+        color: c.$black;
+      }
+    }
   }
 }
 
