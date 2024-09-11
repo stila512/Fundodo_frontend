@@ -1,4 +1,6 @@
 //== Parameters ================================================================
+/** 基本運費 */
+const DLV_FEE_BASE = 60;
 import { apiBaseUrl } from '@/configs';
 import dataEmergency from '@/data/cart-emergency.json';
 //== Functions =================================================================
@@ -105,7 +107,7 @@ export default function CartPage({
         setCartPkg({ PD: PD_pkg, HT: HT_pkg, CR: CR_pkg, });
 
         // 有商品就預設運費 60 元
-        if (PD_pkg.length > 0) setDlvFee(60);
+        if (PD_pkg.length > 0) setDlvFee(DLV_FEE_BASE);
 
         // 表列每個購物車項目是否被（軟）刪除的狀態
         setItemStateArr([
@@ -186,29 +188,134 @@ export default function CartPage({
   }, [userID])
 
   //===== 以優惠券資料建立初始狀態
-  useEffect(() => {
-    if (cpList.length === 0 || !(cartPkg.CR || cartPkg.HT || cartPkg.CR)) return;
 
-    // 預設皆不啟動
-    const initState = Array(cpList.length).fill(0);
-    let verified = initState;
-
+  const updateCpState = (state_0) => {
+    let stateArr = state_0.slice(0);
     //* 根據優惠券條件設定可否啟動
-    SORT_LIST.forEach(sort => {
-      const i_sort = SORT_LIST.indexOf(sort);
-      if (cartPkg[sort].length === 0) {
-        verified = verified.map((zero, i_cp) => {
-          if (cpList[i_cp].scope_from === sort || cpList[i_cp].scope_to === sort) {
-            const min_spent = cpList[i_cp].min_spent || 0;
-            return (amtArr[i_sort] > min_spent) ? zero : -1;
-          } else {
-            return zero;
-          }
-        });
+    stateArr = stateArr.map((zero, i_cp) => {
+      const cp = cpList[i_cp];
+
+      switch (cp.scope_from) {
+        case null:
+          if (totalArr[0] === 0) return -1;
+          break;
+        case 'PD':
+        case 'HT':
+        case 'CR':
+          const i_sort = SORT_LIST.indexOf(cp.scope_from);
+          if (amtArr[i_sort] === 0) return -1;
+          break;
+        default:
+          // TODO:擱置，商品如飼料的細項目前暫無施工計畫
+          break;
       }
+
+      let amt_base = 0;
+
+      switch (cp.scope_to) {
+        case null:
+          amt_base = totalArr[0];
+          break;
+        case 'PD':
+        case 'HT':
+        case 'CR':
+          const i_sort = SORT_LIST.indexOf(cp.scope_to);
+          amt_base = amtArr[i_sort];
+          break;
+        case '運費':
+          amt_base = amtArr[0];
+          break;
+        default:
+          // TODO:擱置，商品如飼料的細項目前暫無施工計畫
+          break;
+      }
+      if (amt_base === 0) return -1;
+
+      const min_spent = cp.min_spent || 0;
+      if (amt_base >= min_spent)
+        return zero;
+      else
+        return -1;
     });
-    setCpState(verified);
+
+    //以三大類商品掃描
+
+    // SORT_LIST.forEach(sort => {
+    //   const i_sort = SORT_LIST.indexOf(sort);
+
+    //   if (amtArr[i_sort] === 0) {
+    //     // 條件的類別「沒有」商品時
+    //     stateArr = stateArr.map((zero, i_cp) => {
+    //       const cp = cpList[i_cp];
+
+    //       switch (true) {
+    //         case cp.scope_from === sort:
+    //         case sort === 'PD' || cp.scope_to === '運費':
+    //           return -1;
+    //         default:
+    //           return zero;
+    //       }
+    //     });
+    //   } else {
+    //     // 條件的類別「有」商品時
+    //     //處理 to 的部份
+    //     SORT_LIST.forEach(sort_j => {
+    //       const j_sort = SORT_LIST.indexOf(sort_j);
+    //     });
+    //     stateArr = stateArr.map((zero, i_cp) => {
+    //       const cp = cpList[i_cp];
+    //       const min_spent = cp.min_spent || 0;
+
+    //       switch (true) {
+    //         case cp.scope_from === sort || cp.scope_to === sort:
+    //         case cp.scope_from === sort || cp.scope_to === sort:
+    //         case sort === 'PD' || cp.scope_to === '運費':
+    //           break;
+    //         default:
+    //           return zero;
+    //       }
+
+    //       if (amtArr[i_sort] < min_spent)
+    //         return -1;
+    //       else
+    //         return zero;
+    //     });
+    //   }
+    // });
+    setCpState(stateArr);
+  }
+
+  const [readyForCp, setReadyForCp] = useState(false);
+  useEffect(() => {
+    if (
+      cpList.length === 0
+      || !(cartPkg.CR || cartPkg.HT || cartPkg.CR)
+      || amtArr.every(v => v === 0)
+    ) return;
+    // console.log(`${cpList.length}, ${cartPkg.CR.length}, ${amtArr[0]}`);
+    setReadyForCp(true);
+    /** @type {number[]} */
+    const initState = Array(cpList.length).fill(0);
+    // console.log(initState);
+    setCpState(initState);
   }, [cpList, cartPkg, amtArr]);
+
+  // useEffect(() => {
+  //   if (readyForCp === false) return;
+
+  //   console.log(`${cpList.length}, ${cartPkg.CR.length}, ${amtArr[0]}`);
+  //   // 預設皆不啟動
+  //   const initState = Array(cpList.length).fill(0);
+  //   setCpState(initState);
+  // }, [readyForCp]);
+
+
+  useEffect(() => {
+    if (cpState.length === 0 || amtArr.every(v => v === 0)) return;
+
+    updateCpState(cpState);
+  }, [readyForCp, amtArr]);
+  // 不需要 itemStateArr 吧
 
   //===== 以購物車內容更新折扣金額
   /**
@@ -218,11 +325,13 @@ export default function CartPage({
    * @returns {number} 折扣的金額
    */
   const handleDiscount = (coupon, amt_base) => {
-    const i_sort = SORT_LIST.indexOf(coupon.scope_from);
+    const i_sort = coupon.scope_from ? SORT_LIST.indexOf(coupon.scope_from) : -1;
 
     if (i_sort !== -1) {
       // 如果前置條件的商品沒有購買，則優惠不會生效
       if (amtArr[i_sort] === 0) return 0;
+    } else if (coupon.scope_from === null) {
+      //? 什麼事都不用作吧
     } else {
       // TODO:擱置，商品如飼料的細項目前暫無施工計畫
     }
@@ -236,7 +345,15 @@ export default function CartPage({
     } else {
       cut = Math.floor(amt_base * (1 - price_cut));
     }
-    return max_discount ? Math.min(cut, max_discount) : cut;
+
+    let result_discount = cut;
+    console.log(result_discount);
+    if (max_discount)
+      result_discount = max_discount > 0 ? Math.min(cut, max_discount) : cut;
+
+    result_discount = Math.min(result_discount, amt_base);
+
+    return result_discount;
   }
 
   useEffect(() => {
@@ -258,6 +375,10 @@ export default function CartPage({
           if (amtArr[2] === 0) break;
           delta = handleDiscount(coupon, amtArr[2]);
           break;
+        case '運費':
+          if (amtArr[0] === 0) break;
+          delta = dlvFee;
+          break;
         default:
           // TODO:擱置，商品如飼料的細項目前暫無施工計畫
           break;
@@ -265,11 +386,11 @@ export default function CartPage({
       return delta;
     });
     setCouponDc(dcArr);
-  }, [amtArr]);
+  }, [readyForCp, amtArr]);
 
   //===== 以優惠券狀態結算折扣總金額
   useEffect(() => {
-    if (cpState.some(v => v)) {
+    if (cpState.some(v => v === 1)) {
       const tot = couponDc.reduce((acc, cur, j) => {
         if (cpState[j] === 1) return acc + cur;
         else return acc
@@ -322,6 +443,10 @@ export default function CartPage({
         setCpState(cpState.map(v => v))
         return;
     }
+  }
+
+  const activateAllCp = () => {
+    setCpState(cpState.map(v => v >= 0 ? 1 : v));
   }
 
   const goNextPhase = () => {
@@ -383,7 +508,7 @@ export default function CartPage({
             <Component
               key={i}
               data={cartPkg[SORT_LIST[i]]}
-              itemStateArr={itemStateArr[i]}
+              itemStateArr={itemStateArr}
               setItemStateArr={setItemStateArr}
               setAmount={setAmtArr}
             />
@@ -396,11 +521,12 @@ export default function CartPage({
           <article className={['row jc-center', s.orderInfo].join(' ')}>
             <div className="col-12 col-lg-8">
               <div className="bg-secondary p-3 h-100">
-                <div className="hstack jc-between mb-3">
-                  <h3>
+                <div className="d-flex flex-col flex-lg-row jc-between mb-5 mb-lg-4">
+                  <h3 className='p-0 px-lg-3 tx-center'>
                     {cpList && cpList.length > 0
                       ? "所有可使用的優惠券"
                       : "沒有可使用的優惠券"}</h3>
+                  <FddBtn color='tint3' size='sm' callback={() => { activateAllCp() }}>一鍵使用全部</FddBtn>
                   <FddBtn color='tint3' size='sm' href='/member/coupon'>查看我的優惠券</FddBtn>
                 </div>
                 <div className="hstack flex-wrap gap-1 jc-between">
