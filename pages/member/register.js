@@ -121,6 +121,33 @@ export default function RegisterPage() {
           console.error('優惠卷發送錯誤:', e);
           alert('優惠卷發送失敗');
         }
+        
+        try {
+          const url3 = `http://localhost:3005/api/member/addDog/${user_id}`;
+          const dogData = {
+            name: '新狗狗',
+            vaccinations: JSON.stringify([]),
+            neutering: 'no',
+            introduce: '',
+            behavior: '',
+          };
+          const res3 = await fetch(url3, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(dogData),
+          });
+          if (res3.ok) {
+            console.log('新增狗狗成功');
+          } else {
+            const errorMessages = await res3.json();
+            alert(`狗狗新增發送失敗:\n${errorMessages.message}`);
+          }
+        } catch (e) {
+          console.error('狗狗新增錯誤:', e);
+          alert('狗狗新增失敗');
+        }
 
         router.push('/member/login');
       } else {

@@ -177,13 +177,14 @@ export default function PeopleInfoData() {
   };
 
   const displayTel = () => {
-    if (Object.prototype.hasOwnProperty.call(user, 'tel') === false) return '-';
-
+    // 檢查 user.tel 是否存在且有效
+    if (!user.tel) return '-';
+  
     let telStr = user.tel.toString();
-    if (telStr.length === 9) telStr = 0 + telStr;
-
+    if (telStr.length === 9) telStr = '0' + telStr;
+  
     return [telStr.slice(0, 4), telStr.slice(4, 7), telStr.slice(-3)].join('-');
-  }
+  };
 
   return (
     <>
