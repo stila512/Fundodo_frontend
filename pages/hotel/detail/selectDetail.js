@@ -5,7 +5,13 @@ import Modal from '@/components/common/modal';
 
 import { useContext } from 'react';
 import { AuthContext } from '@/context/AuthContext';
+import dotenv from 'dotenv';
 
+dotenv.config();
+
+const GoogleApiKey = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
+console.log(GoogleApiKey);
+const GoogleApiUrl = `https://www.google.com/maps/embed/v1/place?key=${GoogleApiKey}&q=24.99610300,121.29479900`
 
 export default function SelectDetail({ hotelCode }) {
   const [hotel, setHotel] = useState(null);
@@ -45,12 +51,12 @@ export default function SelectDetail({ hotelCode }) {
     if (type === 'checkIn') {
       setCheckInDate(date);
       //退房日早於入住日就清空退房日
-      if(checkOutDate && date > checkOutDate) {
+      if (checkOutDate && date > checkOutDate) {
         setCheckOutDate('');
       }
-    } else if (type === 'checkOut'){
+    } else if (type === 'checkOut') {
       //確保退房不早於入住
-      if(date < checkInDate) {
+      if (date < checkInDate) {
         // alert('退房需晚於入住日')
         setModalContent({
           title: '注意',
@@ -82,22 +88,22 @@ export default function SelectDetail({ hotelCode }) {
   const handleRoomTypeChange = useCallback((type) => {
     setRoomType(type);
 
- switch(type) {
-    case '小型犬':
-      setRoomTypeCode('S');
-      break;
-    case '中型犬':
-      setRoomTypeCode('M');
-      break;
-    case '大型犬':
-      setRoomTypeCode('L');
-      break;
-    default:
-      setRoomTypeCode('');
-  }
-}, []);
-  
-//切換房型的style
+    switch (type) {
+      case '小型犬':
+        setRoomTypeCode('S');
+        break;
+      case '中型犬':
+        setRoomTypeCode('M');
+        break;
+      case '大型犬':
+        setRoomTypeCode('L');
+        break;
+      default:
+        setRoomTypeCode('');
+    }
+  }, []);
+
+  //切換房型的style
   const getWeightRangeClass = (type) => roomType === type ? styles.active : '';
 
   const handleRoomCountChange = useCallback((e) => {
@@ -145,19 +151,19 @@ export default function SelectDetail({ hotelCode }) {
   //放入購物車
   const handleBooking = async () => {
     if (loading) return;
-  
+
     if (!user) {
       displayModal('請先登入', '加入購物車失敗，請先登入後再試。');
       return;
     }
-  
+
     const userId = user.id || user.user_id || user.userId;
     if (!userId) {
       console.error('無法獲取用戶ID');
       displayModal('失敗', '加入購物車失敗，請重新登入後再次嘗試。');
       return;
     }
-  
+
     if (!checkInDate || !checkOutDate || !roomType || !roomCount) {
       displayModal('訂房失敗', '訂房資訊尚未選取完成，請再次嘗試。');
       return;
@@ -184,11 +190,11 @@ export default function SelectDetail({ hotelCode }) {
         },
         body: JSON.stringify(bookingData)
       });
-  
+
       if (!response.ok) {
         throw new Error('加入購物車失敗');
       }
-  
+
       const result = await response.json();
       console.log('成功加入購物車:', result);
       displayModal('成功', '加入購物車成功，請至購物車查看選購的商品。');
@@ -196,12 +202,12 @@ export default function SelectDetail({ hotelCode }) {
       console.error('加入購物車失敗:', error);
       displayModal('錯誤', '加入購物車時發生錯誤，請稍後再試。');
     }
-};
+  };
 
-const displayModal = (title, message) => {
-  setModalContent({ title, message });
-  setShowModal(true);
-};
+  const displayModal = (title, message) => {
+    setModalContent({ title, message });
+    setShowModal(true);
+  };
 
 
 
@@ -283,7 +289,7 @@ const displayModal = (title, message) => {
             <div className={styles.map} >
               {/* 固定的 */}
               <iframe
-                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA4mbO2oQzhqWA7b8QDCOsOFp67LP9kjdY&q=24.99610300,121.29479900"
+                src={GoogleApiUrl}
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -325,7 +331,7 @@ const displayModal = (title, message) => {
 
             <div className={styles.map} />
             <iframe
-              src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA4mbO2oQzhqWA7b8QDCOsOFp67LP9kjdY&q=24.99610300,121.29479900"
+              src={GoogleApiUrl}
               width="100%"
               height="100%"
               style={{ border: 0 }}
