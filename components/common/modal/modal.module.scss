@@ -1,0 +1,121 @@
+@import '@/styles/';
+$bd-radius: 8px;
+
+//請勿使用 prototype，因為已經套用進下面的 popout 模組
+@mixin popout-prototype() {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  // background-color: transparent;
+  background-color: rgba($heading, 0.5);
+  z-index: 9999;
+  // display 由他處操控
+  justify-content: center;
+  align-items: center;
+
+  .window {
+    padding: rem(40px) rem(36px);
+    max-width: 560px;
+
+    @include rwd-above('lg') {
+      padding: rem(40px) rem(48px);
+      max-width: 640px;
+    }
+    // min-width: 300px;
+    // min-height: 200px;
+    position: relative;
+    background-color: $white;
+    color: $heading;
+    border: 1px solid $tint3;
+    border-radius: $bd-radius;
+    box-shadow: 0 0 4px rgba($heading, 0.5), 0 20px 20px rgba($gray-200, 0.25);
+    // box-shadow: 0 0 4px rgba($gray-200, 0.5), 0 20px 20px rgba($gray-200, 0.25);
+    @extend .fx-center;
+    flex-direction: column;
+    // z-index: 99;
+    h4 {
+      font-size: rem(22px);
+      font-weight: 600;
+      color: $heading;
+    }
+    p {
+      color: $body;
+    }
+  }
+
+  .closeBtnBox {
+    $offset: 0.5rem;
+    width: fit-content;
+    position: absolute;
+    top: $offset;
+    right: $offset;
+  }
+}
+//* 請使用以下的 popout 模組
+// 通知型：一進入網頁即出現
+//=== 按鈕：[關閉]
+.notice {
+  @include popout-prototype();
+  display: flex;
+}
+// 確認型：點擊事件觸發才會出現
+//=== 按鈕：[取消][確認]
+.confirm {
+  @include popout-prototype();
+  display: none;
+}
+
+.style_11 {
+  display: flex;
+  flex-direction: row;
+  gap: rem(36px);
+
+  @include rwd-above('lg') {
+    gap: rem(40px);
+  }
+
+  .icon {
+    $l: rem(56px);
+    width: $l;
+    height: $l;
+    border-radius: $bd-radius;
+    @extend .fx-center;
+    font-size: rem(24px);
+    background-color: $tint5;
+    color: $primary;
+    flex-shrink: 0;
+  }
+  h4 {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.style_21 {
+  h4 {
+    margin-bottom: 1rem;
+  }
+  .btnBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.5rem;
+
+    button {
+      padding: rem(14px) rem(20px);
+      width: 10rem;
+      border: 1px solid $primary;
+      border-radius: $bd-radius;
+    }
+    .cancelBtn {
+      background-color: transparent;
+      color: $primary;
+    }
+    .confirmBtn {
+      background-color: $primary;
+      color: $white;
+    }
+  }
+}

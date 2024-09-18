@@ -1,18 +1,23 @@
 {
   "workbench.colorCustomizations": {
-    "activityBar.background": "#49352c",
+    //============ 上方 =============//
+    "titleBar.inactiveBackground": "#362016",
     "titleBar.activeBackground": "#49352c",
     "titleBar.activeForeground": "#B9A399",
-    "statusBar.background": "#37312E" /*下方狀態欄背景*/,
+    //============ 分頁 =============//
     "tab.inactiveForeground": "#CEBFB8" /*非當前分頁標籤色*/,
     "tab.unfocusedInactiveForeground": "#C0ACA3",
     "tab.activeBackground": "#49352c" /*當前分頁標籤色*/,
     "tab.unfocusedActiveBackground": "#37312E" /*當前分頁標籤色*/,
-    "tab.hoverBackground": "#6F625C" /*盤旋分頁標籤色*/
+    "tab.hoverBackground": "#6F625C" /*盤旋分頁標籤色*/,
+    //============ 側邊 =============//
+    "activityBar.background": "#49352c",
+    //============ 下方 =============//
+    "statusBar.background": "#37312E" /*下方狀態欄背景*/,
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "prettier.configPath": ".prettierrc.json",
-  "editor.formatOnSave": false,
+  "editor.formatOnSave": true,
   "editor.codeActionsOnSave": ["source.formatDocument", "source.fixAll.eslint"],
   //emmet 在 REACT.js 打 HTML
   "emmet.includeLanguages": {

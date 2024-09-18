@@ -1,0 +1,73 @@
+@import '@/styles';
+
+.bgWrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.courseSec {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 0;
+  margin-bottom: 50px;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: contain;
+}
+
+.courseText {
+  margin-bottom: 30px;
+
+  h2 {
+    @include ff-maru(24px, 36px);
+    color: $heading;
+    font-weight: 700;
+    line-height: 1.4;
+    word-wrap: break-word;
+    margin-bottom: 15px;
+  }
+
+  p {
+    @include ff-noto(14px, 18px);
+    color: $body;
+    font-weight: 400;
+    line-height: 1.6;
+    word-wrap: break-word;
+    margin-bottom: 30px;
+  }
+}
+
+.proBtn {
+  display: inline-flex;
+  width: 100%;
+  max-width: 180px;
+  
+}
+
+@media (min-width: 480px) {
+  .courseSec {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 600px;
+    margin-bottom: 110px;
+    background-position: calc(100% + 20px) center;
+  }
+
+
+  .courseText {
+    text-align: left;
+
+    h2 {
+      line-height: 66px;
+    }
+
+    p {
+      width: 440px;
+      line-height: 30px;
+      margin-bottom: 60px;
+    }
+  }
+
+ 
+}

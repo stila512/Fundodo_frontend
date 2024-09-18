@@ -1,0 +1,19 @@
+@import '@/styles';
+
+.articleList {
+  margin-top: 39px;
+  margin-left: 58px;
+}
+
+.pageChange{
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+@media (max-width: 768px) {
+  .articleList{
+    width: 100%;
+    margin: 0;
+  }
+}

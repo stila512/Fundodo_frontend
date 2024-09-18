@@ -8,19 +8,95 @@ table.cartTable {
 }
 
 table.cartTable thead {
-  background-color: $color-shade-2;
+  background-color: $shade2;
   color: $white;
 
   th {
     padding-block: 0.5rem;
   }
-  
+  th:nth-child(1) {
+    width: 4rem;
+  }
+  th:nth-child(2) {
+    width: rem(120px);
+    @include rwd-above('lg') {
+      width: rem(200px);
+    }
+  }
 }
 
 table.cartTable tbody tr {
   border-bottom: 1px solid $black;
 
+  td {
+    padding-block: 1rem;
+  }
+  td:nth-child(3),
+  td:nth-child(4) {
+    padding-inline: 1rem;
+  }
   p {
     line-height: 2;
+  }
+}
+
+.payBtn {
+  margin-top: 1rem;
+  padding-block: 1rem;
+  width: 100%;
+  color: $white;
+  border: 1px solid $white !important;
+
+  &:hover {
+    background-color: $shade3;
+    color: $white;
+  }
+  &:active {
+    background-color: shift-color($shade3, 10%);
+  }
+}
+
+.orderInfo {
+  margin-block: rem(20px) rem(78px);
+
+  table {
+    width: 100%;
+    thead th {
+      padding-bottom: 1rem;
+      font-size: rem(20px);
+      font-weight: 600;
+    }
+    th {
+      font-size: rem(16px);
+      font-weight: 600;
+      text-align: left;
+    }
+    td {
+      text-align: right;
+    }
+  }
+  @include rwd-above('lg') {
+    table {
+      padding: rem(40px) rem(50px);
+      background-color: $shade2;
+      color: $white;
+    }
+  }
+}
+
+.cartRowMb {
+  &:nth-child(odd) {
+    background-color: $tint5;
+  }
+  &:nth-child(even) {
+    background-color: shift-color($tint5, -60%);
+  }
+}
+
+.cartTableMb {
+  p {
+    color: $body;
+    line-height: 3;
+    text-align: center;
   }
 }

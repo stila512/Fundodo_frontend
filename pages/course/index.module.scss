@@ -1,0 +1,43 @@
+@import '@/styles';
+
+.sort{
+  
+}
+
+
+
+.pagination {
+  padding: 16px 0;
+  @include rwd-above(sm) {
+    padding: 30px 0;
+  }
+
+  ul {
+    display: flex;
+    justify-content: center;
+  }
+
+  li {
+    margin: 0 5px;
+    a {
+      padding: 8px 12px;
+      color: $primary;
+      cursor: pointer;
+      &:hover{
+        background-color: $tint5;
+        color: $shade4;
+        border-radius: 6px;
+      }
+    }
+    &.activePage a{
+      background-color: $tint5;
+      color: $shade4;
+      border-radius: 6px;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .desktop-only {
+    display: none;
+  }}

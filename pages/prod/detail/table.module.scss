@@ -1,0 +1,20 @@
+@use '@/styles' as s;
+
+.toggleText {
+  margin-bottom: 45px;
+  justify-content: center;
+}
+.mb {
+  margin-bottom: 20px;
+}
+.tableTd1 {
+  min-width: 100px;
+  background-color: s.$primary;
+  color: s.$white;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+.tableTd2{
+  padding: 20px;
+  border: 1px solid s.$secondary;
+}

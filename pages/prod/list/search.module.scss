@@ -1,0 +1,25 @@
+@use '@/styles' as s;
+
+.searchGrid {
+  display: flex;
+  gap: 10px;
+}
+
+.search {
+  border: 1px solid s.$primary;
+  border-radius: 15px;
+  padding-left: 10px;
+}
+.searchButton {
+  cursor: pointer;
+  position: relative;
+  left: -40px;
+  text-wrap: nowrap;
+  border: none;
+  background: transparent;
+}
+.search::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}

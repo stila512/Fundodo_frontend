@@ -1,0 +1,12 @@
+@import '@/styles';
+
+.row > div {
+  margin-bottom: rem(58px);
+}
+
+.tableRow {
+  border: 1px solid $shade2;
+}
+.tableRow {
+  margin-top: -1px;
+}

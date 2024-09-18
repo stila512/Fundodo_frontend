@@ -1,0 +1,61 @@
+@import '@/styles';
+
+.sideText {
+  display: inline-flex;
+  width: 230px;
+  padding: 22px 20px;
+  flex-direction: column;
+  gap: 12px;
+  flex-shrink: 0;
+  background: var(--white, #fff);
+  border: 1px solid #eaeaea;
+  color: $shade1;
+
+  .menuItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--tint4, #eae3e0);
+
+    .icon {
+      width: rem(24px);
+      height: rem(24px);
+    }
+    .reactIcon {
+      width: rem(24px);
+      height: rem(24px);
+      @extend .gr-center;
+      color: $shade3;
+      font-size: rem(24px);
+    }
+    &.active span {
+      color: $black !important;
+    }
+  }
+  .bigItem {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .mainItem {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .subItems {
+      padding-left: 2rem;
+      padding-bottom: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 4px;
+      color: var(--shade2, #6f625c);
+      font-family: 'Noto Sans';
+      font-size: 13px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      letter-spacing: 0.65px;
+    }
+  }
+}

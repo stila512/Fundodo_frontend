@@ -1,0 +1,138 @@
+@import '@/styles';
+
+.content {
+  position: relative;
+  img {
+    margin-bottom: 60px;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+}
+
+.summary {
+  margin-bottom: 56px;
+  h3 {
+    @include rwd-above(sm) {
+      font-size: 24px;
+      line-height: 36px;
+    }
+    font-size: 14px;
+    width: 90%;
+    margin-bottom: 30px;
+    color: $heading;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 30px;
+    word-break: break-all;
+    white-space: pre-wrap;
+    
+  }
+  p {
+    
+    @include rwd-above(sm) {
+      font-size: 18px;
+    }
+    width: 90%;
+    color: $body;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 30px;
+    letter-spacing: 1px;
+    white-space: pre-wrap;
+  }
+}
+
+.title {
+  h3 {
+    color: $shade2;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 34px;
+    border-bottom: 1px solid $tint4;
+    padding-bottom: 12px;
+    margin-bottom: 36px;
+  }
+}
+
+.crsImg{
+  width: 90%;
+  height: auto;
+  margin-bottom: 20px;
+ 
+  img{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+}
+
+.imagesContainer {
+  position: relative;
+  transition: max-height 0.3s ease-out;
+  overflow: hidden;
+}
+
+.hideOverflow {
+  max-height: 1024px; 
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 150px; 
+    background: linear-gradient(to bottom, rgba(255,255,255,0)87.9%, #FFF 100%);
+    pointer-events: none; // 確保漸變不會影響點擊事件
+  }
+}
+
+.showAll {
+  max-height: none; 
+}
+
+.gradient {
+  position: absolute;
+  bottom: 0; 
+  left: 0;
+  right: 0;
+  height: 150px; /* 調整漸變效果的高度 */
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1));
+  pointer-events: none;
+}
+
+.buttonContainer {
+  position: relative;
+  z-index: 99; /* 確保按鈕在漸變效果之上 */
+  text-align: center;
+  margin-top: 20px; /* 調整按鈕與內容的間距 */
+}
+
+.btn {
+  width: 328px;
+  padding: 8px 160px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-wrap: nowrap;
+  border: 1px solid $shade3;
+  cursor: pointer;
+  color: $shade2;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px;
+  margin-bottom: 50px;
+  font-size: 14px;
+  z-index: 1; // 確保按鈕在漸變層上面
+  &:hover {
+    background-color: $tint4;
+  }
+
+  @include rwd-above(sm) {
+    width: 400px;
+    padding: 8px 169px;
+    font-size: 18px;
+  }
+}

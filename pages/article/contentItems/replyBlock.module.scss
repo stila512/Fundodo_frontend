@@ -1,0 +1,107 @@
+@import '@/styles';
+
+.replyBlock {
+  display: flex;
+  width: 720px;
+  height: 100%;
+  padding: 20px 40px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin-left: 54px;
+  margin-bottom: 80px;
+  background: #fff;
+
+  /* Shadow */
+  box-shadow: 2px 1px 5px 0px rgba(0, 0, 0, 0.15);
+  border-left: #fbc02d solid 5px;
+  @media (max-width:768px) {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+.contentCreater {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.userData {
+  display: flex;
+}
+
+.userIcon {
+  border-radius: 40px;
+  background: rgb(255, 255, 255) 50% / cover no-repeat;
+}
+
+.nicknameArea {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-left: 15px;
+}
+
+.nickName {
+  color: #000;
+  font-family: 'Noto Sans';
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.65px;
+}
+
+.creatTime {
+  color: var(--Subtitle-text-color, #808080);
+  font-family: 'Noto Sans';
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.5px;
+}
+
+.mainContent {
+  align-self: stretch;
+  color: var(--Body, #757575);
+  font-family: 'Noto Sans';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+  img{
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+.ratingArea {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+
+  height: 100%;
+  span {
+    color: var(--Subtitle-text-color, #808080);
+    font-family: 'Noto Sans';
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    letter-spacing: 0.24px;
+  }
+}
+
+.rateBtnArea {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.rateBtn {
+  border: 0;
+  cursor: pointer;
+}

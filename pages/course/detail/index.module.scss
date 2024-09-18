@@ -1,0 +1,21 @@
+@import '@/styles';
+
+.wrapper{
+    @media (max-width: 767px) { 
+        display: flex;
+        flex-direction: column;
+      }
+}
+
+
+.cart {
+    @media (max-width: 767px) {
+      order: 1;
+      margin-top: 20px;
+    }
+  
+    @media (min-width: 768px) {
+      order: 2; 
+    }
+  }
+

@@ -1,0 +1,44 @@
+@import '@/styles/';
+
+.btmNav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  display: flex;
+  @include rwd-above('md') {
+    display: none;
+  }
+  justify-content: space-evenly;
+
+  background-color: $white;
+  border-top: 2px solid $tint4;
+}
+.btmNav > a {
+  color: $shade3;
+  &:nth-child(2),
+  &:nth-child(4) {
+    font-size: 3rem;
+  }
+}
+
+// 購物車項目數量
+.cartNumber {
+  $l: 1.75rem;
+  position: absolute;
+  // @extend .fx-center;
+  //! display 由 js 控制
+  justify-content: center;
+  align-items: center;
+  width: $l;
+  height: $l;
+  top: 4px;
+  right: 4px;
+  background-color: $tint3;
+  color: $shade3;
+  font-weight: 600;
+  font-size: 1.5rem;
+  // padding: 0.25rem 0.5rem;
+  border-radius: 50%;
+}

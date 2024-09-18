@@ -1,0 +1,43 @@
+@use '@/styles' as s;
+
+.priceFilter {
+  width: 100%;
+  text-align: center;
+}
+
+.priceRange {
+  text-align: left;
+  margin-bottom: 15px;
+  font-size: 0.875rem;
+}
+
+.horizontalSlider {
+  width: 100%;
+  height: 3px;
+  position: relative;
+}
+
+.track {
+  background: s.$shade2;
+  height: 3px;
+}
+
+.thumb {
+  height: 1rem;
+  width: 1rem;
+  background: url(/prodPic/Ellipse437.png) no-repeat center;
+  background-size: contain;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  outline: none;
+}
+
+.track-0 {
+  background: s.$primary;
+}
+
+.track-1 {
+  background: s.$shade2;
+}

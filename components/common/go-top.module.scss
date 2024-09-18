@@ -1,0 +1,12 @@
+@use '@/styles/' as lib;
+.topBtn {
+  position: fixed !important;
+  bottom: 10vh;
+  right: 1rem;
+  z-index: 9999;
+
+  @include lib.rwd-above('md') {
+    bottom: 2rem;
+    right: 2rem;
+  }
+}

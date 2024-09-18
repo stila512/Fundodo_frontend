@@ -1,0 +1,60 @@
+@import '@/styles';
+
+.nopms {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $tint5;
+  height: 60vh;
+  @include rwd-above(sm){
+    height: 100vh;
+  }
+
+  .content {
+    text-align: center;
+    background-color: #fff;
+    padding: 3rem;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 90%;
+  }
+
+  .icon {
+    font-size: 5rem;
+    color: $error;
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+    color: $heading;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1rem;
+    color: $gray-800;
+    margin-bottom: 0.5rem;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #3498db;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-top: 1.5rem;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #2980b9;
+    }
+
+    .back {
+      margin-right: 0.5rem;
+    }
+  }
+}

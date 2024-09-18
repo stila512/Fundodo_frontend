@@ -1,0 +1,49 @@
+@use '@/styles' as s;
+
+.recommend{
+  margin-top: 100px;
+  @media (max-width:1200px) {
+    display: none;
+  }
+}
+.carouselContainer {
+  width: 100%;
+  overflow: hidden;
+}
+
+.carouselTrack {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.carouselItem {
+  flex: 0 0 50%;
+  max-width: 50%;
+  padding: 0 10px;
+  box-sizing: border-box;
+  margin-top: 32px;
+  margin-bottom: 183px;
+}
+
+.h3 {
+  color: s.$shade2;
+}
+.img  {
+  padding: 30px;
+  width: 300px;
+  height: 300px;
+}
+.card {
+  display: flex;
+  border-radius: 30px;
+  border: 1px solid s.$gray-400;
+}
+.aside{
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.color{
+  color: s.$shade3;
+}

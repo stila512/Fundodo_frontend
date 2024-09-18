@@ -1,0 +1,28 @@
+@use '@/styles';
+
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 80px;
+  box-sizing: border-box;
+}
+
+.navContainer {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 820px;
+}
+
+@media (max-width: 480px) {
+  .pageContainer {
+    padding: 0 5%;
+  }
+  .navContainer {
+    gap: 0px
+  }
+}

@@ -1,16 +1,32 @@
-import React,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import DefaultLayout from '@/components/layout/default';
 import scss from '@/pages/article/index.module.scss';
-import UserAction from './userAction';
-import ArtiAside from './aside';
-import ArticleList from './articleList';
-import PageControl from './pageControl';
-import ArticleContent from './articleContent';
-import Image from 'next/image';
+import TitleAction from './commonItem/titleAction';
+import UserAction from './commonItem/userAction';
+import ArtiAside from './commonItem/aside';
+import ArticleList from './list/articleList';
+import PageControl from './list/pageControl';
+import AsideRwd from './commonItem/asideRwd';
 
 export default function Index() {
+  const router = useRouter();
+  const [currentOrderBy, setCurrentOrderBy] = useState('1');
 
+  const handleOrderByChange = (newOrderBy) => {
+    setCurrentOrderBy(newOrderBy);
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, orderBy: newOrderBy },
+    }, undefined, { shallow: true });
+  };
+
+  useEffect(() => {
+    if (router.query.orderBy) {
+      setCurrentOrderBy(router.query.orderBy);
+    }
+  }, [router.query.orderBy]);
   return (
     <>
       <Head>
@@ -19,16 +35,25 @@ export default function Index() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className='container' style={{ marginTop: '100px' }}>
-        <UserAction />
+      <div className={scss.mainbg}>
+        <main className="container" style={{ paddingTop: '40px' }}>
+          <UserAction onOrderByChange={handleOrderByChange} currentOrderBy={currentOrderBy}/>
+          <TitleAction />
 
-        <div className={[scss.mainArea].join()}>
-          <ArtiAside />
-          {/* <ArticleContent/> */}
-          <ArticleList />
-          <PageControl />
-        </div>
-      </main>
+
+          <div className={[scss.mainArea].join()}>
+            <div className={scss.rwdAside}>
+              <ArtiAside />
+            </div>
+            <div className={scss.rwdList}>
+              <ArticleList orderBy={currentOrderBy}/>
+              <PageControl />
+              <AsideRwd />
+            </div>
+
+          </div>
+        </main>
+      </div>
     </>
   );
 }

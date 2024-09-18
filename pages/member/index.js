@@ -3,14 +3,14 @@ import scss from './member.module.scss';
 import logo from '@/public/logo_temp.png';
 import Image from 'next/image';
 import Link from 'next/link';
+import useAuthRedirect from '@/hooks/useAuthRedirect';
 
 export default function MemberPage() {
-
-  
+  useAuthRedirect();
   return (
     <>
       <main className={scss.container}>
-        <div className={scss.text}>
+        <div className={`${scss.text} col-12`}>
           <h3>
             會員註冊成功 <br />
           </h3>
@@ -25,9 +25,9 @@ export default function MemberPage() {
             <br />
           </p>
         </div>
-        <div className={scss.btnBox}>
-          <button className={scss.bSecondary2}>立即購物</button>
-          <Link href="/member/peopleInfo"><button className={scss.bSecondary}>完善會員資料</button></Link>
+        <div className={`${scss.btnBox} col-12`}>
+          <Link href={'/prod'}><button className={scss.bSecondary2}>立即購物</button></Link>
+          <Link href="/member/peopleInfoData"><button className={scss.bSecondary}>完善會員資料</button></Link>
         </div>
       </main>
     </>

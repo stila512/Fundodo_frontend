@@ -1,99 +1,132 @@
-@use '@/styles/lib-local' as s;
+@use '@/styles' as s;
 
-.layout {
+.header {
   background-color: s.$white;
-  box-shadow: 0 3px 8px rgba(s.$color-shade-2, 0.15),
-    0 1px 2px rgba(s.$color-shade-3, 0.1);
+  box-shadow: 0 3px 8px rgba(s.$shade2, 0.15), 0 1px 2px rgba(s.$shade3, 0.1);
   position: fixed;
   top: 0;
   width: 100%;
   height: 70px; //給其他區域的參考用數據
-  z-index: 999;
+  z-index: 3000;
 }
-.layout > div {
+//* container
+.headerMembrane {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  height: 100%;
 }
-.layout nav {
-  display: none;
 
+.logoWrap {
+  width: 170px;
+
+  @include s.rwd-above('md') {
+    width: 210px;
+  }
+}
+
+//================================================
+// .hbgBtn {
+//   background-color: transparent;
+//   svg {
+//     transition: transform 1s linear, color 1s linear;
+//   }
+
+//   @include s.rwd-above('md') {
+//     display: none !important;
+//   }
+
+//   &.active {
+//     svg {
+//       color: s.$primary;
+//       transform: rotate(270deg) scaleY(1.2);
+//     }
+//   }
+// }
+.header nav {
+  // display: none;
   @include s.rwd-above('md') {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-end;
     gap: 1rem;
   }
-}
-//================================================
-.ulLink {
-  display: flex;
-  flex-direction: row;
-
-  & > li {
-    padding: 0.5rem;
-    display: flex;
-    gap: 0.5rem;
-    color: s.$color-shade-2;
-    font-size: 1.125rem;
-    border-bottom: 5px solid transparent;
-    transition: border 0.4s linear;
-    &:hover {
-      border-bottom-color: s.$primary;
-
-      a {
-        color: s.$color-shade-2;
-      }
-    }
+  @include s.rwd-above('lg') {
+    justify-content: space-between;
   }
 }
-.listBtn {
+
+//*======== 選單切換按鈕
+
+$unit_lang: 4px;
+
+.hbgBtn {
+  $h-nav: 70px;
+  $leng: 8 * $unit_lang;
+  // display: block;
+  background-color: transparent;
+  // @include s.rwd-above('md') {
+  //   display: none;
+  // }
+  // &,
+  // &::before,
+  // &::after {
+  //   position: absolute;
+  //   background-color: s.$shade4;
+  // }
+  // top: ($h-nav - $leng) / 3;
+  // right: 25px;
+}
+
+.bar {
   position: relative;
-
-  &:hover {
-    .prodList {
-      display: block;
-    }
+  width: 6 * $unit_lang;
+  //* (HBGer) 2 of 3 : 三條線設定
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
   }
+  // 三 = {before, &, after}
+  &,
+  &::before,
+  &::after {
+    height: $unit_lang;
+    // width: 6 * $unit_lang;
+    background-color: rgba(s.$shade4, 0.75);
+    border-radius: 1px;
+    //回復動畫的緩動
+    transition: 300ms;
+  }
+  $gap: 1.75 * $unit_lang;
+  &::before {
+    top: -$gap;
+  }
+  &::after {
+    top: $gap;
+  }
+  /* 2 of 3 : 三條線設定 END */
 }
 
-.prodList {
-  display: none;
-  padding-block: 0.5rem;
-  position: absolute;
-  top: calc(100% + 4px);
-  left: 0;
-  min-width: 10rem;
-  background-color: s.$secondary;
-  box-shadow: 0 3px 4px 2px rgba(s.$color-shade-2, 0.3);
-
-  li a {
-    display: block;
-    padding: 0.5rem 1rem;
-    transition: background 0.4s;
-    transition: color 0.4s;
+$unit_theta: -45deg;
+.hbgBtn.active .bar {
+  &,
+  &::before,
+  &::after {
+    //變成叉叉的動畫緩動
+    transition: 700ms;
   }
-  li:hover a {
-    background-color: s.$color-tint-1;
-    color: s.$color-shade-4;
+  transform: rotate(4 * $unit_theta);
+  background-color: transparent;
+  &::before {
+    transform: rotate($unit_theta);
+    top: 0; //回到正中央，以形成叉叉
   }
-}
-
-//================================================
-.ulFunc {
-  display: flex;
-  flex-direction: row;
-  gap: 0.25rem;
-
-  button,
-  a {
-    font-size: 2rem;
-    color: s.$color-shade-2;
-  }
-
-  button {
-    background-color: transparent;
-    border: none;
+  &::after {
+    transform: rotate(-$unit_theta);
+    top: 0;
   }
 }

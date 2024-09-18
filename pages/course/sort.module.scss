@@ -1,0 +1,27 @@
+@import '@/styles';
+
+.sort{
+    display: flex;
+    gap: 20px;
+    position: relative;
+    align-items: center;
+    margin: 6px 14px 6px 8px;
+    gap: 8px;
+    text-wrap: nowrap;
+  
+    select {
+      align-items: center;
+      appearance: none; // 隱藏預設下箭頭
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      width: 10rem;
+      padding: 6px 16px; // 留空間給自訂箭頭
+      border: 1px solid $primary;
+      border-radius: 50px;
+    }
+  }
+  
+  .arrow {
+    position: relative;
+    left: -2rem;
+  }

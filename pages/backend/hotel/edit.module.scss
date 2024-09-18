@@ -1,0 +1,335 @@
+@import '@/styles';
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+
+  h1 {
+    display: flex;
+    width: 252px;
+    height: 52px;
+    margin-bottom: 20px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: $heading;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+  }
+
+  form {
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 8px;
+    min-width: 788px;
+
+    .imgGroup {
+      display: flex;
+      margin-bottom: 20px;
+      align-items: center;
+    }
+
+    .addImg {
+      width: 200px;
+      height: 200px;
+      background-color: $tint5;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative; /* 確保覆蓋層定位在容器內 */
+      margin-bottom: 20px;
+      margin-left: 18px;
+      overflow: hidden; /* 確保覆蓋層不會溢出 */
+      &:hover {
+        cursor: pointer;
+        z-index: 2;
+      }
+    }
+    
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(203, 176, 156, 0.5); 
+      opacity: 0; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .addImg:hover .overlay {
+      opacity: 1; 
+    }
+
+    .addImgIcon{
+      width: 40px;
+      height: 40px;
+      color: $tint5;
+    }
+    
+    .formGroup {
+      margin-bottom: 20px;
+      font-weight: 400;
+      color: $heading;
+      font-size: 16px;
+
+      label {
+        display: inline-block;
+        margin-bottom: 6px;
+        margin-right: 14px;
+        margin-left: 4px;
+      }
+      .price {
+        width: 20%;
+      }
+
+      input[type='text'],
+      select,
+      textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #d8d8d8;
+        border-radius: 4px;
+        font-size: 16px;
+        color: #565656;
+      }
+
+      input[type='radio'] {
+        margin-right: 4px;
+      }
+
+      textarea {
+        height: 130px;
+      }
+      
+      div {
+        display: inline-block;
+        margin-bottom: 10px;
+      }
+    
+      input[type="radio"] {
+        margin-right: 10px;
+        width: 16px;
+        height: 16px;
+      }
+    
+      label {
+        margin-right: 20px;
+      }
+
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: 500;
+      color: $shade2;
+      padding-bottom: 10px;
+    }
+
+   
+    .buttonGroup {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+
+      button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:first-child {
+          background-color: #ccc;
+          color: #333;
+
+          &:hover {
+            background-color: #bbb;
+          }
+        }
+
+        &:last-child {
+          background-color: #007bff;
+          color: white;
+
+          &:hover {
+            background-color: #0056b3;
+          }
+        }
+      }
+    }
+  }
+}
+
+.img {
+  display: inline;
+  margin: 10px;
+  padding: 50px;
+  background-color: #ccc;
+  margin-left: 130px;
+}
+
+.btnGroup {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.cancel {
+  display: flex;
+  padding: 12px 60px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid $shade2;
+  background: $white;
+  color: $shade2;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 18px; /* 112.5% */
+}
+.update {
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px; /* 112.5% */
+  display: flex;
+  padding: 12px 60px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  background-color: $primary;
+  border: none;
+}
+
+
+.radioGroup {
+  display: flex;
+  align-items: center;
+}
+
+.radioItem {
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.radioItem input[type="radio"] {
+  display: none; 
+}
+
+.radioItem label {
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 20px;
+  display: inline-block;
+}
+
+.radioItem label::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ddd;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.radioItem label::after {
+  content: '';
+  width: 17px;
+  height: 17px;
+  background: #5cb85c; // 這裡可以改變選中時的顏色
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  opacity: 0;
+  transform: scale(0);
+}
+
+.radioItem input[type="radio"]:checked + label::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+// 可以為不同的選項設置不同的顏色
+.radioItem input[type="radio"][value="1"] + label::after {
+  background: #5cb85c; // 上架狀態的顏色（綠色）
+}
+
+.radioItem input[type="radio"][value="0"] + label::after {
+  background: #d9534f; // 下架狀態的顏色（紅色）
+}
+
+.imageUploadContainer {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  margin-bottom: 20px;
+}
+
+.imageUploadLabel {
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.placeholderImage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+}
+
+.addImgIcon {
+  font-size: 48px;
+  color: #888;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.imageUploadLabel:hover .overlay {
+  opacity: 1;
+}
+
+.loadingIndicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 4px;
+}

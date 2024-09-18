@@ -1,0 +1,21 @@
+@import '@/styles';
+
+.banner {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 94px;
+  margin-bottom: 50px;
+  border-radius: 41px;
+  background-image: url('../../public/homePic/Rectangle\ 647.png');
+  h2 {
+    @include ff-maru(56px);
+
+    margin-top: 90px;    color: $shade2;
+  }
+  img{
+    position: relative;
+    left: 24px;
+  }
+}

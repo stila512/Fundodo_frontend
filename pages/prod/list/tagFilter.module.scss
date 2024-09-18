@@ -1,0 +1,36 @@
+@use '@/styles' as s;
+
+.tagFilterContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .tagButton {
+    padding: 5px 10px;
+    border: 1px solid s.$secondary;
+    border-radius: 20px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  
+    &:hover {
+      background-color: #e0e0e0;
+    }
+  
+    &.active {
+      background-color: s.$primary;
+      color: white;
+    }
+  }
+  .handleToggle{
+    margin-bottom: 10px;
+    color: s.$black;
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    border: 1px solid s.$secondary;
+    padding: 5px 10px;
+
+  }

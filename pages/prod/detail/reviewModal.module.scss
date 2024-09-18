@@ -1,0 +1,113 @@
+@import '@/styles/';
+$bd-radius: 8px;
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba($heading, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modalContent {
+  background-color: $white;
+  padding: 40px 48px;
+  border-radius: $bd-radius;
+  box-shadow: 0 0 4px rgba($heading, 0.5), 0 20px 20px rgba($gray-200, 0.25);
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+
+  h4 {
+    font-size: 22px;
+    font-weight: 600;
+    color: $heading;
+    margin-bottom: 20px;
+  }
+}
+
+.closeBtnBox {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.reviewContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ratingContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  span {
+    color: $body;
+  }
+}
+
+.reviewTextarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid $tint3;
+  border-radius: $bd-radius;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.imageUpload {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  input[type="file"] {
+    display: none;
+  }
+}
+
+.uploadButton {
+  padding: 8px 16px;
+  background-color: $primary;
+  color: $white;
+  border-radius: $bd-radius;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.fileName {
+  font-size: 0.9rem;
+  color: $body;
+}
+
+.btnBox {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.cancelBtn, .confirmBtn {
+  padding: 14px 20px;
+  border-radius: $bd-radius;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cancelBtn {
+  background-color: transparent;
+  color: $primary;
+  border: 1px solid $primary;
+}
+
+.confirmBtn {
+  background-color: $primary;
+  color: $white;
+  border: none;
+}

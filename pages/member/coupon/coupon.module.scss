@@ -1,0 +1,114 @@
+@import '@/styles/';
+
+.claimInput {
+  display: block;
+  margin-right: 1rem;
+  padding: 0.75rem 0.5rem;
+  // height: 100%;
+  width: 10rem;
+}
+
+.tabBox {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid $primary;
+
+  button {
+    padding: rem(20px);
+    background-color: $white;
+    border: none;
+    border-bottom: 5px solid transparent !important;
+    &.active {
+      border-bottom-color: $primary !important;
+    }
+  }
+}
+
+.section {
+  padding: 2rem 1rem;
+}
+
+.countPanel {
+  margin-top: 1rem;
+  padding-inline: rem(20px);
+  border-bottom: 1px solid $tint3;
+}
+
+.cpCard {
+  @extend .gr-center;
+  aspect-ratio: 1;
+  background-color: $tint3;
+  box-shadow: inset 0 0 8px 4px $tint4, inset 0 0 4px $tint2;
+  border-radius: 12px;
+  font-size: 3.5rem;
+  color: $shade4;
+  position: relative;
+
+  @include rwd-above('md') {
+    aspect-ratio: initial;
+    height: 100%;
+    margin-inline: 1rem;
+  }
+}
+.cpCard > svg {
+  z-index: 3;
+}
+.cpCard::before {
+  content: '';
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  transform: translate(-50%);
+  width: 5rem;
+  height: 1rem;
+  background-color: $tint5;
+  border-radius: 50%;
+  z-index: 0;
+}
+@keyframes floating {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.cpRow:hover svg {
+  animation-name: floating;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-fill-mode: both;
+  // animation-delay: 0.5s;
+}
+
+.cpCard.card1::after {
+  content: '已使用';
+}
+.cpCard.card2::after {
+  content: '已過期';
+}
+.cpCard.card1,
+.cpCard.card2 {
+  &::after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    font-size: 2rem;
+    font-weight: 500;
+    letter-spacing: 0.5rem;
+    background-color: rgba($shade3, 0.5);
+    text-shadow: 1px 1px $shade4;
+    color: $tint4;
+    z-index: 9;
+  }
+}

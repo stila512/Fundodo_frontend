@@ -1,0 +1,44 @@
+@use '@/styles' as s;
+
+.ulFunc {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 0.5rem;
+
+  li {
+    display: grid;
+    place-items: center;
+  }
+
+  button,
+  a {
+    font-size: 2rem;
+    color: s.$shade2;
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+  }
+}
+
+// 購物車項目數量
+.cartNumber {
+  $l: s.rem(20px);
+  position: absolute;
+  // @extend .fx-center;
+  //! display 由 js 控制
+  justify-content: center;
+  align-items: center;
+  width: $l;
+  height: $l;
+  top: -10px;
+  right: -8px;
+  background-color: s.$shade1;
+  color: s.$white;
+  font-weight: 600;
+  font-size: 1rem;
+  // padding: 0.25rem 0.5rem;
+  border-radius: 50%;
+}

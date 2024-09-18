@@ -1,0 +1,242 @@
+@use '@/styles' as s;
+
+/* .shade3 */
+.shade3 {
+  color: s.$shade3;
+  margin-top: 123px;
+  font-family: 'Zen Maru Gothic';
+}
+.mt {
+  @media (max-width: 991px) {
+    margin-top: 110px;
+  }
+}
+
+.backBtn {
+  display: block;
+  background: s.$primary;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+  border-radius: 15px;
+  color: s.$white !important;
+  &:hover {
+    color: s.$secondary !important;
+  }
+}
+/* .detailGroup */
+.detailGroup {
+  display: flex;
+  justify-content: space-between;
+  @media (min-width: 1200px) {
+    margin-top: 60px;
+  }
+}
+
+/* .prodImgSmBox */
+.prodImgSmBox {
+  width: 129px;
+  height: 129px;
+}
+
+/* .headerGrid */
+.headerGrid {
+  display: flex;
+  align-items: self-start;
+  justify-content: space-between;
+}
+
+/* .header */
+.header {
+  color: s.$gray-800;
+  margin-bottom: 40px;
+  font-weight: 700;
+  @media (max-width:992px) {
+    font-size: 36px;
+  }
+  @media (max-width:768px) {
+    font-size: 24px;
+  }
+}
+
+/* .handleFavIcon */
+.handleFavIcon {
+  @media (max-width: 992px) {
+    display: none;
+  }
+}
+
+/* .btnGroup */
+.btnGroup {
+  margin-top: 37px;
+  margin-bottom: 37px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* .p */
+.p {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+/* .radio */
+.radio {
+  cursor: pointer;
+  text-wrap: nowrap;
+  padding: 15px 25px;
+  border-radius: 8px;
+  border: 1px solid s.$primary;
+  color: s.$gray-600;
+  font-size: 18px;
+  text-align: center;
+  font-weight: 600;
+  line-height: 18px;
+}
+
+/* .selected */
+.selected {
+  background: s.$primary;
+  color: s.$white;
+}
+
+/* .hidden */
+.hidden {
+  display: none;
+}
+
+/* .NumberPanel */
+.NumberPanel {
+  @media (max-width: 992px) {
+    width: 100% !important;
+    font-size: 24px;
+  }
+}
+
+/* .fixed */
+.fixed {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  display: flex; /* 使用 flexbox 进行布局 */
+  justify-content: center; /* 居中对齐 */
+  align-items: center; /* 垂直居中对齐 */
+  gap: 10px; /* 元素之间的间距 */
+  padding: 10px; /* 可选的内边距 */
+
+  @media (max-width: 992px) {
+    position: fixed;
+    justify-content: space-between; /* 元素之间的间距，并且让元素排列在两侧 */
+  }
+}
+
+/* .btnSubmit */
+.btnSubmit {
+  cursor: pointer;
+  padding: 18px 45px;
+  border-radius: 8px;
+  border: none;
+  background: s.$primary;
+  color: s.$white;
+  font-size: 18px;
+  text-align: center;
+  font-weight: 600;
+  text-wrap: nowrap;
+  flex-grow: 1;
+}
+
+/* .btnDisable */
+.btnDisable {
+  border: none;
+  background: s.$gray-500;
+  color: s.$white;
+  text-wrap: nowrap;
+  padding: 15px 25px;
+  border-radius: 8px;
+  font-size: 18px;
+  text-align: center;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+/* .priceGroup */
+.priceGroup {
+  margin-top: 47px;
+}
+
+/* .price */
+.price {
+  color: s.$shade3;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 20px;
+  margin-right: 27px;
+}
+
+/* .cs3 */
+.cs3 {
+  color: s.$shade3;
+  font-size: 18px;
+  text-wrap: nowrap;
+  font-weight: 400;
+}
+
+/* .mbFavIcon */
+.mbFavIcon {
+  @media (min-width: 992px) {
+    display: none;
+  }
+}
+.selectBar {
+  display: flex;
+  width: 100%;
+  padding: 30px 0;
+  justify-content: center;
+  align-items: center;
+  gap: 34px;
+  border-bottom: 1px solid s.$gray-200;
+  margin-bottom: 30px;
+}
+
+.selectBtn {
+  display: flex;
+  width: 182px;
+  height: 55px;
+  padding: 10px 57px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  border: 1px solid s.$shade3;
+  color: s.$primary;
+  text-align: center;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 34px;
+  white-space: nowrap;
+  background-color: s.$white;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: s.$tint5;
+    border: 1px solid s.$shade3;
+    background: s.$primary;
+  }
+
+  &.active {
+    color: s.$tint5;
+    border: 1px solid s.$shade3;
+    background: s.$primary;
+  }
+}
+
+@media (max-width: 480px) {
+  .selectBar {
+    display: none;
+  }
+}

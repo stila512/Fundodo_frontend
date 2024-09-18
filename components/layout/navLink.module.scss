@@ -1,0 +1,113 @@
+@use '@/styles' as s;
+
+.ulLink {
+  padding-block: 1rem;
+  position: absolute;
+  display: flex;
+  top: 70px;
+  left: 0;
+  right: 0;
+  flex-direction: column;
+  background-color: s.$tint5;
+  align-items: stretch;
+  text-align: center;
+
+  @include s.rwd-above('md') {
+    top: initial;
+    left: initial;
+    position: relative;
+    top: initial;
+    background-color: transparent;
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    gap: 1rem;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.listBtn {
+  padding: 0.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-bottom: 5px solid transparent;
+
+  transition: border 0.4s linear;
+  animation: fadeIn 0.4s ease-in-out 1;
+
+  & > a,
+  & > button {
+    display: block;
+    color: s.$shade2;
+    width: 100%;
+    transition: color 0.4s linear;
+    line-height: 2;
+    font-size: 1.5rem;
+    @include s.rwd-above('md') {
+      font-size: 1.25rem;
+      line-height: 1.5;
+    }
+  }
+
+  &:hover {
+    a,
+    button {
+      color: s.$shade2;
+    }
+  }
+
+  @include s.rwd-above('md') {
+    display: block;
+
+    .subList {
+      display: none;
+    }
+
+    &:hover {
+      border-bottom-color: s.$primary;
+    }
+  }
+}
+
+.subList {
+  display: none;
+  padding-block: 0.5rem;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background-color: s.$tint4;
+
+  @include s.rwd-above('md') {
+    position: absolute;
+    min-width: 10rem;
+    right: initial;
+    background-color: s.$secondary;
+    box-shadow: 0 3px 4px 2px rgba(s.$shade2, 0.3);
+  }
+
+  li a {
+    display: block;
+    padding: 0.5rem 1rem;
+    transition: background 0.4s;
+    transition: color 0.4s;
+  }
+  li:hover a {
+    background-color: s.$tint1;
+    color: s.$shade4;
+  }
+}
+
+.listBtn:last-child {
+  @include s.rwd-above('md') {
+    display: none;
+  }
+}

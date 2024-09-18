@@ -1,0 +1,158 @@
+@import '@/styles';
+
+.coursePage {
+  padding-bottom: 100px;
+  h1 {
+    display: flex;
+    width: 252px;
+    height: 52px;
+    margin-bottom: 20px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: $heading;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+  }
+}
+
+.subheader {
+  display: flex;
+}
+
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.searchBar {
+  display: flex;
+  align-items: center;
+}
+.searchInput {
+  padding: 8px;
+  border: 1px solid #cacaca;
+  border-radius: 4px 0 0 4px;
+  width: 200px;
+}
+.searchBtn {
+  padding: 8px 15px;
+  background-color: $info;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  &:hover {
+    background-color: #88d1f6;
+  }
+}
+.addBtn {
+  padding: 8px 15px;
+  background-color: $info;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  &:hover {
+    background-color: #88d1f6;
+  }
+}
+.courseTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  border:1px solid $gray-200;
+}
+.courseTable th {
+  background-color: $body;
+  color: white;
+  text-align: left;
+  padding: 12px;
+  font-weight: 500;
+}
+.courseTable td {
+  padding: 12px;
+  color: $gray-700;
+  max-width: 450px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space:nowrap;
+}
+.courseTable tr:nth-child(even) {
+  background-color: $gray-200;
+}
+.actionBtns {
+  display: flex;
+  gap: 5px;
+}
+.actionBtn {
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  &:nth-child(1) {
+    background-color: $primary;
+  }
+  &:nth-child(2) {
+    background-color: $info;
+  }
+  &:nth-child(3) {
+    background-color: $error;
+  }
+}
+
+.pagination {
+  padding: 16px 0;
+  @include rwd-above(sm) {
+    padding: 30px 0;
+  }
+
+  ul {
+    display: flex;
+    justify-content: center;
+  }
+
+  li {
+    margin: 0 5px;
+    a {
+      padding: 8px 12px;
+      color: $primary;
+      cursor: pointer;
+      &:hover{
+        background-color: $tint5;
+        color: $shade4;
+        border-radius: 6px;
+      }
+    }
+    &.activePage a{
+      background-color: $tint5;
+      color: $shade4;
+      border-radius: 6px;
+    }
+  }
+}
+
+
+.tags {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  align-items: center;
+  .tag {
+    display: inline-block;
+    background-color:$tint4;
+    padding: 0 5px;
+  }
+  p {
+    font-style: normal;
+    font-weight: 400;
+    line-height: 28px;
+    color: $shade3;
+    padding: 0 10px;
+    max-width: 180px;
+    text-overflow: hidden;
+  }
+}

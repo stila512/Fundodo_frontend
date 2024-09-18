@@ -1,60 +1,62 @@
 import Link from 'next/link';
-import scss from './navHeader.module.scss';
-import { IoIosArrowDown } from 'react-icons/io';
+import scss from './navLink.module.scss';
+import { useRouter } from 'next/router';
+import { useContext } from 'react';
+import { AuthContext } from '@/context/AuthContext';
 
-export default function NavLinks() {
+export default function NavLinks({ isAdmin = false, uID = -1, toggleLinks = () => { } }) {
+  const router = useRouter();
+
+  const { logout } = useContext(AuthContext);
+
+  const handleLog = () => {
+    switch (uID) {
+      case 0:
+        router.push('/member/login');
+        break;
+      case 1:
+        setUID(-1);
+        logout();
+      case -1:
+      default:
+        return;
+    }
+    toggleLinks(false);
+  }
+
   return (
     <ul className={scss.ulLink}>
-      <li>
-        <Link href="#">首頁</Link>
+      <li className={scss.listBtn} onClick={() => toggleLinks(false)}>
+        <Link href="/home">首頁</Link>
       </li>
-      <li className={scss.listBtn}>
-        <Link href="#">商品列表</Link>
-        <IoIosArrowDown />
-        <ul className={scss.prodList}>
-          <li>
-            <Link href="#">狗勾飼料</Link>
-          </li>
-          <li>
-            <Link href="#">狗勾罐頭</Link>
-          </li>
-          <li>
-            <Link href="#">狗勾零食</Link>
-          </li>
-          <li>
-            <Link href="#">保健食品</Link>
-          </li>
-          <li>
-            <Link href="#">狗勾玩具</Link>
-          </li>
-          <li>
-            <Link href="#">外出用品</Link>
-          </li>
-        </ul>
+      <li className={scss.listBtn} onClick={() => toggleLinks(false)}>
+        <Link href="/prod">寵物商城</Link>
       </li>
-      <li className={scss.listBtn}>
-        <Link href="#">線上課程</Link>
-        <IoIosArrowDown />
-        <ul className={scss.prodList}>
-          <li>
-            <Link href="#">課程列表</Link>
-          </li>
-          <li>
-            <Link href="#">課程分類</Link>
-          </li>
-          <li>
-            <Link href="#">熱門課程</Link>
-          </li>
-          <li>
-            <Link href="#">常見問題</Link>
-          </li>
-        </ul>
+      <li className={scss.listBtn} onClick={() => toggleLinks(false)}>
+        <Link href="/course"> 線上課程</Link>
       </li>
-      <li>
-        <Link href="#">寵物旅館</Link>
+      <li className={scss.listBtn} onClick={() => toggleLinks(false)}>
+        <Link href="/hotel/list">寵物旅館</Link>
       </li>
-      <li>
-        <Link href="#">討論區</Link>
+      <li className={scss.listBtn} onClick={() => toggleLinks(false)}>
+        <Link href="/article">討論區</Link>
+      </li>
+      {isAdmin && (
+        <li className={scss.listBtn} onClick={() => toggleLinks(false)}>
+          <Link href="/backend/course">後台管理</Link>
+        </li>
+      )}
+      <li className={scss.listBtn} onClick={() => toggleLinks(false)}>
+        <button
+          onClick={() => handleLog()}
+          style={{
+            backgroundColor: 'transparent',
+            border: 'none'
+          }}
+          type='button'
+        >
+          {uID <= 0 ? '登入 / 註冊' : '登出'}
+        </button>
       </li>
     </ul>
   );

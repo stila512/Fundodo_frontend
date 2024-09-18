@@ -1,0 +1,48 @@
+@import '@/styles';
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.myButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 5px;
+  padding: 5px 10px;
+  background-color: #fff;
+  color: $primary;
+  border: 1px solid $primary;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &:hover:not(:disabled) {
+    background-color: $primary;
+    color: #fff;
+  }
+}
+
+.activePage {
+  font-weight: bold;
+  background-color: $primary;
+  color: #fff !important;
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ellipsis {
+  margin: 0 5px;
+}

@@ -1,0 +1,100 @@
+@import '@/styles';
+
+// 搜尋&分類按鈕
+.titleAction {
+  display: block;
+}
+
+.btnList {
+  display: flex;
+  justify-content: left;
+  // position: relative;
+  overflow: hidden;
+  align-items: center;
+}
+
+.sortList {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  // margin-bottom: 50px;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+.backBtn,
+.moreBtn,
+.sortBtn {
+  flex-shrink: 0;
+  display: flex;
+  padding: 8px 28px;
+  align-items: flex-start;
+  gap: 8px;
+  border-radius: 36.55px;
+  border: 1px solid #5d524d;
+  background: $white;
+  margin-top: 54px;
+  box-shadow: 0px 4px 10px 0px rgba(20, 20, 43, 0.04);
+  cursor: pointer;
+
+  // 字型
+  color: var(--shade3, #5d524d);
+  text-align: center;
+  font-feature-settings: 'liga' off, 'clig' off;
+  font-family: 'Noto Sans';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 18px; /* 100% */
+  &:visited,
+  &:active,
+  &:hover,
+  &:focus {
+    color: #5d524d;
+  }
+}
+
+.sortBtn:hover {
+  background: $secondary;
+}
+
+.backBtn,
+.moreBtn {
+  display: none;
+  padding: 8px;
+  background: $primary;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  z-index: 1;
+}
+.backBtn {
+  left: 0;
+}
+.moreBtn {
+  right: 0;
+}
+
+@media (max-width: 768px) {
+  .userAction {
+    display: none;
+  }
+  .btnList {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .sortList {
+    margin: 0 8px;
+  }
+  .backBtn,
+  .moreBtn {
+    display: block;
+    margin-top: 0;
+  }
+  .sortBtn {
+    padding: 8px 20px;
+    margin-top: 0;
+  }
+}

@@ -1,13 +1,18 @@
 @use '@/styles' as styles;
-@use '@/styles/utilities/utility-class.scss';
 
 .progressBox {
-  margin: 10rem auto 3rem;
+  margin: 10rem auto 5rem;
   max-width: 50rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: relative;
+
+  width: 80%;
+  @include styles.rwd-above('md') {
+    margin: 10rem auto 3rem;
+    width: initial;
+  }
 }
 .progressBox::before {
   content: '';
@@ -18,7 +23,7 @@
   z-index: -1;
   display: block;
   height: 2px;
-  background-color: styles.$color-shade-3;
+  background-color: styles.$shade3;
 }
 
 .circle {
@@ -36,7 +41,7 @@
     top: 4rem;
     left: 50%;
     transform: translateX(-50%);
-    color: styles.$color-shade-3;
+    color: styles.$shade3;
     @include styles.ff-noto(1rem);
     font-weight: 400;
     text-align: center;

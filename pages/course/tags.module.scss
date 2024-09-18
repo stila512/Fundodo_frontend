@@ -1,0 +1,38 @@
+@import '@/styles';
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 36px;
+  margin-bottom: 50px;
+  
+  @include rwd-above(sm){
+    gap: 20px;
+    flex-wrap: wrap;
+    overflow-x: visible;
+  }
+  
+}
+
+.tag {
+  flex-shrink: 0;
+  width: auto;
+  height: auto;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 20px;
+  border-radius: 36.55px;
+  border: 1px solid $shade3;
+  background: #fff;
+  cursor: pointer;
+  box-shadow: 0px 4px 10px 0px rgba(20, 20, 43, 0.04);
+  &:hover{
+    background: $secondary;
+  }
+}
+.tag.selected{
+  border: 1px solid $shade3;
+  background: $secondary;
+}

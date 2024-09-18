@@ -1,4 +1,5 @@
 @use '@/styles/color/variables' as c;
+@use '@/styles/color/function' as f;
 
 //*====== 個別樣式
 //此檔整理特定款式按鈕的個別設定
@@ -6,106 +7,175 @@
 
 //若為模組已設定之樣式，則不重複設定
 //以下按顏色分類
-//================= primary =================//
-a.btn-primary,
-button.btn-primary {
-  color: c.$color-tint-5;
-  text-shadow: -1px -1px 0 c.$color-shade-3;
-  border: none;
+//todo================= todo =================//
+.bPrimary2:has(.test-paw) {
+  position: relative;
 
   &:hover {
-    background-color: c.$color-tint-1;
+    background-color: c.$white;
+
+    .test-paw {
+      color: c.$primary;
+    }
   }
   &:active {
-    background-color: shift-color(c.$primary, 5%);
+    background-color: c.$tint5;
   }
 }
-a.btn-primary-2,
-button.btn-primary-2 {
-  $color: shift-color(c.$primary, 15%);
-  color: $color;
-  border-color: $color;
+.test-paw {
+  --fa-rotate-angle: 30deg;
+  position: absolute;
+  color: c.$white;
+  transition: color 0.4s ease-in-out;
 
-  &:hover {
-    background-color: c.$color-tint-5;
-    color: c.$color-shade-1;
+  &:first-child {
+    bottom: 0.25rem;
+    left: 0.75rem;
   }
-  &:active {
-    background-color: c.$color-tint-4;
+  &:last-child {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+}
+//================= primary =================//
+@each $elem in (a, button) {
+  #{$elem}.btn-primary,
+  #{$elem}.btn-primary-brick {
+    // color: c.$black;
+    // $mu: 1px;
+    // $nu: -1px;
+    // $light: c.$tint3;
+    // text-shadow: -1px -1px 0 $light, -2px -1px 0 $light, 1px 1px 0 $light,
+    //   2px 1px 0 $light;
+    // text-shadow: $mu $mu 0 $light, $nu $nu 0 $light;
+    // letter-spacing: 2px;
+
+    color: c.$white;
+    text-shadow: 1px 0 1px c.$shade3, -1px 0 1px c.$shade3;
+    font-weight: 600;
+
+    &:hover {
+      background-color: c.$tint1;
+    }
+    &:active {
+      background-color: shift-color(c.$primary, 5%);
+    }
+  }
+  #{$elem}.btn-primary-2 {
+    $color: shift-color(c.$primary, 15%);
+    color: $color;
+    border-color: $color;
+
+    &:hover {
+      background-color: c.$tint5;
+      color: c.$shade1;
+    }
+    &:active {
+      background-color: c.$tint4;
+    }
   }
 }
 //================= secondary =================//
-a.btn-secondary,
-button.btn-secondary {
-  color: c.$color-shade-3;
-  border: 2px solid c.$color-shade-3;
+@each $elem in (a, button) {
+  @each $type in ('', '-icon', '-brick', '-brick-icon') {
+    #{$elem}.btn-secondary {
+      color: c.$shade4;
 
-  &:hover {
-    background-color: shift-color(c.$secondary, 5%);
-  }
-  &:active {
-    background-color: shift-color(c.$secondary, 10%);
-  }
-}
-a.btn-secondary-2,
-button.btn-secondary-2 {
-  color: c.$color-shade-3;
-  border: 2px solid c.$color-shade-3;
+      &:hover {
+        background-color: shift-color(c.$secondary, 5%);
+      }
+      &:active {
+        background-color: shift-color(c.$secondary, 10%);
+      }
+    }
+    #{$elem}.btn-secondary-2 {
+      color: c.$shade3;
+      border: 2px solid c.$shade3;
 
-  transition: top 0.4s;
-  //extra
-  position: relative;
-  overflow: hidden;
+      transition: top 0.4s;
+      //extra
+      position: relative;
+      overflow: hidden;
 
-  &::before {
-    content: '';
-    position: absolute;
-    display: block;
-    // height: 50px;
-    left: 0;
-    right: 0;
-    // top: 100%;
-    top: 0;
-    bottom: 0;
-    background-color: c.$color-shade-3;
-    transition: transform 0.15s ease-in-out;
-    transform: translateY(100%);
-  }
+      &::before {
+        content: '';
+        position: absolute;
+        display: block;
+        // height: 50px;
+        left: 0;
+        right: 0;
+        // top: 100%;
+        top: 0;
+        bottom: 0;
+        background-color: c.$shade3;
+        transition: transform 0.15s ease-in-out;
+        transform: translateY(100%);
+      }
 
-  &:hover::before {
-    // top: 50%;
-    transform: translateY(70%);
-    // background-color: c.$color-tint-4;
-    // box-shadow: inset 0 0 8px c.$color-shade-3, inset 0 0 16px c.$color-shade-1;
-    // box-shadow: inset 0 -1rem 0 c.$color-shade-3;
+      &:hover::before {
+        // top: 50%;
+        transform: translateY(70%);
+        // background-color: c.$tint4;
+        // box-shadow: inset 0 0 8px c.$shade3, inset 0 0 16px c.$shade1;
+        // box-shadow: inset 0 -1rem 0 c.$shade3;
+      }
+      &:active {
+        background-color: c.$shade3;
+      }
+    }
+    #{$elem}.btn-secondary-icon {
+      color: c.$shade2;
+    }
+    #{$elem}.btn-secondary-icon {
+      background-color: c.$tint5;
+      color: c.$shade2;
+      border: 2px solid c.$shade2;
+    }
   }
-  &:active {
-    background-color: c.$color-shade-3;
-  }
-}
-a.btn-secondary-icon,
-button.btn-secondary-icon {
-  color: c.$color-shade-2;
-}
-a.btn-secondary-icon-2,
-button.btn-secondary-icon {
-  background-color: c.$color-tint-5;
-  color: c.$color-shade-2;
-  border: 2px solid c.$color-shade-2;
 }
 //================= error =================//
-a.btn-error,
-button.btn-error {
-  color: c.$white;
+@each $elem in (a, button) {
+  @each $type in ('', '-icon', '-brick', '-brick-icon') {
+    #{$elem}.btn-error#{$type} {
+      color: c.$white;
+    }
+
+    #{$elem}.btn-error#{$type}-2 {
+      &:hover {
+        background-color: f.shift-color(c.$error, -80%);
+      }
+      &:active {
+        color: c.$white;
+        background-color: f.shift-color(c.$error, -50%);
+      }
+    }
+  }
 }
 //================= info =================//
-a.btn-info-2,
-button.btn-info-2 {
-  color: c.$info-text;
-  &:hover {
-    background-color: c.$light;
+@each $elem in (a, button) {
+  @each $type in ('', '-icon', '-brick', '-brick-icon') {
+    #{$elem}.btn-info#{$type}-2 {
+      color: c.$info-text;
+      &:hover {
+        background-color: f.shift-color(c.$info, -80%);
+      }
+      &:active {
+        background-color: f.shift-color(c.$info, -50%);
+      }
+    }
   }
-  &:active {
-    background-color: shift-color(c.$info, -50%);
+}
+//================= warning =================//
+@each $elem in (a, button) {
+  @each $type in ('', '-icon', '-brick', '-brick-icon') {
+    #{$elem}.btn-warning#{$type}-2 {
+      color: f.shift-color(c.$warning, 40%);
+      &:hover {
+        background-color: f.shift-color(c.$warning, -80%);
+      }
+      &:active {
+        background-color: f.shift-color(c.$warning, -50%);
+      }
+    }
   }
 }

@@ -1,118 +1,87 @@
 @import '@/styles';
 
 .logo {
-	max-width: 210px;
+  max-width: 210px;
 }
 header.layout > .container {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 header.layout nav ul {
-	display: flex;
-	flex-direction: row;
-	gap: 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
 }
 
 .test-box {
-	margin-block: 2rem;
-	justify-content: center;
-	gap: 1rem;
-	flex-wrap: wrap;
+  margin-block: 2rem;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
-.bPrimary2:has(.test-paw) {
-	position: relative;
 
-	&:hover {
-		background-color: $white;
-
-		.test-paw {
-			color: $primary;
-		}
-	}
-  &:active {
-    background-color: $color-tint-5;
-  }
-}
-.test-paw {
-	--fa-rotate-angle: 30deg;
-	position: absolute;
-	color: $white;
-  transition: color 0.4s ease-in-out;
-  
-	&:first-child {
-		bottom: 0.25rem;
-		left: 0.75rem;
-	}
-	&:last-child {
-		top: 0.5rem;
-		right: 0.5rem;
-	}
-}
 //================================================
-.container{
-	height: 80vh;
-}
 .btnBox {
   margin-block: 3rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
   gap: 1rem;
-  button{
-	width: 196px;
-	border-radius: 50px;
-	line-height: 44px;
-	padding: 12px 20px 12px 20px;
+  button {
+    width: 196px;
+    border-radius: 50px;
+    line-height: 44px;
+    padding: 12px 20px 12px 20px;
   }
-  .bSecondary2{
-	background-color: #ffff;
+  .bSecondary2 {
+    background-color: #ffff;
   }
-  .bSecondary{
-	background: $secondary;
+  .bSecondary {
+    background: $secondary;
   }
 }
 .msg-register-success {
-	padding-top: 3rem;
-	background-color: $white;
-	border: 3px solid $color-shade-3;
-	text-align: center;
-	margin: 0 auto;
-	border-radius: 0.5rem;
+  padding-top: 3rem;
+  background-color: $white;
+  border: 3px solid $shade3;
+  text-align: center;
+  margin: 0 auto;
+  border-radius: 0.5rem;
 
-	h2 {
-		margin-bottom: 1rem;
-		font-size: 2rem;
-	}
-	p {
-		line-height: 2;
-	}
+  h2 {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+  }
+  p {
+    line-height: 2;
+  }
 
-	.btn-box {
-		margin-block: 3rem;
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		gap: 1rem;
-	}
+  .btn-box {
+    margin-block: 3rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+  }
 }
 
-.text{
-	margin-top: 108px;
-	h3{
-		color: $color-shade-2;
-		display: flex;
-		justify-content: center;
-		margin-bottom: 22px;
-	}
-	p{
-		display: flex;
-		justify-content: center;
-		margin-bottom: 22px;
-	}
-	span{
-		color: $color-shade-2;
-	}
+.text {
+  margin-top: 108px;
+  h3 {
+    color: $shade2;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 22px;
+  }
+  p {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 22px;
+  }
+  span {
+    color: $shade2;
+  }
 }

@@ -1,0 +1,164 @@
+@import '@/styles/';
+
+.searchBarWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 30px 0;
+}
+
+.searchBarContainer {
+  display: flex;
+  background-color: $tint4;
+  padding: 30px 20px;
+  border-radius: 8px;
+  gap: 20px;
+  width: 100%;
+  align-items: flex-end;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.inputGroup p {
+  margin-bottom: 5px;
+  margin-left: 4px;
+  font-size: 14px;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.searchInput,
+.dateInput,
+.select {
+  padding: 10px 30px 10px 10px;
+  border-radius: 8px;
+  border: 1px solid $gray-200;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.icon {
+  position: absolute;
+  right: 30px;
+  color: $shade3;
+}
+
+.selectWrapper {
+  position: relative;
+}
+
+.selectWrapper .icon {
+  pointer-events: none;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+  .searchBarWrapper {
+    align-items: stretch;
+  }
+
+  .searchBarContainer {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 373px;
+    height: auto;
+    padding: 15px;
+    margin: 0 auto;
+    border: 1px solid var(--tint2, #cebfb8);
+  }
+
+  .inputGroup {
+    margin-bottom: 15px;
+  }
+
+  .inputGroup:last-child {
+    margin-bottom: 0;
+  }
+
+  .searchInput,
+  .dateInput,
+  .select {
+    width: 100%;
+  }
+
+  .icon {
+    right: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .searchBarWrapper {
+    margin: 0;
+    width: 100%;
+  }
+
+  .searchBarContainer {
+    flex-direction: column;
+    background-color: #f1edeb;
+    padding: 15px;
+    border-radius: 0;
+    gap: 10px;
+    align-items: stretch;
+    margin: 30px 0;
+  }
+
+  .inputGroup {
+    margin-bottom: 0;
+  }
+
+  .inputGroup p {
+    display: none;
+  }
+
+  .inputWrapper,
+  .selectWrapper {
+    background-color: white;
+    border-radius: 4px;
+  }
+
+  .searchInput,
+  .dateInput,
+  .select {
+    // border: none;
+    background-color: transparent;
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  .icon {
+    width: 30px;
+    height: 30px;
+    right: 12px;
+  }
+}
+
+.searchBtn {
+  background-color: $shade2;
+  color: $tint5;
+  border: none;
+  padding: 16px 60px;
+  margin: 10px;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 16px;
+  font-weight: 600;
+
+  &:hover {
+    background-color: $shade3;
+  }
+}

@@ -1,0 +1,46 @@
+@use '@/styles' as c;
+
+.selectBar {
+  display: flex;
+  width: 100%;
+  padding: 30px 0;
+  justify-content: center;
+  align-items: center;
+  gap: 34px;
+  border-bottom: 1px solid c.$gray-200;
+  margin-bottom: 30px;
+}
+
+.selectBtn {
+  display: flex;
+  width: 182px;
+  height: 55px;
+  padding: 10px 57px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  border: 1px solid c.$shade3;
+  color: c.$primary;
+  text-align: center;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 34px;
+  white-space: nowrap;
+  background-color: c.$white;
+
+  &:hover {
+    color:c.$tint5;
+    border: 1px solid c.$shade3;
+    background: c.$primary;
+  }
+}
+
+@media (max-width: 480px) {
+
+.selectBar{
+  display: none;
+}
+}

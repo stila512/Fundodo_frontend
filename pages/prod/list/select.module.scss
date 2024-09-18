@@ -1,0 +1,31 @@
+@use '@/styles' as s;
+
+.rwd{
+  @media (max-width:768px) {
+    display: none;
+  }
+}
+.customSelect {
+  position: relative;
+  // width: 250px;
+  align-items: center;
+  margin: 6px 14px 6px 8px;
+  gap: 8px;
+  text-wrap: nowrap;
+
+  select {
+    align-items: center;
+    appearance: none; // 隱藏預設下箭頭
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 9rem;
+    padding: 6px 14px; // 留空間給自訂箭頭
+    border: 1px solid s.$primary;
+    border-radius: 50px;
+  }
+}
+
+.arrow {
+  position: relative;
+  left: -2rem;
+}

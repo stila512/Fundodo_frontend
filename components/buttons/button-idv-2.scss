@@ -6,18 +6,123 @@
 
 //若為模組已設定之樣式，則不重複設定
 //以下按顏色分類
-//================= tint =================//
-a.btn-tint4,
-button.btn-tint4,
-a.btn-tint4-icon,
-button.btn-tint4-icon {
-  color: c.$color-shade-1;
-  border-color: transparent;
+//================= white =================//
+@each $elem in (a, button) {
+  @each $type in ('', '-icon', '-brick', '-brick-icon') {
+    #{$elem}.btn-white#{$type} {
+      color: c.$black;
+      border-color: transparent;
 
-  &:hover {
-    background-color: c.$primary;
+      &:hover {
+        background-color: c.$tint5;
+      }
+      &:active {
+        background-color: c.$tint4;
+      }
+    }
+    //TODO: 底下衝突版本，待合併
+    // #{$elem}.btn-white#{$type} {
+    //   &:hover {
+    //     color: c.$shade1;
+    //   }
+    //   &:active {
+    //     color: c.$primary;
+    //   }
+    // }
+
+    #{$elem}.btn-white#{$type}-2 {
+      color: c.$white;
+      background-color: transparent;
+
+      &:hover {
+        background-color: c.$tint2;
+      }
+      &:active {
+        background-color: c.$tint1;
+      }
+    }
   }
-  &:active {
-    background-color: c.$color-shade-1;
+}
+//================= black =================//
+@each $elem in (a, button) {
+  @each $type in ('', '-icon', '-brick', '-brick-icon') {
+    #{$elem}.btn-black#{$type} {
+      color: c.$white;
+      border-color: transparent;
+
+      &:hover {
+        background-color: c.$shade4;
+      }
+      &:active {
+        background-color: c.$shade3;
+      }
+    }
+
+    #{$elem}.btn-black#{$type}-2 {
+      color: c.$black;
+      background-color: transparent;
+
+      &:hover {
+        background-color: c.$tint5;
+      }
+      &:active {
+        background-color: c.$tint4;
+      }
+    }
+  }
+}
+// a.btn-black,
+// button.btn-black,
+// a.btn-black-icon,
+// button.btn-black-icon {
+//   color: c.$white;
+//   border-color: transparent;
+
+//   &:hover {
+//     background-color: c.$shade4;
+//   }
+//   &:active {
+//     background-color: c.$shade3;
+//   }
+// }
+// a.btn-black-2,
+// button.btn-black-2,
+// a.btn-black-icon-2,
+// button.btn-black-icon-2 {
+//   color: c.$black;
+//   background-color: transparent;
+
+//   &:hover {
+//     background-color: c.$tint5;
+//   }
+//   &:active {
+//     background-color: c.$tint4;
+//   }
+// }
+
+//================= heading =================//
+@each $elem in (a, button) {
+  @each $type in ('', '-icon', '-brick', '-brick-icon') {
+    #{$elem}.btn-heading#{$type} {
+      color: c.$tint4;
+      border-color: transparent;
+
+      &:hover {
+        background-color: c.$shade4;
+      }
+      &:active {
+        background-color: c.$shade5;
+      }
+    }
+    #{$elem}.btn-heading#{$type}-2 {
+      background-color: transparent;
+
+      &:hover {
+        background-color: c.$tint5;
+      }
+      &:active {
+        background-color: c.$tint2;
+      }
+    }
   }
 }

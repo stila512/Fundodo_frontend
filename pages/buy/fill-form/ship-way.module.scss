@@ -1,0 +1,125 @@
+@import '@/styles';
+
+$border-style: 5px solid $shade2;
+
+.selectBtn {
+  flex-direction: column;
+  border-radius: 1rem;
+
+  p {
+    line-height: 2.5;
+  }
+}
+
+.shipwayArrow {
+  $l: 4rem;
+  width: $l;
+  height: $l;
+  font-size: $l;
+  color: $shade2;
+
+  transform: rotate(180deg);
+  margin-block: 1rem;
+
+  @include rwd-above('lg') {
+    margin-block: initial;
+    transform: rotate(90deg);
+  }
+}
+
+.shopInputBox {
+  border: $border-style;
+  border-radius: 8px;
+  background-color: $tint5;
+  padding-block: 1.5rem 2.5rem;
+
+  @include rwd-above('lg') {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2.5rem 1.5rem 3.5rem;
+  }
+
+  & > div {
+    @include rwd-above('lg') {
+      width: 100%;
+    }
+  }
+
+  label {
+    padding-left: 0.75rem;
+    font-size: 1.2rem;
+  }
+
+  input {
+    margin-top: 0.75rem;
+    font-size: 1.5rem;
+    background-color: $tint4;
+    padding: 0.5rem;
+
+    @include rwd-above('lg') {
+      display: block;
+      width: 100%;
+    }
+  }
+}
+//================================================================
+
+.form {
+  padding-block: 1rem;
+  border: $border-style;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  @include rwd-above('lg') {
+    min-height: 75vh;
+  }
+  & > div {
+    width: 100%;
+    margin-block: 1rem;
+    @include rwd-above('lg') {
+      margin-block: initial;
+    }
+  }
+  div:has(> label),
+  div:has(> input),
+  div:has(> textarea) {
+    display: flex;
+    align-items: center;
+  }
+  div:has(> label) {
+    font-size: 1.2rem;
+    // text-align: right;
+  }
+  div:has(> input),
+  div:has(> textarea) {
+    font-size: 1.2rem;
+    text-align: left;
+  }
+  @include rwd-above('lg') {
+    div:has(> label) {
+      justify-content: flex-end;
+    }
+    div:has(> input),
+    div:has(> textarea) {
+      text-align: left;
+    }
+  }
+  //==============================
+  input {
+    display: block;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    width: 90%;
+    border-color: $muted;
+  }
+  textarea {
+    display: block;
+    padding: 0.5rem;
+    width: 90%;
+    height: 5rem;
+    overflow-y: auto;
+  }
+}

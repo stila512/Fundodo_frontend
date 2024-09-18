@@ -1,0 +1,26 @@
+@import '@/styles/';
+
+.main {
+  min-height: 75vh;
+}
+
+.table {
+  border-collapse: collapse;
+  border: 3px solid $shade4;
+  text-align: center;
+  border-radius: 1rem;
+
+  thead {
+    border-radius: 1rem;
+  }
+
+  tbody tr:hover {
+    background-color: $tint3;
+  }
+  th {
+    padding-block: 1rem;
+  }
+  td {
+    padding-block: 0.5rem;
+  }
+}

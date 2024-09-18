@@ -1,0 +1,8 @@
+.editorWrapper {
+  width: 100%;
+  :global(.ck-editor__editable_inline) {
+    min-height: var(--editor-height);
+    max-height: var(--editor-height);
+    overflow-y: auto;
+  }
+}

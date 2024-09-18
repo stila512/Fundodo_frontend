@@ -1,0 +1,791 @@
+@import '@/styles';
+
+.dogInfoStartContainer {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+
+  .midarea {
+    margin-top: 60px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  //----------
+  .midtext {
+    display: flex;
+    width: 560px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 22px;
+    padding-bottom: 141px;
+
+    .tags {
+      display: flex;
+      flex-direction: row;
+      gap: 6px;
+
+      .tag1 {
+        display: inline-flex;
+        height: 28px;
+        padding: 4px 16px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+        border-radius: 5px 5px 0px 0px;
+        background: var(--tint4, #eae3e0);
+        color: var(--tint5, #f1edeb);
+        color: var(--shade3, #5d524d);
+        font-feature-settings: 'liga' off, 'clig' off;
+        font-family: 'Noto Sans';
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 18px;
+      }
+
+      .tag2 {
+        display: inline-flex;
+        height: 28px;
+        padding: 4px 16px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+        border-radius: 5px 5px 0px 0px;
+        background: var(--Primary, #b9a399);
+        color: var(--tint5, #f1edeb);
+        font-feature-settings: 'liga' off, 'clig' off;
+        font-family: 'Noto Sans';
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 18px;
+      }
+    }
+    .mainArea {
+      display: flex;
+      width: 804px;
+      height: 545px;
+      padding: 18px 20px;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+      border-radius: 0px 0px 10px 10px;
+      background: var(--tint4, #eae3e0);
+      .leftPic {
+        width: 374px;
+        height: 483px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .imgDogavatar {
+          display: flex;
+          width: 76px;
+          height: 76px;
+          justify-content: center;
+          align-items: center;
+          flex-shrink: 0;
+          margin-bottom: 10px;
+        }
+        .Dogname {
+          position: relative;
+          bottom: -140px;
+          color: var(--shade1, #b9a399);
+          font-feature-settings: 'liga' off, 'clig' off;
+          font-family: 'Noto Sans';
+          font-size: 22px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 30px;
+        }
+      }
+      .rightText {
+        display: flex;
+        flex-direction: column;
+        border-radius: 0px 0px 10px 10px;
+        border: 1px solid var(--tint5, #f1edeb);
+        background: #fff;
+        color: var(--Body, #757575);
+        font-feature-settings: 'liga' off, 'clig' off;
+        font-family: 'Noto Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+        .rightA1 {
+          display: flex;
+          width: 374px;
+          height: 272px;
+          padding: 39px 24px;
+          align-items: flex-start;
+          gap: 30px;
+          flex-shrink: 0;
+          .a0 {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+          }
+          .a1 {
+            display: flex;
+            flex-direction: row;
+            gap: 23px;
+          }
+        }
+        .rightA2 {
+          display: flex;
+          width: 374px;
+          height: 211px;
+          padding: 26px 24px;
+          align-items: flex-start;
+          gap: 30px;
+          flex-shrink: 0;
+          .a3 {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+          }
+        }
+      }
+    }
+  }
+
+  .botarea {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: absolute;
+
+    .btn2 {
+      color: #fff;
+      background: var(--Primary, #b9a399);
+    }
+    button {
+      display: flex;
+      width: 301px;
+      height: 46px;
+      padding: 18px 24px;
+      justify-content: center;
+      align-items: center;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+      border: none;
+      position: relative;
+      right: 0;
+    }
+  }
+}
+
+//---------------------dogInfo
+.dogInfoContainer {
+  display: flex;
+  flex-direction: row;
+  height: 1200px;
+  @media (max-width: 499px) {
+    .inputGroup_b{
+      width: 80%;
+    }
+  }
+  .midarea {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    flex-shrink: 0;
+
+    .tags {
+      display: flex;
+      flex-direction: row;
+      gap: 6px;
+
+      .tag1 {
+        display: inline-flex;
+        height: 28px;
+        padding: 4px 16px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+        border-radius: 5px 5px 0px 0px;
+        background: var(--tint4, #eae3e0);
+        color: var(--tint5, #f1edeb);
+        color: var(--shade3, #5d524d);
+        font-feature-settings: 'liga' off, 'clig' off;
+        font-family: 'Noto Sans';
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 18px;
+      }
+
+      .tag2 {
+        display: inline-flex;
+        height: 28px;
+        padding: 4px 16px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+        border-radius: 5px 5px 0px 0px;
+        background: var(--Primary, #b9a399);
+        color: var(--tint5, #f1edeb);
+        font-feature-settings: 'liga' off, 'clig' off;
+        font-family: 'Noto Sans';
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 18px;
+      }
+    }
+
+    .mainarea {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 857px;
+      height: 856px;
+      padding: 18px 20px;
+      gap: 10px;
+      flex-shrink: 0;
+      border-radius: 0px 0px 10px 10px;
+      background: var(--tint4, #eae3e0);
+      .toparea {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex: 1 0 0;
+        align-self: stretch;
+        .avatarWrapper {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          max-height: 150px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          .tips {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: #5d524d; /* Adjust color if needed */
+            font-size: 12px;
+            text-align: center;
+          }
+        }
+      }
+      .textarea {
+        display: flex;
+        height: 547px;
+        flex-direction: column;
+        align-items: flex-start;
+        flex-shrink: 0;
+        align-self: stretch;
+        border-radius: 0px 0px 10px 10px;
+        border: 1px solid var(--tint5, #f1edeb);
+        background: #fff;
+        .TOPtext {
+          display: flex;
+          height: 341px;
+          padding: 24px 0px 0px 24px;
+          flex-shrink: 0;
+          align-self: stretch;
+          flex-direction: row;
+          border-bottom: 1px solid var(--tint5, #f1edeb);
+
+          .genderRadio {
+            display: flex;
+            flex-direction: row;
+            width: 205px;
+            height: 32px;
+            align-items: center;
+            gap: 34px;
+            input[type='radio'] {
+              display: none;
+            }
+          }
+          //自訂radio
+          .genderRadio input[type='radio'] + label {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            padding-left: 30px; /* 給自訂按鈕留出空間 */
+            cursor: pointer;
+            line-height: 20px;
+            font-size: 16px;
+            text-align: left;
+          }
+
+          /* 自訂單選按鈕的偽元素 */
+          .genderRadio input[type='radio'] + label::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 14px;
+            height: 14px;
+            border: 2px solid #e5e6eb;
+            border-radius: 50%;
+            background: #fff;
+            transform: translateY(-50%);
+          }
+
+          /* 選中狀態的樣式 */
+          .genderRadio input[type='radio']:checked + label::before {
+            background: #b9a399; /* 選中時的背景顏色 */
+            border-color: #e5e6eb; /* 選中時的邊框顏色 */
+          }
+
+          /* 自訂單選按鈕的選中效果 */
+          .genderRadio input[type='radio']:checked + label::after {
+            content: '';
+            position: absolute;
+            left: 7px; /* 定位於左側 */
+            top: 50%;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #fff;
+            transform: translateY(-50%);
+          }
+
+          .inputRadioGroup {
+            // 隱藏原始單選按鈕
+            input[type='radio'] {
+              display: none;
+            }
+            input[type='checkbox'] {
+              display: none;
+            }
+            // 自訂 radio 的樣式
+            input[type='radio'] + label {
+              position: relative;
+              display: inline-flex;
+              align-items: center;
+              padding-left: 30px; /* 給自訂按鈕留出空間 */
+              margin-right: 30px;
+              cursor: pointer;
+              line-height: 20px;
+              font-size: 16px;
+              text-align: left;
+            }
+
+            // 自訂單選按鈕的偽元素
+            input[type='radio'] + label::before {
+              content: '';
+              position: absolute;
+              left: 0;
+              top: 50%;
+              width: 14px;
+              height: 14px;
+              border: 2px solid #e5e6eb;
+              border-radius: 50%;
+              background: #fff;
+              transform: translateY(-50%);
+            }
+
+            // 選中狀態的樣式
+            input[type='radio']:checked + label::before {
+              background: #b9a399; /* 選中時的背景顏色 */
+              border-color: #b9a399; /* 選中時的邊框顏色 */
+            }
+
+            // 自訂單選按鈕的選中效果
+            input[type='radio']:checked + label::after {
+              content: '';
+              position: absolute;
+              left: 7px; /* 定位於左側 */
+              top: 50%;
+              width: 4px;
+              height: 4px;
+              border-radius: 50%;
+              background: #fff;
+              transform: translateY(-50%);
+            }
+          }
+
+          // 自訂 checkbox 的樣式
+          input[type='checkbox'] + label {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            padding-left: 30px; /* 給自訂按鈕留出空間 */
+            margin-right: 30px;
+            cursor: pointer;
+            line-height: 20px;
+            font-size: 16px;
+            text-align: left;
+          }
+
+          // 自訂 checkbox 的偽元素
+          input[type='checkbox'] + label::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 14px;
+            height: 14px;
+            border: 2px solid #e5e6eb;
+            border-radius: 50%;
+            background: #fff;
+            transform: translateY(-50%);
+          }
+
+          // 選中狀態的樣式
+          input[type='checkbox']:checked + label::before {
+            background: #b9a399; /* 選中時的背景顏色 */
+            border-color: #b9a399; /* 選中時的邊框顏色 */
+          }
+
+          // 自訂 checkbox 的選中效果
+          input[type='checkbox']:checked + label::after {
+            content: '';
+            position: absolute;
+            left: 7px; /* 定位於左側 */
+            top: 50%;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #fff;
+            transform: translateY(-50%);
+          }
+          .labelGroup {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+          }
+          .inputGroup {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+          }
+        }
+
+        .BOTtext {
+          display: flex;
+          height: 341px;
+          padding: 24px 0px 0px 24px;
+          flex-shrink: 0;
+          align-self: stretch;
+          flex-direction: row;
+          input[type='radio'] {
+            display: none;
+          }
+          .labelGroup_b {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+          }
+          .inputGroup_b {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            textarea {
+              display: flex;
+              width: 100%;
+              max-width: 449px;
+              padding: 4px 12px;
+              flex-direction: column;
+              align-items: flex-start;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  //----------
+  // .bottomtext {
+  //   display: flex;
+  //   width: 560px;
+  //   flex-direction: column;
+  //   align-items: flex-start;
+  //   gap: 22px;
+  //   padding-bottom: 141px;
+  // }
+  .mainArea {
+    display: flex;
+    width: 804px;
+    height: 545px;
+    padding: 18px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border-radius: 0px 0px 10px 10px;
+    background: var(--tint4, #eae3e0);
+  }
+  .btnarea {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    .btn2 {
+      color: #fff;
+      background: var(--Primary, #b9a399);
+    }
+    button {
+      display: flex;
+      width: 301px;
+      height: 46px;
+      padding: 18px 24px;
+      justify-content: center;
+      align-items: center;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+      border: none;
+    }
+  }
+}
+
+// ---------------- dogInfoData
+.dogInfoDataContainer {
+  display: flex;
+  flex-direction: row;
+
+  .midarea {
+    display: flex;
+    margin-top: 60px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  //----------
+  .midtext {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding-bottom: 141px;
+
+    .tags {
+      display: flex;
+      flex-direction: row;
+      gap: 30px;
+      .tagGroup {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+      }
+      .tag1 {
+        display: inline-flex;
+        height: 28px;
+        padding: 4px 16px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+        border-radius: 5px 5px 0px 0px;
+        background: var(--tint4, #eae3e0);
+        color: var(--tint5, #f1edeb);
+        color: var(--shade3, #5d524d);
+        font-feature-settings: 'liga' off, 'clig' off;
+        font-family: 'Noto Sans';
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 18px;
+      }
+
+      .tag2 {
+        display: inline-flex;
+        height: 28px;
+        padding: 4px 16px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+        border-radius: 5px 5px 0px 0px;
+        background: var(--Primary, #b9a399);
+        color: var(--tint5, #f1edeb);
+        font-feature-settings: 'liga' off, 'clig' off;
+        font-family: 'Noto Sans';
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 18px;
+        cursor: pointer;
+      }
+
+      .tag3 {
+        display: inline-flex;
+        height: 28px;
+        padding: 4px 16px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+        border-radius: 5px 5px 0px 0px;
+        background: var(--tint4, #eae3e0);
+        color: var(--tint5, #f1edeb);
+        color: var(--shade3, #5d524d);
+        font-feature-settings: 'liga' off, 'clig' off;
+        font-family: 'Noto Sans';
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 18px;
+        cursor: pointer;
+      }
+      .activeTag {
+        background-color: #6d5541;
+        color: #fff;
+      }
+    }
+    .mainArea {
+      display: flex;
+      width: 100%;
+      max-width: 804px;
+      height: auto;
+      padding: 18px 20px;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+      border-radius: 0px 0px 10px 10px;
+      background: var(--tint4, #eae3e0);
+      @media (max-width: 991.98px) {
+        flex-direction: column; /* 在较小屏幕上垂直排列 */
+        gap: 0;
+      }
+      .leftPic {
+        width: 100%;
+        max-width: 374px;
+        height: 483px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .imgDogavatar {
+          display: flex;
+          width: 370px;
+          height: auto;
+          justify-content: center;
+          align-items: center;
+          flex-shrink: 0;
+          margin-bottom: 10px;
+          .avatarWrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            max-height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+        .Dogname {
+          bottom: -100px;
+          color: var(--shade1, #b9a399);
+          font-feature-settings: 'liga' off, 'clig' off;
+          font-family: 'Noto Sans';
+          font-size: 28px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 36px;
+        }
+      }
+      .rightText {
+        width: 100%;
+        max-width: 374px;
+        display: flex;
+        flex-direction: column;
+        border-radius: 0px 0px 10px 10px;
+        border: 1px solid var(--tint5, #f1edeb);
+        background: #fff;
+        color: var(--Body, #757575);
+        font-feature-settings: 'liga' off, 'clig' off;
+        font-family: 'Noto Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 18px;
+        .rightA1 {
+          display: flex;
+          width: 100%;
+          max-width: 374px;
+          height: 272px;
+          padding: 39px 24px;
+          align-items: flex-start;
+          gap: 30px;
+          flex-shrink: 0;
+          border-bottom: 1px solid var(--tint5, #f1edeb);
+
+          .a0 {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            .textgroup {
+              gap: 30px;
+              display: flex;
+              flex-direction: row;
+            }
+          }
+          .a1 {
+            display: flex;
+            flex-direction: row;
+            gap: 23px;
+          }
+        }
+        .rightA2 {
+          display: flex;
+          width: 374px;
+          height: 211px;
+          padding: 26px 24px;
+          align-items: flex-start;
+          gap: 30px;
+          flex-shrink: 0;
+          .a3 {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            .delBTN {
+              display: inline-flex;
+              height: 28px;
+              padding: 4px 16px;
+              justify-content: center;
+              align-items: center;
+              flex-shrink: 0;
+              background: var(--tint4, #eae3e0);
+              color: var(--tint5, #f1edeb);
+              color: var(--shade3, #5d524d);
+              font-feature-settings: 'liga' off, 'clig' off;
+              font-family: 'Noto Sans';
+              font-size: 14px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: 18px;
+              cursor: pointer;
+              // display: flex;
+              // background-color: red;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .botarea {
+    display: flex;
+    justify-content: center;
+    .btn2 {
+      color: #fff;
+      background: var(--Primary, #b9a399);
+    }
+    button {
+      display: flex;
+      width: 301px;
+      height: 46px;
+      padding: 18px 24px;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+      border: none;
+    }
+  }
+}

@@ -1,0 +1,20 @@
+@use '@/styles' as s;
+
+
+.section {
+  border-radius: 41px;
+  background-image: url(/prodPic/Rectangle647.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  justify-content: space-around;
+}
+
+.pet {
+  padding-top: 5.6rem;
+	font-size: 56px;
+	font-family: "Zen Maru Gothic";
+	font-weight: 700;
+	line-height: 66px;
+  color: s.$shade2;
+}
+

@@ -1,0 +1,159 @@
+@import '@/styles/color/variables.scss';
+
+.article {
+  display: flex;
+  padding: 25px 30px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+  align-self: stretch;
+  border-radius: 5px;
+  border: 1px solid var(--Border, #eaeaea);
+  background: #fff;
+  max-width: 726px;
+  width: 100%;
+  margin-bottom: 12px;
+
+  /* Shadow */
+  box-shadow: 2px 1px 5px 0px rgba(0, 0, 0, 0.15);
+}
+
+.userData {
+  display: flex;
+  width: 100%;
+}
+.imageContainer {
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+.userIcon {
+  border-radius: 50%;
+  background: lightgray 50% / cover no-repeat;
+}
+
+.nicknameArea {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-left: 15px;
+}
+
+.nickName {
+  color: #000;
+  font-family: 'Noto Sans';
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.65px;
+}
+
+.creatTime {
+  color: var(--Subtitle-text-color, #808080);
+  font-family: 'Noto Sans';
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.5px;
+}
+
+.shortContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  align-self: stretch;
+}
+
+.mainTitle {
+  color: var(--Header, #424242);
+  font-family: 'Noto Sans';
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 0.7px;
+  cursor: pointer;
+}
+.mainTitle a:link,
+.mainTitle a:visited {
+  color: #000 !important;
+}
+
+.extract {
+  width: 665px;
+  width: 100%;
+  color: #000;
+  font-family: 'Noto Sans';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 25px;
+  /* 178.571% */
+  letter-spacing: 0.7px;
+}
+
+.artiInfo {
+  display: flex;
+  padding-right: 18px;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.artiTags {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tag {
+  display: flex;
+  padding: 5px 10px;
+  align-items: center;
+  border-radius: 5px;
+  background: var(--tint5, #f1edeb);
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #fff;
+}
+
+.infoText {
+  color: var(--Body, #757575);
+  font-family: 'Noto Sans';
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.39px;
+}
+@media (min-width: 1440px){
+  .article{
+    width: 726px;
+  }
+}
+@media (max-width: 768px) {
+  .article {
+    width: 100%;
+    height: 100%;
+    padding: 12px;
+    gap: 12px;
+  }
+  .extract {
+    width: 100%;
+    font-size: 12px;
+  }
+  .artiTags {
+    display: none;
+  }
+  .userData {
+    display: none;
+  }
+}

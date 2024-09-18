@@ -1,0 +1,67 @@
+@use '@/styles' as s;
+
+.hiddenRadio {
+  display: none;
+}
+
+.customRadio {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  padding-left: 30px;
+  padding-right: 10px;
+  border: 1px solid s.$primary;
+  border-radius: 50px;
+  color: s.$shade2;
+}
+
+.selected {
+  background-color: s.$secondary; /* 選中狀態的背景顏色 */
+}
+
+.customRadio input[type='radio']:checked + .radioIndicator {
+  border: 2px solid s.$shade2;
+  background: transparent;
+  width: 18px;
+  height: 18px;
+}
+.customRadio input[type='checkbox']:checked + .radioIndicator {
+  border: 2px solid s.$shade2;
+  background: transparent;
+  width: 18px;
+  height: 18px;
+}
+
+.radioIndicator {
+  position: absolute;
+  left: 5px;
+  width: 15px;
+  height: 15px;
+  border: 1px solid s.$primary;
+  border-radius: 50%;
+  background: transparent; /* 默認背景顏色 */
+}
+
+.customRadio input[type='radio']:checked + .radioIndicator::after {
+  content: '';
+  position: absolute;
+  top: 2px; /* 調整內部圓形的位置 */
+  left: 2px; /* 調整內部圓形的位置 */
+  width: 10px; /* 內部圓形的大小 */
+  height: 10px; /* 內部圓形的大小 */
+  border-radius: 50%;
+  background: s.$shade2;
+}
+
+.customRadio input[type='checkbox']:checked + .radioIndicator::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: s.$shade2; /* 或其他顏色 */
+}

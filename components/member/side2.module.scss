@@ -1,0 +1,71 @@
+.sideText {
+  background-color: #f8f9fa;
+  padding: 10px;
+  position: relative;
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  li {
+    position: relative;
+    margin-bottom: 10px;
+    white-space: nowrap;
+  }
+
+  .menuItem {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .icon {
+    margin-right: 10px;
+    font-size: 20px;
+  }
+
+  .text {
+    display: flex;
+    align-items: center;
+  }
+
+  .active {
+    background-color: #e9ecef;
+    border-left: 4px solid #007bff;
+  }
+
+  .subMenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    white-space: nowrap;
+  }
+  @media (max-width: 499px) {
+    .subMenu {
+      position: static; /* 使子菜单跟随父项 */
+      display: block; /* 默认显示子菜单 */
+      box-shadow: none; /* 移除阴影 */
+      border: none; /* 移除边框 */
+    }
+  }
+
+  li:hover .subMenu {
+    display: block;
+  }
+}

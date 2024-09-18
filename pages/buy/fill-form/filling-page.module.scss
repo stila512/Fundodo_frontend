@@ -1,0 +1,127 @@
+@import '@/styles';
+
+.topPanel .modeBtn {
+  // display: block !important;
+  width: rem(180px);
+  padding: 0 !important;
+  height: 3rem;
+  $t: 0.8s;
+  transition: all $t ease-in-out !important;
+  // transition: color $t ease-in-out, background-color $t ease-in-out,
+  //   border-color $t ease-in-out, box-shadow $t ease-in-out,
+  //   width $t ease-in-out, height $t ease-in-out !important;
+  h4 {
+    font-size: 1.25rem;
+  }
+  p {
+    display: none;
+  }
+}
+.topPanel .shipwayH3 {
+  margin-bottom: 2rem;
+  text-align: center;
+  @include rwd-above('lg') {
+    text-align: left;
+  }
+}
+.tempBtn {
+  min-width: 15rem;
+}
+
+.topPanel.beginningMode {
+  min-height: 60vh;
+
+  .modeBtn {
+    transition: all 10s ease-in-out !important;
+    width: 100%;
+    height: 120px;
+    background-color: $secondary;
+    box-shadow: 2px 2px 5px rgba($black, 0.2);
+    border: 5px solid $primary;
+    border-radius: 1rem;
+    text-shadow: none !important;
+
+    @include rwd-above('lg') {
+      height: 200px;
+    }
+
+    h4 {
+      font-size: 3rem !important;
+      color: $shade3 !important;
+      font-weight: 800 !important;
+      letter-spacing: 8px !important;
+    }
+    p {
+      font-weight: 500;
+      display: block !important;
+    }
+
+    &:hover {
+      background-color: $tint3 !important;
+      color: $shade4 !important;
+    }
+  }
+}
+
+.form {
+  padding-block: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  @include rwd-above('lg') {
+    min-height: 75vh;
+  }
+  & > div {
+    width: 100%;
+    margin-block: 1rem;
+    @include rwd-above('lg') {
+      margin-block: initial;
+    }
+  }
+  div:has(> label),
+  div:has(> input),
+  div:has(> textarea) {
+    display: flex;
+    align-items: center;
+  }
+  div:has(> label) {
+    font-size: 1.2rem;
+    // text-align: right;
+  }
+  div:has(> input),
+  div:has(> textarea) {
+    font-size: 1.2rem;
+    text-align: left;
+  }
+  @include rwd-above('lg') {
+    div:has(> label) {
+      justify-content: flex-end;
+    }
+    div:has(> input),
+    div:has(> textarea) {
+      text-align: left;
+    }
+  }
+  //==============================
+  input {
+    display: block;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    width: 90%;
+    border-color: $muted;
+  }
+  textarea {
+    display: block;
+    padding: 0.5rem;
+    width: 90%;
+    height: 5rem;
+    overflow-y: auto;
+  }
+}
+
+.moveBtn {
+  width: 12rem;
+  padding-inline: 0 !important;
+}

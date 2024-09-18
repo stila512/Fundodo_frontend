@@ -1,0 +1,178 @@
+@use '@/styles' as s;
+
+//*====== 通用樣式
+//此檔整理按鈕共用的模組設定
+//特定按鈕的各別樣式則於另外一檔
+
+//====================== 原型定義區
+@mixin btn-size($py, $px, $fz, $gap: initial) {
+  padding: $py $px;
+  font-size: $fz;
+  gap: $gap;
+}
+@mixin btn-prototype() {
+  box-sizing: border-box;
+  border: 3px solid transparent;
+  line-height: 1.15;
+  position: relative;
+  user-select: none;
+  cursor: pointer;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.4s ease-in-out;
+}
+//*====== 膠囊形按鈕
+@mixin pill-btn-prototype() {
+  @include btn-prototype();
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 99rem;
+
+  // 預設值
+  @include btn-size(1.25rem, 1.875rem, 1.125rem, 0.5rem);
+  font-weight: 700;
+
+  &.btn-sm {
+    @include btn-size(0.8rem, 3.375rem, 1rem, 0.625rem);
+    font-weight: 500;
+  }
+  &.btn-lg {
+    @include btn-size(1.5rem, 2rem, 1.25rem, 0.5rem);
+    // font-weight: 700;
+  }
+}
+//*====== 矩形按鈕
+@mixin brick-btn-prototype() {
+  @include btn-prototype();
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: s.rem(12px) s.rem(60px);
+  font-size: 1.125rem;
+  font-weight: 700;
+  &.btn-sm {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  &.btn-lg {
+    font-size: 1.25rem;
+    // font-weight: 700;
+  }
+}
+//*====== 圓形按鈕
+@mixin icon-btn-prototype() {
+  @include btn-prototype();
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  //default
+  @include s.circle-of(s.rem(64px));
+  font-size: 2rem; //1.5rem
+
+  &.btn-mini {
+    @include s.circle-of(s.rem(24px));
+    font-size: 1rem; //原無此設定
+  }
+  &.btn-sm {
+    @include s.circle-of(s.rem(30px));
+    font-size: 1.5rem; //1rem
+  }
+  &.btn-lg {
+    @include s.circle-of(s.rem(88px));
+    font-size: 2.5rem; //1.75rem
+  }
+
+  & > svg {
+    flex-shrink: 0;
+  }
+}
+//*====== 正方形按鈕
+@mixin square-icon-btn-prototype() {
+  @include btn-prototype();
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  //default
+  @include s.square-of(2rem);
+  font-size: 2rem; //1.5rem
+
+  &.btn-mini {
+    @include s.square-of(s.rem(24px));
+    font-size: 1rem; //原無此設定
+  }
+  &.btn-sm {
+    @include s.square-of(s.rem(30px));
+    font-size: s.rem(30px); //1rem
+  }
+  &.btn-lg {
+    @include s.square-of(s.rem(88px));
+    font-size: 2.5rem; //1.75rem
+  }
+
+  & > svg {
+    flex-shrink: 0;
+  }
+}
+
+//====================== 模組定義區
+//以下為簡易預設，詳細設定於 idv 檔案中
+@each $elem in (a, button) {
+  @each $color, $value in s.$theme-colors {
+    //尺寸
+    #{$elem}.btn-#{$color},
+    #{$elem}.btn-#{$color}-2 {
+      @include pill-btn-prototype();
+    }
+    #{$elem}.btn-#{$color}-icon,
+    #{$elem}.btn-#{$color}-icon-2 {
+      @include icon-btn-prototype();
+    }
+    #{$elem}.btn-#{$color}-brick-icon,
+    #{$elem}.btn-#{$color}-brick-icon-2 {
+      @include square-icon-btn-prototype();
+    }
+    #{$elem}.btn-#{$color}-brick,
+    #{$elem}.btn-#{$color}-brick-2 {
+      @include brick-btn-prototype();
+    }
+    //顏色
+    #{$elem}.btn-#{$color},
+    #{$elem}.btn-#{$color}-brick,
+    #{$elem}.btn-#{$color}-icon {
+      background-color: $value;
+      border-color: transparent;
+    }
+    #{$elem}.btn-#{$color},
+    #{$elem}.btn-#{$color}-brick {
+      color: shift-color($value, 60%);
+    }
+    #{$elem}.btn-#{$color}-icon {
+      color: s.$white;
+    }
+    #{$elem}.btn-#{$color}-2,
+    #{$elem}.btn-#{$color}-brick-2,
+    #{$elem}.btn-#{$color}-icon-2 {
+      background-color: s.$white;
+      color: $value;
+      border: 3px solid $value;
+    }
+    //動態
+    #{$elem}.btn-#{$color}-icon {
+      &:hover {
+        background-color: s.$white;
+        color: $value;
+        border: 3px solid $value;
+      }
+      &:active {
+        background-color: shift-color($value, -50%);
+      }
+    }
+    #{$elem}.btn-#{$color}-icon-2 {
+      &:hover {
+        background-color: $value;
+        color: s.$white;
+      }
+    }
+  }
+}

@@ -27,6 +27,9 @@ yarn-error.log*
 # local env files
 .env*.local
 
+# local ini files
+*.ini
+
 # vercel
 .vercel
 
@@ -38,3 +41,6 @@ next-env.d.ts
 package-lock.json
 yarn.lock
 /.temp/
+
+# videos
+*.mp4

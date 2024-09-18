@@ -1,0 +1,125 @@
+@use '@/styles/color/variables' as c;
+
+//*====== 個別樣式
+//此檔整理特定款式按鈕的個別設定
+//按鈕的通用樣式模組則於另外一檔
+
+//若為模組已設定之樣式，則不重複設定
+//以下按顏色分類
+
+//================= tint =================//
+$tint-names: ('tint1', 'tint2', 'tint3', 'tint4', 'tint5');
+
+@each $elem in (a, button) {
+  @each $type in ('', '-icon', '-brick', '-brick-icon') {
+    @each $name in $tint-names {
+      #{$elem}.btn-#{$name}#{$type}-2 {
+        // color: c.$tint5;
+        background-color: transparent;
+      }
+    }
+
+    #{$elem}.btn-tint1#{$type} {
+      color: c.$white;
+    }
+
+    @each $name in ('tint3', 'tint4', 'tint5') {
+      #{$elem}.btn-#{$name}#{$type},
+      #{$elem}.btn-#{$name}#{$type}-2 {
+        color: c.$shade3;
+
+        &:hover {
+          border-color: c.$tint1;
+          color: c.$tint1;
+        }
+        &:active {
+          border-color: c.$shade1;
+          color: c.$shade1;
+        }
+      }
+    }
+
+    #{$elem}.btn-tint4#{$type} {
+      color: c.$primary;
+    }
+
+    #{$elem}.btn-tint5#{$type},
+    #{$elem}.btn-tint5#{$type}-2 {
+      color: c.$shade3;
+
+      &:hover {
+        border-color: c.$shade4;
+        color: c.$shade4;
+      }
+      &:active {
+        background-color: c.$tint4;
+        color: c.$black;
+      }
+    }
+  }
+}
+
+//================= shade =================//
+$shade-names: ('shade1', 'shade2', 'shade3', 'shade4', 'shade5');
+
+@each $elem in (a, button) {
+  @each $type in ('', '-icon', '-brick', '-brick-icon') {
+    @each $name in $shade-names {
+      #{$elem}.btn-#{$name}#{$type} {
+        color: c.$tint5;
+        border-color: transparent;
+      }
+
+      #{$elem}.btn-shade3#{$type} {
+        &:hover {
+          background-color: c.$shade2;
+        }
+        &:active {
+          background-color: c.$shade4;
+        }
+      }
+
+      #{$elem}.btn-shade4#{$type} {
+        &:hover {
+          background-color: c.$shade5;
+        }
+        &:active {
+          background-color: c.$black;
+        }
+      }
+
+      #{$elem}.btn-shade4#{$type}-2 {
+        &:hover {
+          background-color: c.$tint1;
+        }
+        &:active {
+          background-color: c.$primary;
+        }
+      }
+    }
+  }
+
+  // #{$elem}.btn-shade4,
+  // #{$elem}.btn-shade4-icon,
+  // #{$elem}.btn-shade4-brick,
+  // #{$elem}.btn-shade4-brick-icon {
+  //   &:hover {
+  //     background-color: c.$shade5;
+  //   }
+  //   &:active {
+  //     background-color: c.$black;
+  //   }
+  // }
+
+  // #{$elem}.btn-shade4-2,
+  // #{$elem}.btn-shade4-icon-2,
+  // #{$elem}.btn-shade4-brick-2,
+  // #{$elem}.btn-shade4-brick-icon-2 {
+  //   &:hover {
+  //     background-color: c.$tint1;
+  //   }
+  //   &:active {
+  //     background-color: c.$primary;
+  //   }
+  // }
+}

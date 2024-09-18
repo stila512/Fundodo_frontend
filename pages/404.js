@@ -20,22 +20,22 @@ export default function Custom404() {
         <title>找無此頁</title>
       </Head>
       <div className="container">
-        <h1 className="txCenter" style={{ marginBlock: '1rem' }}>
-          <span className="txError">404</span> - 找不到這個頁面
+        <h1 className="tx-center my-3">
+          <span className="tx-error">404</span> - 找不到這個頁面
         </h1>
         <div
-          className="bgError"
-          style={{ padding: '1rem', borderRadius: '1rem' }}
+          className="bg-error p-3"
+          style={{ borderRadius: '1rem' }}
         >
           <div
-            className="bgLight"
+            className="bg-tint4"
             style={{
               padding: '.5rem 3rem',
               lineHeight: 2,
               fontSize: '1.618rem',
             }}
           >
-            <h6 className="txCenter">
+            <h6 className="tx-center">
               NEXT 的頁面路由，都是以 pages 這個資料夾為起點。對於網址有下設定：
             </h6>
             <ul>
@@ -56,7 +56,7 @@ export default function Custom404() {
             </ul>
           </div>
         </div>
-        <div style={{ marginTop: '2rem' }} className="grCenter">
+        <div style={{ marginTop: '2rem' }} className="gr-center">
           <FddBtn href="/" color="primary">
             返回首頁
           </FddBtn>
